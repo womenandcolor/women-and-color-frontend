@@ -1,0 +1,11 @@
+.container {
+  composes: centeredContainer from 'sharedStyles/styles.css';
+}
+
+.title {
+  composes: h1 from 'sharedStyles/styles.css';
+}
+
+.slogan {
+  composes: h2 from 'sharedStyles/styles.css';
+}

@@ -1,0 +1,77 @@
+/* Constants */
+:root {
+  --border-radius: 4px;
+  --color-primary: #283CA7;
+  --color-grey: #757575;
+  --color-grey-light: #E0E0E0;
+  --font-size-base: 14px;
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+}
+
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons|Open+Sans:300,400,600,700');
+
+/* Styles */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  color: var(--color-grey);
+  font-family: "Open Sans";
+  font-size: var(--font-size-base);
+  line-height: 1.5rem;
+}
+
+.centeredContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.h1 {
+  color: #000000;
+  font-size: 2.3rem;
+  line-height: 3rem;
+}
+
+.h2 {
+  text-align: center;
+  font-weight: var(--font-weight-light);
+  font-size: 1.1rem;
+  line-height: 1.7rem;
+}
+
+.error {
+  color: #FF7777;
+  text-align: center;
+}
+
+.button {
+  line-height: 2.8rem;
+  padding: 0 1.14rem;
+  display: inline-block;
+  text-decoration: none;
+  border-radius: var(--border-radius);
+  background-color: transparent;
+  border: 1px solid transparent;
+}
+
+.button-primary {
+  composes: button;
+  background-color: var(--color-primary);
+  color: #FFFFFF;
+}
+
+.input {
+  line-height: 2.8rem;
+  -webkit-appearance: none;
+  color: var(--color-grey);
+  border: 1px solid var(--color-grey-light);
+  border-radius: var(--border-radius);
+  padding: 0;
+  font-size: 16px;
+}
