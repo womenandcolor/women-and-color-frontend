@@ -1,2 +1,6 @@
+export Authenticate from './Authenticate/Authenticate'
 export Home from './Home/Home'
 export Navigation from './Navigation/Navigation'
+export Page from './Page/Page'
+export Register from './Register/Register'
+export Speaker from './Speaker/Speaker'
