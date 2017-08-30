@@ -5,7 +5,7 @@ import { Authenticate } from 'components'
 const AuthenticateContainer = createReactClass({
   render () {
     return (
-      <Auth />
+      <Authenticate />
     )
   }
 })
