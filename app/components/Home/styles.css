@@ -9,3 +9,100 @@
 .slogan {
   composes: h2 from 'sharedStyles/styles.css';
 }
+
+
+// Sidebar
+
+.sidebar {
+	height: 409px;
+	width: 192px;
+}
+
+.sidebar-titles {
+	height: 21px;
+	width: 192px;
+	color: #212121;
+	font-family: "Open Sans";
+	font-size: 14px;
+	font-weight: bold;
+	line-height: 21px;
+}
+
+.sidebar-object {
+	height: 36px;
+	width: 192px;
+	border-radius: 2px;
+	/* background-color: #E5E8F4; */
+}
+
+.city {
+	height: 24px;
+	width: 69px;
+	color: #000000;
+	font-family: "Open Sans";
+	font-size: 16px;
+	line-height: 24px;
+}
+
+
+// Content
+
+.content {
+	height: 1488px;
+	width: 704px;
+}
+
+.content-titles {
+	height: 40px;
+	width: 469px;
+	color: #000000;
+	font-family: "Open Sans";
+	font-size: 32px;
+	font-weight: 300;
+	line-height: 40px;
+}
+
+.hr {
+	height: 1px;
+	width: 704px;
+	background-color: #E0E0E0;
+}
+
+.content-card {
+	height: 176px;
+	width: 704px;
+	background-color: #FFFFFF;
+}
+
+.photo {
+	height: 115.5px;
+	width: 115.5px;
+}
+
+.name {
+	height: 32px;
+	width: 384px;
+	color: #000000;
+	font-family: "Open Sans";
+	font-size: 24px;
+	font-weight: 600;
+	line-height: 32px;
+}
+
+.speaker-title {
+	height: 24px;
+	width: 384px;
+	color: #424242;
+	font-family: "Open Sans";
+	font-size: 16px;
+	line-height: 24px;
+}
+
+.speaker-tags {
+	height: 42px;
+	width: 384px;
+	color: #757575;
+	font-family: "Open Sans";
+	font-size: 14px;
+	line-height: 21px;
+}
