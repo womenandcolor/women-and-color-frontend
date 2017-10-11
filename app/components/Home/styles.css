@@ -13,12 +13,13 @@
 
 // Sidebar
 
+//de
 .sidebar {
 	height: 409px;
 	width: 192px;
 }
 
-.sidebar-titles {
+.sidebarTitles {
 	height: 21px;
 	width: 192px;
 	color: #212121;
@@ -26,13 +27,24 @@
 	font-size: 14px;
 	font-weight: bold;
 	line-height: 21px;
+  border-bottom: 1px solid #E0E0E0;
 }
 
-.sidebar-object {
+.sidebarObject {
+	height: 36px;
+	width: 100%;
+	border-radius: 2px;
+  composes: body from 'sharedStyles/styles.css';
+  list-style-type: none;
+  padding: 8px;
+	/* background-color: #E5E8F4; */
+}
+
+.sidebarObjectSelected {
 	height: 36px;
 	width: 192px;
 	border-radius: 2px;
-	/* background-color: #E5E8F4; */
+	background-color: #E5E8F4;
 }
 
 .city {
@@ -52,7 +64,7 @@
 	width: 704px;
 }
 
-.content-titles {
+.contentTitles {
 	height: 40px;
 	width: 469px;
 	color: #000000;
@@ -68,7 +80,7 @@
 	background-color: #E0E0E0;
 }
 
-.content-card {
+.contentCard {
 	height: 176px;
 	width: 704px;
 	background-color: #FFFFFF;
@@ -89,7 +101,7 @@
 	line-height: 32px;
 }
 
-.speaker-title {
+.speakerTitle {
 	height: 24px;
 	width: 384px;
 	color: #424242;
@@ -98,7 +110,7 @@
 	line-height: 24px;
 }
 
-.speaker-tags {
+.speakerTags {
 	height: 42px;
 	width: 384px;
 	color: #757575;
