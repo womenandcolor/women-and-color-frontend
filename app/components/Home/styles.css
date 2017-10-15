@@ -13,48 +13,44 @@
 
 // Sidebar
 
-//de
 .sidebar {
-	height: 409px;
+	height: 100%;
 	width: 192px;
 }
 
 .sidebarTitles {
 	height: 21px;
-	width: 192px;
+	width: 100%; /* 192px; */
 	color: #212121;
 	font-family: "Open Sans";
 	font-size: 14px;
 	font-weight: bold;
-	line-height: 21px;
+	/* line-height: 21px; */
   border-bottom: 1px solid #E0E0E0;
+  margin-bottom: 8px;
 }
 
 .sidebarObject {
 	height: 36px;
-	width: 100%;
-	border-radius: 2px;
-  composes: body from 'sharedStyles/styles.css';
-  list-style-type: none;
-  padding: 8px;
-	/* background-color: #E5E8F4; */
+	width: 100%;  /* 192px; */
+  padding: 6px;
+  font-family: "Open Sans";
+  font-size: 16px;
+	color: #000000;
+  /* line-height: 24px; */
 }
 
 .sidebarObjectSelected {
-	height: 36px;
-	width: 192px;
-	border-radius: 2px;
+  height: 36px;
+	width: 100%;
+  padding: 6px;
+  font-family: "Open Sans";
+  font-size: 16px;
+  color: #283CA7;
+  /* line-height: 24px; */
 	background-color: #E5E8F4;
 }
 
-.city {
-	height: 24px;
-	width: 69px;
-	color: #000000;
-	font-family: "Open Sans";
-	font-size: 16px;
-	line-height: 24px;
-}
 
 
 // Content
