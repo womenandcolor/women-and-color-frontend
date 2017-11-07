@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server",
-    "heroku-postbuild": "webpack -p --config ./webpack.config.babel.js --progress"
+    "build": "webpack -p --config ./webpack.config.babel.js --progress"
   },
   "keywords": [],
   "author": "",
