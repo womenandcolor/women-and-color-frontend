@@ -4,15 +4,30 @@
 talented women and people of color to speak at your tech-related event
 in Toronto.
 
-(The website is currently build on Wordpress.)
+(The website is currently built on Wordpress.)
 
 ## Table of Contents
 
 * [Get Involved](#get-involved)
 * [Architecture](#architecture)
-* [Installation](#installation)
+* [Local Development](#local-development)
 * [Deployment](#deployment)
 * [License & Copyright](#license--copyright)
+
+## Get Involved
+
+1. Review our [Contributor Guidelines][] and [Code of Conduct]
+2. Jump into our Slack chat channel `womenandcolor`
+  * Anyone can [request an invite][slack-invite] to the **CivicTech
+    Toronto** slack team.
+  * Ping one of our project members (@heymosef, @eric-ba, @emarchak) and
+    say hey!
+3. Check out our [task tracker][task-tracker] to see what we're working
+   on.
+4. Join us at a [weekly CivicTech Toronto hacknight][meetup].
+  * Join the meetup as RSVP to see the location.
+  * We're there most every week, but you might want to jump into chat
+    first, and ask us to make sure!
 
 ## Architecture
 
@@ -23,6 +38,11 @@ visitors interact with.
 The other [`CivicTechTO/women-and-color-backend`][code-backend] code
 repository powers the backend API, storing and retreiving data from the
 database that underpins the website.
+
+### Technology Used
+
+* ReactJS
+* Heroku
 
 ## Local Development
 
@@ -77,3 +97,6 @@ See the [`LICENSE`](/LICENSE) file for details.
    [buildpack]: https://docs.cloudfoundry.org/buildpacks/
    [license]: LICENSE
    [node-install]: https://nodejs.org/en/download/package-manager/#nvm
+   [slack-invite]: https://civictechto-slack-invite.herokuapp.com
+   [meetup]: https://www.meetup.com/Civic-Tech-Toronto/
+   [task-tracker]: https://github.com/orgs/CivicTechTO/projects/1
