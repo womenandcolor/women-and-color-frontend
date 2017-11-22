@@ -1,6 +1,8 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router-dom'
 import { container, navContainer, link, speakerButton, searchForSpeaker, navTitle, hamburgerIcon} from './styles.css'
+import Button from 'material-ui/Button'
+
 
 Navigation.propTypes = ActionLinks.propTypes = NavLinks.propTypes = {
   isAuthed: PropTypes.bool.isRequired,
@@ -8,13 +10,12 @@ Navigation.propTypes = ActionLinks.propTypes = NavLinks.propTypes = {
 
 function NavLinks ({isAuthed}) {
   return isAuthed === true
-    ? <ul>
-      <li><Link to='/'>{'Be a Speaker'}</Link></li>
-      <li><Link className={speakerButton} to='/'>{'Be a Speaker'}</Link></li>
-    </ul>
-    : <ul>
-      <li><Link className={speakerButton} to='/'>{'Be a Speaker'}</Link></li>
-    </ul>
+    ? <Button raised color="primary">
+          {'Be a Speaker'}
+      </Button>
+    : <Button raised color="primary">
+          {'Be a Speaker'}
+      </Button>
 }
 
 function ActionLinks ({isAuthed}) {
@@ -40,7 +41,7 @@ export default function Navigation ({isAuthed}) {
         <input className={searchForSpeaker} type="search" placeholder="Search for speakers or topics"/>
         <NavLinks isAuthed={isAuthed} />
         <ActionLinks isAuthed={isAuthed} />
-        <button className={hamburgerIcon}>&#9776;</button>
+
       </nav>
     </div>
   )
