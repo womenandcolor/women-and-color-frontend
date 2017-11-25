@@ -81,6 +81,10 @@ platforms like Heroku.
   [`create-react-app-buildpack`](https://github.com/mars/create-react-app-buildpack)
   to handle many deployment settings.
 
+Please see [CONTRIBUTING.md][contributing] for important details, including our use of:
+
+* **Heroku Review Apps**
+
 ## License & Copyright
 
 Copyright (C) 2017 Women&Color
