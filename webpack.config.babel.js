@@ -9,7 +9,7 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 })
 
 const PATHS = {
-  app: path.join(__dirname, 'app'),
+  app: path.join(__dirname, 'app/'),
   build: path.join(__dirname, 'dist'),
 }
 
