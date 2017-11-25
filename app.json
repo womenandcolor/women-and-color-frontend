@@ -1,0 +1,18 @@
+{
+  "name": "women-and-color-frontend",
+  "description": "A website for finding talented women and people of color to speak at your event",
+  "scripts": {
+  },
+  "env": {
+  },
+  "formation": {
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "https://github.com/mars/create-react-app-buildpack.git"
+    }
+  ]
+}

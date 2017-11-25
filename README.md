@@ -4,8 +4,6 @@
 talented women and people of color to speak at your tech-related event
 in Toronto.
 
-(The website is currently built on Wordpress.)
-
 ## Table of Contents
 
 * [Get Involved](#get-involved)
@@ -16,20 +14,23 @@ in Toronto.
 
 ## Get Involved
 
-1. Review our [Contributor Guidelines][] and [Code of Conduct]
-2. Jump into our Slack chat channel `womenandcolor`
-  * Anyone can [request an invite][slack-invite] to the **CivicTech
-    Toronto** slack team.
-  * Ping one of our project members (@heymosef, @eric-ba, @emarchak) and
-    say hey!
+1. Review our [Contributor Guidelines][contributing] and [Code of
+   Conduct][conduct]
+2. Jump into our Slack chat channel, `#womenandcolor`
+    * Anyone can [request an invite][slack-invite] to the **CivicTech
+      Toronto** slack team.
+    * Ping one of our project members (@heymosef, @eric-ba, @emarchak) and
+      say hey!
 3. Check out our [task tracker][task-tracker] to see what we're working
    on.
 4. Join us at a [weekly CivicTech Toronto hacknight][meetup].
-  * Join the meetup as RSVP to see the location.
-  * We're there most every week, but you might want to jump into chat
-    first, and ask us to make sure!
+    * Join the meetup and RSVP to see the location.
+    * We're there most every week, but you might want to jump into chat
+      first, and ask us to make sure!
 
 ## Architecture
+
+(The [live website][site-live] is currently built on Wordpress.)
 
 This code repository is the visual _frontend_ part of an upcoming
 relaunch of the website. It makes up the user interface that website
@@ -92,6 +93,8 @@ See the [`LICENSE`](/LICENSE) file for details.
 <!-- Links -->
    [site-live]: http://womenandcolor.com/
    [site-staging]: https://womenandcolor-frontend.herokuapp.com/
+   [contributing]: CONTRIBUTING.md
+   [conduct]: CONDUCT.md
    [code-backend]: https://github.com/CivicTechTO/women-and-color-backend
    [heroku]: https://github.com/CivicTechTO/women-and-color-backend
    [buildpack]: https://docs.cloudfoundry.org/buildpacks/
