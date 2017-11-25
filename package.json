@@ -20,7 +20,7 @@
     "react-dom": "^15.6.1",
     "react-router-dom": "^4.1.2",
     "react-scripts": "^1.0.17",
-    "react-redux": "^5.0.6",
+    "react-redux": "^5.0.6"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
