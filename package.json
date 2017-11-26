@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": "8.9.1"
+  },
   "scripts": {
     "start": "webpack-dev-server",
     "build": "webpack -p --config ./webpack.config.babel.js --progress"
