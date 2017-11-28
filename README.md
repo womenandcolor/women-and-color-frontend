@@ -1,6 +1,6 @@
-# Women&Color: Frontend Web UI
+# Women and Color: Frontend Web UI
 
-[**Women&Color**](site-live) is a website for finding
+[**Women and Color**][site-live] is a website for finding
 talented women and people of color to speak at your tech-related event
 in Toronto.
 
@@ -87,7 +87,7 @@ Please see [CONTRIBUTING.md][contributing] for important details, including our 
 
 ## License & Copyright
 
-Copyright (C) 2017 Women&Color
+Copyright (C) 2017 Women and Color
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, version 3.0.
 
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
