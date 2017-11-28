@@ -21,8 +21,8 @@ in Toronto.
       Toronto** slack team.
     * Ping one of our project members (@heymosef, @eric-ba, @emarchak) and
       say hey!
-3. Check out our [task tracker][task-tracker] to see what we're working
-   on.
+3. Check out our [Roadmap][roadmap] and [Task Tracker][task-tracker] to
+   see what we're working on.
 4. Join us at a [weekly CivicTech Toronto hacknight][meetup].
     * Join the meetup and RSVP to see the location.
     * We're there most every week, but you might want to jump into chat
@@ -106,4 +106,5 @@ See the [`LICENSE`](/LICENSE) file for details.
    [node-install]: https://nodejs.org/en/download/package-manager/#nvm
    [slack-invite]: https://civictechto-slack-invite.herokuapp.com
    [meetup]: https://www.meetup.com/Civic-Tech-Toronto/
-   [task-tracker]: https://github.com/orgs/CivicTechTO/projects/1
+   [task-tracker]: https://trello.com/b/DwTxOhMB
+   [roadmap]: https://trello.com/b/OB0S6wZq
