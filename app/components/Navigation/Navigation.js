@@ -1,8 +1,7 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router-dom'
 import { container, navContainer, link, speakerButton, searchForSpeaker, navTitle, hamburgerIcon} from './styles.css'
-import Button from 'material-ui/Button'
-
+import StyledButton from '../Common/StyledButton'
 
 Navigation.propTypes = ActionLinks.propTypes = NavLinks.propTypes = {
   isAuthed: PropTypes.bool.isRequired,
@@ -10,12 +9,12 @@ Navigation.propTypes = ActionLinks.propTypes = NavLinks.propTypes = {
 
 function NavLinks ({isAuthed}) {
   return isAuthed === true
-    ? <Button raised color="primary">
+    ? <StyledButton raised color="primary" classes='button'>
           {'Be a Speaker'}
-      </Button>
-    : <Button raised color="primary">
+      </StyledButton>
+    : <StyledButton raised color="primary">
           {'Be a Speaker'}
-      </Button>
+      </StyledButton>
 }
 
 function ActionLinks ({isAuthed}) {

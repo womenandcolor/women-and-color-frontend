@@ -8,6 +8,12 @@ import Input, { InputLabel } from 'material-ui/Input';
 import { MenuItem } from 'material-ui/Menu';
 import { FormControl } from 'material-ui/Form';
 import { Link } from 'react-router-dom'
+import TextField from 'material-ui/TextField';
+import Button from 'material-ui/Button';
+import Input from 'material-ui/Input';
+import { MenuItem } from 'material-ui/Menu';
+import Select from 'material-ui/Select';
+
 
 
 const Register = (props) => {
