@@ -10,10 +10,10 @@ Navigation.propTypes = ActionLinks.propTypes = NavLinks.propTypes = {
 function NavLinks ({isAuthed}) {
   return isAuthed === true
     ? <StyledButton raised color="primary" classes='button'>
-          {'Be a Speaker'}
+          {'Be a speaker'}
       </StyledButton>
     : <StyledButton raised color="primary">
-          {'Be a Speaker'}
+          {'Be a speaker'}
       </StyledButton>
 }
 
