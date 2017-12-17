@@ -4,12 +4,17 @@ import { withStyles } from 'material-ui/styles';
 
 const styles = (theme) => ({
 	common: {
+		fontFamily: 'var(--font-family-sans-serif)',
+		fontSize: 'var(--font-size-base)',
+		fontWeight: 'var(--font-weight-light)',
+		lineHeight: 'var(--line-height-base)',
 		textTransform: 'none',
-
+		padding: 'var(--padding-vertical) var(--padding-horizontal)',
+		borderRadius: 'var(--border-radius)'
 	},
 	primaryButton: {
-		color: '#ffffff'
-		backgroundColor: '#283CA7'
+		color: 'var(--color-inverted-light)',
+		backgroundColor: 'var(--color-primary)'
 	}
 })
 
