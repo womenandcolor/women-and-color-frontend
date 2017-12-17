@@ -6,13 +6,8 @@ import Button from 'material-ui/Button';
 import Select from 'material-ui/Select';
 import Input, { InputLabel } from 'material-ui/Input';
 import { MenuItem } from 'material-ui/Menu';
-import { FormControl } from 'material-ui/Form';
+import FormField from '../Common/FormField'
 import { Link } from 'react-router-dom'
-import TextField from 'material-ui/TextField';
-import Button from 'material-ui/Button';
-import Input from 'material-ui/Input';
-import { MenuItem } from 'material-ui/Menu';
-import Select from 'material-ui/Select';
 
 
 
@@ -31,7 +26,7 @@ const Register = (props) => {
       <form onSubmit={ props.handleSubmit }>
         <h1>Create your profile</h1>
 
-        <FormControl fullWidth className={ css.formControl }>
+        <FormField fullWidth className={ css.formControl }>
           <InputLabel htmlFor="speaker-city">City</InputLabel>
           <Select
               value={props.user ? props.user.profile.city : props.cities ? props.cities[0].id : '' }
@@ -44,27 +39,27 @@ const Register = (props) => {
               ))
             }
           </Select>
-        </FormControl>
+        </FormField>
 
-        <FormControl fullWidth className={ css.formControl }>
+        <FormField fullWidth className={ css.formControl }>
           <TextField label="First Name" onChange={ generateHandlerProfile('firstName') } />
-        </FormControl>
+        </FormField>
 
-        <FormControl fullWidth className={ css.formControl }>
+        <FormField fullWidth className={ css.formControl }>
           <TextField label="Last Name" onChange={ generateHandlerProfile('lastName') } />
-        </FormControl>
+        </FormField>
 
-        <FormControl fullWidth className={ css.formControl }>
+        <FormField fullWidth className={ css.formControl }>
           <TextField label="Email" onChange={ generateHandlerUser('email') } />
-        </FormControl>
+        </FormField>
 
-        <FormControl fullWidth className={ css.formControl }>
+        <FormField fullWidth className={ css.formControl }>
           <TextField label="Password" onChange={ generateHandlerUser('password') } />
-        </FormControl>
+        </FormField>
 
-        <FormControl className={ css.formControl }>
+        <FormField className={ css.formControl }>
           <Button label="Submit" type="submit">Submit</Button>
-        </FormControl>
+        </FormField>
 
       </form>
       <div className={ css.loginLink }>

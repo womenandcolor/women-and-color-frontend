@@ -8,7 +8,7 @@ const styles = (theme) => ({
 
 	},
 	primaryButton: {
-		color: '#ffffff'
+		color: '#ffffff',
 		backgroundColor: '#283CA7'
 	}
 })
