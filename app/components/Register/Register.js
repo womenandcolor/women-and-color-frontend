@@ -1,6 +1,12 @@
 import React from 'react'
 import css from './styles.css'
 import { Link } from 'react-router-dom'
+import TextField from 'material-ui/TextField';
+import Button from 'material-ui/Button';
+import Input from 'material-ui/Input';
+import { MenuItem } from 'material-ui/Menu';
+import Select from 'material-ui/Select';
+
 
 const Register = (props) => {
 
@@ -13,67 +19,35 @@ const Register = (props) => {
   }
 
   return(
-    <div>
-      <div className={ css.registrationForm }>
-        <h1>Create your profile</h1>
-        <form onSubmit={ props.handleSubmit }>
-          <div className="form-group">
-            <label htmlFor="city">City</label>
-            <select
-              className="form-control"
-              id="city"
-              onChange={ generateHandlerProfile('city') }>
-              {
-                props.cities && props.cities.map((city, index) => {
-                  return <option key={index} value={city.id}>{city.name}</option>
-                })
-              }
-            </select>
-          </div>
-          <div className="form-group">
-            <label htmlFor="first-name">First name</label>
-            <input
-              type="text"
-              className="form-control"
-              id="first-name"
-              onChange={ generateHandlerProfile('firstName') }
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="last-name">Last name</label>
-            <input
-              type="text"
-              className="form-control"
-              id="last-name"
-              onChange={ generateHandlerProfile('lastName') }
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="email">Email address</label>
-            <input
-              type="email"
-              className="form-control"
-              id="email"
-              onChange={ generateHandlerUser('email') }
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              className="form-control"
-              id="password"
-              onChange={ generateHandlerUser('password') }
-            />
-          </div>
-          <button type="submit" className="btn btn-primary">Create profile</button>
-        </form>
-      </div>
+    <div className={ css.registrationForm }>
+      <h1>Create your profile</h1>
+      <TextField label="City" /><br/>
+      <Select
+          value="placeholder"
+          onChange={ generateHandlerProfile('city') }
+          input={<Input name="city" id="speaker-city" />}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+            {
+              props.cities && props.cities.map((city, index) => {
+                return <MenuItem key={index} value={city.id}>{city.name}</MenuItem>
+              })
+            }
+        </Select>
+      <TextField label="First Name" onChange={ generateHandlerProfile('firstName') } /><br/>
+      <TextField label="Last Name" onChange={ generateHandlerProfile('lastName') } /><br/>
+      <TextField label="Email" onChange={ generateHandlerUser('email') } /><br/>
+      <TextField label="Password" onChange={ generateHandlerUser('password') } /><br/><br/>
+      <Button label="Submit" onSubmit={ props.handleSubmit }>Submit</Button>
+
       <div className={ css.loginLink }>
         <Link to='/auth'>{'Already a speaker? Sign in to your profile.'}</Link>
       </div>
     </div>
   )
 }
+
 
 export default Register;
