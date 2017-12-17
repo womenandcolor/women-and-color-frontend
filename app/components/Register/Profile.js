@@ -1,40 +1,53 @@
 import React from 'react'
 import css from './styles.css'
+
+import TextField from 'material-ui/TextField';
+import Button from 'material-ui/Button';
+import Select from 'material-ui/Select';
+import Input, { InputLabel } from 'material-ui/Input';
+import { MenuItem } from 'material-ui/Menu';
+import FormField from '../Common/FormField';
+import Radio, { RadioGroup } from 'material-ui/Radio';
+import { FormLabel, FormControlLabel } from 'material-ui/Form';
 import { Link } from 'react-router-dom'
+
+
 
 const Profile = (props) => {
 
   const generateHandler = (fieldName) => {
     return (event) => {
-      props.handleInputChange(fieldName, event.currentTarget.checked)
+      console.log(event.currentTarget.value)
+      debugger;
+      props.handleInputChange(fieldName, event.currentTarget.value)
     }
   }
 
   return(
-    <div>
-      <div className={ css.registrationForm }>
+    <div className={ css.registrationForm }>
+      <form onSubmit={ props.handleSubmit }>
         <h1>Tell us about you</h1>
-        <form onSubmit={ props.handleSubmit }>
-          <div className="form-group">
-            <fieldset id="woman">
-              <label htmlFor="woman">I identify as a woman</label>
-              <input onChange={generateHandler('woman')} type="checkbox" name="woman" id="woman" className="form-control" />
-            </fieldset>
-          </div>
 
-          <div className="form-group">
-            <fieldset id="poc">
-              <label htmlFor="poc">I identify as a person of colour</label>
-              <input onChange={generateHandler('poc')} type="checkbox" name="poc" id="poc" className="form-control" />
-            </fieldset>
-          </div>
+        <FormField fullWidth className={ css.formControl }>
+          <FormLabel component="legend">Do you identify as a woman?</FormLabel>
+          <RadioGroup
+            aria-label="gender"
+            name="gender1"
+            value={props.user ? props.user.profile.woman : 'true'}
+            onChange={generateHandler('woman')}
+          >
+            <FormControlLabel value='true' control={<Radio />} label="Yes" />
+            <FormControlLabel value='false' control={<Radio />} label="No" />
+          </RadioGroup>
+        </FormField>
 
-          <button type="submit" className="btn btn-primary">Save and continue</button>
-          <button className="btn btn-outline-primary">Save and exit</button>
-        </form>
+      </form>
+      <div className={ css.loginLink }>
+        <Link to='/auth'>{'Already a speaker? Sign in to your profile.'}</Link>
       </div>
     </div>
   )
 }
+
 
 export default Profile;

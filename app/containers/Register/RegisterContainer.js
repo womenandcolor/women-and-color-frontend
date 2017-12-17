@@ -4,7 +4,7 @@ import { Register, Profile, Work, Social } from 'components'
 export default class RegisterContainer extends Component {
   constructor(props) {
     super(props)
-    this.state = { page: 0 }
+    this.state = { page: 1 }
     this.submitForm = (event) => this._submitForm(event);
     this.saveUserInput = (field, value) => this._saveUserInput(field, value);
     this.saveProfileInput = (field, value) => this._saveProfileInput(field, value);
