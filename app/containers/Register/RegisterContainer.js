@@ -76,7 +76,7 @@ export default class RegisterContainer extends Component {
           handleSubmit={this.submitForm}
           handleUserInputChange={this.saveUserInput}
           handleProfileInputChange={this.saveProfileInput}
-          cities={this.state.cities}
+          {...this.state}
         />
       )
     } else if (this.state.page === 1) {

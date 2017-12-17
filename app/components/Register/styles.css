@@ -5,6 +5,10 @@
   border-radius: 10px;
 }
 
+.formControl {
+  margin: 2em;
+}
+
 .loginLink {
   text-align: center;
 }
