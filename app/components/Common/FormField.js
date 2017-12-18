@@ -4,7 +4,8 @@ import { withStyles } from 'material-ui/styles';
 
 const styles = (theme) => ({
   common: {
-    margin: '1em'
+    marginTop: '1em',
+    marginBottom: '1em'
   }
 })
 

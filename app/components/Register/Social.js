@@ -1,51 +1,41 @@
 import React from 'react'
 import css from './styles.css'
-import { Link } from 'react-router-dom'
+
+import FormField from '../Common/FormField';
+import TextField from 'material-ui/TextField';
+import StyledButton from '../Common/StyledButton';
+import { Link } from 'react-router-dom';
 
 const Social = (props) => {
 
   const generateHandler = (fieldName) => {
-    return (event) => { props.handleInputChange(fieldName, event.currentTarget.value) }
+    return (event) => { props.handleProfileInputChange(fieldName, event.currentTarget.value) }
   }
 
   return(
-    <div>
-      <div className={ css.registrationForm }>
+    <div className={ css.registrationForm }>
+      <form onSubmit={ props.handleSubmit }>
         <h1>Be a little social</h1>
-        <form onSubmit={ props.handleSubmit }>
-          <div className="form-group">
-            <label htmlFor="twitter">Twitter (optional)</label>
-            <input
-              type="text"
-              className="form-control"
-              id="twitter"
-              onChange={ generateHandler('twitter') }
-            />
-          </div>
 
-          <div className="form-group">
-            <label htmlFor="linkedin">LinkedIn (optional)</label>
-            <input
-              type="text"
-              className="form-control"
-              id="linkedin"
-              onChange={ generateHandler('linkedin') }
-            />
-          </div>
+        <FormField fullWidth className={ css.formControl }>
+          <TextField label="Twitter(optional)" onChange={ generateHandler('twitter') } />
+        </FormField>
 
-          <div className="form-group">
-            <label htmlFor="website">Website (optional)</label>
-            <input
-              type="text"
-              className="form-control"
-              id="website"
-              onChange={ generateHandler('website') }
-            />
-          </div>
+        <FormField fullWidth className={ css.formControl }>
+          <TextField label="LinkedIn(optional)" onChange={ generateHandler('linkedin') } />
+        </FormField>
 
-          <button type="submit" className="btn btn-primary">Save and submit</button>
-        </form>
-      </div>
+        <FormField fullWidth className={ css.formControl }>
+          <TextField label="Website(optional)" onChange={ generateHandler('website') } />
+        </FormField>
+
+        <div>
+          <FormField className={ css.formControl }>
+            <StyledButton label="Submit" type="submit">Save and submit</StyledButton>
+          </FormField>
+        </div>
+      </form>
+
     </div>
   )
 }

@@ -1,8 +1,11 @@
  .container {
    width: 100%;
+   background-color: var(--background-color-light);
+   padding: 30px;
  }
 
  .innerContainer {
    max-width: 900px;
    margin: 0 auto;
+   padding-top: var(--navbar-height);
  }

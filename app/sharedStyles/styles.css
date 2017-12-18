@@ -3,12 +3,14 @@
 
 /* Constants */
 :root {
+  --background-color-light: #fafafa;
   --border-radius: 4px;
   --color-primary: #283CA7;
   --color-grey: #757575;
   --color-grey-light: #E0E0E0;
   --color-inverted-light: #FFFFFF;
   --font-family-sans-serif: 'Open Sans', sans-serif;
+  --font-family-serif: 'Georgia', serif;
   --font-size-base: 16px;
   --font-weight-light: 300;
   --font-weight-regular: 400;
@@ -17,6 +19,7 @@
   --line-height-base: 24px;
   --padding-horizontal: 16px;
   --padding-vertical: 8px;
+  --navbar-height: 64px;
 }
 
 /* Styles */

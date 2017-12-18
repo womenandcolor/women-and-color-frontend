@@ -1,42 +1,40 @@
 import React from 'react'
 import css from './styles.css'
-import { Link } from 'react-router-dom'
+
+import FormField from '../Common/FormField';
+import TextField from 'material-ui/TextField';
+import StyledButton from '../Common/StyledButton';
+import { Link } from 'react-router-dom';
 
 const Work = (props) => {
 
   const generateHandler = (fieldName) => {
-    return (event) => { props.handleInputChange(fieldName, event.currentTarget.value) }
+    return (event) => { props.handleProfileInputChange(fieldName, event.currentTarget.value) }
   }
 
   return(
-    <div>
-      <div className={ css.registrationForm }>
+    <div className={ css.registrationForm }>
+      <form onSubmit={ props.handleSubmit }>
         <h1>Let's talk about work</h1>
-        <form onSubmit={ props.handleSubmit }>
-          <div className="form-group">
-            <label htmlFor="position">Position</label>
-            <input
-              type="text"
-              className="form-control"
-              id="position"
-              onChange={ generateHandler('position') }
-            />
-          </div>
 
-          <div className="form-group">
-            <label htmlFor="company">Company</label>
-            <input
-              type="text"
-              className="form-control"
-              id="company"
-              onChange={ generateHandler('company') }
-            />
-          </div>
+        <FormField fullWidth className={ css.formControl }>
+          <TextField label="Position" onChange={ generateHandler('position') } />
+        </FormField>
 
-          <button type="submit" className="btn btn-primary">Save and continue</button>
-          <button className="btn btn-outline-primary">Save and exit</button>
-        </form>
-      </div>
+        <FormField fullWidth className={ css.formControl }>
+          <TextField label="Organization" onChange={ generateHandler('organization') } />
+        </FormField>
+
+        <div>
+          <FormField className={ css.formControl }>
+            <StyledButton label="Submit" type="submit">Save and continue</StyledButton>
+          </FormField>
+          <FormField className={ css.formControl }>
+            <p onClick={ props.handleSubmit } style={{ cursor: 'pointer' }}>Save and exit</p>
+          </FormField>
+        </div>
+      </form>
+
     </div>
   )
 }

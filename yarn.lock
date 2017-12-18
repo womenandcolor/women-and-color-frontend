@@ -4126,12 +4126,20 @@ jss-vendor-prefixer@^7.0.0:
   dependencies:
     css-vendor "^0.3.8"
 
-jss@^9.3.1, jss@^9.3.2:
+jss@^9.3.2:
   version "9.3.3"
   resolved "https://registry.yarnpkg.com/jss/-/jss-9.3.3.tgz#d535ad8c64f6df9aeadb0219d5153c47493ff1c0"
   dependencies:
     is-in-browser "^1.1.3"
     symbol-observable "^1.0.4"
+    warning "^3.0.0"
+
+jss@^9.3.3:
+  version "9.4.0"
+  resolved "https://registry.yarnpkg.com/jss/-/jss-9.4.0.tgz#fbfd1a63556c5afd5bfcffd98df3c50eb2614ed3"
+  dependencies:
+    is-in-browser "^1.1.3"
+    symbol-observable "^1.1.0"
     warning "^3.0.0"
 
 jsx-ast-utils@^1.4.0:
@@ -4362,9 +4370,9 @@ material-ui-icons@^1.0.0-beta.17:
   dependencies:
     recompose "^0.26.0"
 
-material-ui@^1.0.0-beta.21:
-  version "1.0.0-beta.21"
-  resolved "https://registry.yarnpkg.com/material-ui/-/material-ui-1.0.0-beta.21.tgz#3a28fb4dcb27f8d8db19b48c008522389bf39f2d"
+material-ui@^1.0.0-beta.24:
+  version "1.0.0-beta.24"
+  resolved "https://registry.yarnpkg.com/material-ui/-/material-ui-1.0.0-beta.24.tgz#a51452d0486f88fd7f13ebed869793f298aa800c"
   dependencies:
     babel-runtime "^6.26.0"
     brcast "^3.0.1"
@@ -4372,15 +4380,14 @@ material-ui@^1.0.0-beta.21:
     deepmerge "^2.0.1"
     dom-helpers "^3.2.1"
     hoist-non-react-statics "^2.3.1"
-    jss "^9.3.1"
+    jss "^9.3.3"
     jss-preset-default "^4.0.1"
     keycode "^2.1.9"
     lodash "^4.17.4"
     normalize-scroll-left "^0.1.2"
     prop-types "^15.6.0"
     react-event-listener "^0.5.1"
-    react-flow-types "0.2.0-beta.3"
-    react-jss "^8.0.0"
+    react-jss "^8.1.0"
     react-popper "^0.7.4"
     react-scrollbar-size "^2.0.2"
     react-transition-group "^2.2.1"
@@ -5550,11 +5557,7 @@ react-event-listener@^0.5.0, react-event-listener@^0.5.1:
     prop-types "^15.6.0"
     warning "^3.0.0"
 
-react-flow-types@0.2.0-beta.3:
-  version "0.2.0-beta.3"
-  resolved "https://registry.yarnpkg.com/react-flow-types/-/react-flow-types-0.2.0-beta.3.tgz#93e7e3c95a75a1a941de05b9d7287e3ca6871046"
-
-react-jss@^8.0.0:
+react-jss@^8.1.0:
   version "8.1.0"
   resolved "https://registry.yarnpkg.com/react-jss/-/react-jss-8.1.0.tgz#7eefe3d121d31d5650118fc4f6b119e388cd43ba"
   dependencies:
@@ -6540,6 +6543,10 @@ symbol-observable@^0.2.2:
 symbol-observable@^1.0.2, symbol-observable@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.0.4.tgz#29bf615d4aa7121bdd898b22d4b3f9bc4e2aa03d"
+
+symbol-observable@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.1.0.tgz#5c68fd8d54115d9dfb72a84720549222e8db9b32"
 
 symbol-tree@^3.2.1:
   version "3.2.2"

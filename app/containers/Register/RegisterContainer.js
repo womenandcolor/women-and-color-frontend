@@ -1,18 +1,21 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import Snackbar from 'material-ui/Snackbar';
 import { Register, Profile, Work, Social } from 'components'
 
 export default class RegisterContainer extends Component {
   constructor(props) {
     super(props)
-    this.state = { page: 1 }
-    this.submitForm = (event) => this._submitForm(event);
-    this.saveUserInput = (field, value) => this._saveUserInput(field, value);
-    this.saveProfileInput = (field, value) => this._saveProfileInput(field, value);
-    this.fetchCities = () => this._fetchCities();
+    this.state = { page: 0, notificationOpen: false }
+    this.formPages = {
+      0: Register,
+      1: Profile,
+      2: Work,
+      3: Social
+    }
     this.fetchCities();
   }
 
-  _fetchCities() {
+  fetchCities = () => {
     fetch('//localhost:1337/api/v1/cities')
     .then(res => res.json())
     .then((cities) => {
@@ -23,16 +26,16 @@ export default class RegisterContainer extends Component {
     })
   }
 
-  _saveUserInput(field, value) {
+  saveUserInput = (field, value) => {
     this.setState({
       user: {
         ...this.state.user,
         [field]: value,
       }
-    }, console.log(this.state))
+    }, () => {console.log(this.state)})
   }
 
-  _saveProfileInput(field, value) {
+  saveProfileInput = (field, value) => {
     this.setState({
       user: {
         ...this.state.user,
@@ -41,65 +44,72 @@ export default class RegisterContainer extends Component {
           [field]: value
         }
       }
-    }, console.log(this.state))
+    }, () => {console.log(this.state)})
   }
 
-  _submitForm(event) {
+  submitForm = (event) => {
     event.preventDefault();
     const userExists = !!this.state.user.id;
     const baseUrl = '//localhost:1337/api/v1/users/'
     const method = userExists ? 'PUT' : 'POST';
     const url = userExists ? `${baseUrl}${this.state.user.id}` : baseUrl;
-    const userData = userExists ? { id: this.state.user.id, profile: this.state.user.profile } : this.state.user
+    const user = this.state.user;
+    const userData = userExists ? { profile: { user: this.state.user.id, ...this.state.user.profile } } : this.state.user
 
     fetch(url, {
       method: method,
       body: JSON.stringify(userData)
     }).then(res => res.json())
     .then((data) => {
-      console.log(data)
-      this.setState({
-        page: this.state.page + 1,
-        user:  {
-          ...this.state.user,
-          id: data.id,
-        }})
+      if (!!data.id) {
+        this.setState({
+          notificationOpen: true,
+          notificationMessage: "Success! Your data has been saved.",
+          page: this.state.page + 1,
+          user:  {
+            ...this.state.user,
+            id: data.id,
+          }})
+      } else {
+        this.setState({
+          notificationOpen: true,
+          notificationMessage: data.message
+        })
+      }
     }).catch((err) => {
-      console.log(err)
+      this.setState({
+        notificationOpen: true,
+        notificationMessage: err
+      })
     })
   }
 
+  handleClose = () => {
+    this.setState({ notificationOpen: false, notificationMessage: null });
+  };
+
   render() {
-    if (this.state.page === 0) {
-      return(
-        <Register
+    const FormPage = this.formPages[this.state.page];
+
+    return(
+      <div>
+        <Snackbar
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          open={this.state.notificationOpen}
+          onClose={this.handleClose}
+          autoHideDuration={4000}
+          SnackbarContentProps={{
+            'aria-describedby': 'message-id',
+          }}
+          message={<span id="message-id">{this.state.notificationMessage}</span>}
+        />
+        <FormPage
           handleSubmit={this.submitForm}
           handleUserInputChange={this.saveUserInput}
           handleProfileInputChange={this.saveProfileInput}
           {...this.state}
         />
-      )
-    } else if (this.state.page === 1) {
-      return(
-        <Profile
-          handleSubmit={this.submitForm}
-          handleInputChange={this.saveProfileInput}
-        />
-      )
-    } else if (this.state.page === 2) {
-      return(
-        <Work
-          handleSubmit={this.submitForm}
-          handleInputChange={this.saveProfileInput}
-        />
-      )
-    } else if (this.state.page === 3) {
-      return(
-        <Social
-          handleSubmit={this.submitForm}
-          handleInputChange={this.saveProfileInput}
-        />
-      )
-    }
+      </div>
+    )
   }
 }

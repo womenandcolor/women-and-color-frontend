@@ -2,13 +2,13 @@ import React from 'react'
 import css from './styles.css'
 
 import TextField from 'material-ui/TextField';
+import StyledButton from '../Common/StyledButton';
 import Button from 'material-ui/Button';
 import Select from 'material-ui/Select';
 import Input, { InputLabel } from 'material-ui/Input';
 import { MenuItem } from 'material-ui/Menu';
 import FormField from '../Common/FormField'
 import { Link } from 'react-router-dom'
-
 
 
 const Register = (props) => {
@@ -50,15 +50,15 @@ const Register = (props) => {
         </FormField>
 
         <FormField fullWidth className={ css.formControl }>
-          <TextField label="Email" onChange={ generateHandlerUser('email') } />
+          <TextField label="Email" type="email" onChange={ generateHandlerUser('email') } />
         </FormField>
 
         <FormField fullWidth className={ css.formControl }>
-          <TextField label="Password" onChange={ generateHandlerUser('password') } />
+          <TextField label="Password" type="password" onChange={ generateHandlerUser('password') } />
         </FormField>
 
         <FormField className={ css.formControl }>
-          <Button label="Submit" type="submit">Submit</Button>
+          <StyledButton label="Submit" type="submit">Create profile</StyledButton>
         </FormField>
 
       </form>

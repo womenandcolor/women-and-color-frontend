@@ -3,7 +3,7 @@ import Button from 'material-ui/Button';
 import { withStyles } from 'material-ui/styles';
 
 const styles = (theme) => ({
-	common: {
+	root: {
 		fontFamily: 'var(--font-family-sans-serif)',
 		fontSize: 'var(--font-size-base)',
 		fontWeight: 'var(--font-weight-light)',
@@ -12,16 +12,16 @@ const styles = (theme) => ({
 		padding: 'var(--padding-vertical) var(--padding-horizontal)',
 		borderRadius: 'var(--border-radius)'
 	},
-	primaryButton: {
+	flatPrimary: {
 		color: 'var(--color-inverted-light)',
 		backgroundColor: 'var(--color-primary)'
 	}
 })
 
 const StyledButton = (props) => {
-	const classes = props.classes;
+
 	return(
-		<Button className={`${classes.common} ${classes.primaryButton}`}>
+		<Button {...props} className={`${props.classes.root} ${props.classes.flatPrimary}`}>
 			{props.children}
 		</Button>
 	)
