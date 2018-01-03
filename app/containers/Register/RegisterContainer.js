@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import Snackbar from 'material-ui/Snackbar';
+import { updateUserData, updateProfileData, changePage, showNotification, hideNotification } from '../../redux/actions'
 import { Register, Profile, Work, Social } from 'components'
 
-export default class RegisterContainer extends Component {
+class RegisterContainer extends Component {
   constructor(props) {
     super(props)
-    this.state = { page: 0, notificationOpen: false }
+    this.state = { page: 0 }
     this.formPages = {
       0: Register,
       1: Profile,
@@ -27,24 +29,11 @@ export default class RegisterContainer extends Component {
   }
 
   saveUserInput = (field, value) => {
-    this.setState({
-      user: {
-        ...this.state.user,
-        [field]: value,
-      }
-    }, () => {console.log(this.state)})
+    this.props.updateUserData({ [field]: value })
   }
 
   saveProfileInput = (field, value) => {
-    this.setState({
-      user: {
-        ...this.state.user,
-        profile: {
-          ...this.state.user.profile,
-          [field]: value
-        }
-      }
-    }, () => {console.log(this.state)})
+    this.props.updateProfileData({ [field]: value })
   }
 
   submitForm = (event) => {
@@ -62,14 +51,8 @@ export default class RegisterContainer extends Component {
     }).then(res => res.json())
     .then((data) => {
       if (!!data.id) {
-        this.setState({
-          notificationOpen: true,
-          notificationMessage: "Success! Your data has been saved.",
-          page: this.state.page + 1,
-          user:  {
-            ...this.state.user,
-            id: data.id,
-          }})
+        this.props.showNotification('Your profile has been saved.')
+        this.props.changePage(this.props.page + 1)
       } else {
         this.setState({
           notificationOpen: true,
@@ -77,6 +60,7 @@ export default class RegisterContainer extends Component {
         })
       }
     }).catch((err) => {
+      this.props.showNotification('There was an error in saving your profile: ' + err)
       this.setState({
         notificationOpen: true,
         notificationMessage: err
@@ -84,19 +68,15 @@ export default class RegisterContainer extends Component {
     })
   }
 
-  handleClose = () => {
-    this.setState({ notificationOpen: false, notificationMessage: null });
-  };
-
   render() {
-    const FormPage = this.formPages[this.state.page];
+    const FormPage = this.formPages[this.props.page];
 
     return(
       <div>
         <Snackbar
           anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
           open={this.state.notificationOpen}
-          onClose={this.handleClose}
+          onClose={this.props.closeNotification}
           autoHideDuration={4000}
           SnackbarContentProps={{
             'aria-describedby': 'message-id',
@@ -113,3 +93,33 @@ export default class RegisterContainer extends Component {
     )
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    user: state.registration.user,
+    notification: state.notifications,
+    page: state.registration.page
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    updateUserData: (attrs) => {
+      dispatch(updateUserData(attrs))
+    },
+    updateProfileData: (attrs) => {
+      dispatch(updateProfileData(attrs))
+    },
+    onChangePage: (page) => {
+      dispatch(changePage(page))
+    },
+    showNotification: (message) => {
+      dispatch(showNotification(message))
+    },
+    hideNotification: () => {
+      dispatch(hideNotification())
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterContainer);
