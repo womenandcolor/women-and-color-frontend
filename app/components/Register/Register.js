@@ -29,7 +29,7 @@ const Register = (props) => {
         <FormField fullWidth className={ css.formControl }>
           <InputLabel htmlFor="speaker-city">City</InputLabel>
           <Select
-              value={props.user ? props.user.profile.city : props.cities ? props.cities[0].id : '' }
+              value={props.user && props.user.profile ? props.user.profile.city : props.cities ? props.cities[0].id : '' }
               onChange={ generateHandlerProfile('city') }
               input={<Input name="city" id="city" />}
             >
