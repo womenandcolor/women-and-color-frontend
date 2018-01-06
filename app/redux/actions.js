@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 // AUTHENTICATION ------------------------
 
 export function userLoginSuccess() {
@@ -24,6 +26,22 @@ export function updateProfileData(profileData) {
 
 export function changePage(page) {
   return { type: 'CHANGE_PAGE', page }
+}
+
+export function updateCities(cities) {
+  return { type: 'UPDATE_CITIES', cities }
+}
+
+export function fetchCities() {
+  return dispatch => {
+    axios.get('//localhost:1337/api/v1/cities')
+    .then(res => {
+      // const cities = res.data.map((city) => ({ value: city.id, }))
+      dispatch(updateCities(res.data))
+      // dispatch(updateProfileData(res.data[0].id))
+    })
+    .catch(err => console.log(err))
+  }
 }
 
 // NOTIFICATIONS ------------------------

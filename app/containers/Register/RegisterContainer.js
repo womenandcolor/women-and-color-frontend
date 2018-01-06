@@ -1,31 +1,54 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import Snackbar from 'material-ui/Snackbar';
-import { updateUserData, updateProfileData, changePage, showNotification, hideNotification } from '../../redux/actions'
+import {
+  updateUserData,
+  updateProfileData,
+  changePage,
+  showNotification,
+  hideNotification,
+  fetchCities
+} from '../../redux/actions'
 import { Register, Profile, Work, Social } from 'components'
+import { REGISTRATION_FORM_PAGES } from '../../config/constants'
+
+function mapStateToProps(state) {
+  return {
+    user: state.registration.user,
+    cities: state.registration.cities,
+    notification: state.notifications.message,
+    page: state.registration.page,
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    updateUserData: (attrs) => {
+      dispatch(updateUserData(attrs))
+    },
+    updateProfileData: (attrs) => {
+      dispatch(updateProfileData(attrs))
+    },
+    changePage: (page) => {
+      dispatch(changePage(page))
+    },
+    showNotification: (message) => {
+      dispatch(showNotification(message))
+    },
+    hideNotification: () => {
+      dispatch(hideNotification())
+    },
+    fetchCities: () => {
+      dispatch(fetchCities())
+    }
+  }
+}
 
 class RegisterContainer extends Component {
   constructor(props) {
     super(props)
-    this.state = { page: 0 }
-    this.formPages = {
-      0: Register,
-      1: Profile,
-      2: Work,
-      3: Social
-    }
-    this.fetchCities();
-  }
-
-  fetchCities = () => {
-    fetch('//localhost:1337/api/v1/cities')
-    .then(res => res.json())
-    .then((cities) => {
-      this.setState({ cities, user: { profile: { city: cities[0].id }}})
-    })
-    .catch((err) => {
-      console.log(err)
-    })
+    this.state = {}
+    this.props.fetchCities()
   }
 
   saveUserInput = (field, value) => {
@@ -38,12 +61,12 @@ class RegisterContainer extends Component {
 
   submitForm = (event) => {
     event.preventDefault();
-    const userExists = !!this.state.user.id;
+    const userExists = !!this.props.user.id;
     const baseUrl = '//localhost:1337/api/v1/users/'
     const method = userExists ? 'PUT' : 'POST';
-    const url = userExists ? `${baseUrl}${this.state.user.id}` : baseUrl;
-    const user = this.state.user;
-    const userData = userExists ? { profile: { user: this.state.user.id, ...this.state.user.profile } } : this.state.user
+    const url = userExists ? `${baseUrl}${this.props.user.id}` : baseUrl;
+    const user = this.props.user;
+    const userData = userExists ? { profile: { user: this.props.user.id, ...this.props.user.profile } } : this.props.user
 
     fetch(url, {
       method: method,
@@ -69,56 +92,29 @@ class RegisterContainer extends Component {
   }
 
   render() {
-    const FormPage = this.formPages[this.props.page];
+    const pageNum = this.props.page || 0
+    const FormPage = REGISTRATION_FORM_PAGES[pageNum];
 
     return(
       <div>
         <Snackbar
           anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-          open={this.state.notificationOpen}
+          open={!!this.props.notification}
           onClose={this.props.closeNotification}
           autoHideDuration={4000}
           SnackbarContentProps={{
             'aria-describedby': 'message-id',
           }}
-          message={<span id="message-id">{this.state.notificationMessage}</span>}
+          message={<span id="message-id">{this.props.notification}</span>}
         />
         <FormPage
           handleSubmit={this.submitForm}
           handleUserInputChange={this.saveUserInput}
           handleProfileInputChange={this.saveProfileInput}
-          {...this.state}
+          {...this.props}
         />
       </div>
     )
-  }
-}
-
-function mapStateToProps(state) {
-  return {
-    user: state.registration.user,
-    notification: state.notifications,
-    page: state.registration.page
-  }
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    updateUserData: (attrs) => {
-      dispatch(updateUserData(attrs))
-    },
-    updateProfileData: (attrs) => {
-      dispatch(updateProfileData(attrs))
-    },
-    onChangePage: (page) => {
-      dispatch(changePage(page))
-    },
-    showNotification: (message) => {
-      dispatch(showNotification(message))
-    },
-    hideNotification: () => {
-      dispatch(hideNotification())
-    }
   }
 }
 

@@ -36,6 +36,8 @@ export const registration = (state={user: {}}, action) => {
       }
     case 'CHANGE_PAGE':
       return { ...state, page: action.page }
+    case 'UPDATE_CITIES':
+      return { ...state, cities: action.cities }
     default:
       return state
   }
@@ -53,6 +55,8 @@ export const notifications = (state={}, action) => {
         ...state,
         message: null
       }
+    default:
+      return state
   }
 }
 
