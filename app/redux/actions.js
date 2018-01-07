@@ -36,7 +36,6 @@ export function fetchCities() {
   return dispatch => {
     axios.get('//localhost:1337/api/v1/cities')
     .then(res => {
-      console.log('CITIES', res.data)
       dispatch(updateCities(res.data))
       dispatch(updateProfileData({ city: res.data[0].id }))
     })
@@ -87,4 +86,20 @@ export function hideNotification() {
   return { type: 'HIDE_NOTIFICATION' }
 }
 
+// HOME ------------------------
+
+export function fetchSpeakers() {
+  return dispatch => {
+    axios.get('//localhost:1337/api/v1/profiles')
+    .then(res => {
+      console.log(res)
+      dispatch(updateSpeakers(res.data))
+    })
+    .catch(err => console.log(err))
+  }
+}
+
+export function updateSpeakers(results) {
+  return { type: 'UPDATE_SPEAKERS', results }
+}
 

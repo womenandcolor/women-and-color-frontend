@@ -1,13 +1,34 @@
-import React from 'react'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { Home } from 'components'
-import createReactClass from 'create-react-class'
+import { fetchSpeakers } from '../../redux/actions'
 
-const HomeContainer = createReactClass({
+const mapStateToProps = (state) => {
+  return {
+    speakers: state.speakers.results
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchSpeakers: () => {
+      dispatch(fetchSpeakers())
+    }
+  }
+}
+
+class HomeContainer extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {}
+    this.props.fetchSpeakers()
+  }
+
   render() {
     return (
-      <Home />
+      <Home speakers={this.props.speakers} />
     )
   }
-})
+}
 
-export default HomeContainer
+export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer)

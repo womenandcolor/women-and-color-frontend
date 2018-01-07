@@ -60,11 +60,24 @@ export const notifications = (state={}, action) => {
   }
 }
 
+export const speakers = (state = { results: [] }, action) => {
+  switch (action.type) {
+    case 'UPDATE_SPEAKERS':
+      return {
+        ...state,
+        results: action.results
+      }
+    default:
+      return state
+  }
+}
+
 
 export const appReducers = (state = {}, action) => {
   return {
     auth: auth(state.auth, action),
     registration: registration(state.registration, action),
-    notifications: notifications(state.notifications, action)
+    notifications: notifications(state.notifications, action),
+    speakers: speakers(state.speakers, action),
   }
 }
