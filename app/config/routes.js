@@ -15,7 +15,8 @@ import { applyMiddleware } from "redux"
 import { appReducers } from '../redux/reducers'
 import thunk from 'redux-thunk';
 
-const initialState = { auth: { isLoggedIn: false } }
+
+const initialState = { auth: { isLoggedIn: false }}
 const store = createStore(appReducers, initialState, applyMiddleware(thunk))
 const history = createHashHistory()
 
@@ -24,12 +25,12 @@ const routes = (
     <Router history={history}>
       <MainContainer>
         <Switch>
-        <Route exact path="/" component={HomeContainer} />
-        <Route path="/auth" component={AuthenticateContainer} />
-        <Route path="/about" component={PageContainer} />
-        <Route path="/register" component={RegisterContainer} />
-        <Route path="/speaker" component={SpeakerContainer} />
-      </Switch>
+          <Route exact path="/" component={HomeContainer} />
+          <Route path="/auth" component={AuthenticateContainer} />
+          <Route path="/about" component={PageContainer} />
+          <Route path="/register" component={RegisterContainer} />
+          <Route path="/speaker" component={SpeakerContainer} />
+        </Switch>
       </MainContainer>
     </Router>
   </Provider>

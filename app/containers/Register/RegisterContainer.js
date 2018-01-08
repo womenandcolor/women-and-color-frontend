@@ -7,9 +7,10 @@ import {
   changePage,
   showNotification,
   hideNotification,
-  fetchCities
+  fetchCities,
+  submitForm
 } from '../../redux/actions'
-import { Register, Profile, Work, Social } from 'components'
+
 import { REGISTRATION_FORM_PAGES } from '../../config/constants'
 
 function mapStateToProps(state) {
@@ -40,6 +41,9 @@ function mapDispatchToProps(dispatch) {
     },
     fetchCities: () => {
       dispatch(fetchCities())
+    },
+    submitForm: (user, page, history) => {
+      dispatch(submitForm(user, page, history))
     }
   }
 }
@@ -59,41 +63,14 @@ class RegisterContainer extends Component {
     this.props.updateProfileData({ [field]: value })
   }
 
-  submitForm = (event) => {
+  onSubmitForm = (event) => {
     event.preventDefault();
-    const userExists = !!this.props.user.id;
-    const baseUrl = '//localhost:1337/api/v1/users/'
-    const method = userExists ? 'PUT' : 'POST';
-    const url = userExists ? `${baseUrl}${this.props.user.id}` : baseUrl;
-    const user = this.props.user;
-    const userData = userExists ? { profile: { user: this.props.user.id, ...this.props.user.profile } } : this.props.user
-
-    fetch(url, {
-      method: method,
-      body: JSON.stringify(userData)
-    }).then(res => res.json())
-    .then((data) => {
-      if (!!data.id) {
-        this.props.showNotification('Your profile has been saved.')
-        this.props.changePage(this.props.page + 1)
-      } else {
-        this.setState({
-          notificationOpen: true,
-          notificationMessage: data.message
-        })
-      }
-    }).catch((err) => {
-      this.props.showNotification('There was an error in saving your profile: ' + err)
-      this.setState({
-        notificationOpen: true,
-        notificationMessage: err
-      })
-    })
+    this.props.submitForm(this.props.user, this.props.page, this.props.history);
   }
 
+
   render() {
-    const pageNum = this.props.page || 0
-    const FormPage = REGISTRATION_FORM_PAGES[pageNum];
+    const FormPage = REGISTRATION_FORM_PAGES[this.props.page];
 
     return(
       <div>
@@ -108,7 +85,7 @@ class RegisterContainer extends Component {
           message={<span id="message-id">{this.props.notification}</span>}
         />
         <FormPage
-          handleSubmit={this.submitForm}
+          handleSubmit={this.onSubmitForm}
           handleUserInputChange={this.saveUserInput}
           handleProfileInputChange={this.saveProfileInput}
           {...this.props}

@@ -61,8 +61,6 @@
 }
 
 .contentTitles {
-	height: 40px;
-	width: 469px;
 	color: #000000;
 	font-family: "Open Sans";
 	font-size: 32px;
@@ -70,26 +68,30 @@
 	line-height: 40px;
 }
 
-.hr {
-	height: 1px;
-	width: 704px;
-	background-color: #E0E0E0;
+.contentCard {
+	background-color: #FFFFFF;
+  padding: 20px;
+  display: flex;
+  border-bottom: 1px solid #E0E0E0;
+  justify-content: space-between;
 }
 
-.contentCard {
-	height: 176px;
-	width: 704px;
-	background-color: #FFFFFF;
+.contentCard > div {
+  margin: 10px;
+}
+
+.info {
+  flex-grow: 1;
 }
 
 .photo {
-	height: 115.5px;
-	width: 115.5px;
+	height: 116px;
+  width: 116px;
+  background: #e5e8f5;
+  border-radius: 50%;
 }
 
 .name {
-	height: 32px;
-	width: 384px;
 	color: #000000;
 	font-family: "Open Sans";
 	font-size: 24px;
@@ -98,8 +100,6 @@
 }
 
 .speakerTitle {
-	height: 24px;
-	width: 384px;
 	color: #424242;
 	font-family: "Open Sans";
 	font-size: 16px;
@@ -107,8 +107,6 @@
 }
 
 .speakerTags {
-	height: 42px;
-	width: 384px;
 	color: #757575;
 	font-family: "Open Sans";
 	font-size: 14px;

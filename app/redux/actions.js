@@ -36,13 +36,47 @@ export function fetchCities() {
   return dispatch => {
     axios.get('//localhost:1337/api/v1/cities')
     .then(res => {
-      // const cities = res.data.map((city) => ({ value: city.id, }))
       dispatch(updateCities(res.data))
-      // dispatch(updateProfileData(res.data[0].id))
+      dispatch(updateProfileData({ city: res.data[0].id }))
     })
     .catch(err => console.log(err))
   }
 }
+
+
+export function submitForm(user, page, history) {
+  return dispatch => {
+    const userExists = !!user.id;
+    const baseUrl = '//localhost:1337/api/v1/users/'
+    const method = userExists ? 'PUT' : 'POST';
+    const url = userExists ? `${baseUrl}${user.id}` : baseUrl;
+    const userData = userExists ? { profile: { user: user.id, ...user.profile } } : user
+
+    axios({
+      method: method,
+      url: url,
+      data: userData,
+      responseType: 'json'
+    }).then((res) => {
+      if (res.status === 201) {
+        dispatch(updateUserData({id: res.data.id}))
+        dispatch(changePage(page + 1))
+        dispatch(showNotification('Your profile has been created.'))
+      } else if (res.status === 200 && page === 3) {
+        dispatch(changePage(0))
+        history.push('/')
+      } else if (res.status === 200) {
+        dispatch(showNotification('Your profile has been updated.'))
+      } else {
+        console.log(res)
+        dispatch(showNotification('Your profile was not saved'))
+      }
+    }).catch((err) => {
+      dispatch(showNotification('There was an error in saving your profile: ' + err))
+    })
+  }
+}
+
 
 // NOTIFICATIONS ------------------------
 
@@ -54,4 +88,20 @@ export function hideNotification() {
   return { type: 'HIDE_NOTIFICATION' }
 }
 
+// HOME ------------------------
+
+export function fetchSpeakers() {
+  return dispatch => {
+    axios.get('//localhost:1337/api/v1/profiles')
+    .then(res => {
+      console.log(res)
+      dispatch(updateSpeakers(res.data))
+    })
+    .catch(err => console.log(err))
+  }
+}
+
+export function updateSpeakers(results) {
+  return { type: 'UPDATE_SPEAKERS', results }
+}
 

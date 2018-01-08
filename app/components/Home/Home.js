@@ -1,7 +1,8 @@
 import React, { PropTypes } from 'react'
+import SpeakerCard from './SpeakerCard'
 import css from './styles.css'
 
-export default function Home () {
+const Home = (props) => {
   return (
     <div className="container">
 
@@ -27,9 +28,18 @@ export default function Home () {
           </div>
 
           <div className="col-lg-9">
-            <div className="content-titles">{'Speakers in Toronto for all topics'}</div>
+            <div className={css.contentTitles}>{'Speakers in Toronto for all topics'}</div>
+            <div className="speakers-list">
+              {
+                props.speakers.map((speaker, index) => (
+                  <SpeakerCard speaker={speaker} key={index} />
+                ))
+              }
+            </div>
           </div>
       </div>
     </div>
   )
 }
+
+export default Home;
