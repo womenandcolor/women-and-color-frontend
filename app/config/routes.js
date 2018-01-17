@@ -1,6 +1,9 @@
 import React from 'react'
 import { Router, Switch, Route } from 'react-router-dom'
 import createHashHistory from 'history/createHashHistory'
+import { Provider } from 'react-redux'
+
+// App
 import {
   AuthenticateContainer,
   MainContainer,
@@ -9,15 +12,9 @@ import {
   RegisterContainer,
   SpeakerContainer
 } from 'containers'
-import { Provider } from 'react-redux'
-import { createStore } from "redux"
-import { applyMiddleware } from "redux"
-import { appReducers } from '../redux/reducers'
-import thunk from 'redux-thunk';
+import store from '../redux/store'
 
 
-const initialState = { auth: { isLoggedIn: false }}
-const store = createStore(appReducers, initialState, applyMiddleware(thunk))
 const history = createHashHistory()
 
 const routes = (

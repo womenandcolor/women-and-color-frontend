@@ -1,21 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Home } from 'components'
-import { fetchSpeakers } from '../../redux/actions'
+import { fetchSpeakers } from '../../redux/modules/speaker'
 
-const mapStateToProps = (state) => {
-  return {
-    speakers: state.speakers.results
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchSpeakers: () => {
-      dispatch(fetchSpeakers())
-    }
-  }
-}
 
 class HomeContainer extends Component {
   constructor(props) {
@@ -31,4 +18,22 @@ class HomeContainer extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer)
+
+const mapStateToProps = (state) => {
+  return {
+    speakers: state.speakers.results
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchSpeakers: () => {
+      dispatch(fetchSpeakers())
+    }
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(HomeContainer)

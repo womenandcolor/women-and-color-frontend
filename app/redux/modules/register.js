@@ -1,35 +1,28 @@
 import axios from 'axios'
 
-// AUTHENTICATION ------------------------
+const MODULE_NAME = 'REGISTRATION';
 
-export function userLoginSuccess() {
-  return { type: 'USER_LOGIN_SUCCESS' }
-}
+const UPDATE_USER_DATA = `${MODULE_NAME}/UPDATE_USER_DATA`;
+const UPDATE_PROFILE_DATA = `${MODULE_NAME}/UPDATE_PROFILE_DATA`;
+const CHANGE_PAGE = `${MODULE_NAME}/CHANGE_PAGE`;
+const UPDATE_CITIES = `${MODULE_NAME}/UPDATE_CITIES`;
 
-export function userLoginFailure() {
-  return { type: 'USER_LOGIN_FAILURE' }
-}
-
-export function userLoggedOut() {
-  return { type: 'USER_LOGGED_OUT' }
-}
 
 // REGISTRATION ------------------------
-
 export function updateUserData(userData) {
-  return { type: 'UPDATE_USER_DATA', userData }
+  return { type: UPDATE_USER_DATA, userData }
 }
 
 export function updateProfileData(profileData) {
-  return { type: 'UPDATE_PROFILE_DATA', profileData }
+  return { type: UPDATE_PROFILE_DATA, profileData }
 }
 
 export function changePage(page) {
-  return { type: 'CHANGE_PAGE', page }
+  return { type: CHANGE_PAGE, page }
 }
 
 export function updateCities(cities) {
-  return { type: 'UPDATE_CITIES', cities }
+  return { type: UPDATE_CITIES, cities }
 }
 
 export function fetchCities() {
@@ -78,30 +71,39 @@ export function submitForm(user, page, history) {
 }
 
 
-// NOTIFICATIONS ------------------------
 
-export function showNotification(message) {
-  return { type: 'SHOW_NOTIFICATION', message }
-}
+export const reducer = (state={user: {}, page: 0}, action) => {
+  switch (action.type) {
+    case UPDATE_USER_DATA:
+      const userData = action.userData
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          ...userData
+        }
+      }
+    case UPDATE_PROFILE_DATA:
+      const profileData = action.profileData
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          profile: {
+            ...state.user.profile,
+            ...profileData
+          }
+        }
+      }
+    case CHANGE_PAGE:
+      return {
+        ...state,
+        page: action.page
+      }
 
-export function hideNotification() {
-  return { type: 'HIDE_NOTIFICATION' }
-}
-
-// HOME ------------------------
-
-export function fetchSpeakers() {
-  return dispatch => {
-    axios.get('//localhost:1337/api/v1/profiles')
-    .then(res => {
-      console.log(res)
-      dispatch(updateSpeakers(res.data))
-    })
-    .catch(err => console.log(err))
+    case UPDATE_CITIES:
+      return { ...state, cities: action.cities }
+    default:
+      return state
   }
 }
-
-export function updateSpeakers(results) {
-  return { type: 'UPDATE_SPEAKERS', results }
-}
-

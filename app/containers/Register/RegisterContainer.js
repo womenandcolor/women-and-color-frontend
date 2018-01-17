@@ -5,48 +5,16 @@ import {
   updateUserData,
   updateProfileData,
   changePage,
-  showNotification,
-  hideNotification,
-  fetchCities,
   submitForm
-} from '../../redux/actions'
+} from '../../redux/modules/register';
+
+import {
+  showNotification,
+  hideNotification
+} from '../../redux/modules/notification';
 
 import { REGISTRATION_FORM_PAGES } from '../../config/constants'
 
-function mapStateToProps(state) {
-  return {
-    user: state.registration.user,
-    cities: state.registration.cities,
-    notification: state.notifications.message,
-    page: state.registration.page,
-  }
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    updateUserData: (attrs) => {
-      dispatch(updateUserData(attrs))
-    },
-    updateProfileData: (attrs) => {
-      dispatch(updateProfileData(attrs))
-    },
-    changePage: (page) => {
-      dispatch(changePage(page))
-    },
-    showNotification: (message) => {
-      dispatch(showNotification(message))
-    },
-    hideNotification: () => {
-      dispatch(hideNotification())
-    },
-    fetchCities: () => {
-      dispatch(fetchCities())
-    },
-    submitForm: (user, page, history) => {
-      dispatch(submitForm(user, page, history))
-    }
-  }
-}
 
 class RegisterContainer extends Component {
   constructor(props) {
@@ -95,4 +63,42 @@ class RegisterContainer extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(RegisterContainer);
+function mapStateToProps(state) {
+  return {
+    user: state.registration.user,
+    cities: state.registration.cities,
+    notification: state.notifications.message,
+    page: state.registration.page,
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    updateUserData: (attrs) => {
+      dispatch(updateUserData(attrs))
+    },
+    updateProfileData: (attrs) => {
+      dispatch(updateProfileData(attrs))
+    },
+    changePage: (page) => {
+      dispatch(changePage(page))
+    },
+    showNotification: (message) => {
+      dispatch(showNotification(message))
+    },
+    hideNotification: () => {
+      dispatch(hideNotification())
+    },
+    fetchCities: () => {
+      dispatch(fetchCities())
+    },
+    submitForm: (user, page, history) => {
+      dispatch(submitForm(user, page, history))
+    }
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(RegisterContainer);
