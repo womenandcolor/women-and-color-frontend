@@ -1,10 +1,12 @@
+// NPM
 import React from 'react'
-import css from './styles.css'
-
-import FormField from '../Common/FormField';
 import TextField from 'material-ui/TextField';
-import StyledButton from '../Common/StyledButton';
 import { Link } from 'react-router-dom';
+
+// App
+import StyledButton from 'appCommon/StyledButton';
+import FormField from 'appCommon/FormField';
+import css from './styles.css'
 
 const Social = (props) => {
 

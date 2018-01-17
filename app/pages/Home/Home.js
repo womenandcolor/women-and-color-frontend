@@ -1,6 +1,11 @@
-import React, { PropTypes } from 'react'
-import SpeakerCard from './SpeakerCard'
+// NPM
+import React, { PropTypes, Component } from 'react';
+import { connect } from 'react-redux';;
+
+// APP
+import SpeakerCard from './components/SpeakerCard'
 import css from './styles.css'
+import { fetchSpeakers } from 'appRedux/modules/speaker';
 
 const Home = (props) => {
   return (
@@ -42,4 +47,36 @@ const Home = (props) => {
   )
 }
 
-export default Home;
+class HomeContainer extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {}
+    this.props.fetchSpeakers()
+  }
+
+  render() {
+    return (
+      <Home speakers={this.props.speakers} />
+    )
+  }
+}
+
+
+const mapStateToProps = (state) => {
+  return {
+    speakers: state.speaker.results
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchSpeakers: () => {
+      dispatch(fetchSpeakers())
+    }
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(HomeContainer)

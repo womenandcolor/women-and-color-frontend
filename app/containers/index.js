@@ -1,6 +1,0 @@
-export AuthenticateContainer from './Authenticate/AuthenticateContainer'
-export MainContainer from './Main/MainContainer'
-export HomeContainer from './Home/HomeContainer'
-export PageContainer from './Page/PageContainer'
-export RegisterContainer from './Register/RegisterContainer'
-export SpeakerContainer from './Speaker/SpeakerContainer'

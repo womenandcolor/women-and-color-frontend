@@ -1,17 +1,18 @@
+// NPM
 import React from 'react'
-import css from './styles.css'
-
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
-import StyledButton from '../Common/StyledButton';
 import Select from 'material-ui/Select';
 import Input, { InputLabel } from 'material-ui/Input';
 import { MenuItem } from 'material-ui/Menu';
-import FormField from '../Common/FormField';
 import Radio, { RadioGroup } from 'material-ui/Radio';
 import { FormLabel, FormControlLabel } from 'material-ui/Form';
 import { Link } from 'react-router-dom'
 
+// App
+import StyledButton from 'appCommon/StyledButton';
+import FormField from 'appCommon/FormField';
+import css from './styles.css'
 
 
 const Profile = (props) => {

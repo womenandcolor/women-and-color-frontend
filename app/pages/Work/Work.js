@@ -1,10 +1,12 @@
-import React from 'react'
-import css from './styles.css'
-
-import FormField from '../Common/FormField';
+// NPM
+import React from 'react';
 import TextField from 'material-ui/TextField';
-import StyledButton from '../Common/StyledButton';
 import { Link } from 'react-router-dom';
+
+// App
+import css from './styles.css';
+import StyledButton from 'appCommon/StyledButton';
+import FormField from 'appCommon/FormField';
 
 const Work = (props) => {
 

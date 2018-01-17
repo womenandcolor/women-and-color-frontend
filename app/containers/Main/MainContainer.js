@@ -3,7 +3,7 @@ import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import indigo from 'material-ui/colors/indigo';
 import grey from 'material-ui/colors/grey';
 import pink from 'material-ui/colors/pink';
-import { Navigation } from 'components';
+import Navigation from 'appCommon/Navigation/Navigation';
 import { container, innerContainer } from './styles.css';
 
 const theme = createMuiTheme({

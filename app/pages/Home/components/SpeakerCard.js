@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
-import StyledButton from '../Common/StyledButton';
-import css from './styles.css';
+import StyledButton from 'appCommon/StyledButton';
+import css from '../styles.css';
 
 const SpeakerCard = (props) => {
   const name = `${props.speaker.firstName} ${props.speaker.lastName}`
