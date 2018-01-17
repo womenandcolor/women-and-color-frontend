@@ -23,10 +23,6 @@ export function updateProfileData(profileData) {
   return { type: UPDATE_PROFILE_DATA, profileData }
 }
 
-export function changePage(page) {
-  return { type: CHANGE_PAGE, page }
-}
-
 export function updateCities(cities) {
   return { type: UPDATE_CITIES, cities }
 }
@@ -43,7 +39,7 @@ export function fetchCities() {
 }
 
 
-export function submitForm(user, page, history) {
+export function submitForm(user, page) {
   return dispatch => {
     const userExists = !!user.id;
     const baseUrl = '//localhost:1337/api/v1/users/'
@@ -60,13 +56,12 @@ export function submitForm(user, page, history) {
       if (res.status === 201) {
         dispatch(updateUserData({id: res.data.id}));
         dispatch(showNotification('Your profile has been created.'));
-        dispatch(changePage(page + 1));
-        dispatch(push(registrationFlow.registration.next));
-      } else if (res.status === 200 && page === 3) {
-        dispatch(changePage(0))
-        dispatch(push('/'));
+        dispatch(push(registrationFlow[page].next));
+
       } else if (res.status === 200) {
         dispatch(showNotification('Your profile has been updated.'))
+        dispatch(push(registrationFlow[page].next));
+
       } else {
         console.log(res)
         dispatch(showNotification('Your profile was not saved'))

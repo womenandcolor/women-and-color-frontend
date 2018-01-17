@@ -21,15 +21,18 @@ import FormField from 'appCommon/FormField';
 import css from './styles.css'
 
 
+const CURRENT_PAGE = 'profile';
+
+
 const Profile = (props) => {
   const generateHandler = (fieldName) => {
     return (event) => {
       props.handleProfileInputChange(fieldName, event.currentTarget.value)
     }
   }
-  console.log(props.user);
+
   if (!props.user.id) {
-    return <div>User is not found</div>
+    return <div>User is not found [work in progress, please start again at register, to create new user]</div>
   }
 
   return(
@@ -123,7 +126,7 @@ class ProfileContainer extends Component {
         <Profile
           handleSubmit={event => {
             event.preventDefault();
-            this.props.submitForm(this.props.user, this.props.page, this.props.history);
+            this.props.submitForm(this.props.user, CURRENT_PAGE);
           }}
           handleProfileInputChange={(field, value) => {
             this.props.updateProfileData({ [field]: value })
@@ -153,8 +156,8 @@ function mapDispatchToProps(dispatch, props) {
     hideNotification: () => {
       dispatch(hideNotification())
     },
-    submitForm: (user, page, history) => {
-      dispatch(submitForm(user, page, history));
+    submitForm: (user, page) => {
+      dispatch(submitForm(user, page));
     }
   }
 }

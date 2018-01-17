@@ -24,6 +24,7 @@ import {
 } from 'appRedux/modules/notification';
 import css from './styles.css';
 
+const CURRENT_PAGE = 'registration';
 
 const Register = (props) => {
 
@@ -115,7 +116,7 @@ class RegisterContainer extends Component {
         <Register
           handleSubmit={event => {
             event.preventDefault();
-            this.props.submitForm(this.props.user, this.props.page, this.props.history);
+            this.props.submitForm(this.props.user, CURRENT_PAGE);
           }}
           handleUserInputChange={this.saveUserInput}
           handleProfileInputChange={this.saveProfileInput}
@@ -151,8 +152,8 @@ function mapDispatchToProps(dispatch, props) {
     fetchCities: () => {
       dispatch(fetchCities())
     },
-    submitForm: (user, page, history) => {
-      dispatch(submitForm(user, page, history));
+    submitForm: (user, page) => {
+      dispatch(submitForm(user, page));
     }
   }
 }

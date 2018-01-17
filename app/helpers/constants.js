@@ -12,6 +12,6 @@ export const registrationFlow = {
   },
 
   'social': {
-    next: '/social'
+    next: '/'
   }
 }
