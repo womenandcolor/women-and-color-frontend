@@ -1,8 +1,6 @@
 # Women and Color: Frontend Web UI
 
-[**Women and Color**][site-live] is a website for finding
-talented women and people of color to speak at your tech-related event
-in Toronto.
+[**Women and Color**][site-live] is an online community of talented women and people of color available for speaking opportunities at tech-related events.
 
 ## Table of Contents
 
