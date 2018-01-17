@@ -1,5 +1,7 @@
 // NPM
-import React from 'react'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import Snackbar from 'material-ui/Snackbar';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 import Select from 'material-ui/Select';
@@ -10,17 +12,24 @@ import { FormLabel, FormControlLabel } from 'material-ui/Form';
 import { Link } from 'react-router-dom'
 
 // App
+import {
+  updateProfileData,
+  submitForm
+} from 'appRedux/modules/registration';
 import StyledButton from 'appCommon/StyledButton';
 import FormField from 'appCommon/FormField';
 import css from './styles.css'
 
 
 const Profile = (props) => {
-
   const generateHandler = (fieldName) => {
     return (event) => {
       props.handleProfileInputChange(fieldName, event.currentTarget.value)
     }
+  }
+  console.log(props.user);
+  if (!props.user.id) {
+    return <div>User is not found</div>
   }
 
   return(
@@ -92,4 +101,65 @@ const Profile = (props) => {
 }
 
 
-export default Profile;
+class ProfileContainer extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {}
+  }
+
+  render() {
+    return(
+      <div>
+        <Snackbar
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          open={!!this.props.notification}
+          onClose={this.props.closeNotification}
+          autoHideDuration={4000}
+          SnackbarContentProps={{
+            'aria-describedby': 'message-id',
+          }}
+          message={<span id="message-id">{this.props.notification}</span>}
+        />
+        <Profile
+          handleSubmit={event => {
+            event.preventDefault();
+            this.props.submitForm(this.props.user, this.props.page, this.props.history);
+          }}
+          handleProfileInputChange={(field, value) => {
+            this.props.updateProfileData({ [field]: value })
+          }}
+          {...this.props}
+        />
+      </div>
+    )
+  }
+}
+
+function mapStateToProps(state) {
+  return {
+    user: state.registration.user,
+    notification: state.notification.message
+  }
+}
+
+function mapDispatchToProps(dispatch, props) {
+  return {
+    updateProfileData: (attrs) => {
+      dispatch(updateProfileData(attrs))
+    },
+    showNotification: (message) => {
+      dispatch(showNotification(message))
+    },
+    hideNotification: () => {
+      dispatch(hideNotification())
+    },
+    submitForm: (user, page, history) => {
+      dispatch(submitForm(user, page, history));
+    }
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ProfileContainer);

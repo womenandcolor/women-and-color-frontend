@@ -1,6 +1,9 @@
+// NPM
 import axios from 'axios'
+import { push } from 'react-router-redux'
 
 // App
+import { registrationFlow } from 'appHelpers/constants';
 import { showNotification } from './notification';
 
 const MODULE_NAME = 'REGISTRATION';
@@ -55,12 +58,13 @@ export function submitForm(user, page, history) {
       responseType: 'json'
     }).then((res) => {
       if (res.status === 201) {
-        dispatch(updateUserData({id: res.data.id}))
-        dispatch(changePage(page + 1))
-        dispatch(showNotification('Your profile has been created.'))
+        dispatch(updateUserData({id: res.data.id}));
+        dispatch(showNotification('Your profile has been created.'));
+        dispatch(changePage(page + 1));
+        dispatch(push(registrationFlow.registration.next));
       } else if (res.status === 200 && page === 3) {
         dispatch(changePage(0))
-        history.push('/')
+        dispatch(push('/'));
       } else if (res.status === 200) {
         dispatch(showNotification('Your profile has been updated.'))
       } else {
@@ -68,6 +72,7 @@ export function submitForm(user, page, history) {
         dispatch(showNotification('Your profile was not saved'))
       }
     }).catch((err) => {
+      console.log(err);
       dispatch(showNotification('There was an error in saving your profile: ' + err))
     })
   }

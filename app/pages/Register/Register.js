@@ -13,7 +13,6 @@ import { Link } from 'react-router-dom'
 import {
   updateUserData,
   updateProfileData,
-  changePage,
   fetchCities,
   submitForm
 } from 'appRedux/modules/registration';
@@ -100,15 +99,7 @@ class RegisterContainer extends Component {
     this.props.updateProfileData({ [field]: value })
   }
 
-  onSubmitForm = (event) => {
-    event.preventDefault();
-    this.props.submitForm(this.props.user, this.props.page, this.props.history);
-  }
-
-
   render() {
-    // const FormPage = REGISTRATION_FORM_PAGES[this.props.page];
-
     return(
       <div>
         <Snackbar
@@ -122,7 +113,10 @@ class RegisterContainer extends Component {
           message={<span id="message-id">{this.props.notification}</span>}
         />
         <Register
-          handleSubmit={this.onSubmitForm}
+          handleSubmit={event => {
+            event.preventDefault();
+            this.props.submitForm(this.props.user, this.props.page, this.props.history);
+          }}
           handleUserInputChange={this.saveUserInput}
           handleProfileInputChange={this.saveProfileInput}
           {...this.props}
@@ -140,16 +134,13 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch, props) {
   return {
     updateUserData: (attrs) => {
       dispatch(updateUserData(attrs))
     },
     updateProfileData: (attrs) => {
       dispatch(updateProfileData(attrs))
-    },
-    changePage: (page) => {
-      dispatch(changePage(page))
     },
     showNotification: (message) => {
       dispatch(showNotification(message))
@@ -161,7 +152,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(fetchCities())
     },
     submitForm: (user, page, history) => {
-      dispatch(submitForm(user, page, history))
+      dispatch(submitForm(user, page, history));
     }
   }
 }

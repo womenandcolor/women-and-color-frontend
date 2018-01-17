@@ -1,6 +1,5 @@
 import React from 'react'
 import { Router, Switch, Route } from 'react-router-dom'
-import createHashHistory from 'history/createHashHistory'
 import { Provider } from 'react-redux'
 
 // App
@@ -11,8 +10,7 @@ import {
 import MainContainer from 'containers/Main/MainContainer';
 
 
-import store from '../redux/store'
-const history = createHashHistory()
+import store, { history } from '../redux/store'
 
 const routes = (
   <Provider store={store}>

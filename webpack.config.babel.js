@@ -45,7 +45,8 @@ const base = {
       appCommon: path.resolve(__dirname, 'app/common/'),
       appPages: path.resolve(__dirname, 'app/pages/'),
       appConfig: path.resolve(__dirname, 'app/config/'),
-      appRedux: path.resolve(__dirname, 'app/redux/')
+      appRedux: path.resolve(__dirname, 'app/redux/'),
+      appHelpers: path.resolve(__dirname, 'app/helpers/')
     }
   }
 }
