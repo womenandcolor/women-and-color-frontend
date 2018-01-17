@@ -1,11 +1,15 @@
 // NPM
-import { createStore, applyMiddleware, combineReducers } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import thunk from 'redux-thunk';
 
 // App
-import appReducer  from '../redux/reducers'
+import appReducers  from '../redux/reducers'
 
-const initialState = { auth: { isLoggedIn: false }}
+const initialState = {
+  authentication: {
+    isLoggedIn: false
+  }
+}
 
 const store = createStore(
   appReducers,

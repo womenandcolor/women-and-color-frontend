@@ -1,5 +1,8 @@
 import axios from 'axios'
 
+// App
+import { showNotification } from './notification';
+
 const MODULE_NAME = 'REGISTRATION';
 
 const UPDATE_USER_DATA = `${MODULE_NAME}/UPDATE_USER_DATA`;

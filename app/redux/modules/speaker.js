@@ -16,7 +16,6 @@ export function fetchSpeakers() {
   return dispatch => {
     axios.get('//localhost:1337/api/v1/profiles')
     .then(res => {
-      console.log(res)
       dispatch(updateSpeakers(res.data))
     })
     .catch(err => console.log(err))

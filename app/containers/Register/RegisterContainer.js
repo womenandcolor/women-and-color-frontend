@@ -5,8 +5,9 @@ import {
   updateUserData,
   updateProfileData,
   changePage,
+  fetchCities,
   submitForm
-} from '../../redux/modules/register';
+} from '../../redux/modules/registration';
 
 import {
   showNotification,
@@ -67,7 +68,7 @@ function mapStateToProps(state) {
   return {
     user: state.registration.user,
     cities: state.registration.cities,
-    notification: state.notifications.message,
+    notification: state.notification.message,
     page: state.registration.page,
   }
 }

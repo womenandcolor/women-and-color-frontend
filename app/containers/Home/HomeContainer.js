@@ -21,7 +21,7 @@ class HomeContainer extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    speakers: state.speakers.results
+    speakers: state.speaker.results
   }
 }
 
