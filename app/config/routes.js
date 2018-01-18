@@ -7,7 +7,7 @@ import {
   Authenticate, Home, Page, Register,
   Speaker, Profile, Work, Social
 } from 'pages';
-import MainContainer from 'containers/Main/MainContainer';
+import MainContainer from './Main/MainContainer';
 
 
 import store, { history } from '../redux/store'
