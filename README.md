@@ -65,6 +65,12 @@ yarn start
 That's it! Your local development site is now available at:
 [http://localhost:8081/](http://localhost:8081/)
 
+#### Integrating with the backend code
+In order to use the API functionality, the backend code needs to be set up locally as well. The set up steps are:
+- Clone the repo using the command `git clone git@github.com:CivicTechTO/women-and-color-backend.git`
+- Install Docker and docker-compose
+- Run `docker-compose up`. Sometimes the web app comes up before postgres configuration has completed which can cause a failure. If this happens, run `docker-compose up` again.
+
 ## Deployment
 
 [**Heroku**][heroku] is a platform for easily deploying applications.
