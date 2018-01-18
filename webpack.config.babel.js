@@ -40,7 +40,14 @@ const base = {
     ]
   },
   resolve: {
-    modules: [path.resolve('./app'), path.resolve('./node_modules')]
+    modules: [path.resolve('./app'), path.resolve('./node_modules')],
+    alias: {
+      appCommon: path.resolve(__dirname, 'app/common/'),
+      appPages: path.resolve(__dirname, 'app/pages/'),
+      appConfig: path.resolve(__dirname, 'app/config/'),
+      appRedux: path.resolve(__dirname, 'app/redux/'),
+      appHelpers: path.resolve(__dirname, 'app/helpers/')
+    }
   }
 }
 

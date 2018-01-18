@@ -1,34 +1,30 @@
 import React from 'react'
 import { Router, Switch, Route } from 'react-router-dom'
-import createHashHistory from 'history/createHashHistory'
-import {
-  AuthenticateContainer,
-  MainContainer,
-  HomeContainer,
-  PageContainer,
-  RegisterContainer,
-  SpeakerContainer
-} from 'containers'
 import { Provider } from 'react-redux'
-import { createStore } from "redux"
-import { applyMiddleware } from "redux"
-import { appReducers } from '../redux/reducers'
-import thunk from 'redux-thunk';
 
-const initialState = { auth: { isLoggedIn: false }}
-const store = createStore(appReducers, initialState, applyMiddleware(thunk))
-const history = createHashHistory()
+// App
+import {
+  Authenticate, Home, Page, Register,
+  Speaker, Profile, Work, Social
+} from 'pages';
+import MainContainer from './Main/MainContainer';
+
+
+import store, { history } from '../redux/store'
 
 const routes = (
   <Provider store={store}>
     <Router history={history}>
       <MainContainer>
         <Switch>
-          <Route exact path="/" component={HomeContainer} />
-          <Route path="/auth" component={AuthenticateContainer} />
-          <Route path="/about" component={PageContainer} />
-          <Route path="/register" component={RegisterContainer} />
-          <Route path="/speaker" component={SpeakerContainer} />
+          <Route exact path="/" component={Home} />
+          <Route path="/auth" component={Authenticate} />
+          <Route path="/about" component={Page} />
+          <Route path="/register" component={Register} />
+          <Route path="/profile" component={Profile} />
+          <Route path="/work" component={Work} />
+          <Route path="/social" component={Social} />
+          <Route path="/speaker" component={Speaker} />
         </Switch>
       </MainContainer>
     </Router>
