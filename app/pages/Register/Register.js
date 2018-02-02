@@ -11,11 +11,15 @@ import { Link } from 'react-router-dom'
 
 // App
 import {
-  updateUserData,
-  updateProfileData,
-  fetchCities,
-  submitForm
-} from 'appRedux/modules/registration';
+  onChange as onChangeUser,
+  create as submitForm
+} from 'appRedux/modules/user';
+import {
+  onChange as onChangeProfile
+} from 'appRedux/modules/profile';
+import {
+  get as fetchLocations,
+} from 'appRedux/modules/location';
 import StyledButton from 'appCommon/StyledButton';
 import FormField from 'appCommon/FormField';
 import {
@@ -44,24 +48,24 @@ const Register = (props) => {
         <FormField fullWidth className={ css.formControl }>
           <InputLabel htmlFor="speaker-city">City</InputLabel>
           <Select
-              value={props.user && props.user.profile ? props.user.profile.city : props.cities ? props.cities[0].id : '' }
+              value={props.profile && props.profile.city || props.locations && props.locations[0].id || ''}
               onChange={ generateHandlerProfile('city') }
               input={<Input name="city" id="city" />}
             >
             {
-              props.cities && props.cities.map((city, index) => (
-                <MenuItem key={index} value={city.id}>{city.name}</MenuItem>
+              props.locations && props.locations.map((location, index) => (
+                <MenuItem key={index} value={location.id}>{location.city}</MenuItem>
               ))
             }
           </Select>
         </FormField>
 
         <FormField fullWidth className={ css.formControl }>
-          <TextField label="First Name" onChange={ generateHandlerProfile('firstName') } />
+          <TextField label="First Name" onChange={ generateHandlerUser('first_name') } />
         </FormField>
 
         <FormField fullWidth className={ css.formControl }>
-          <TextField label="Last Name" onChange={ generateHandlerProfile('lastName') } />
+          <TextField label="Last Name" onChange={ generateHandlerUser('last_name') } />
         </FormField>
 
         <FormField fullWidth className={ css.formControl }>
@@ -89,15 +93,9 @@ class RegisterContainer extends Component {
   constructor(props) {
     super(props)
     this.state = {}
-    this.props.fetchCities()
-  }
-
-  saveUserInput = (field, value) => {
-    this.props.updateUserData({ [field]: value })
-  }
-
-  saveProfileInput = (field, value) => {
-    this.props.updateProfileData({ [field]: value })
+    this.props.fetchLocations()
+    this.props.onChangeUser({ page: CURRENT_PAGE });
+    this.props.onChangeProfile({ page: CURRENT_PAGE });
   }
 
   render() {
@@ -118,8 +116,12 @@ class RegisterContainer extends Component {
             event.preventDefault();
             this.props.submitForm(this.props.user, CURRENT_PAGE);
           }}
-          handleUserInputChange={this.saveUserInput}
-          handleProfileInputChange={this.saveProfileInput}
+          handleUserInputChange={(field, value) => {
+            this.props.onChangeUser({ [field]: value })
+          }}
+          handleProfileInputChange={(field, value) => {
+            this.props.onChangeProfile({ [field]: value })
+          }}
           {...this.props}
         />
       </div>
@@ -129,19 +131,20 @@ class RegisterContainer extends Component {
 
 function mapStateToProps(state) {
   return {
-    user: state.registration.user,
-    cities: state.registration.cities,
+    user: state.user,
+    profile: state.profile,
+    locations: state.location.locations,
     notification: state.notification.message
   }
 }
 
 function mapDispatchToProps(dispatch, props) {
   return {
-    updateUserData: (attrs) => {
-      dispatch(updateUserData(attrs))
+    onChangeUser: (attrs) => {
+      dispatch(onChangeUser(attrs))
     },
-    updateProfileData: (attrs) => {
-      dispatch(updateProfileData(attrs))
+    onChangeProfile: (attrs) => {
+      dispatch(onChangeProfile(attrs))
     },
     showNotification: (message) => {
       dispatch(showNotification(message))
@@ -149,10 +152,10 @@ function mapDispatchToProps(dispatch, props) {
     hideNotification: () => {
       dispatch(hideNotification())
     },
-    fetchCities: () => {
-      dispatch(fetchCities())
+    fetchLocations: () => {
+      dispatch(fetchLocations())
     },
-    submitForm: (user, page) => {
+    submitForm: (user, profile, page) => {
       dispatch(submitForm(user, page));
     }
   }

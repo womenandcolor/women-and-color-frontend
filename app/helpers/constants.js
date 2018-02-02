@@ -15,3 +15,5 @@ export const registrationFlow = {
     next: '/'
   }
 }
+
+export const BASE_URL_PATH = "http://localhost:8000";

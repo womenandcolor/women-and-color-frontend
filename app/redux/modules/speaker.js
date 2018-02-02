@@ -1,4 +1,6 @@
-import axios from 'axios'
+// App
+import { BASE_URL_PATH } from 'appHelpers/constants';
+import axios from 'appHelpers/axios';
 
 const MODULE_NAME = 'SPEAKER';
 
@@ -14,7 +16,7 @@ export function updateSpeakers(results) {
 // Async Actions
 export function fetchSpeakers() {
   return dispatch => {
-    axios.get('//localhost:1337/api/v1/profiles')
+    axios.get(`${BASE_URL_PATH}/api/v1/profiles`)
     .then(res => {
       dispatch(updateSpeakers(res.data))
     })

@@ -13,9 +13,12 @@ import { Link } from 'react-router-dom'
 
 // App
 import {
-  updateProfileData,
-  submitForm
-} from 'appRedux/modules/registration';
+  update as updateProfile,
+  onChange as onChangeProfile
+} from 'appRedux/modules/profile';
+import {
+  get as getUser
+} from 'appRedux/modules/user';
 import StyledButton from 'appCommon/StyledButton';
 import FormField from 'appCommon/FormField';
 import css from './styles.css'
@@ -61,15 +64,19 @@ class SocialContainer extends Component {
   constructor(props) {
     super(props)
     this.state = {}
+    props.getUser();
+    props.onChangeProfile({ page: CURRENT_PAGE });
   }
 
   render() {
+    const props = this.props;
+
     return(
       <div>
         <Snackbar
           anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-          open={!!this.props.notification}
-          onClose={this.props.closeNotification}
+          open={props.notification}
+          onClose={props.closeNotification}
           autoHideDuration={4000}
           SnackbarContentProps={{
             'aria-describedby': 'message-id',
@@ -79,10 +86,10 @@ class SocialContainer extends Component {
         <Social
           handleSubmit={event => {
             event.preventDefault();
-            this.props.submitForm(this.props.user, CURRENT_PAGE);
+            props.updateProfile();
           }}
           handleProfileInputChange={(field, value) => {
-            this.props.updateProfileData({ [field]: value })
+            props.onChangeProfile({ [field]: value })
           }}
           {...this.props}
         />
@@ -93,15 +100,19 @@ class SocialContainer extends Component {
 
 function mapStateToProps(state) {
   return {
-    user: state.registration.user,
+    user: state.user,
+    profile: state.profile,
     notification: state.notification.message
   }
 }
 
 function mapDispatchToProps(dispatch, props) {
   return {
-    updateProfileData: (attrs) => {
-      dispatch(updateProfileData(attrs))
+    getUser: () => {
+      dispatch(getUser());
+    },
+    onChangeProfile: (attrs) => {
+      dispatch(onChangeProfile(attrs))
     },
     showNotification: (message) => {
       dispatch(showNotification(message))
@@ -109,8 +120,8 @@ function mapDispatchToProps(dispatch, props) {
     hideNotification: () => {
       dispatch(hideNotification())
     },
-    submitForm: (user, page) => {
-      dispatch(submitForm(user, page));
+    updateProfile: () => {
+      dispatch(updateProfile());
     }
   }
 }
