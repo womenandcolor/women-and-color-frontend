@@ -49,7 +49,7 @@ const Profile = (props) => {
           <RadioGroup
             aria-label="woman"
             name="woman"
-            value={props.profile.woman === undefined ? 'true' : props.profile.woman.toString() }
+            value={props.profile.woman === null ? 'true' : props.profile.woman.toString() }
             onChange={generateHandler('woman')}
           >
             <FormControlLabel value='true' control={<Radio />} label="Yes" />
@@ -62,7 +62,7 @@ const Profile = (props) => {
           <RadioGroup
             aria-label="poc"
             name="poc"
-            value={props.profile.poc === undefined ? 'true' : props.profile.poc.toString()}
+            value={props.profile.poc === null ? 'true' : props.profile.poc.toString()}
             onChange={generateHandler('poc')}
           >
             <FormControlLabel value='true' control={<Radio />} label="Yes" />
