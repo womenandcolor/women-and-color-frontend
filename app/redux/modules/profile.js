@@ -85,6 +85,9 @@ export function update() {
 const initialState = {
   isInitialized: false,
   isLoading: false,
+  woman: true,
+  poc: true,
+  pronouns: 'they'
 }
 
 export const reducer = (state=initialState, action) => {
