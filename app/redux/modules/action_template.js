@@ -10,12 +10,12 @@ export const PostRequest = (action) => `${action}/POST_REQUEST`;
 export const PostSuccess = (action) => `${action}/POST_SUCCESS`;
 export const PostError = (action) => `${action}/POST_ERROR`;
 
-export const PatchRequest = (action) => `${action}/PATCH_REQUEST`;
-export const PatchSuccess = (action) => `${action}/PATCH_SUCCESS`;
-export const PatchError = (action) => `${action}/PATCH_ERROR`;
-
 export const PutRequest = (action) => `${action}/PUT_REQUEST`;
 export const PutSuccess = (action) => `${action}/PUT_SUCCESS`;
 export const PutError = (action) => `${action}/PUT_ERROR`;
+
+export const DeleteRequest = (action) => `${action}/DELETE_REQUEST`;
+export const DeleteSuccess = (action) => `${action}/DELETE_SUCCESS`;
+export const DeleteError = (action) => `${action}/DELETE_ERROR`;
 
 export const OnChange = (action) => `${action}/ON_CHANGE`;
