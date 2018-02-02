@@ -11,8 +11,8 @@ import { registrationFlow, BASE_URL_PATH } from 'appHelpers/constants';
 import axios from 'appHelpers/axios';
 import { showNotification } from './notification';
 
-const MODULE_NAME = 'PROFILE';
-const PROFILE_URL = `${BASE_URL_PATH}/api/v1/profiles/`
+const MODULE_NAME = 'profiles';
+const ENDPOINT_URL = `${BASE_URL_PATH}/api/v1/${MODULE_NAME}/`;
 
 // Actions
 function getRequest() {
@@ -21,16 +21,17 @@ function getRequest() {
   }
 }
 
-export function getSuccess(profile) {
+export function getSuccess(data) {
   return {
     type: GetSuccess(MODULE_NAME),
-    profile
+    data
   }
 }
 
-function getError() {
+function getError(error) {
   return {
-    type: GetError(MODULE_NAME)
+    type: GetError(MODULE_NAME),
+    error
   }
 }
 
@@ -40,16 +41,17 @@ function putRequest() {
   }
 }
 
-function putSuccess(profile) {
+function putSuccess(data) {
   return {
     type: PutSuccess(MODULE_NAME),
-    profile
+    data
   }
 }
 
-function putError() {
+function putError(error) {
   return {
-    type: PutError(MODULE_NAME)
+    type: PutError(MODULE_NAME),
+    error
   }
 }
 
@@ -68,7 +70,7 @@ export function update() {
 
     axios({
       method: 'PUT',
-      url: `${PROFILE_URL}${profile.id}/`,
+      url: `${ENDPOINT_URL}${profile.id}/`,
       data: profile,
       responseType: 'json'
     }).then(res => {
@@ -85,9 +87,11 @@ export function update() {
 const initialState = {
   isInitialized: false,
   isLoading: false,
+  isRequesting: false,
   woman: true,
   poc: true,
-  pronouns: 'they'
+  pronouns: 'they',
+  error: null
 }
 
 export const reducer = (state=initialState, action) => {
@@ -95,7 +99,8 @@ export const reducer = (state=initialState, action) => {
     case GetRequest(MODULE_NAME): {
       return {
         ...state,
-        isLoading: true
+        isLoading: true,
+        isRequesting: true
       }
     }
 
@@ -104,35 +109,40 @@ export const reducer = (state=initialState, action) => {
         ...state,
         isInitialized: true,
         isLoading: false,
-        ...action.profile
+        isRequesting: false,
+        ...action.data
       }
     }
 
     case GetError(MODULE_NAME): {
       return {
-        ...state
+        ...state,
+        isRequesting: false,
+        isLoading: false,
+        error: action.error
       }
     }
 
     case PutRequest(MODULE_NAME): {
       return {
         ...state,
-        isLoading: true
+        isRequesting: true
       }
     }
 
     case PutSuccess(MODULE_NAME): {
       return {
         ...state,
-        isInitialized: true,
-        isLoading: false,
-        ...action.profile
+        isRequesting: false,
+        ...action.data
       }
     }
 
     case PutError(MODULE_NAME): {
       return {
-        ...state
+        ...state,
+        isRequesting: false,
+        error: action.error
       }
     }
 

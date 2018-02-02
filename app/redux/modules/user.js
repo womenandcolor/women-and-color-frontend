@@ -16,11 +16,8 @@ import {
   update as updateProfile
 } from 'appRedux/modules/profile';
 
-const MODULE_NAME = 'USER';
-const USER_URL = `${BASE_URL_PATH}/api/v1/users/`;
-
-const UPDATE_USER_DATA = `${MODULE_NAME}/UPDATE_USER_DATA`;
-const UPDATE_PROFILE_DATA = `${MODULE_NAME}/UPDATE_PROFILE_DATA`;
+const MODULE_NAME = 'users';
+const ENDPOINT_URL = `${BASE_URL_PATH}/api/v1/${MODULE_NAME}/`;
 
 
 // Actions
@@ -30,10 +27,10 @@ function getRequest() {
   }
 }
 
-function getSuccess(user) {
+function getSuccess(data) {
   return {
     type: GetSuccess(MODULE_NAME),
-    user
+    data
   }
 }
 
@@ -49,10 +46,10 @@ function postRequest() {
   }
 }
 
-function postSuccess(user) {
+function postSuccess(data) {
   return {
     type: PostSuccess(MODULE_NAME),
-    user
+    data
   }
 }
 
@@ -73,12 +70,12 @@ export function get() {
   return dispatch => {
     dispatch(getRequest());
 
-    axios.get(USER_URL)
+    axios.get(ENDPOINT_URL)
     .then(res => {
       if (res.data) {
-        const user = res.data[0];
-        dispatch(getSuccess(user));
-        dispatch(getProfileSuccess(user.profile));
+        const data = res.data[0];
+        dispatch(getSuccess(data));
+        dispatch(getProfileSuccess(data.profile));
       }
     })
     .catch(err => {
@@ -97,13 +94,12 @@ export function create() {
 
     axios({
       method: 'POST',
-      url: USER_URL,
+      url: ENDPOINT_URL,
       data: user,
       responseType: 'json'
     }).then((res) => {
       dispatch(postSuccess(res.data));
       dispatch(getProfileSuccess(res.data.profile));
-      // dispatch(updateProfile());
       if (page) dispatch(push(registrationFlow[page].next));
       dispatch(showNotification('The user has been created.'));
     }).catch((err) => {
@@ -124,6 +120,7 @@ export function create() {
 const initialState = {
     isInitialized: false,
     isLoading: false,
+    isRequesting: false
 }
 
 export const reducer = (state=initialState, action) => {
@@ -140,7 +137,7 @@ export const reducer = (state=initialState, action) => {
         ...state,
         isInitialized: true,
         isLoading: false,
-        ...action.user
+        ...action.data
       }
     }
 
@@ -161,7 +158,7 @@ export const reducer = (state=initialState, action) => {
       return {
         ...state,
         isRequesting: false,
-        ...action.user
+        ...action.data
       }
     }
 

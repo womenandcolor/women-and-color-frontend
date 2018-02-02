@@ -5,7 +5,8 @@ import {
 import { BASE_URL_PATH } from 'appHelpers/constants';
 import axios from 'appHelpers/axios';
 
-const MODULE_NAME = 'LOCATION';
+const MODULE_NAME = 'locations';
+const ENDPOINT_URL = `${BASE_URL_PATH}/api/v1/${MODULE_NAME}/`;
 
 // Actions
 export function getRequest() {
@@ -14,10 +15,10 @@ export function getRequest() {
   }
 }
 
-export function getSuccess(locations) {
+export function getSuccess(data) {
   return {
     type: GetSuccess(MODULE_NAME),
-    locations
+    data
   }
 }
 
@@ -32,7 +33,7 @@ export function get() {
   return dispatch => {
     dispatch(getRequest());
 
-    axios.get(`${BASE_URL_PATH}/api/v1/locations/`)
+    axios.get(ENDPOINT_URL)
     .then(res => {
       dispatch(getSuccess(res.data));
     })
@@ -46,6 +47,7 @@ export function get() {
 const initialState = {
   isInitialized: false,
   isLoading: false,
+  isRequesting: false,
   locations: null
 }
 
@@ -54,7 +56,8 @@ export const reducer = (state=initialState, action) => {
     case GetRequest(MODULE_NAME): {
       return {
         ...state,
-        isLoading: true
+        isLoading: true,
+        isRequesting: true
       }
     }
 
@@ -63,13 +66,17 @@ export const reducer = (state=initialState, action) => {
         ...state,
         isInitialized: true,
         isLoading: false,
-        locations: action.locations
+        isRequesting: false,
+        locations: action.data
       }
     }
 
     case GetError(MODULE_NAME): {
       return {
-        ...state
+        ...state,
+        isRequesting: false,
+        isLoading: false,
+        error: action.error
       }
     }
 
