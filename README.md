@@ -47,7 +47,7 @@ database that underpins the website.
 
 #### Dependencies
 
-* Node.JS 6.x (Recommended install is [via `nvm`][node-install])
+* Node.JS 8.x (Recommended install is [via `nvm`][node-install])
 
 #### Setting up and running the app
 
@@ -62,8 +62,7 @@ yarn install
 yarn start
 ```
 
-That's it! Your local development site is now available at:
-[http://localhost:8081/](http://localhost:8081/)
+That's it! Your local development site is now available at: http://localhost:8080/
 
 #### Integrating with the backend code
 In order to use the API functionality, the backend code needs to be set up locally as well. The set up steps are:
