@@ -10,12 +10,16 @@ import { MenuItem } from 'material-ui/Menu';
 import Radio, { RadioGroup } from 'material-ui/Radio';
 import { FormLabel, FormControlLabel } from 'material-ui/Form';
 import { Link } from 'react-router-dom'
+import ReactLoading from 'react-loading';
 
 // App
 import {
-  updateProfileData,
-  submitForm
-} from 'appRedux/modules/registration';
+  update as updateProfile,
+  onChange as onChangeProfile
+} from 'appRedux/modules/profile';
+import {
+  get as getUser
+} from 'appRedux/modules/user';
 import StyledButton from 'appCommon/StyledButton';
 import FormField from 'appCommon/FormField';
 import css from './styles.css'
@@ -31,7 +35,7 @@ const Profile = (props) => {
     }
   }
 
-  if (!props.user.id) {
+  if (!props.profile.id) {
     return <div>User is not found [work in progress, please start again at register, to create new user]</div>
   }
 
@@ -45,7 +49,7 @@ const Profile = (props) => {
           <RadioGroup
             aria-label="woman"
             name="woman"
-            value={props.user ? props.user.profile.woman : 'true'}
+            value={props.profile.woman === null ? 'true' : props.profile.woman.toString() }
             onChange={generateHandler('woman')}
           >
             <FormControlLabel value='true' control={<Radio />} label="Yes" />
@@ -58,7 +62,7 @@ const Profile = (props) => {
           <RadioGroup
             aria-label="poc"
             name="poc"
-            value={props.user ? props.user.profile.poc : 'true'}
+            value={props.profile.poc === null ? 'true' : props.profile.poc.toString()}
             onChange={generateHandler('poc')}
           >
             <FormControlLabel value='true' control={<Radio />} label="Yes" />
@@ -71,7 +75,7 @@ const Profile = (props) => {
           <RadioGroup
             aria-label="pronouns"
             name="pronouns"
-            value={props.user ? props.user.profile.pronouns : 'they'}
+            value={props.profile.pronouns || 'they'}
             onChange={generateHandler('pronouns')}
           >
             <FormControlLabel value='they' control={<Radio />} label="They, them, their" />
@@ -108,30 +112,37 @@ class ProfileContainer extends Component {
   constructor(props) {
     super(props)
     this.state = {}
+    props.getUser();
+    props.onChangeProfile({ page: CURRENT_PAGE });
   }
 
   render() {
+    const props = this.props;
+
+    if (!props.profile.isInitialized || props.profile.isLoading) {
+      return <ReactLoading type='spinningBubbles' color='#000000' />
+    }
     return(
       <div>
         <Snackbar
           anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-          open={!!this.props.notification}
-          onClose={this.props.closeNotification}
+          open={!!props.notification}
+          onClose={props.closeNotification}
           autoHideDuration={4000}
           SnackbarContentProps={{
             'aria-describedby': 'message-id',
           }}
-          message={<span id="message-id">{this.props.notification}</span>}
+          message={<span id="message-id">{props.notification}</span>}
         />
         <Profile
           handleSubmit={event => {
             event.preventDefault();
-            this.props.submitForm(this.props.user, CURRENT_PAGE);
+            props.updateProfile();
           }}
           handleProfileInputChange={(field, value) => {
-            this.props.updateProfileData({ [field]: value })
+            props.onChangeProfile({ [field]: value })
           }}
-          {...this.props}
+          {...props}
         />
       </div>
     )
@@ -140,15 +151,19 @@ class ProfileContainer extends Component {
 
 function mapStateToProps(state) {
   return {
-    user: state.registration.user,
+    user: state.user,
+    profile: state.profile,
     notification: state.notification.message
   }
 }
 
 function mapDispatchToProps(dispatch, props) {
   return {
-    updateProfileData: (attrs) => {
-      dispatch(updateProfileData(attrs))
+    getUser: () => {
+      dispatch(getUser());
+    },
+    onChangeProfile: (attrs) => {
+      dispatch(onChangeProfile(attrs))
     },
     showNotification: (message) => {
       dispatch(showNotification(message))
@@ -156,8 +171,8 @@ function mapDispatchToProps(dispatch, props) {
     hideNotification: () => {
       dispatch(hideNotification())
     },
-    submitForm: (user, page) => {
-      dispatch(submitForm(user, page));
+    updateProfile: () => {
+      dispatch(updateProfile());
     }
   }
 }

@@ -52,11 +52,21 @@ const base = {
 }
 
 const developmentConfig = {
+  entry: [
+    'webpack-dev-server/client?http://localhost:8080',
+    'webpack/hot/only-dev-server',
+    PATHS.app
+  ],
   devtool: 'cheap-module-inline-source-map',
   devServer: {
     contentBase: PATHS.build,
     hot: true,
     inline: true,
+  },
+  output: {
+    path: PATHS.build,
+    filename: 'index_bundle.js',
+    publicPath: 'http://localhost:8080/',
   },
   plugins: [HtmlWebpackPluginConfig, new webpack.HotModuleReplacementPlugin()]
 }
