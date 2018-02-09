@@ -66,9 +66,10 @@ export function update() {
   return (dispatch, getState) => {
     dispatch(putRequest());
     const { profile } = getState();
-    const page = profile.page;
+    const page = profile.current_page;
+    profile.page = page;
 
-    axios({
+    return axios({
       method: 'PUT',
       url: `${ENDPOINT_URL}${profile.id}/`,
       data: profile,
@@ -76,7 +77,7 @@ export function update() {
     }).then(res => {
       dispatch(putSuccess(res.data));
       dispatch(showNotification('Your profile has been updated.'));
-      if (page) dispatch(push(registrationFlow[page].next));
+      if (res.data.page) dispatch(push(registrationFlow[res.data.page].next));
     }).catch(err => {
       console.log(err);
       dispatch(putError(err));
