@@ -10,6 +10,7 @@ import { MenuItem } from 'material-ui/Menu';
 import Radio, { RadioGroup } from 'material-ui/Radio';
 import { FormLabel, FormControlLabel } from 'material-ui/Form';
 import { Link } from 'react-router-dom'
+import { push } from 'react-router-redux'
 
 // App
 import {
@@ -65,7 +66,7 @@ class SocialContainer extends Component {
     super(props)
     this.state = {}
     props.getUser();
-    props.onChangeProfile({ page: CURRENT_PAGE });
+    props.onChangeProfile({ current_page: null });
   }
 
   render() {
@@ -121,7 +122,9 @@ function mapDispatchToProps(dispatch, props) {
       dispatch(hideNotification())
     },
     updateProfile: () => {
-      dispatch(updateProfile());
+      dispatch(updateProfile()).then(x => {
+        dispatch(push('/'))
+      });
     }
   }
 }

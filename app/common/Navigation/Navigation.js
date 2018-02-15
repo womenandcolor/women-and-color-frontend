@@ -7,6 +7,7 @@ import Toolbar from 'material-ui/Toolbar';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
 import Menu, { MenuItem } from 'material-ui/Menu';
+import { connect } from 'react-redux'
 
 // App
 import { link, navTitle} from './styles.css'
@@ -41,6 +42,29 @@ class Navigation extends React.Component {
     this.setState({ anchorEl: null });
   };
 
+  renderNavLinksAuthentication = () => {
+    if (this.props.user.id) {
+      return (
+        <div>
+          <MenuItem onClick={this.handleClose}>
+            <a className={link} href='/account/logout'>{'Logout'}</a>
+          </MenuItem>
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          <MenuItem onClick={this.handleClose}>
+            <a className={link} href='/account/login'>{'Login'}</a>
+          </MenuItem>
+          <MenuItem onClick={this.handleClose}>
+            <a className={link} href='/account/signup'>{'Register'}</a>
+          </MenuItem>
+        </div>
+      )
+    }
+  };
+
   render() {
     const { classes } = this.props;
     const { auth, anchorEl } = this.state;
@@ -50,13 +74,13 @@ class Navigation extends React.Component {
       <div className={classes.root}>
         <AppBar position="fixed" className={classes.root}>
           <Toolbar>
-            <Link to='/' className={classes.flex} style={{textDecoration: 'none'}}>
+            <a href='/' className={classes.flex} style={{textDecoration: 'none'}}>
               <h1 className={navTitle}>
                 Women & Color
               </h1>
-            </Link>
+            </a>
             {
-              auth ? <StyledButton>Log out</StyledButton> : <StyledButton component={Link} to="/register">Be a speaker</StyledButton>
+              auth ? <StyledButton>Log out</StyledButton> : <StyledButton to="/register">Be a speaker</StyledButton>
             }
             <div>
               <IconButton
@@ -82,11 +106,9 @@ class Navigation extends React.Component {
                 onClose={this.handleClose}
               >
                 <MenuItem onClick={this.handleClose}>
-                  <Link className={link} to='/about'>{'About'}</Link>
+                  <a className={link} href='#/about'>{'About'}</a>
                 </MenuItem>
-                <MenuItem onClick={this.handleClose}>
-                  <Link className={link} to='/register'>{'Register'}</Link>
-                </MenuItem>
+                { this.renderNavLinksAuthentication() }
               </Menu>
             </div>
           </Toolbar>
@@ -100,4 +122,13 @@ Navigation.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Navigation);
+function mapStateToProps(state) {
+  return {
+    user: state.user,
+    profile: state.profile
+  }
+}
+
+export default connect(
+  mapStateToProps
+)(withStyles(styles)(Navigation));

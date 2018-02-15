@@ -76,6 +76,7 @@ export function get() {
         const data = res.data[0];
         dispatch(getSuccess(data));
         dispatch(getProfileSuccess(data.profile));
+        if (data.profile.page) dispatch(push(registrationFlow[data.profile.page].next));
       }
     })
     .catch(err => {
@@ -100,11 +101,9 @@ export function create() {
     }).then((res) => {
       dispatch(postSuccess(res.data));
       dispatch(getProfileSuccess(res.data.profile));
-      if (page) dispatch(push(registrationFlow[page].next));
       dispatch(showNotification('The user has been created.'));
     }).catch((err) => {
       console.log(err);
-
       if (err.response && err.response.data) {
         const errorList = lodash.map(err.response.data, (v, k) => {
           return `${k}: ${v}`;

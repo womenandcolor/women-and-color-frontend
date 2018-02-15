@@ -9,7 +9,8 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 })
 
 const PATHS = {
-  app: path.join(__dirname, 'app/'),
+  app: path.join(__dirname, 'app/', 'entry/', 'index.js'),
+  navigation: path.join(__dirname, 'app/', 'entry/', 'navigation.js'),
   build: path.join(__dirname, 'dist'),
 }
 
@@ -25,13 +26,22 @@ const productionPlugin = new webpack.DefinePlugin({
   }
 })
 
+const baseEntry = {
+  'app': PATHS.app,
+  'navigation': PATHS.navigation
+};
+
+const developEntry = {};
+Object.keys(baseEntry).forEach(function(key) {
+  var entryPoint = baseEntry[key];
+  developEntry[key] = ['webpack-dev-server/client?http://0.0.0.0:8080', 'webpack/hot/only-dev-server', entryPoint];
+});
+
 const base = {
-  entry: [
-    PATHS.app
-  ],
+  entry: baseEntry,
   output: {
     path: PATHS.build,
-    filename: 'index_bundle.js'
+    filename: '[name].js',
   },
   module: {
     loaders: [
@@ -52,11 +62,7 @@ const base = {
 }
 
 const developmentConfig = {
-  entry: [
-    'webpack-dev-server/client?http://localhost:8080',
-    'webpack/hot/only-dev-server',
-    PATHS.app
-  ],
+  entry: developEntry,
   devtool: 'cheap-module-inline-source-map',
   devServer: {
     contentBase: PATHS.build,
@@ -65,7 +71,7 @@ const developmentConfig = {
   },
   output: {
     path: PATHS.build,
-    filename: 'index_bundle.js',
+    filename: '[name].js',
     publicPath: 'http://localhost:8080/',
   },
   plugins: [HtmlWebpackPluginConfig, new webpack.HotModuleReplacementPlugin()]

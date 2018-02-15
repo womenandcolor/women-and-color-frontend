@@ -6,6 +6,9 @@ import { connect } from 'react-redux';;
 import SpeakerCard from './components/SpeakerCard'
 import css from './styles.css'
 import { fetchSpeakers } from 'appRedux/modules/speaker';
+import {
+  get as getUser
+} from 'appRedux/modules/user';
 
 const Home = (props) => {
   return (
@@ -51,7 +54,8 @@ class HomeContainer extends Component {
   constructor(props) {
     super(props)
     this.state = {}
-    this.props.fetchSpeakers()
+    this.props.getUser();
+    this.props.fetchSpeakers();
   }
 
   render() {
@@ -72,7 +76,10 @@ const mapDispatchToProps = (dispatch) => {
   return {
     fetchSpeakers: () => {
       dispatch(fetchSpeakers())
-    }
+    },
+    getUser: () => {
+      dispatch(getUser());
+    },
   }
 }
 

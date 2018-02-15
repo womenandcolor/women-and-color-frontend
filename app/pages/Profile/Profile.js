@@ -113,7 +113,7 @@ class ProfileContainer extends Component {
     super(props)
     this.state = {}
     props.getUser();
-    props.onChangeProfile({ page: CURRENT_PAGE });
+    props.onChangeProfile({ current_page: CURRENT_PAGE });
   }
 
   render() {
