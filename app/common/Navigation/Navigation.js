@@ -47,7 +47,7 @@ class Navigation extends React.Component {
       return (
         <div>
           <MenuItem onClick={this.handleClose}>
-            <a className={link} href='/account/logout'>{'Logout'}</a>
+            <a className={link} href='/accounts/logout'>{'Logout'}</a>
           </MenuItem>
         </div>
       )
@@ -55,10 +55,10 @@ class Navigation extends React.Component {
       return (
         <div>
           <MenuItem onClick={this.handleClose}>
-            <a className={link} href='/account/login'>{'Login'}</a>
+            <a className={link} href='/accounts/login'>{'Login'}</a>
           </MenuItem>
           <MenuItem onClick={this.handleClose}>
-            <a className={link} href='/account/signup'>{'Register'}</a>
+            <a className={link} href='/accounts/signup'>{'Register'}</a>
           </MenuItem>
         </div>
       )
@@ -80,7 +80,7 @@ class Navigation extends React.Component {
               </h1>
             </a>
             {
-              auth ? <StyledButton>Log out</StyledButton> : <StyledButton to="/register">Be a speaker</StyledButton>
+              auth ? <StyledButton href="/accounts/logout">Log out</StyledButton> : <StyledButton href="/accounts/signup">Be a speaker</StyledButton>
             }
             <div>
               <IconButton
@@ -106,7 +106,7 @@ class Navigation extends React.Component {
                 onClose={this.handleClose}
               >
                 <MenuItem onClick={this.handleClose}>
-                  <a className={link} href='#/about'>{'About'}</a>
+                  <a className={link} href='/#/about'>{'About'}</a>
                 </MenuItem>
                 { this.renderNavLinksAuthentication() }
               </Menu>

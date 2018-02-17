@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 
 // App
 import {
-  Authenticate, Home, Page, Register,
+  Home, Page, Register,
   Speaker, Profile, Work, Social
 } from 'pages';
 import MainContainer from './Main/MainContainer';
@@ -18,9 +18,7 @@ const routes = (
       <MainContainer>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/auth" component={Authenticate} />
           <Route path="/about" component={Page} />
-          <Route path="/register" component={Register} />
           <Route path="/profile" component={Profile} />
           <Route path="/work" component={Work} />
           <Route path="/social" component={Social} />

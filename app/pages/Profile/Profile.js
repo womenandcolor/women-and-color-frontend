@@ -45,6 +45,29 @@ const Profile = (props) => {
         <h1>Tell us about you</h1>
 
         <FormField fullWidth className={ css.formControl }>
+          <InputLabel htmlFor="speaker-city">City</InputLabel>
+          <Select
+              value={props.profile && props.profile.city || props.locations && props.locations[0].id || ''}
+              onChange={ generateHandler('city') }
+              input={<Input name="city" id="city" />}
+            >
+            {
+              props.locations && props.locations.map((location, index) => (
+                <MenuItem key={index} value={location.id}>{location.city}</MenuItem>
+              ))
+            }
+          </Select>
+        </FormField>
+
+        <FormField fullWidth className={ css.formControl }>
+          <TextField label="First Name" onChange={ generateHandler('first_name') } />
+        </FormField>
+
+        <FormField fullWidth className={ css.formControl }>
+          <TextField label="Last Name" onChange={ generateHandler('last_name') } />
+        </FormField>
+
+        <FormField fullWidth className={ css.formControl }>
           <FormLabel component="legend">Do you identify as a woman?</FormLabel>
           <RadioGroup
             aria-label="woman"
