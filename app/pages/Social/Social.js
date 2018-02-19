@@ -76,7 +76,7 @@ class SocialContainer extends Component {
       <div>
         <Snackbar
           anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-          open={props.notification}
+          open={!!props.notification}
           onClose={props.closeNotification}
           autoHideDuration={4000}
           SnackbarContentProps={{
