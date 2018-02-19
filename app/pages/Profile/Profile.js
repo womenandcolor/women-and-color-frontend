@@ -50,7 +50,7 @@ const Profile = (props) => {
         <FormField fullWidth className={ css.formControl }>
           <InputLabel htmlFor="speaker-location">City</InputLabel>
           <Select
-              value={props.profile && props.profile.location || props.locations && props.locations[0].id || ''}
+              value={props.profile && props.profile.location || props.locations[0] && props.locations[0].id || ''}
               onChange={ generateHandler('location') }
               input={<Input name="location" id="location" />}
             >

@@ -39,15 +39,15 @@ const Social = (props) => {
         <h1>Be a little social</h1>
 
         <FormField fullWidth className={ css.formControl }>
-          <TextField label="Twitter(optional)" onChange={ generateHandler('twitter') } />
+          <TextField label="Twitter (optional)" onChange={ generateHandler('twitter') } />
         </FormField>
 
         <FormField fullWidth className={ css.formControl }>
-          <TextField label="LinkedIn(optional)" onChange={ generateHandler('linkedin') } />
+          <TextField label="LinkedIn (optional)" onChange={ generateHandler('linkedin') } />
         </FormField>
 
         <FormField fullWidth className={ css.formControl }>
-          <TextField label="Website(optional)" onChange={ generateHandler('website') } />
+          <TextField label="Website (optional)" onChange={ generateHandler('website') } />
         </FormField>
 
         <div>
@@ -76,7 +76,7 @@ class SocialContainer extends Component {
       <div>
         <Snackbar
           anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-          open={props.notification}
+          open={!!props.notification}
           onClose={props.closeNotification}
           autoHideDuration={4000}
           SnackbarContentProps={{
