@@ -7,6 +7,7 @@ import SpeakerCard from './components/SpeakerCard';
 import Sidebar from './components/Sidebar';
 import css from './styles.css';
 import { fetchSpeakers } from 'appRedux/modules/speaker';
+import { get as getLocations } from 'appRedux/modules/location';
 import {
   get as getUser
 } from 'appRedux/modules/user';
@@ -16,7 +17,7 @@ const Home = (props) => {
     <div className="container">
 
       <div className="row">
-          <Sidebar />
+          <Sidebar locations={props.locations} />
 
           <div className="col-lg-9">
             <div className={css.contentTitles}>{'Speakers in Toronto for all topics'}</div>
@@ -38,6 +39,7 @@ class HomeContainer extends Component {
     super(props)
     this.state = {}
     this.props.getUser();
+    this.props.getLocations();
     this.props.fetchSpeakers();
   }
 
@@ -49,7 +51,7 @@ class HomeContainer extends Component {
 
   render() {
     return (
-      <Home speakers={this.props.speakers} />
+      <Home speakers={this.props.speakers} locations={this.props.locations} />
     )
   }
 }
@@ -58,6 +60,7 @@ class HomeContainer extends Component {
 const mapStateToProps = (state) => {
   return {
     speakers: state.speaker.results,
+    locations: state.location.locations,
     searchParams: state.speaker.searchParams
   }
 }
@@ -69,6 +72,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     getUser: () => {
       dispatch(getUser());
+    },
+    getLocations: () => {
+      dispatch(getLocations());
     },
   }
 }

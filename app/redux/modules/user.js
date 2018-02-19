@@ -72,7 +72,7 @@ export function get() {
 
     axios.get(ENDPOINT_URL)
     .then(res => {
-      if (res.data) {
+      if (res.data[0]) {
         const data = res.data[0];
         dispatch(getSuccess(data));
         dispatch(getProfileSuccess(data.profile));
