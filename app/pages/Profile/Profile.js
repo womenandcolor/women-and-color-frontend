@@ -20,6 +20,9 @@ import {
 import {
   get as getUser
 } from 'appRedux/modules/user';
+import {
+  get as getLocations
+} from 'appRedux/modules/location';
 import StyledButton from 'appCommon/StyledButton';
 import FormField from 'appCommon/FormField';
 import css from './styles.css'
@@ -45,11 +48,11 @@ const Profile = (props) => {
         <h1>Tell us about you</h1>
 
         <FormField fullWidth className={ css.formControl }>
-          <InputLabel htmlFor="speaker-city">City</InputLabel>
+          <InputLabel htmlFor="speaker-location">City</InputLabel>
           <Select
-              value={props.profile && props.profile.city || props.locations && props.locations[0].id || ''}
-              onChange={ generateHandler('city') }
-              input={<Input name="city" id="city" />}
+              value={props.profile && props.profile.location || props.locations[0] && props.locations[0].id || ''}
+              onChange={ generateHandler('location') }
+              input={<Input name="location" id="location" />}
             >
             {
               props.locations && props.locations.map((location, index) => (
@@ -136,6 +139,7 @@ class ProfileContainer extends Component {
     super(props)
     this.state = {}
     props.getUser();
+    props.getLocations();
     props.onChangeProfile({ current_page: CURRENT_PAGE });
   }
 
@@ -176,7 +180,8 @@ function mapStateToProps(state) {
   return {
     user: state.user,
     profile: state.profile,
-    notification: state.notification.message
+    notification: state.notification.message,
+    locations: state.location.locations
   }
 }
 
@@ -184,6 +189,9 @@ function mapDispatchToProps(dispatch, props) {
   return {
     getUser: () => {
       dispatch(getUser());
+    },
+    getLocations: () => {
+      dispatch(getLocations());
     },
     onChangeProfile: (attrs) => {
       dispatch(onChangeProfile(attrs))

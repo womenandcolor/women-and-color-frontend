@@ -26,7 +26,6 @@ const styles = {
 
 class Navigation extends React.Component {
   state = {
-    auth: this.props.isAuthed,
     anchorEl: null,
   };
 
@@ -67,7 +66,7 @@ class Navigation extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { auth, anchorEl } = this.state;
+    const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
 
     return (
@@ -80,7 +79,7 @@ class Navigation extends React.Component {
               </h1>
             </a>
             {
-              auth ? <StyledButton href="/accounts/logout">Log out</StyledButton> : <StyledButton href="/accounts/signup">Be a speaker</StyledButton>
+              this.props.user.id ? <StyledButton href="/accounts/logout">Log out</StyledButton> : <StyledButton href="/accounts/signup">Be a speaker</StyledButton>
             }
             <div>
               <IconButton

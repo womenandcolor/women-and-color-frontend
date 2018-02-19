@@ -28,7 +28,7 @@ const MainContainer = (props) => (
   <Provider store={store}>
     <MuiThemeProvider theme={theme}>
       <div className={container}>
-        <Navigation isAuthed={false} />
+        <Navigation />
       </div>
     </MuiThemeProvider>
   </Provider>

@@ -48,7 +48,7 @@ const initialState = {
   isInitialized: false,
   isLoading: false,
   isRequesting: false,
-  locations: null
+  locations: []
 }
 
 export const reducer = (state=initialState, action) => {
