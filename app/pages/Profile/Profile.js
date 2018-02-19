@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom'
 import ReactLoading from 'react-loading';
 
 // App
+import axios from 'appHelpers/axios';
 import {
   update as updateProfile,
   onChange as onChangeProfile
@@ -25,7 +26,8 @@ import {
 } from 'appRedux/modules/location';
 import StyledButton from 'appCommon/StyledButton';
 import FormField from 'appCommon/FormField';
-import css from './styles.css'
+import { BASE_URL_PATH } from 'appHelpers/constants';
+import css from './styles.css';
 
 
 const CURRENT_PAGE = 'profile';
@@ -50,7 +52,7 @@ const Profile = (props) => {
         <FormField fullWidth className={ css.formControl }>
           <InputLabel htmlFor="speaker-location">City</InputLabel>
           <Select
-              value={props.profile && props.profile.location || props.locations && props.locations[0].id || ''}
+              value={props.profile.location}
               onChange={ generateHandler('location') }
               input={<Input name="location" id="location" />}
             >
@@ -112,20 +114,17 @@ const Profile = (props) => {
 
         <FormField className={ css.formControl }>
           <FormLabel component="legend">Upload your photo</FormLabel>
-          <StyledButton
-            component='label'
-            label='Browse files'>
-            <span className={ css.buttonLabel }>Browse files</span>
-            <input type="file" id="photo" name="photo" style={{ display: 'none' }}/>
-          </StyledButton>
+            <input
+              type="file"
+              id="photo"
+              name="photo"
+              onChange={ props.handleImageChange }
+            />
         </FormField>
 
         <div>
           <FormField className={ css.formControl }>
             <StyledButton label="Submit" type="submit">Save and continue</StyledButton>
-          </FormField>
-          <FormField className={ css.formControl }>
-            <p onClick={ props.handleSubmit } style={{ cursor: 'pointer' }}>Save and exit</p>
           </FormField>
         </div>
       </form>
@@ -138,9 +137,30 @@ class ProfileContainer extends Component {
   constructor(props) {
     super(props)
     this.state = {}
+    this.handleImageChange = (e) => this._handleImageChange(e);
     props.getUser();
     props.getLocations();
     props.onChangeProfile({ current_page: CURRENT_PAGE });
+  }
+
+  _handleImageChange(event) {
+    const file = event.currentTarget.files[0];
+    const data = new FormData();
+    data.append('file', file)
+    data.append('profile', this.props.profile.id)
+    const url = `${BASE_URL_PATH}/api/v1/images/`;
+
+    axios({
+      url,
+      data,
+      method: 'post',
+      responseType: 'json',
+    }).then(res => {
+      this.props.onChangeProfile({ image: res.data.file })
+      console.log(res)
+    }).catch(err => {
+      console.log(err)
+    })
   }
 
   render() {
@@ -169,6 +189,7 @@ class ProfileContainer extends Component {
           handleProfileInputChange={(field, value) => {
             props.onChangeProfile({ [field]: value })
           }}
+          handleImageChange={this.handleImageChange}
           {...props}
         />
       </div>

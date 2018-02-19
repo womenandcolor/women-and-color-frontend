@@ -49,9 +49,6 @@ const Work = (props) => {
           <FormField className={ css.formControl }>
             <StyledButton label="Submit" type="submit">Save and continue</StyledButton>
           </FormField>
-          <FormField className={ css.formControl }>
-            <p onClick={ props.handleSubmit } style={{ cursor: 'pointer' }}>Save and exit</p>
-          </FormField>
         </div>
       </form>
 
