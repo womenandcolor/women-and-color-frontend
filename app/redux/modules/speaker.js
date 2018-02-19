@@ -37,9 +37,7 @@ export function fetchSpeakers(params={}) {
   const queryString = compacted.join('&');
 
   return dispatch => {
-    const url = `${BASE_URL_PATH}/api/v1/profiles?${queryString}`;
-    console.log(url)
-    axios.get(url)
+    axios.get(`${BASE_URL_PATH}/api/v1/profiles?${queryString}`)
     .then(res => {
       console.log('response', res)
       dispatch(updateSpeakers(res.data))
