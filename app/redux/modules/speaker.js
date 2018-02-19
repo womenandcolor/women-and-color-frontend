@@ -1,5 +1,8 @@
+// NPM
+import { map, compact } from 'lodash';
+
 // App
-import { BASE_URL_PATH, SPEAKER_SEARCH_PARAMS } from 'appHelpers/constants';
+import { BASE_URL_PATH, SPEAKER_SEARCH_PARAMS, IDENTITIES } from 'appHelpers/constants';
 import axios from 'appHelpers/axios';
 
 const MODULE_NAME = 'SPEAKER';
@@ -25,9 +28,16 @@ export function updateSelection(selected) {
 
 // Async Actions
 export function fetchSpeakers(params={}) {
+  const queryParams = map(params, (v,k) => {
+    if (!!v) {
+      return `${k}=${v}`;
+    }
+  });
+  const compacted = compact(queryParams);
+  const queryString = compacted.join('&');
 
   return dispatch => {
-    axios.get(`${BASE_URL_PATH}/api/v1/profiles`)
+    axios.get(`${BASE_URL_PATH}/api/v1/profiles?${queryString}`)
     .then(res => {
       dispatch(updateSpeakers(res.data))
     })
@@ -36,7 +46,14 @@ export function fetchSpeakers(params={}) {
 }
 
 // Reducer
-export const reducer = (state = { results: [], searchParams: {} }, action) => {
+const INITIAL_STATE = {
+  results: [],
+  searchParams: {},
+  selectedLocation: null,
+  selectedIdentity: IDENTITIES[0].label,
+}
+
+export const reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case UPDATE_SPEAKERS:
       return {

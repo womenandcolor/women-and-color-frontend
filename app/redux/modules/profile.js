@@ -1,5 +1,6 @@
 // NPM
-import { push } from 'react-router-redux'
+import { push } from 'react-router-redux';
+import { omitBy, isNil } from 'lodash';
 
 // App
 import {
@@ -106,12 +107,14 @@ export const reducer = (state=initialState, action) => {
     }
 
     case GetSuccess(MODULE_NAME): {
+      const profileData = omitBy(action.data, isNil);
+
       return {
         ...state,
         isInitialized: true,
         isLoading: false,
         isRequesting: false,
-        ...action.data
+        ...profileData
       }
     }
 

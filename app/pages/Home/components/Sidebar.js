@@ -8,20 +8,28 @@ import { updateSearchParams, updateSelection } from 'appRedux/modules/speaker';
 import { CITIES, IDENTITIES } from 'appHelpers/constants';
 
 const Sidebar = (props) => {
+  const allCitiesItem = {
+    city: 'All cities',
+    id: null
+  }
+  if (props.locations[0] && props.locations[0].city !== allCitiesItem.city) {
+    props.locations.unshift(allCitiesItem)
+  }
+
   return(
     <div className="col-lg-3">
       <h2 className={css.sidebarTitles}>CITY</h2>
         <ul className="list-unstyled">
           {
-            CITIES.map((city, index) => {
-              const selector = city.label === props.selectedCity ? 'sidebarObjectSelected' : 'sidebarObject';
+            props.locations.map((location, index) => {
+              const selector = location.id === props.selectedLocation ? 'sidebarObjectSelected' : 'sidebarObject';
               const handleClick = () => {
-                props.updateSearchParams(city.value);
-                props.updateSelection({ selectedCity: city.label });
+                props.updateSearchParams({ location: location.id });
+                props.updateSelection({ selectedLocation: location.id });
               }
 
               return (
-                <li key={index} className={css[selector]} onClick={handleClick}>{city.label}</li>
+                <li key={index} className={css[selector]} onClick={handleClick}>{location.city}</li>
               )
             })
           }
@@ -50,7 +58,7 @@ const Sidebar = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    selectedCity: state.speaker.selectedCity,
+    selectedLocation: state.speaker.selectedLocation,
     selectedIdentity: state.speaker.selectedIdentity
   }
 }
