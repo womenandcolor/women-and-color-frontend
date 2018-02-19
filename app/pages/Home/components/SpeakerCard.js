@@ -8,7 +8,7 @@ const SpeakerCard = (props) => {
   return (
     <div className={css.contentCard}>
       <div className={css.photo}>
-        <img style={{height: '100%', width: '100%'}} src={props.speaker.image} alt={name} />
+        <img src={props.speaker.image} alt={name} />
       </div>
       <div className={css.info}>
         <h3 className={css.name}>{name}</h3>

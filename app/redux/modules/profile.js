@@ -93,6 +93,7 @@ const initialState = {
   woman: true,
   poc: true,
   pronouns: 'they',
+  location: 1,
   error: null
 }
 

@@ -93,6 +93,12 @@
   background: #e5e8f5;
   border-radius: 50%;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+.photo img {
+  height: 100%;
 }
 
 .name {
