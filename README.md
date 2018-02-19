@@ -47,7 +47,7 @@ database that underpins the website.
 
 #### Dependencies
 
-* Node.JS 6.x (Recommended install is [via `nvm`][node-install])
+* Node.JS 8.x (Recommended install is [via `nvm`][node-install])
 
 #### Setting up and running the app
 
