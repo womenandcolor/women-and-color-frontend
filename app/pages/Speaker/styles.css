@@ -1,0 +1,78 @@
+/* SpeakerCard */
+
+.speakerCard {
+  margin-bottom: 1rem;
+}
+
+.speakerPhoto {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.speakerName {
+  color: #000000;
+  font-family: "Open Sans";
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 32px;
+  margin-bottom: 0;
+}
+
+.speakerTitle {
+  /* color: #424242; */
+  font-family: "Open Sans";
+  font-size: 16px;
+  line-height: 24px;
+  margin-bottom: 0;
+}
+
+.speakerOrganization {
+  margin-bottom: 1rem;
+}
+
+.speakerTags {
+  /* color: #757575; */
+  font-family: "Open Sans";
+  font-size: 14px;
+  line-height: 21px;
+  margin-bottom: 0;
+}
+
+/* Profile Info */
+
+.profileInfoHeader {
+  color: var(--color-grey-dark);
+  font-weight: var(--font-weight-light);
+}
+
+.profileInfoDescription {
+  color: var(--color-grey-dark);
+  margin-bottom: 2rem;
+}
+
+/* FeaturedTalks */
+
+.featuredTalksHeader {
+  color: var(--color-grey-dark);
+  font-size: 1rem;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--color-grey-light);
+}
+
+.talksWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.talkCard {
+  flex: 0 1 100%;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 576px) {
+  .talkCard {
+    flex: 0 1 calc(50% - 1rem);
+  }
+}
