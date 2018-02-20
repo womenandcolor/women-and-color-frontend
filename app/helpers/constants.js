@@ -16,7 +16,8 @@ export const registrationFlow = {
   }
 };
 
-export const BASE_URL_PATH = "http://localhost:8000";
+// export const BASE_URL_PATH = "http://localhost:8000";
+export const BASE_URL_PATH = "https://women-and-color-backend.herokuapp.com";
 
 export const IDENTITIES = [
   { label: 'All speakers', value: { woman: null, poc: null } },
