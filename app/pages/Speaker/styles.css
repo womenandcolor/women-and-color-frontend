@@ -10,34 +10,71 @@
   margin-bottom: 1rem;
 }
 
+.speakerPhoto img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 100%;
+}
+
+.speakerInfo {
+  text-align: center;
+}
+
 .speakerName {
   font-size: 24px;
   font-weight: 600;
   line-height: 32px;
+  margin-top: 0;
   margin-bottom: 0;
 }
 
 .speakerTitle {
   font-size: 16px;
   line-height: 24px;
+  margin-top: 0;
   margin-bottom: 0;
 }
 
 .speakerOrganization {
-  margin-bottom: 1rem !important; /* ugh materialize does [.card .card-content p] */
+  margin-top: 0;
+  margin-bottom: 1rem;
 }
 
 .speakerTags {
   font-size: 14px;
   line-height: 21px;
+  margin-top: 0;
   margin-bottom: 0;
+}
+
+.speakerInfoListPronouns {
+  text-align: center;
+  padding-right: 0 !important; /* override material-ui padding so text can really center */
+}
+
+.speakerInfoListLocation {
+  text-align: center;
+  padding-right: 0 !important; /* override material-ui padding so text can really center */
+}
+
+.speakerInfoListSocial {
+  justify-content: space-around !important; /* override materiaul-ui jc */
 }
 
 /* Profile Info */
 
-.profileInfoHeader {
+.sectionHeader {
+  font-size: 2rem;
   color: var(--color-grey-dark);
   font-weight: var(--font-weight-light);
+  margin-top: 0.5rem;
+}
+
+.sectionSubHeader {
+  color: var(--color-grey-dark);
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--color-grey-light);
+  font-weight: var(--font-weight-semibold);
 }
 
 .profileInfoDescription {
@@ -46,12 +83,6 @@
 }
 
 /* FeaturedTalks */
-
-.featuredTalksHeader {
-  color: var(--color-grey-dark);
-  text-transform: uppercase;
-  border-bottom: 1px solid var(--color-grey-light);
-}
 
 .talksWrapper {
   display: flex;
@@ -69,3 +100,20 @@
     flex: 0 1 calc(50% - 1rem);
   }
 }
+
+.talkCardImage {
+  height: 12rem;
+}
+
+.talkCardHeader {
+  font-size: 1rem;
+  color: var(--color-grey-dark);
+  font-weight: var(--font-weight-semibold);
+  margin-top: 0;
+}
+
+.talkCardLink {
+  /* todo color, text-decoration, etc */
+}
+
+/* MessageSpeakerForm */

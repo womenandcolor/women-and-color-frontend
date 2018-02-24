@@ -1,12 +1,13 @@
 import React, { PropTypes } from "react";
-import StyledButton from "appCommon/StyledButton";
+
+// App
 import css from "../styles.css";
 
 const ProfileInfo = ({ speaker }) => {
   const title = `About ${speaker.first_name}`;
   return (
     <div>
-      <h4 className={css.profileInfoHeader}>{title}</h4>
+      <h2 className={css.sectionHeader}>{title}</h2>
       <p className={css.profileInfoDescription}>
         {speaker.description ? speaker.description : "No description provided"}
       </p>

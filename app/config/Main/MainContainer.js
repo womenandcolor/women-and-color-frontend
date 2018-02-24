@@ -21,8 +21,7 @@ const MainContainer = props => (
   <MuiThemeProvider theme={theme}>
     <div className={container}>
       <Navigation isAuthed={false} />
-      {/* "container" below is the materialize class */}
-      <div className={`container ${innerContainer}`}>{props.children}</div>
+      <div className={innerContainer}>{props.children}</div>
     </div>
   </MuiThemeProvider>
 );

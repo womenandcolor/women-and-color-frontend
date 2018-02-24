@@ -1,26 +1,28 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getSpeaker } from "appRedux/modules/speaker";
+import Grid from "material-ui/Grid";
 
 // App
 import ProfileCard from "./components/ProfileCard";
 import ProfileInfo from "./components/ProfileInfo";
 import FeaturedTalks from "./components/FeaturedTalks";
+import MessageSpeakerForm from "./components/MessageSpeakerForm";
 
 const Speaker = props => {
   console.log("Speaker", props);
+  const { speaker, talks } = props;
   return (
-    <div>
-      <div className="row">
-        <div className="col m4">
-          <ProfileCard speaker={props.speaker} />
-        </div>
-        <div className="col m8">
-          <ProfileInfo speaker={props.speaker} />
-          <FeaturedTalks talks={props.talks} />
-        </div>
-      </div>
-    </div>
+    <Grid container>
+      <Grid item xs={12} md={4}>
+        <ProfileCard speaker={speaker} />
+      </Grid>
+      <Grid item xs={12} md={8}>
+        <ProfileInfo speaker={speaker} />
+        <FeaturedTalks talks={talks} />
+        <MessageSpeakerForm speaker={speaker} />
+      </Grid>
+    </Grid>
   );
 };
 
@@ -33,10 +35,7 @@ class SpeakerContainer extends Component {
 
   render() {
     return this.props.speaker ? (
-      <Speaker
-        speaker={this.props.speaker}
-        talks={this.props.featuredTalks}
-      />
+      <Speaker speaker={this.props.speaker} talks={this.props.featuredTalks} />
     ) : (
       <div>Loading...</div>
     );

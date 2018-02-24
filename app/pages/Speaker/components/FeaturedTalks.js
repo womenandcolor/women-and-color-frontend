@@ -1,27 +1,28 @@
 import React, { PropTypes } from "react";
-import StyledButton from "appCommon/StyledButton";
+import Card, { CardContent, CardMedia } from "material-ui/Card";
+
+// App
 import css from "../styles.css";
 
 const FeaturedTalk = props => {
+  const { talk } = props;
   return (
-    <article className={`card ${css.talkCard}`}>
-      <div className="card-image">
-        <img src={props.talk.image} />
-      </div>
-      <div className="card-content">
-        <h5>{props.talk.organization}</h5>
-        <p>
-          <a href={props.talk.url}>{props.talk.name}</a>
-        </p>
-      </div>
-    </article>
+    <Card elevation={6} className={css.talkCard}>
+      <CardMedia image={talk.image} className={css.talkCardImage} />
+      <CardContent>
+        <h2 className={css.talkCardHeader}>{props.talk.organization}</h2>
+        <a className={css.talkCardLink} href={props.talk.url}>
+          {props.talk.name}
+        </a>
+      </CardContent>
+    </Card>
   );
 };
 
 const FeaturedTalks = props => {
   return (
     <section>
-      <h6 className={css.featuredTalksHeader}>Featured Talks and Links</h6>
+      <h4 className={css.sectionSubHeader}>Featured Talks and Links</h4>
       <div className={css.talksWrapper}>
         {props.talks.map(talk => <FeaturedTalk talk={talk} key={talk.id} />)}
       </div>
