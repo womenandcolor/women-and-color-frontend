@@ -6,7 +6,6 @@ import { getSpeaker } from "appRedux/modules/speaker";
 import ProfileCard from "./components/ProfileCard";
 import ProfileInfo from "./components/ProfileInfo";
 import FeaturedTalks from "./components/FeaturedTalks";
-import SimilarSpeakers from "./components/SimilarSpeakers";
 
 const Speaker = props => {
   console.log("Speaker", props);
@@ -21,7 +20,6 @@ const Speaker = props => {
           <FeaturedTalks talks={props.talks} />
         </div>
       </div>
-      <SimilarSpeakers speakers={props.similarSpeakers} />
     </div>
   );
 };
@@ -38,7 +36,6 @@ class SpeakerContainer extends Component {
       <Speaker
         speaker={this.props.speaker}
         talks={this.props.featuredTalks}
-        similarSpeakers={this.props.similarSpeakers}
       />
     ) : (
       <div>Loading...</div>
@@ -74,7 +71,6 @@ function mapStateToProps(state) {
   return {
     speaker: state.speaker.speaker,
     featuredTalks: mockFeaturedTalks, // state.featuredTalks,
-    similarSpeakers: mockSimilarSpeakers, // state.similarSpeakers,
     notification: state.notification.message
   };
 }
