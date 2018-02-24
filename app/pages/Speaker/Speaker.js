@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { getSpeaker } from "appRedux/modules/speaker";
 
 // App
 import ProfileCard from "./components/ProfileCard";
@@ -12,10 +13,10 @@ const Speaker = props => {
   return (
     <div>
       <div className="row">
-        <div className="col-md-4">
+        <div className="col m4">
           <ProfileCard speaker={props.speaker} />
         </div>
-        <div className="col-md-8">
+        <div className="col m8">
           <ProfileInfo speaker={props.speaker} />
           <FeaturedTalks talks={props.talks} />
         </div>
@@ -29,42 +30,21 @@ class SpeakerContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    // this.props.fetchSpeakers()
+    props.getSpeaker(1);
   }
 
   render() {
-    return (
+    return this.props.speaker ? (
       <Speaker
         speaker={this.props.speaker}
         talks={this.props.featuredTalks}
         similarSpeakers={this.props.similarSpeakers}
       />
+    ) : (
+      <div>Loading...</div>
     );
   }
 }
-
-const mockSpeaker = {
-  id: 1,
-  first_name: "Satish",
-  last_name: "Kanwar",
-  position: "VP of Product",
-  organization: "Shopify",
-  topics:
-    "acquisition, ecommerce, entrepreneurship, founder, product management, user experience",
-  description:
-    "Satish is a VP of Product at Shopify. He previously co-founded Jet Cooper, a UX design agency that was acquired in 2013. He is an active speaker, mentor and angel investor in the Canadian startup community. He was on Forbes' 30 Under 30 for Retail & Ecommerce in 2016.",
-  pronouns: "He, Him, His",
-  location: {
-    city: "Toronto",
-    province: "Ontario",
-    country: "Canada"
-  },
-  email: "Email",
-  twitter: "",
-  linkedin: "",
-  website: "",
-  image: "http://via.placeholder.com/150x150" // url
-};
 
 const mockFeaturedTalks = [
   {
@@ -90,87 +70,21 @@ const mockFeaturedTalks = [
   }
 ];
 
-const mockSimilarSpeakers = [
-  {
-    id: 1,
-    first_name: "Satish",
-    last_name: "Kanwar",
-    position: "VP of Product",
-    organization: "Shopify",
-    topics:
-      "acquisition, ecommerce, entrepreneurship, founder, product management, user experience",
-    description:
-      "Satish is a VP of Product at Shopify. He previously co-founded Jet Cooper, a UX design agency that was acquired in 2013. He is an active speaker, mentor and angel investor in the Canadian startup community. He was on Forbes' 30 Under 30 for Retail & Ecommerce in 2016.",
-    pronouns: "He, Him, His",
-    location: {
-      city: "Toronto",
-      province: "Ontario",
-      country: "Canada"
-    },
-    email: "Email",
-    twitter: "",
-    linkedin: "",
-    website: "",
-    image: "http://via.placeholder.com/150x150" // url
-  },
-  {
-    id: 2,
-    first_name: "Satish",
-    last_name: "Kanwar",
-    position: "VP of Product",
-    organization: "Shopify",
-    topics:
-      "acquisition, ecommerce, entrepreneurship, founder, product management, user experience",
-    description:
-      "Satish is a VP of Product at Shopify. He previously co-founded Jet Cooper, a UX design agency that was acquired in 2013. He is an active speaker, mentor and angel investor in the Canadian startup community. He was on Forbes' 30 Under 30 for Retail & Ecommerce in 2016.",
-    pronouns: "He, Him, His",
-    location: {
-      city: "Toronto",
-      province: "Ontario",
-      country: "Canada"
-    },
-    email: "Email",
-    twitter: "",
-    linkedin: "",
-    website: "",
-    image: "http://via.placeholder.com/150x150" // url
-  },
-  {
-    id: 3,
-    first_name: "Satish",
-    last_name: "Kanwar",
-    position: "VP of Product",
-    organization: "Shopify",
-    topics:
-      "acquisition, ecommerce, entrepreneurship, founder, product management, user experience",
-    description:
-      "Satish is a VP of Product at Shopify. He previously co-founded Jet Cooper, a UX design agency that was acquired in 2013. He is an active speaker, mentor and angel investor in the Canadian startup community. He was on Forbes' 30 Under 30 for Retail & Ecommerce in 2016.",
-    pronouns: "He, Him, His",
-    location: {
-      city: "Toronto",
-      province: "Ontario",
-      country: "Canada"
-    },
-    email: "Email",
-    twitter: "",
-    linkedin: "",
-    website: "",
-    image: "http://via.placeholder.com/150x150" // url
-  }
-];
-
 function mapStateToProps(state) {
   return {
-    speaker: mockSpeaker, // state.user,
+    speaker: state.speaker.speaker,
     featuredTalks: mockFeaturedTalks, // state.featuredTalks,
     similarSpeakers: mockSimilarSpeakers, // state.similarSpeakers,
-    profile: state.profile,
     notification: state.notification.message
   };
 }
 
 function mapDispatchToProps(dispatch, props) {
-  return {};
+  return {
+    getSpeaker: id => {
+      dispatch(getSpeaker(id));
+    }
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SpeakerContainer);

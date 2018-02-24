@@ -5,8 +5,10 @@ import css from "../styles.css";
 const FeaturedTalk = props => {
   return (
     <article className={`card ${css.talkCard}`}>
-      <img className="card-img-top" src={props.talk.image} />
-      <div className="card-body">
+      <div className="card-image">
+        <img src={props.talk.image} />
+      </div>
+      <div className="card-content">
         <h5>{props.talk.organization}</h5>
         <p>
           <a href={props.talk.url}>{props.talk.name}</a>
@@ -19,7 +21,7 @@ const FeaturedTalk = props => {
 const FeaturedTalks = props => {
   return (
     <section>
-      <h4 className={css.featuredTalksHeader}>Featured Talks and Links</h4>
+      <h6 className={css.featuredTalksHeader}>Featured Talks and Links</h6>
       <div className={css.talksWrapper}>
         {props.talks.map(talk => <FeaturedTalk talk={talk} key={talk.id} />)}
       </div>
