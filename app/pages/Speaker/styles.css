@@ -2,18 +2,23 @@
 
 .speakerCard {
   margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center
 }
 
 .speakerPhoto {
   display: flex;
   justify-content: center;
   margin-bottom: 1rem;
+  width: 255px;
+  height: 255px;
+  overflow: hidden;
+  border-radius: 50%;
 }
 
 .speakerPhoto img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 100%;
+  height: 100%;
 }
 
 .speakerInfo {

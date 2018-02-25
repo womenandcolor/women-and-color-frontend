@@ -9,7 +9,7 @@ const ProfileCard = ({ speaker }) => {
   const hasSocial = speaker.linkedin || speaker.twitter || speaker.website;
   return (
     <Card>
-      <CardContent>
+      <CardContent className={css.speakerCard}>
         <div className={css.speakerPhoto}>
           <img src={speaker.image} alt={speaker.display_name} />
         </div>
