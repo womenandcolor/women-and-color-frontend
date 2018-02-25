@@ -30,7 +30,19 @@ class SpeakerContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    props.getSpeaker(1);
+  }
+
+  componentDidMount() {
+    const { match: { params: { id }}} = this.props;
+    this.props.getSpeaker(id);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { match: { params: { id: currentId }}} = this.props;
+    const { match: { params: { id: nextId }}} = nextProps;
+    if (!!nextId && nextId !== currentId) {
+      this.props.getSpeaker(nextId);
+    }
   }
 
   render() {
