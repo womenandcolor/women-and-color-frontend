@@ -107,6 +107,8 @@
 	font-size: 24px;
 	font-weight: 600;
 	line-height: 32px;
+	margin-top: 0;
+	margin-bottom: 0.5rem;
 }
 
 .speakerTitle {
@@ -114,6 +116,8 @@
 	font-family: "Open Sans";
 	font-size: 16px;
 	line-height: 24px;
+	margin-top: 0;
+	margin-bottom: 1rem;
 }
 
 .speakerTags {
@@ -121,4 +125,6 @@
 	font-family: "Open Sans";
 	font-size: 14px;
 	line-height: 21px;
+	margin-top: 0;
+	margin-bottom: 1rem;
 }
