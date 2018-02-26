@@ -38,6 +38,9 @@
 .navTitle {
   composes: h1 from 'sharedStyles/styles.css';
   font-family: var(--font-family-serif);
+  margin-top: 0;
+  margin-bottom: 0;
+  font-weight: var(--font-weight-regular);
 }
 
 .speakerButton {
