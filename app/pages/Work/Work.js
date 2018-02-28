@@ -35,7 +35,7 @@ const Work = (props) => {
   return(
     <div className={ css.registrationForm }>
       <form onSubmit={ props.handleSubmit }>
-        <h1>Let's talk about work</h1>
+        <h1 className={css.registrationFormHeader}>Let's talk about work</h1>
 
         <FormField fullWidth className={ css.formControl }>
           <TextField label="Position" onChange={ generateHandler('position') } />

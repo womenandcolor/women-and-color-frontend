@@ -47,7 +47,7 @@ const Profile = (props) => {
   return(
     <div className={ css.registrationForm }>
       <form onSubmit={ props.handleSubmit }>
-        <h1>Tell us about you</h1>
+        <h1 className={css.registrationFormHeader}>Tell us about you</h1>
 
         <FormField fullWidth className={ css.formControl }>
           <InputLabel htmlFor="speaker-location">City</InputLabel>

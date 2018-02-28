@@ -1,6 +1,7 @@
 // NPM
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
+import Grid from 'material-ui/Grid';
 
 // APP
 import SpeakerCard from './components/SpeakerCard';
@@ -14,23 +15,21 @@ import {
 
 const Home = (props) => {
   return (
-    <div className="container">
-
-      <div className="row">
+    <Grid container>
+      <Grid item xs={12} md={3}>
           <Sidebar locations={props.locations} />
-
-          <div className="col-lg-9">
-            <div className={css.contentTitles}>{'Speakers in Toronto for all topics'}</div>
-            <div className="speakers-list">
-              {
-                props.speakers.map((speaker, index) => (
-                  <SpeakerCard speaker={speaker} key={index} />
-                ))
-              }
-            </div>
-          </div>
-      </div>
-    </div>
+      </Grid>
+      <Grid item xs={12} md={9}>
+        <div className={css.contentTitles}>{'Speakers in Toronto for all topics'}</div>
+        <div className="speakers-list">
+          {
+            props.speakers.map((speaker, index) => (
+              <SpeakerCard speaker={speaker} key={index} />
+            ))
+          }
+        </div>
+      </Grid>
+    </Grid>
   )
 }
 

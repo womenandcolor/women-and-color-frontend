@@ -36,7 +36,7 @@ const Social = (props) => {
   return(
     <div className={ css.registrationForm }>
       <form onSubmit={ props.handleSubmit }>
-        <h1>Be a little social</h1>
+        <h1 className={css.registrationFormHeader}>Be a little social</h1>
 
         <FormField fullWidth className={ css.formControl }>
           <TextField label="Twitter (optional)" onChange={ generateHandler('twitter') } />

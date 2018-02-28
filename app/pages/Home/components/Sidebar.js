@@ -1,6 +1,7 @@
 // NPM
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
+import List, { ListItem, ListItemText } from 'material-ui/List';
 
 // APP
 import css from '../styles.css';
@@ -17,40 +18,44 @@ const Sidebar = (props) => {
   }
 
   return(
-    <div className="col-lg-3">
+    <div>
       <h2 className={css.sidebarTitles}>CITY</h2>
-        <ul className="list-unstyled">
-          {
-            props.locations.map((location, index) => {
-              const selector = location.id === props.selectedLocation ? 'sidebarObjectSelected' : 'sidebarObject';
-              const handleClick = () => {
-                props.updateSearchParams({ location: location.id });
-                props.updateSelection({ selectedLocation: location.id });
-              }
+      <List>
+        {
+          props.locations.map((location, index) => {
+            const selector = location.id === props.selectedLocation ? 'sidebarObjectSelected' : 'sidebarObject';
+            const handleClick = () => {
+              props.updateSearchParams({ location: location.id });
+              props.updateSelection({ selectedLocation: location.id });
+            }
 
-              return (
-                <li key={index} className={css[selector]} onClick={handleClick}>{location.city}</li>
-              )
-            })
-          }
-        </ul>
+            return (
+              <ListItem key={index} className={css[selector]} onClick={handleClick}>
+                <ListItemText primary={location.city} />
+              </ListItem>
+            )
+          })
+        }
+      </List>
 
       <div className={css.sidebarTitles}>SELF-IDENTITY</div>
-        <ul className="list-unstyled">
-          {
-            IDENTITIES.map((identity, index) => {
-              const selector = identity.label === props.selectedIdentity ? 'sidebarObjectSelected' : 'sidebarObject';
-              const handleClick = () => {
-                props.updateSearchParams(identity.value);
-                props.updateSelection({ selectedIdentity: identity.label });
-              }
+      <List>
+        {
+          IDENTITIES.map((identity, index) => {
+            const selector = identity.label === props.selectedIdentity ? 'sidebarObjectSelected' : 'sidebarObject';
+            const handleClick = () => {
+              props.updateSearchParams(identity.value);
+              props.updateSelection({ selectedIdentity: identity.label });
+            }
 
-              return (
-                <li key={index} className={css[selector]} onClick={handleClick}>{identity.label}</li>
-              )
-            })
-          }
-        </ul>
+            return (
+              <ListItem key={index} className={css[selector]} onClick={handleClick}>
+                <ListItemText primary={identity.label} />
+              </ListItem>
+            )
+          })
+        }
+      </List>
     </div>
   )
 }
