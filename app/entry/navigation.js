@@ -9,7 +9,7 @@ import { Provider } from 'react-redux'
 
 // App
 import Navigation from 'appCommon/Navigation/Navigation';
-import { container, innerContainer } from './styles.css';
+import { container } from './styles.css';
 import store, { history } from 'appRedux/store'
 
 const theme = createMuiTheme({

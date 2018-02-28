@@ -1,16 +1,17 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
-@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700");
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 
 /* Constants */
 :root {
   --background-color-light: #fafafa;
   --border-radius: 4px;
-  --color-primary: #283CA7;
+  --color-primary: #283ca7;
+  --color-grey-dark: #000000;
   --color-grey: #757575;
-  --color-grey-light: #E0E0E0;
-  --color-inverted-light: #FFFFFF;
-  --font-family-sans-serif: 'Open Sans', sans-serif;
-  --font-family-serif: 'Georgia', serif;
+  --color-grey-light: #e0e0e0;
+  --color-inverted-light: #ffffff;
+  --font-family-sans-serif: "Open Sans", sans-serif;
+  --font-family-serif: "Georgia", serif;
   --font-size-base: 16px;
   --font-weight-light: 300;
   --font-weight-regular: 400;
@@ -19,11 +20,12 @@
   --line-height-base: 24px;
   --padding-horizontal: 16px;
   --padding-vertical: 8px;
-  --navbar-height: 64px;
+  --navbar-height: 100px;
 }
 
 /* Styles */
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -55,7 +57,7 @@ html, body {
 }
 
 .error {
-  color: #FF7777;
+  color: #ff7777;
   text-align: center;
 }
 
@@ -72,7 +74,7 @@ html, body {
 .button-primary {
   composes: button;
   background-color: var(--color-primary);
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .input {

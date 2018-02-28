@@ -2,21 +2,21 @@ import React, { PropTypes } from 'react';
 import StyledButton from 'appCommon/StyledButton';
 import css from '../styles.css';
 
-const SpeakerCard = (props) => {
-  const name = !!props.speaker.display_name ? props.speaker.display_name : props.speaker.email
+const SpeakerCard = ({speaker}) => {
+  const name = !!speaker.display_name ? speaker.display_name : speaker.email
 
   return (
     <div className={css.contentCard}>
       <div className={css.photo}>
-        <img src={props.speaker.image} alt={name} />
+        <img src={speaker.image} alt={name} />
       </div>
       <div className={css.info}>
         <h3 className={css.name}>{name}</h3>
-        <p className={css.speakerTitle}>{`${props.speaker.position || ''}`}</p>
-        <p className={css.speakerTags}>{`${props.speaker.topics || 'No Topics'}`}</p>
+        <p className={css.speakerTitle}>{`${speaker.position || ''}`}</p>
+        <p className={css.speakerTags}>{`${speaker.topics || 'No Topics'}`}</p>
       </div>
       <div className="actions">
-        <StyledButton label='View profile' href={'/'}>View profile</StyledButton>
+        <StyledButton label='View profile' href={`#/speaker/${speaker.id}`}>View profile</StyledButton>
       </div>
     </div>
   )
