@@ -4,10 +4,15 @@
   "private": true,
   "dependencies": {
     "material-ui": "^1.0.0-beta.35",
+    "firebase": "^4.10.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-router-dom": "^4.2.2",
-    "react-scripts": "1.1.1"
+    "react-scripts": "1.1.1",
+    "react-redux": "^5.0.7",
+    "react-redux-firebase": "^2.0.4",
+    "react-scripts": "1.1.1",
+    "redux": "^3.7.2"
   },
   "scripts": {
     "start": "react-scripts start",
