@@ -15,11 +15,11 @@ const theme = createMuiTheme({
   }
 });
 
-function App(props) {
+function MainContainer(props) {
   return (
     <MuiThemeProvider theme={theme}>
       {props.children}
     </MuiThemeProvider>);
 }
 
-export default App;
+export default MainContainer;

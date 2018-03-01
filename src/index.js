@@ -1,34 +1,36 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import App from './App';
+import { Provider } from 'react-redux';
+import { createStore, combineReducers, compose } from 'redux';
+import { reactReduxFirebase, firebaseReducer } from 'react-redux-firebase';
+import * as firebase from 'firebase';
+import firebaseConfig from './config/firebase';
+import Routes from './config/routes';
 import registerServiceWorker from './registerServiceWorker';
 
-function Home() { return <div>Home</div>; }
-function Authenticate() { return <div>Auth</div>; }
-function Page() { return <div>Page</div>; }
-function Register() { return <div>Register</div>; }
-function Profile() { return <div>Profile</div>; }
-function Work() { return <div>Work</div>; }
-function Social() { return <div>Social</div>; }
-function Speaker() { return <div>Speaker</div>; }
+const rrfConfig = {
+    userProfile: 'users'
+}
 
-const routes = (
-  <Router>
-    <App>
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/auth" component={Authenticate} />
-        <Route path="/about" component={Page} />
-        <Route path="/register" component={Register} />
-        <Route path="/profile" component={Profile} />
-        <Route path="/work" component={Work} />
-        <Route path="/social" component={Social} />
-        <Route path="/speaker" component={Speaker} />
-      </Switch>
-    </App>
-  </Router>
-);
+firebase.initializeApp(firebaseConfig);
 
-ReactDOM.render(routes, document.getElementById('root'));
+// Add reactReduxFirebase enhancer when making store creator
+const createStoreWithFirebase = compose(
+    reactReduxFirebase(firebase, rrfConfig)
+)(createStore);
+
+// Add firebase to reducers
+const rootReducer = combineReducers({
+    firebase: firebaseReducer
+});
+
+// Create store with reducers and initial state
+const initialState = {};
+const store = createStoreWithFirebase(rootReducer, initialState);
+
+ReactDOM.render(
+    <Provider store={store}>
+        <Routes />
+    </Provider>,
+    document.getElementById('root'));
 registerServiceWorker();
