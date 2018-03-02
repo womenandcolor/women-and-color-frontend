@@ -16,11 +16,7 @@ const theme = createMuiTheme({
 });
 
 function MainContainer(props) {
-  return (
-    <MuiThemeProvider theme={theme}>
-      {props.children}
-    </MuiThemeProvider>
-  );
+  return <MuiThemeProvider theme={theme}>{props.children}</MuiThemeProvider>;
 }
 
 export default MainContainer;
