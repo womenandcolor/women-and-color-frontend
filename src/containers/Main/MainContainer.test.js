@@ -2,8 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import MainContainer from './MainContainer';
 
-it('renders without crashing', () => {
+test('renders without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<MainContainer />, div);
+
+  ReactDOM.render(
+    <MainContainer>
+      <div>Home</div>
+    </MainContainer>,
+    div
+  );
   ReactDOM.unmountComponentAtNode(div);
 });

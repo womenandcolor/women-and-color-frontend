@@ -9,19 +9,19 @@ import Routes from './config/routes';
 import registerServiceWorker from './registerServiceWorker';
 
 const rrfConfig = {
-    userProfile: 'users'
-}
+  userProfile: 'users',
+};
 
 firebase.initializeApp(firebaseConfig);
 
 // Add reactReduxFirebase enhancer when making store creator
 const createStoreWithFirebase = compose(
-    reactReduxFirebase(firebase, rrfConfig)
+  reactReduxFirebase(firebase, rrfConfig)
 )(createStore);
 
 // Add firebase to reducers
 const rootReducer = combineReducers({
-    firebase: firebaseReducer
+  firebase: firebaseReducer,
 });
 
 // Create store with reducers and initial state
@@ -29,8 +29,9 @@ const initialState = {};
 const store = createStoreWithFirebase(rootReducer, initialState);
 
 ReactDOM.render(
-    <Provider store={store}>
-        <Routes />
-    </Provider>,
-    document.getElementById('root'));
+  <Provider store={store}>
+    <Routes />
+  </Provider>,
+  document.getElementById('root')
+);
 registerServiceWorker();
