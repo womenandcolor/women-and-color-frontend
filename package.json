@@ -19,7 +19,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "precommit": "precise-commits",
-    "check-code": "precise-commits --whitelist='src/*' --check-only"
+    "check-code": "prettier --list-different src/*"
   },
   "devDependencies": {
     "husky": "^0.14.3",
