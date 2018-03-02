@@ -19,7 +19,8 @@ function MainContainer(props) {
   return (
     <MuiThemeProvider theme={theme}>
       {props.children}
-    </MuiThemeProvider>);
+    </MuiThemeProvider>
+  );
 }
 
 export default MainContainer;
