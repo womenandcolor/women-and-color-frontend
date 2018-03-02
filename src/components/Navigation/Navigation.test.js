@@ -1,11 +1,8 @@
 import React from 'react';
-import { configure, shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { shallow } from 'enzyme';
 import Button from 'material-ui/Button';
 import { MenuItem } from 'material-ui/Menu';
 import Navigation from './Navigation';
-
-configure({ adapter: new Adapter() });
 
 const LOGGED_IN_PROPS = { loggedIn: true };
 const LOGGED_OUT_PROPS = { loggedIn: false };
