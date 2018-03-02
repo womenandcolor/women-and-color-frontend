@@ -1,6 +1,6 @@
 import React from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import MainContainer from '../containers/Main/MainContainer';
+import { MainContainer } from 'containers';
 
 function Home() { return <div>Home</div>; }
 function Authenticate() { return <div>Auth</div>; }
