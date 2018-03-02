@@ -10,7 +10,7 @@ import registerServiceWorker from './registerServiceWorker';
 
 const rrfConfig = {
     userProfile: 'users'
-}
+};
 
 firebase.initializeApp(firebaseConfig);
 
