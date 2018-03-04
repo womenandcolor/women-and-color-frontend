@@ -1,0 +1,20 @@
+.registrationForm {
+  padding: 30px;
+  margin: 0 auto;
+  border: 1px solid var(--color-grey-light);
+  background-color: var(--color-inverted-light);
+  border-radius: 10px;
+  max-width: 500px;
+}
+
+.formControl {
+  margin: 2em;
+}
+
+.loginLink {
+  text-align: center;
+}
+
+.buttonLabel {
+  color: var(--color-inverted-light);
+}
