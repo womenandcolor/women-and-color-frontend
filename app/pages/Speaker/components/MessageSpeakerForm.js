@@ -75,7 +75,7 @@ const _renderEventInfo = () => (
     <Grid container>
       <Grid item xs={12}>
         <FormField fullWidth>
-          <InputLabel htmlFor="comments">Addtional Comments</InputLabel>
+          <InputLabel htmlFor="comments">Additional Comments</InputLabel>
           <Input id="comments" multiline rows={3} />
         </FormField>
       </Grid>
