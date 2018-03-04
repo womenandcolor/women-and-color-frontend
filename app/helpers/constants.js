@@ -1,22 +1,24 @@
 export const registrationFlow = {
-  'registration': {
-    next: '/profile'
+  registration: {
+    next: '/get-started/profile',
   },
 
-  'profile': {
-    next: '/work'
+  profile: {
+    next: '/get-started/work',
   },
 
-  'work': {
-    next: '/social'
+  work: {
+    next: '/get-started/social',
   },
 
-  'social': {
-    next: '/'
-  }
+  social: {
+    next: '/',
+  },
 };
 
-export const BASE_URL_PATH = process.env.production ? "https://women-and-color-backend.herokuapp.com" : "http://localhost:8000";
+export const BASE_URL_PATH = process.env.production
+  ? 'https://women-and-color-backend.herokuapp.com'
+  : 'http://localhost:8000';
 
 export const IDENTITIES = [
   { label: 'All speakers', value: { woman: null, poc: null } },
