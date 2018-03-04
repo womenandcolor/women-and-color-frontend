@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import TextField from 'material-ui/TextField';
+import MenuItem from 'material-ui/Menu/MenuItem';
 import Input, { InputLabel } from 'material-ui/Input';
 import Grid from 'material-ui/Grid';
 
@@ -11,7 +12,7 @@ import css from '../styles.css';
 import axios from 'appHelpers/axios';
 import { BASE_URL_PATH } from 'appHelpers/constants';
 
-const MessageSpeakerForm = ({ speaker, onInputChange, onSubmit }) => {
+const MessageSpeakerForm = ({ speaker, onInputChange, onSubmit, form }) => {
   const generateHandler = fieldName => event =>
     onInputChange(fieldName, event.currentTarget.value);
   const title = `Message ${speaker.first_name}`;
@@ -26,13 +27,18 @@ const MessageSpeakerForm = ({ speaker, onInputChange, onSubmit }) => {
               <FormField fullWidth>
                 <TextField
                   label="Full Name"
+                  value={form.full_name}
                   onChange={generateHandler('full_name')}
                 />
               </FormField>
             </Grid>
             <Grid item xs={12} sm={6}>
               <FormField fullWidth>
-                <TextField label="Email" onChange={generateHandler('email')} />
+                <TextField
+                  label="Email"
+                  value={form.email}
+                  onChange={generateHandler('email')}
+                />
               </FormField>
             </Grid>
           </Grid>
@@ -44,6 +50,7 @@ const MessageSpeakerForm = ({ speaker, onInputChange, onSubmit }) => {
               <FormField fullWidth>
                 <TextField
                   label="Event Name"
+                  value={form.event_name}
                   onChange={generateHandler('event_name')}
                 />
               </FormField>
@@ -52,6 +59,7 @@ const MessageSpeakerForm = ({ speaker, onInputChange, onSubmit }) => {
               <FormField fullWidth>
                 <TextField
                   label="Venue Name"
+                  value={form.venue_name}
                   onChange={generateHandler('venue_name')}
                 />
               </FormField>
@@ -62,6 +70,7 @@ const MessageSpeakerForm = ({ speaker, onInputChange, onSubmit }) => {
               <FormField fullWidth>
                 <TextField
                   label="Event Date"
+                  value={form.event_date}
                   onChange={generateHandler('event_date')}
                 />
               </FormField>
@@ -70,6 +79,7 @@ const MessageSpeakerForm = ({ speaker, onInputChange, onSubmit }) => {
               <FormField fullWidth>
                 <TextField
                   label="Event Time"
+                  value={form.event_time}
                   onChange={generateHandler('event_time')}
                 />
               </FormField>
@@ -79,17 +89,35 @@ const MessageSpeakerForm = ({ speaker, onInputChange, onSubmit }) => {
             <Grid item xs={12} sm={6}>
               <FormField fullWidth>
                 <TextField
+                  select
                   label="Speaker Compensation"
+                  value={form.speaker_compensation}
                   onChange={generateHandler('speaker_compensation')}
-                />
+                >
+                  <MenuItem key={0} value={0}>
+                    No
+                  </MenuItem>
+                  <MenuItem key={1} value={1}>
+                    Yes
+                  </MenuItem>
+                </TextField>
               </FormField>
             </Grid>
             <Grid item xs={12} sm={6}>
               <FormField fullWidth>
                 <TextField
+                  select
                   label="Code of Conduct"
+                  value={form.code_of_conduct}
                   onChange={generateHandler('code_of_conduct')}
-                />
+                >
+                  <MenuItem key={0} value={0}>
+                    None
+                  </MenuItem>
+                  <MenuItem key={1} value={1}>
+                    Publicly Accessible
+                  </MenuItem>
+                </TextField>
               </FormField>
             </Grid>
           </Grid>
@@ -98,6 +126,7 @@ const MessageSpeakerForm = ({ speaker, onInputChange, onSubmit }) => {
               <FormField fullWidth>
                 <TextField
                   label="Additional Comments"
+                  value={form.comments}
                   onChange={generateHandler('comments')}
                   multiline
                   rows={3}
@@ -113,6 +142,21 @@ const MessageSpeakerForm = ({ speaker, onInputChange, onSubmit }) => {
 };
 
 class MessageSpeakerFormContainer extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      full_name: '',
+      email: '',
+      event_name: '',
+      venue_name: '',
+      event_date: '',
+      event_time: '',
+      speaker_compensation: 0,
+      code_of_conduct: 0,
+      comments: '',
+    };
+  }
+
   handleInputChange = (fieldname, value) => {
     this.setState({
       ...this.state,
@@ -126,7 +170,10 @@ class MessageSpeakerFormContainer extends Component {
 
     axios({
       url,
-      data: this.state,
+      data: {
+        ...this.state,
+        speaker_id: this.props.speaker.id,
+      },
       method: 'post',
       responseType: 'json',
     })
@@ -144,6 +191,7 @@ class MessageSpeakerFormContainer extends Component {
         speaker={this.props.speaker}
         onSubmit={this.handleSubmit}
         onInputChange={this.handleInputChange}
+        form={this.state}
       />
     );
   }
