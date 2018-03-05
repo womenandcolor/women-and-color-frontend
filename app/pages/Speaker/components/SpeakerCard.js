@@ -1,11 +1,11 @@
-import React, { PropTypes } from "react";
-import Card, { CardContent } from "material-ui/Card";
-import List, { ListItem, ListItemText } from "material-ui/List";
+import React, { PropTypes } from 'react';
+import Card, { CardContent } from 'material-ui/Card';
+import List, { ListItem, ListItemText } from 'material-ui/List';
 
 // App
-import css from "../styles.css";
+import css from '../styles.css';
 
-const ProfileCard = ({ speaker }) => {
+const SpeakerCard = ({ speaker }) => {
   const hasSocial = speaker.linkedin || speaker.twitter || speaker.website;
   return (
     <Card>
@@ -17,7 +17,7 @@ const ProfileCard = ({ speaker }) => {
           <h5 className={css.speakerName}>{speaker.display_name}</h5>
           <p className={css.speakerTitle}>{speaker.position}</p>
           <p className={css.speakerOrganization}>{speaker.organization}</p>
-          <p className={css.speakerTags}>{speaker.topics || "No Topics"}</p>
+          <p className={css.speakerTags}>{speaker.topics || 'No Topics'}</p>
         </div>
         <List>
           <ListItem>
@@ -45,4 +45,4 @@ const ProfileCard = ({ speaker }) => {
   );
 };
 
-export default ProfileCard;
+export default SpeakerCard;

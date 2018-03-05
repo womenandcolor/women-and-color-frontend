@@ -4,7 +4,7 @@
   margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
-  align-items: center
+  align-items: center;
 }
 
 .speakerPhoto {
@@ -66,7 +66,7 @@
   justify-content: space-around !important; /* override materiaul-ui jc */
 }
 
-/* Profile Info */
+/* Speaker Info */
 
 .sectionHeader {
   font-size: 2rem;
@@ -82,7 +82,7 @@
   font-weight: var(--font-weight-semibold);
 }
 
-.profileInfoDescription {
+.speakerInfoDescription {
   color: var(--color-grey-dark);
   margin-bottom: 2rem;
 }
