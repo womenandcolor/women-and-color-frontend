@@ -12,6 +12,8 @@ import css from '../styles.css';
 import axios from 'appHelpers/axios';
 import { BASE_URL_PATH } from 'appHelpers/constants';
 
+import { create, onChange } from "appRedux/modules/contactForm";
+
 const MessageSpeakerForm = ({ speaker, onInputChange, onSubmit, form }) => {
   const generateHandler = fieldName => event =>
     onInputChange(fieldName, event.currentTarget.value);
@@ -144,61 +146,45 @@ const MessageSpeakerForm = ({ speaker, onInputChange, onSubmit, form }) => {
 class MessageSpeakerFormContainer extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      full_name: '',
-      email: '',
-      event_name: '',
-      venue_name: '',
-      event_date: '',
-      event_time: '',
-      speaker_compensation: 0,
-      code_of_conduct: 0,
-      comments: '',
-    };
   }
 
   handleInputChange = (fieldname, value) => {
-    this.setState({
-      ...this.state,
-      [fieldname]: value,
-    });
+    this.props.onChange({ [fieldname]: value })
   };
 
-  handleSubmit = event => {
+  submitForm = (event) => {
     event.preventDefault();
-    const url = `${BASE_URL_PATH}/api/v1/messagespeaker/`;
-
-    axios({
-      url,
-      data: {
-        ...this.state,
-        speaker_id: this.props.speaker.id,
-      },
-      method: 'post',
-      responseType: 'json',
-    })
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
+    this.props.submitForm();
+  }
 
   render() {
     return (
       <MessageSpeakerForm
         speaker={this.props.speaker}
-        onSubmit={this.handleSubmit}
+        onSubmit={this.submitForm}
         onInputChange={this.handleInputChange}
-        form={this.state}
+        form={this.props.form}
       />
     );
   }
 }
 
 function mapDispatchToProps(dispatch, props) {
-  return {};
+  return {
+    submitForm: () => {
+      dispatch(create());
+    },
+    onChange: (data) => {
+      dispatch(onChange(data));
+    }
+  };
 }
 
-export default connect(null, mapDispatchToProps)(MessageSpeakerFormContainer);
+function mapStateToProps(state) {
+  return {
+    form: state.contactForm.form,
+    speaker: state.speaker.speaker
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MessageSpeakerFormContainer);

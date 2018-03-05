@@ -8,6 +8,7 @@ import { reducer as location } from './modules/location';
 import { reducer as authentication } from './modules/authentication';
 import { reducer as notification } from './modules/notification';
 import { reducer as speaker } from './modules/speaker';
+import { reducer as contactForm } from './modules/contactForm'
 
 
 export default combineReducers({
@@ -16,5 +17,6 @@ export default combineReducers({
   location,
   authentication,
   notification,
-  speaker
+  speaker,
+  contactForm
 });
