@@ -59,13 +59,14 @@ export function create() {
     }).then(res => {
       console.log(res)
       if (res.errors) {
-        return dispatch(showNotification(res.errors));
+        return dispatch(showNotification(`${res.errors}`));
       }
       dispatch(showNotification(`Your message will be sent to ${speaker.speaker.first_name}.`));
       dispatch(postSuccess(res.data));
     }).catch(err => {
-      console.log(err);
-      dispatch(postError(err));
+      console.log(err)
+      dispatch(showNotification("There was an error submitting your form."));
+      dispatch(postError(err.response.data)); // TODO: display errors on form
     });
   }
 }

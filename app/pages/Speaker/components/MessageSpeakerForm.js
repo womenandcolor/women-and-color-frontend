@@ -4,6 +4,8 @@ import TextField from 'material-ui/TextField';
 import MenuItem from 'material-ui/Menu/MenuItem';
 import Input, { InputLabel } from 'material-ui/Input';
 import Grid from 'material-ui/Grid';
+import Snackbar from 'material-ui/Snackbar';
+
 
 // App
 import StyledButton from 'appCommon/StyledButton';
@@ -13,6 +15,7 @@ import axios from 'appHelpers/axios';
 import { BASE_URL_PATH } from 'appHelpers/constants';
 
 import { create, onChange } from "appRedux/modules/contactForm";
+import { hideNotification } from "appRedux/modules/notification";
 
 const MessageSpeakerForm = ({ speaker, onInputChange, onSubmit, form }) => {
   const generateHandler = fieldName => event =>
@@ -143,30 +146,37 @@ const MessageSpeakerForm = ({ speaker, onInputChange, onSubmit, form }) => {
   );
 };
 
-class MessageSpeakerFormContainer extends Component {
-  constructor(props) {
-    super(props);
-  }
+const MessageSpeakerFormContainer = (props) => {
 
-  handleInputChange = (fieldname, value) => {
-    this.props.onChange({ [fieldname]: value })
+  const handleInputChange = (fieldname, value) => {
+    props.onChange({ [fieldname]: value })
   };
 
-  submitForm = (event) => {
+  const submitForm = (event) => {
     event.preventDefault();
-    this.props.submitForm();
+    props.submitForm();
   }
 
-  render() {
-    return (
-      <MessageSpeakerForm
-        speaker={this.props.speaker}
-        onSubmit={this.submitForm}
-        onInputChange={this.handleInputChange}
-        form={this.props.form}
+  return (
+    <div>
+      <Snackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        open={!!props.notification}
+        onClose={props.hideNotification}
+        autoHideDuration={4000}
+        SnackbarContentProps={{
+          'aria-describedby': 'message-id',
+        }}
+        message={<span id="message-id">{props.notification}</span>}
       />
-    );
-  }
+      <MessageSpeakerForm
+        speaker={props.speaker}
+        onSubmit={submitForm}
+        onInputChange={handleInputChange}
+        form={props.form}
+      />
+    </div>
+  )
 }
 
 function mapDispatchToProps(dispatch, props) {
@@ -176,14 +186,18 @@ function mapDispatchToProps(dispatch, props) {
     },
     onChange: (data) => {
       dispatch(onChange(data));
-    }
+    },
+    hideNotification: () => {
+      dispatch(hideNotification())
+    },
   };
 }
 
 function mapStateToProps(state) {
   return {
     form: state.contactForm.form,
-    speaker: state.speaker.speaker
+    speaker: state.speaker.speaker,
+    notification: state.notification.message
   }
 }
 

@@ -174,7 +174,7 @@ class ProfileContainer extends Component {
         <Snackbar
           anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
           open={!!props.notification}
-          onClose={props.closeNotification}
+          onClose={props.hideNotification}
           autoHideDuration={4000}
           SnackbarContentProps={{
             'aria-describedby': 'message-id',
