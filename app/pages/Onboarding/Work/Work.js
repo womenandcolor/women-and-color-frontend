@@ -19,6 +19,7 @@ import {
 import {
   get as getUser
 } from 'appRedux/modules/user';
+import { hideNotification } from 'appRedux/modules/notification';
 import StyledButton from 'appCommon/StyledButton';
 import FormField from 'appCommon/FormField';
 import css from './styles.css';
