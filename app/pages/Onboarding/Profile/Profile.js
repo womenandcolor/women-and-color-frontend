@@ -24,6 +24,7 @@ import {
 import {
   get as getLocations
 } from 'appRedux/modules/location';
+import { hideNotification } from 'appRedux/modules/notification';
 import StyledButton from 'appCommon/StyledButton';
 import FormField from 'appCommon/FormField';
 import { BASE_URL_PATH } from 'appHelpers/constants';
