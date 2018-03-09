@@ -66,7 +66,6 @@ export function create() {
     }).catch(err => {
       console.log(err)
       dispatch(showNotification("There was an error submitting your form."));
-      dispatch(postError(err.response.data)); // TODO: display errors on form
     });
   }
 }
