@@ -20,6 +20,7 @@ import {
 import {
   get as getUser
 } from 'appRedux/modules/user';
+import { hideNotification } from 'appRedux/modules/notification';
 import StyledButton from 'appCommon/StyledButton';
 import FormField from 'appCommon/FormField';
 import css from './styles.css'
@@ -77,7 +78,7 @@ class SocialContainer extends Component {
         <Snackbar
           anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
           open={!!props.notification}
-          onClose={props.closeNotification}
+          onClose={props.hideNotification}
           autoHideDuration={4000}
           SnackbarContentProps={{
             'aria-describedby': 'message-id',

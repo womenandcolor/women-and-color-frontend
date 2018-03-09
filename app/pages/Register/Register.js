@@ -104,7 +104,7 @@ class RegisterContainer extends Component {
         <Snackbar
           anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
           open={!!this.props.notification}
-          onClose={this.props.closeNotification}
+          onClose={this.props.hideNotification}
           autoHideDuration={4000}
           SnackbarContentProps={{
             'aria-describedby': 'message-id',

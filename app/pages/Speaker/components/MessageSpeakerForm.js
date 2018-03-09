@@ -4,6 +4,8 @@ import TextField from 'material-ui/TextField';
 import MenuItem from 'material-ui/Menu/MenuItem';
 import Input, { InputLabel } from 'material-ui/Input';
 import Grid from 'material-ui/Grid';
+import Snackbar from 'material-ui/Snackbar';
+
 
 // App
 import StyledButton from 'appCommon/StyledButton';
@@ -11,6 +13,9 @@ import FormField from 'appCommon/FormField';
 import css from '../styles.css';
 import axios from 'appHelpers/axios';
 import { BASE_URL_PATH } from 'appHelpers/constants';
+
+import { create, onChange } from "appRedux/modules/contactForm";
+import { hideNotification } from "appRedux/modules/notification";
 
 const MessageSpeakerForm = ({ speaker, onInputChange, onSubmit, form }) => {
   const generateHandler = fieldName => event =>
@@ -141,64 +146,59 @@ const MessageSpeakerForm = ({ speaker, onInputChange, onSubmit, form }) => {
   );
 };
 
-class MessageSpeakerFormContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      full_name: '',
-      email: '',
-      event_name: '',
-      venue_name: '',
-      event_date: '',
-      event_time: '',
-      speaker_compensation: 0,
-      code_of_conduct: 0,
-      comments: '',
-    };
-  }
+const MessageSpeakerFormContainer = (props) => {
 
-  handleInputChange = (fieldname, value) => {
-    this.setState({
-      ...this.state,
-      [fieldname]: value,
-    });
+  const handleInputChange = (fieldname, value) => {
+    props.onChange({ [fieldname]: value })
   };
 
-  handleSubmit = event => {
+  const submitForm = (event) => {
     event.preventDefault();
-    const url = `${BASE_URL_PATH}/api/v1/messagespeaker/`;
-
-    axios({
-      url,
-      data: {
-        ...this.state,
-        speaker_id: this.props.speaker.id,
-      },
-      method: 'post',
-      responseType: 'json',
-    })
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
-
-  render() {
-    return (
-      <MessageSpeakerForm
-        speaker={this.props.speaker}
-        onSubmit={this.handleSubmit}
-        onInputChange={this.handleInputChange}
-        form={this.state}
-      />
-    );
+    props.submitForm();
   }
+
+  return (
+    <div>
+      <Snackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        open={!!props.notification}
+        onClose={props.hideNotification}
+        autoHideDuration={4000}
+        SnackbarContentProps={{
+          'aria-describedby': 'message-id',
+        }}
+        message={<span id="message-id">{props.notification}</span>}
+      />
+      <MessageSpeakerForm
+        speaker={props.speaker}
+        onSubmit={submitForm}
+        onInputChange={handleInputChange}
+        form={props.form}
+      />
+    </div>
+  )
 }
 
 function mapDispatchToProps(dispatch, props) {
-  return {};
+  return {
+    submitForm: () => {
+      dispatch(create());
+    },
+    onChange: (data) => {
+      dispatch(onChange(data));
+    },
+    hideNotification: () => {
+      dispatch(hideNotification())
+    },
+  };
 }
 
-export default connect(null, mapDispatchToProps)(MessageSpeakerFormContainer);
+function mapStateToProps(state) {
+  return {
+    form: state.contactForm.form,
+    speaker: state.speaker.speaker,
+    notification: state.notification.message
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MessageSpeakerFormContainer);

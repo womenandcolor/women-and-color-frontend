@@ -24,6 +24,7 @@ import {
 import {
   get as getLocations
 } from 'appRedux/modules/location';
+import { hideNotification } from 'appRedux/modules/notification';
 import StyledButton from 'appCommon/StyledButton';
 import FormField from 'appCommon/FormField';
 import { BASE_URL_PATH } from 'appHelpers/constants';
@@ -174,7 +175,7 @@ class ProfileContainer extends Component {
         <Snackbar
           anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
           open={!!props.notification}
-          onClose={props.closeNotification}
+          onClose={props.hideNotification}
           autoHideDuration={4000}
           SnackbarContentProps={{
             'aria-describedby': 'message-id',

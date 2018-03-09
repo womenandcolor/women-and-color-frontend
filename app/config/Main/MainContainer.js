@@ -20,7 +20,7 @@ const theme = createMuiTheme({
 const MainContainer = props => (
   <MuiThemeProvider theme={theme}>
     <div className={container}>
-      <Navigation isAuthed={false} />
+      <Navigation />
       <div className={innerContainer}>{props.children}</div>
     </div>
   </MuiThemeProvider>
