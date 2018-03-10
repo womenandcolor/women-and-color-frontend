@@ -18,8 +18,9 @@ const SideBar = ({ baseUrl, subroutes }) => (
   <div>
     <h2 className={css.sidebarTitle}>MENU</h2>
     <List component="nav">
-      {subroutes.map(subroute => (
+      {subroutes.map((subroute, index) => (
         <SideBarLink
+          key={index}
           href={`#${baseUrl}/${subroute.path}`}
           text={subroute.text}
           isActive={false} // TODO determine if active

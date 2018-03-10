@@ -39,7 +39,7 @@ class HomeContainer extends Component {
     this.state = {}
     this.props.getUser();
     this.props.getLocations();
-    this.props.fetchSpeakers();
+    this.props.fetchSpeakers(this.props.searchParams);
   }
 
   componentWillReceiveProps(nextProps) {

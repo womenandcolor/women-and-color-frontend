@@ -69,7 +69,7 @@ export function getSpeaker(id) {
 // Reducer
 const INITIAL_STATE = {
   results: [],
-  searchParams: {},
+  searchParams: { 'offset': 0, 'limit': 20 },
   selectedLocation: null,
   selectedIdentity: IDENTITIES[0].label,
   speaker: null
