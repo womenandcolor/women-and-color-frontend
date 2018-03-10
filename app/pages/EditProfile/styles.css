@@ -1,0 +1,14 @@
+/* side bar */
+
+.sidebarTitle {
+  color: var(--color-grey-dark);
+  font-size: 0.9rem;
+  font-weight: bold;
+  border-bottom: 1px solid var(--color-grey-light);
+  margin-bottom: 0.5rem;
+}
+
+.sidebarObjectSelected {
+  color: #283ca7 !important;
+  background-color: #e5e8f4 !important; /* oh I need to find a better way than this */
+}
