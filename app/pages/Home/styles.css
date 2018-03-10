@@ -79,10 +79,10 @@
 
 .info {
   flex-grow: 1;
+  max-width: 312px;
 }
 
 .info h3 {
-  max-width: 312px;
   overflow: hidden;
   flex-wrap: wrap;
 }
