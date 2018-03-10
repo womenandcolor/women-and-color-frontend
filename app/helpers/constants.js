@@ -16,6 +16,12 @@ export const registrationFlow = {
   },
 };
 
+export const pronounDict = {
+  she: 'She, her, hers',
+  he: 'He, him, his',
+  they: 'They, them, their'
+}
+
 export const BASE_URL_PATH = process.env.production
   ? 'https://women-and-color-backend.herokuapp.com'
   : 'http://localhost:8000';

@@ -4,6 +4,7 @@ import List, { ListItem, ListItemText } from 'material-ui/List';
 
 // App
 import css from '../styles.css';
+import { pronounDict } from 'appHelpers/constants'
 
 const SpeakerCard = ({ speaker }) => {
   const hasSocial = speaker.linkedin || speaker.twitter || speaker.website;
@@ -17,18 +18,18 @@ const SpeakerCard = ({ speaker }) => {
           <h5 className={css.speakerName}>{speaker.display_name}</h5>
           <p className={css.speakerTitle}>{speaker.position}</p>
           <p className={css.speakerOrganization}>{speaker.organization}</p>
-          <p className={css.speakerTags}>{speaker.topics || 'No Topics'}</p>
+          <p className={css.speakerTags}>{speaker.topic_list}</p>
         </div>
         <List>
           <ListItem>
             <ListItemText
-              primary={speaker.pronouns}
+              primary={pronounDict[speaker.pronouns]}
               className={css.speakerInfoListPronouns}
             />
           </ListItem>
           <ListItem>
             <ListItemText
-              primary="Toronto, Canada"
+              primary={`${speaker.city}`}
               className={css.speakerInfoListLocation}
             />
           </ListItem>
