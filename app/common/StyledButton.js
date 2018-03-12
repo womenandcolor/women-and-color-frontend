@@ -10,7 +10,8 @@ const styles = (theme) => ({
 		lineHeight: 'var(--line-height-base)',
 		textTransform: 'none',
 		padding: 'var(--padding-vertical) var(--padding-horizontal)',
-		borderRadius: 'var(--border-radius)'
+		borderRadius: 'var(--border-radius)',
+		whiteSpace: 'nowrap'
 	},
 	flatPrimary: {
 		color: 'var(--color-inverted-light)',

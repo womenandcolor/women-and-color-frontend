@@ -8,17 +8,25 @@ import SpeakerCard from './components/SpeakerCard';
 import SpeakerInfo from './components/SpeakerInfo';
 import FeaturedTalks from './components/FeaturedTalks';
 import MessageSpeakerForm from './components/MessageSpeakerForm';
+import Banner from 'appCommon/Banner';
 
 const Speaker = props => {
   const { speaker, talks } = props;
   return (
-    <Grid container>
-      <Grid item xs={12} md={4}>
-        <SpeakerCard speaker={speaker} />
+    <Grid container justify="center">
+      <Grid item xs={12}>
+        <Banner />
       </Grid>
-      <Grid item xs={12} md={8}>
-        <SpeakerInfo speaker={speaker} />
-        <MessageSpeakerForm speaker={speaker} />
+      <Grid item xs={8}>
+        <Grid container>
+          <Grid item xs={12} md={4}>
+            <SpeakerCard speaker={speaker} />
+          </Grid>
+          <Grid item xs={12} md={8}>
+            <SpeakerInfo speaker={speaker} />
+            <MessageSpeakerForm speaker={speaker} />
+          </Grid>
+        </Grid>
       </Grid>
     </Grid>
   );

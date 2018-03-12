@@ -9,8 +9,12 @@ import { connect } from 'react-redux'
 import StyledButton from 'appCommon/StyledButton';
 import { updateSearchParams } from 'appRedux/modules/speaker';
 import css from './styles.css';
+import { searchForm } from '../../sharedStyles/styles.css';
 
 const styles = {
+  form: {
+    paddingLeft: '2px'
+  },
   searchButton: {
     height: '100%'
   }
@@ -49,7 +53,7 @@ class SearchField extends Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.searchProfiles} className={css.searchForm}>
+        <form onSubmit={this.searchProfiles} className={searchForm} style={styles.form}>
           <IconButton color="secondary" type="submit" style={styles.searchButton}>
             <SearchIcon />
           </IconButton>
@@ -59,6 +63,7 @@ class SearchField extends Component {
             onChange={this.onChange}
             value={this.state.query}
             placeholder={'Search for speakers or topics'}
+            InputProps={{ disableUnderline: true }}
           />
         </form>
       </div>
