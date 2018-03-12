@@ -53,7 +53,7 @@ const Social = (props) => {
 
         <div>
           <FormField className={ css.formControl }>
-            <StyledButton label="Submit" type="submit">Save and submit</StyledButton>
+            <StyledButton label="Submit" type="submit" color="primary">Save and submit</StyledButton>
           </FormField>
         </div>
       </form>

@@ -77,7 +77,7 @@ const Register = (props) => {
         </FormField>
 
         <FormField className={ css.formControl }>
-          <StyledButton label="Submit" type="submit">Create profile</StyledButton>
+          <StyledButton label="Submit" type="submit" color="primary">Create profile</StyledButton>
         </FormField>
 
       </form>

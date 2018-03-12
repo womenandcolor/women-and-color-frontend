@@ -79,7 +79,7 @@ class Navigation extends React.Component {
               </h1>
             </a>
             {
-              this.props.user.id ? <StyledButton href="/accounts/logout">Log out</StyledButton> : <StyledButton href="/accounts/signup">Be a speaker</StyledButton>
+              this.props.user.id ? <StyledButton color="primary" href="/accounts/logout">Log out</StyledButton> : <StyledButton color="primary" href="/accounts/signup">Be a speaker</StyledButton>
             }
             <div>
               <IconButton

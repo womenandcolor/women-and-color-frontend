@@ -52,7 +52,7 @@ const About = props => {
           <div className={css.photo}>
             <img src={props.profile.image} />
           </div>
-          <StyledButton component="label">
+          <StyledButton component="label" color="primary">
             <input
               type="file"
               accept="image/*"
@@ -231,7 +231,7 @@ const About = props => {
         <Grid item xs={12}>
           <div>
             <FormField className={css.formControl}>
-              <StyledButton label="Submit" type="submit">
+              <StyledButton label="Submit" type="submit" color="primary">
                 Save changes
               </StyledButton>
             </FormField>
