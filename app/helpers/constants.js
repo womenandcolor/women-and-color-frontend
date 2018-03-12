@@ -20,7 +20,7 @@ export const pronounDict = {
   she: 'She, her, hers',
   he: 'He, him, his',
   they: 'They, them, their'
-}
+};
 
 export const BASE_URL_PATH = process.env.production
   ? 'https://women-and-color-backend.herokuapp.com'
@@ -32,3 +32,5 @@ export const IDENTITIES = [
   { label: 'Woman of color', value: { woman: true, poc: true } },
   { label: 'Person of color', value: { poc: true, woman: null } },
 ];
+
+export const DEFAULT_SPEAKER_LIMIT = 20;

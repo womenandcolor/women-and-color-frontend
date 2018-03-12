@@ -10,10 +10,10 @@ import { map } from 'lodash';
 // APP
 import css from '../styles.css';
 import { updateSearchParams, updateSelection } from 'appRedux/modules/speaker';
-import { IDENTITIES } from 'appHelpers/constants';
+import { IDENTITIES, DEFAULT_SPEAKER_LIMIT } from 'appHelpers/constants';
 
 const selectedStyle = {
-  backgroundColor: '#E5E8F4'
+  backgroundColor: 'var(--color-secondary)'
 }
 
 
@@ -43,12 +43,22 @@ class Sidebar extends Component {
   }
 
   handleSelectCity = (locationId) => {
-    this.props.updateSearchParams({ location: locationId });
+    this.props.updateSearchParams({
+      location: locationId,
+      offset: 0,
+      limit: DEFAULT_SPEAKER_LIMIT,
+      append: false
+    });
     this.props.updateSelection({ selectedLocation: locationId });
   }
 
   handleSelectIdentity = (identity) => {
-    this.props.updateSearchParams(identity.value);
+    this.props.updateSearchParams({
+      ...identity.value,
+      offset: 0,
+      limit: DEFAULT_SPEAKER_LIMIT,
+      append: false
+    });
     this.props.updateSelection({ selectedIdentity: identity.label });
   }
 

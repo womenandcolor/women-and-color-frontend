@@ -17,7 +17,7 @@ const SpeakerCard = ({speaker}) => {
         <p className={css.speakerTags}>{speaker.topic_list}</p>
       </div>
       <div className="actions">
-        <StyledButton label='View profile' href={`#/speaker/${speaker.id}`}>View profile</StyledButton>
+        <StyledButton color="primary" label='View profile' href={`#/speaker/${speaker.id}`}>View profile</StyledButton>
       </div>
     </div>
   )

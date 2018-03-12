@@ -8,7 +8,12 @@ import { container, innerContainer } from "./styles.css";
 
 const theme = createMuiTheme({
   palette: {
-    primary: indigo,
+    primary: {
+      light: '#E5E8F4',
+      main: '#283CA7',
+      dark: '#001777',
+      contrastText: '#fff',
+    },
     secondary: grey,
     error: pink
   },

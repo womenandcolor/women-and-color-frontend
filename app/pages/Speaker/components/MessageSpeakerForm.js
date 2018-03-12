@@ -140,7 +140,7 @@ const MessageSpeakerForm = ({ speaker, onInputChange, onSubmit, form }) => {
             </Grid>
           </Grid>
         </div>
-        <StyledButton type="submit">Send Message</StyledButton>
+        <StyledButton type="submit" color="primary">Send Message</StyledButton>
       </form>
     </section>
   );

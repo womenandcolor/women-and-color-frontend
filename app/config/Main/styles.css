@@ -1,6 +1,5 @@
 .container {
   width: 100%;
-  background-color: var(--background-color-light);
   padding: 30px;
   box-sizing: border-box; /* so that a child with width:100% will not overflow */
 }

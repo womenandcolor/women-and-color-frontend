@@ -15,13 +15,18 @@ const styles = (theme) => ({
 	flatPrimary: {
 		color: 'var(--color-inverted-light)',
 		backgroundColor: 'var(--color-primary)'
+	},
+	flatSecondary: {
+		color: 'var(--color-primary)',
+		backgroundColor: 'var(--color-inverted-light)',
+		border: '1px solid var(--color-primary)'
 	}
 })
 
 const StyledButton = (props) => {
 
 	return(
-		<Button {...props} className={`${props.classes.root} ${props.classes.flatPrimary}`}>
+		<Button {...props} className={`${props.classes.root} ${props.classes[props.color]}`}>
 			{props.children}
 		</Button>
 	)

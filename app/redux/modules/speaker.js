@@ -4,8 +4,8 @@ import { map, compact } from "lodash";
 // App
 import {
   BASE_URL_PATH,
-  SPEAKER_SEARCH_PARAMS,
-  IDENTITIES
+  IDENTITIES,
+  DEFAULT_SPEAKER_LIMIT
 } from "appHelpers/constants";
 import axios from "appHelpers/axios";
 
@@ -17,8 +17,8 @@ const UPDATE_SEARCH_PARAMS = `${MODULE_NAME}/UPDATE_SEARCH_PARAMS`;
 const UPDATE_SELECTION = `${MODULE_NAME}/UPDATE_SELECTION`;
 
 // Sync Action
-export function updateSpeakers(results) {
-  return { type: UPDATE_SPEAKERS, results };
+export function updateSpeakers(results, append) {
+  return { type: UPDATE_SPEAKERS, results, append };
 }
 
 export function updateSpeaker(result) {
@@ -42,13 +42,14 @@ export function fetchSpeakers(params = {}) {
   });
   const compacted = compact(queryParams);
   const queryString = compacted.join("&");
+  console.log('queryString', queryString)
 
   return dispatch => {
     axios
       .get(`${BASE_URL_PATH}/api/v1/profiles?${queryString}`)
       .then(res => {
         console.log("response", res);
-        dispatch(updateSpeakers(res.data));
+        dispatch(updateSpeakers(res.data, params.append));
       })
       .catch(err => console.log(err));
   };
@@ -69,7 +70,7 @@ export function getSpeaker(id) {
 // Reducer
 const INITIAL_STATE = {
   results: [],
-  searchParams: { 'offset': 0, 'limit': 20 },
+  searchParams: { offset: 0, limit: DEFAULT_SPEAKER_LIMIT },
   selectedLocation: null,
   selectedIdentity: IDENTITIES[0].label,
   speaker: null
@@ -78,6 +79,12 @@ const INITIAL_STATE = {
 export const reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case UPDATE_SPEAKERS:
+      if (action.append) {
+        return {
+          ...state,
+          results: state.results.concat(action.results)
+        }
+      }
       return {
         ...state,
         results: action.results

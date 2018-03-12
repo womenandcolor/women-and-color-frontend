@@ -48,7 +48,7 @@ const Work = (props) => {
 
         <div>
           <FormField className={ css.formControl }>
-            <StyledButton label="Submit" type="submit">Save and continue</StyledButton>
+            <StyledButton label="Submit" type="submit" color="primary">Save and continue</StyledButton>
           </FormField>
         </div>
       </form>
