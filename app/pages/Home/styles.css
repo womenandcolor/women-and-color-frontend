@@ -29,26 +29,6 @@
   margin-bottom: 8px;
 }
 
-.sidebarObject {
-	height: 36px;
-	width: 100%;  /* 192px; */
-  padding: 6px;
-  font-family: "Open Sans";
-  font-size: 16px;
-	color: #000000;
-}
-
-.sidebarObject:hover {
-  cursor: pointer;
-}
-
-.sidebarObjectSelected {
-  composes: sidebarObject;
-  color: #283CA7;
-	background-color: #E5E8F4;
-}
-
-
 
 // Content
 

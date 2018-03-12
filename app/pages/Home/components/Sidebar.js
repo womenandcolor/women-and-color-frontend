@@ -2,62 +2,114 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import List, { ListItem, ListItemText } from 'material-ui/List';
+import Collapse from 'material-ui/transitions/Collapse';
+import ExpandLess from 'material-ui-icons/ExpandLess';
+import ExpandMore from 'material-ui-icons/ExpandMore';
+import { map } from 'lodash';
 
 // APP
 import css from '../styles.css';
 import { updateSearchParams, updateSelection } from 'appRedux/modules/speaker';
-import { CITIES, IDENTITIES } from 'appHelpers/constants';
+import { IDENTITIES } from 'appHelpers/constants';
 
-const Sidebar = (props) => {
-  const allCitiesItem = {
-    city: 'All cities',
-    id: null
+const selectedStyle = {
+  backgroundColor: '#E5E8F4'
+}
+
+
+class Sidebar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { expand: {} };
   }
-  if (props.locations[0] && props.locations[0].city !== allCitiesItem.city) {
-    props.locations.unshift(allCitiesItem)
+
+  createLocationDict = (locations, dict) => {
+    locations.map(location => {
+      if (!dict[location.country]) {
+        dict[location.country] = [];
+      }
+      dict[location.country].push(location)
+    })
+
+    return dict
   }
 
-  return(
-    <div>
-      <h2 className={css.sidebarTitles}>CITY</h2>
-      <List>
-        {
-          props.locations.map((location, index) => {
-            const selector = location.id === props.selectedLocation ? 'sidebarObjectSelected' : 'sidebarObject';
-            const handleClick = () => {
-              props.updateSearchParams({ location: location.id });
-              props.updateSelection({ selectedLocation: location.id });
-            }
+  toggleCountry = (country) => {
+    this.setState({
+      expand: {
+        [country]: !this.state.expand[country]
+      }
+    })
+  }
 
-            return (
-              <ListItem key={index} className={css[selector]} onClick={handleClick}>
-                <ListItemText primary={location.city} />
-              </ListItem>
-            )
-          })
-        }
-      </List>
+  handleSelectCity = (locationId) => {
+    this.props.updateSearchParams({ location: locationId });
+    this.props.updateSelection({ selectedLocation: locationId });
+  }
 
-      <div className={css.sidebarTitles}>SELF-IDENTITY</div>
-      <List>
-        {
-          IDENTITIES.map((identity, index) => {
-            const selector = identity.label === props.selectedIdentity ? 'sidebarObjectSelected' : 'sidebarObject';
-            const handleClick = () => {
-              props.updateSearchParams(identity.value);
-              props.updateSelection({ selectedIdentity: identity.label });
-            }
+  handleSelectIdentity = (identity) => {
+    this.props.updateSearchParams(identity.value);
+    this.props.updateSelection({ selectedIdentity: identity.label });
+  }
 
-            return (
-              <ListItem key={index} className={css[selector]} onClick={handleClick}>
-                <ListItemText primary={identity.label} />
-              </ListItem>
-            )
-          })
-        }
-      </List>
-    </div>
-  )
+  render() {
+    const locations = this.createLocationDict(this.props.locations, {});
+
+    return(
+      <div>
+        <h2 className={css.sidebarTitles}>CITY</h2>
+        <List>
+          <ListItem onClick={() => this.handleSelectCity(null)} button style={!this.props.selectedLocation ? selectedStyle : {}}>
+            <ListItemText primary='All cities' />
+          </ListItem>
+          {
+            map(locations, (cities, country) => {
+              return (
+                <div key={country}>
+                  <ListItem onClick={() => this.toggleCountry(country)} button>
+                    <ListItemText primary={country} />
+                    {this.state.expand[country] ? <ExpandLess /> : <ExpandMore />}
+                  </ListItem>
+                  <Collapse in={this.state.expand[country]} timeout="auto" unmountOnExit>
+                  <List component="div" disablePadding>
+                    {
+                      cities.map((city, index) => {
+                        const selected = city.id === this.props.selectedLocation;
+                        const handleClick = () => this.handleSelectCity(city.id);
+
+                        return (
+                          <ListItem key={index} button style={selected ? selectedStyle : {}} onClick={handleClick}>
+                            <ListItemText inset primary={city.city} />
+                          </ListItem>
+                        )
+                      })
+                    }
+                    </List>
+                  </Collapse>
+                </div>
+              )
+            })
+          }
+        </List>
+
+        <div className={css.sidebarTitles}>SELF-IDENTITY</div>
+        <List>
+          {
+            IDENTITIES.map((identity, index) => {
+              const selected = identity.label === this.props.selectedIdentity;
+              const handleClick = () => this.handleSelectIdentity(identity)
+
+              return (
+                <ListItem key={index} style={selected ? selectedStyle : {}} onClick={handleClick} button>
+                  <ListItemText primary={identity.label} />
+                </ListItem>
+              )
+            })
+          }
+        </List>
+      </div>
+    )
+  }
 }
 
 
