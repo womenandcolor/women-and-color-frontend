@@ -1,5 +1,5 @@
 // NPM
-import { map, compact } from "lodash";
+import { map, compact, uniqBy } from "lodash";
 
 // App
 import {
@@ -82,12 +82,12 @@ export const reducer = (state = INITIAL_STATE, action) => {
       if (action.append) {
         return {
           ...state,
-          results: state.results.concat(action.results)
+          results: uniqBy(state.results.concat(action.results), 'id')
         }
       }
       return {
         ...state,
-        results: action.results
+        results: uniqBy(action.results, 'id')
       };
     case UPDATE_SPEAKER:
       return {
