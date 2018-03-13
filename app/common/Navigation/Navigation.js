@@ -68,7 +68,7 @@ class Navigation extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, showSearch } = this.props;
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
 
@@ -81,12 +81,15 @@ class Navigation extends React.Component {
                 <Grid container justify="space-between" alignItems="center">
                   <Grid item xs={3}>
                     <a href='/' className={classes.flex} style={{textDecoration: 'none'}}>
-                      <Logo className={navTitle} height="24px" width="auto" />
+                      <Logo className={navTitle} height="24px" width="100%" />
                     </a>
                   </Grid>
-                  <Grid item xs={5}>
-                    <SearchField updateSearchParams={this.props.updateSearchParams} />
-                  </Grid>
+                  {
+                    showSearch &&
+                    <Grid item xs={5}>
+                      <SearchField updateSearchParams={this.props.updateSearchParams} />
+                    </Grid>
+                  }
                   <Grid item xs={3}>
                     <Grid container justify="flex-end">
                       {

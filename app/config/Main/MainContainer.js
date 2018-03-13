@@ -25,7 +25,7 @@ const theme = createMuiTheme({
 const MainContainer = props => (
   <MuiThemeProvider theme={theme}>
     <div className={container}>
-      <Navigation />
+      <Navigation showSearch={true} />
       <div className={innerContainer}>{props.children}</div>
     </div>
   </MuiThemeProvider>
