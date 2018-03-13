@@ -14,6 +14,7 @@ import { connect } from 'react-redux'
 import { link, navTitle } from './styles.css';
 import StyledButton from 'appCommon/StyledButton';
 import SearchField from './SearchField';
+import Logo from 'svg-react-loader?name=Logo!../../assets/logo_women_and_color.svg';
 
 const styles = {
   root: {
@@ -75,52 +76,54 @@ class Navigation extends React.Component {
       <div className={classes.root}>
         <AppBar position="fixed" className={classes.root}>
           <Toolbar>
-            <Grid container justify="space-between" alignItems="center">
-              <Grid item>
-                <a href='/' className={classes.flex} style={{textDecoration: 'none'}}>
-                  <h1 className={navTitle}>
-                    Women & Color
-                  </h1>
-                </a>
-              </Grid>
-              <Grid item xs={4}>
-                <SearchField updateSearchParams={this.props.updateSearchParams} />
-              </Grid>
-              <Grid item>
-                <Grid container justify="flex-end">
-                  {
-                    this.props.user.id ? <StyledButton color="primary" href="/accounts/logout">Log out</StyledButton> : <StyledButton color="primary" href="/accounts/signup">Be a speaker</StyledButton>
-                  }
-                  <div>
-                    <IconButton
-                      aria-owns={open ? 'menu-appbar' : null}
-                      aria-haspopup="true"
-                      onClick={this.handleMenu}
-                      color="default"
-                    >
-                      <MenuIcon />
-                    </IconButton>
-                    <Menu
-                      id="menu-appbar"
-                      anchorEl={anchorEl}
-                      anchorOrigin={{
-                        vertical: 'top',
-                        horizontal: 'right',
-                      }}
-                      transformOrigin={{
-                        vertical: 'top',
-                        horizontal: 'right',
-                      }}
-                      open={open}
-                      onClose={this.handleClose}
-                    >
-                      <MenuItem onClick={this.handleClose}>
-                        <a className={link} href='/#/about'>{'About'}</a>
-                      </MenuItem>
-                      { this.renderNavLinksAuthentication() }
-                    </Menu>
-                  </div>
+            <Grid container justify="center">
+              <Grid item xs={8}>
+                <Grid container justify="space-between" alignItems="center">
+                  <Grid item xs={3}>
+                    <a href='/' className={classes.flex} style={{textDecoration: 'none'}}>
+                      <Logo className={navTitle} height="24px" width="auto" />
+                    </a>
                   </Grid>
+                  <Grid item xs={5}>
+                    <SearchField updateSearchParams={this.props.updateSearchParams} />
+                  </Grid>
+                  <Grid item xs={3}>
+                    <Grid container justify="flex-end">
+                      {
+                        this.props.user.id ? <StyledButton color="primary" href="/accounts/logout">Log out</StyledButton> : <StyledButton color="primary" href="/accounts/signup">Be a speaker</StyledButton>
+                      }
+                      <div>
+                        <IconButton
+                          aria-owns={open ? 'menu-appbar' : null}
+                          aria-haspopup="true"
+                          onClick={this.handleMenu}
+                          color="default"
+                        >
+                          <MenuIcon />
+                        </IconButton>
+                        <Menu
+                          id="menu-appbar"
+                          anchorEl={anchorEl}
+                          anchorOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                          }}
+                          transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                          }}
+                          open={open}
+                          onClose={this.handleClose}
+                        >
+                          <MenuItem onClick={this.handleClose}>
+                            <a className={link} href='/#/about'>{'About'}</a>
+                          </MenuItem>
+                          { this.renderNavLinksAuthentication() }
+                        </Menu>
+                      </div>
+                      </Grid>
+                  </Grid>
+                </Grid>
               </Grid>
             </Grid>
           </Toolbar>

@@ -1,5 +1,6 @@
 // NPM
 import React, { PropTypes, Component } from 'react'
+import {withRouter} from 'react-router-dom'
 import IconButton from 'material-ui/IconButton';
 import SearchIcon from 'material-ui-icons/Search';
 import TextField from 'material-ui/TextField';
@@ -23,12 +24,13 @@ const styles = {
 class SearchField extends Component {
   constructor(props) {
     super(props);
-    this.state = { query: '' }
+    this.state = { query: this.props.q }
   }
 
   searchProfiles = (event) => {
     event.preventDefault();
     const query = this.state.query;
+    this.props.history.push('/')
     this.props.updateSearchParams({
       q: query,
       offset: 0,
@@ -41,6 +43,7 @@ class SearchField extends Component {
     const query = event.target.value;
     this.setState({ query });
     if (!query) {
+      this.props.history.push('/')
       this.props.updateSearchParams({
         q: null,
         offset: 0,
@@ -79,7 +82,13 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    q: state.speaker.searchParams.q
+  }
+}
+
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
-)(SearchField);
+)(withRouter(SearchField));

@@ -1,11 +1,12 @@
 // NPM
 import React, { PropTypes, Component } from 'react'
+import {withRouter} from 'react-router-dom'
 import IconButton from 'material-ui/IconButton';
 import SearchIcon from 'material-ui-icons/Search';
 import TextField from 'material-ui/TextField';
 import Typography from 'material-ui/Typography';
 import Grid from 'material-ui/Grid';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
 // APP
 import StyledButton from 'appCommon/StyledButton';
@@ -18,14 +19,15 @@ const styles = {
   },
   banner: {
     backgroundColor: 'var(--color-primary)',
-    paddingTop: '3rem',
-    paddingBottom: '3rem',
-    marginBottom: '2rem'
+    paddingTop: '6rem',
+    paddingBottom: '6rem',
+    marginBottom: '2rem',
+    background: "url('https://s3.ca-central-1.amazonaws.com/womenandcolor/background-image.jpg') no-repeat center center fixed",
+    backgroundSize: 'cover',
   },
   headline: {
     fontSize: '2rem',
     color: 'var(--color-inverted-light)',
-    marginTop: '2rem',
     marginBottom: '2rem',
     fontWeight: '100'
   },
@@ -46,11 +48,12 @@ const styles = {
 class Banner extends Component {
   constructor(props) {
     super(props);
-    this.state = { query: '' }
+    this.state = { query: this.props.q }
   }
 
   searchProfiles = (event) => {
     event.preventDefault();
+    this.props.history.push('/')
     const query = this.state.query;
     this.props.updateSearchParams({
       q: query,
@@ -64,6 +67,7 @@ class Banner extends Component {
     const query = event.target.value;
     this.setState({ query });
     if (!query) {
+      this.props.history.push('/')
       this.props.updateSearchParams({
         q: null,
         offset: 0,
@@ -111,7 +115,13 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    q: state.speaker.searchParams.q
+  }
+}
+
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
-)(Banner);
+)(withRouter(Banner));
