@@ -8,6 +8,7 @@ import Button from 'material-ui/Button';
 import SpeakerCard from './components/SpeakerCard';
 import Sidebar from './components/Sidebar';
 import StyledButton from 'appCommon/StyledButton';
+import Banner from 'appCommon/Banner';
 import css from './styles.css';
 import { fetchSpeakers, updateSearchParams } from 'appRedux/modules/speaker';
 import { get as getLocations } from 'appRedux/modules/location';
@@ -18,22 +19,29 @@ import { DEFAULT_SPEAKER_LIMIT } from 'appHelpers/constants'
 
 const Home = (props) => {
   return (
-    <Grid container>
-      <Grid item xs={12} md={3}>
-          <Sidebar locations={props.locations} />
+    <Grid container justify="center">
+      <Grid item xs={12}>
+        <Banner />
       </Grid>
-      <Grid item xs={12} md={9}>
-        <div className={css.contentTitles}>{'Speakers in Toronto for all topics'}</div>
-        <div className={css.speakersList}>
-          {
-            props.speakers.map((speaker, index) => (
-              <SpeakerCard speaker={speaker} key={index} />
-            ))
-          }
-        </div>
-        <Grid container justify={'center'}>
-          <Grid item>
-            <StyledButton color="secondary" onClick={props.loadMoreSpeakers}>Load more speakers</StyledButton>
+      <Grid item xs={8}>
+        <Grid container>
+          <Grid item xs={12} md={3}>
+            <Sidebar locations={props.locations} />
+          </Grid>
+          <Grid item xs={12} md={9}>
+            <div className={css.contentTitles}>{'Speakers in Toronto for all topics'}</div>
+            <div className={css.speakersList}>
+              {
+                props.speakers.map((speaker, index) => (
+                  <SpeakerCard speaker={speaker} key={index} />
+                ))
+              }
+            </div>
+            <Grid container justify={'center'}>
+              <Grid item>
+                <StyledButton color="secondary" onClick={props.loadMoreSpeakers}>Load more speakers</StyledButton>
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </Grid>
