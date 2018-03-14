@@ -40,15 +40,27 @@ const Social = (props) => {
         <h1 className={css.registrationFormHeader}>Be a little social</h1>
 
         <FormField fullWidth className={ css.formControl }>
-          <TextField label="Twitter (optional)" onChange={ generateHandler('twitter') } />
+          <TextField
+            label="Twitter handle (optional)"
+            onChange={ generateHandler('twitter') }
+            placeholder="Ex. @womenandcolor"
+          />
         </FormField>
 
         <FormField fullWidth className={ css.formControl }>
-          <TextField label="LinkedIn (optional)" onChange={ generateHandler('linkedin') } />
+          <TextField
+            label="LinkedIn page (optional)"
+            onChange={ generateHandler('linkedin') }
+            placeholder="Ex. https://www.linkedin.com/in/yournamehere/"
+          />
         </FormField>
 
         <FormField fullWidth className={ css.formControl }>
-          <TextField label="Website (optional)" onChange={ generateHandler('website') } />
+          <TextField
+            label="Website (optional)"
+            onChange={ generateHandler('website') }
+            placeholder="Ex. http://womenandcolor.com/"
+          />
         </FormField>
 
         <div>

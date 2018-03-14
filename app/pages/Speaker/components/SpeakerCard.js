@@ -33,13 +33,14 @@ const SpeakerCard = ({ speaker }) => {
               className={css.speakerInfoListLocation}
             />
           </ListItem>
-          {hasSocial && (
+          {
+            hasSocial &&
             <ListItem className={css.speakerInfoListSocial}>
-              {speaker.twitter && <a href={speaker.twitter}>Twitter</a>}
-              {speaker.linkedin && <a href={speaker.linkedin}>LinkedIn</a>}
-              {speaker.website && <a href={speaker.website}>Website</a>}
+              {speaker.twitter && <a href={`https://twitter.com/${speaker.twitter.replace(/@/,'')}`} target="_blank">Twitter</a>}
+              {speaker.linkedin && <a href={speaker.linkedin} target="_blank">LinkedIn</a>}
+              {speaker.website && <a href={speaker.website} target="_blank">Website</a>}
             </ListItem>
-          )}
+          }
         </List>
       </CardContent>
     </Card>
