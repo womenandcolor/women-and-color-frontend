@@ -11,7 +11,9 @@ const styles = (theme) => ({
 		textTransform: 'none',
 		padding: 'var(--padding-vertical) var(--padding-horizontal)',
 		borderRadius: 'var(--border-radius)',
-		whiteSpace: 'nowrap'
+		whiteSpace: 'nowrap',
+		marginLeft: '2px',
+		marginRight: '2px',
 	},
 	flatPrimary: {
 		color: 'var(--color-inverted-light)',

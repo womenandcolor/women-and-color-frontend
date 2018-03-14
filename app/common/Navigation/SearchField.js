@@ -24,13 +24,16 @@ const styles = {
 class SearchField extends Component {
   constructor(props) {
     super(props);
-    this.state = { query: this.props.q }
+    this.state = { query: this.props.q || '' }
   }
 
   searchProfiles = (event) => {
     event.preventDefault();
     const query = this.state.query;
-    this.props.history.push('/')
+    const home = '/'
+    if (this.props.history.location.pathname !== home) {
+      this.props.history.push(home)
+    }
     this.props.updateSearchParams({
       q: query,
       offset: 0,
@@ -43,7 +46,10 @@ class SearchField extends Component {
     const query = event.target.value;
     this.setState({ query });
     if (!query) {
-      this.props.history.push('/')
+      const home = '/'
+      if (this.props.history.location.pathname !== home) {
+        this.props.history.push(home)
+      }
       this.props.updateSearchParams({
         q: null,
         offset: 0,

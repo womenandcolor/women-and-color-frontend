@@ -2,10 +2,9 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import Grid from 'material-ui/Grid';
-import Button from 'material-ui/Button';
 
 // APP
-import SpeakerCard from './components/SpeakerCard';
+import SpeakerList from './components/SpeakerList';
 import Sidebar from './components/Sidebar';
 import StyledButton from 'appCommon/StyledButton';
 import Banner from 'appCommon/Banner';
@@ -18,6 +17,9 @@ import {
 import { DEFAULT_SPEAKER_LIMIT } from 'appHelpers/constants'
 
 const Home = (props) => {
+  const searchParams = props.searchParams
+  const location = searchParams.location ? searchParams.location.city : 'all cities';
+
   return (
     <Grid container justify="center">
       <Grid item xs={12}>
@@ -29,19 +31,12 @@ const Home = (props) => {
             <Sidebar locations={props.locations} />
           </Grid>
           <Grid item xs={12} md={9}>
-            <div className={css.contentTitles}>{'Speakers in Toronto for all topics'}</div>
-            <div className={css.speakersList}>
-              {
-                props.speakers.map((speaker, index) => (
-                  <SpeakerCard speaker={speaker} key={index} />
-                ))
-              }
-            </div>
-            <Grid container justify={'center'}>
-              <Grid item>
-                <StyledButton color="secondary" onClick={props.loadMoreSpeakers}>Load more speakers</StyledButton>
-              </Grid>
-            </Grid>
+            <div className={css.contentTitles}>{`Speakers in ${location} for all topics`}</div>
+            <SpeakerList
+              speakers={props.speakers}
+              endOfResults={props.endOfResults}
+              loadMoreSpeakers={props.loadMoreSpeakers}
+            />
           </Grid>
         </Grid>
       </Grid>
@@ -75,9 +70,8 @@ class HomeContainer extends Component {
   render() {
     return (
       <Home
-        speakers={this.props.speakers}
-        locations={this.props.locations}
         loadMoreSpeakers={this.loadMoreSpeakers}
+        {...this.props}
       />
     )
   }
@@ -88,7 +82,8 @@ const mapStateToProps = (state) => {
   return {
     speakers: state.speaker.results,
     locations: state.location.locations,
-    searchParams: state.speaker.searchParams
+    searchParams: state.speaker.searchParams,
+    endOfResults: state.speaker.endOfResults
   }
 }
 

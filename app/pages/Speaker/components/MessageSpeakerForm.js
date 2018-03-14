@@ -75,8 +75,12 @@ const MessageSpeakerForm = ({ speaker, onInputChange, onSubmit, form }) => {
               <FormField fullWidth>
                 <TextField
                   label="Event Date"
+                  type="date"
                   value={form.event_date}
                   onChange={generateHandler('event_date')}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
                 />
               </FormField>
             </Grid>
@@ -84,8 +88,12 @@ const MessageSpeakerForm = ({ speaker, onInputChange, onSubmit, form }) => {
               <FormField fullWidth>
                 <TextField
                   label="Event Time"
+                  type="time"
                   value={form.event_time}
                   onChange={generateHandler('event_time')}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
                 />
               </FormField>
             </Grid>

@@ -11,6 +11,7 @@ import axios from "appHelpers/axios";
 
 const MODULE_NAME = "SPEAKER";
 
+const GET_SPEAKER = `${MODULE_NAME}/GET_SPEAKER`;
 const UPDATE_SPEAKER = `${MODULE_NAME}/UPDATE_SPEAKER`;
 const UPDATE_SPEAKERS = `${MODULE_NAME}/UPDATE_SPEAKERS`;
 const UPDATE_SEARCH_PARAMS = `${MODULE_NAME}/UPDATE_SEARCH_PARAMS`;
@@ -37,6 +38,7 @@ export function updateSelection(selected) {
 export function fetchSpeakers(params = {}) {
   const queryParams = map(params, (v, k) => {
     if (!!v) {
+      v = typeof(v) === 'object' ? v.id : v;
       return `${k}=${v}`;
     }
   });
@@ -60,7 +62,6 @@ export function getSpeaker(id) {
     axios
       .get(`${BASE_URL_PATH}/api/v1/profiles/${id}`)
       .then(res => {
-        console.log("getSpeaker", res);
         dispatch(updateSpeaker(res.data));
       })
       .catch(err => console.log(err));
@@ -70,6 +71,7 @@ export function getSpeaker(id) {
 // Reducer
 const INITIAL_STATE = {
   results: [],
+  endOfResults: false,
   searchParams: { offset: 0, limit: DEFAULT_SPEAKER_LIMIT },
   selectedLocation: null,
   selectedIdentity: IDENTITIES[0].label,
@@ -82,12 +84,14 @@ export const reducer = (state = INITIAL_STATE, action) => {
       if (action.append) {
         return {
           ...state,
-          results: uniqBy(state.results.concat(action.results), 'id')
+          results: uniqBy(state.results.concat(action.results), 'id'),
+          endOfResults: action.results.length < DEFAULT_SPEAKER_LIMIT
         }
       }
       return {
         ...state,
-        results: uniqBy(action.results, 'id')
+        results: uniqBy(action.results, 'id'),
+        endOfResults: action.results.length < DEFAULT_SPEAKER_LIMIT
       };
     case UPDATE_SPEAKER:
       return {

@@ -42,14 +42,14 @@ class Sidebar extends Component {
     })
   }
 
-  handleSelectCity = (locationId) => {
+  handleSelectCity = (location) => {
     this.props.updateSearchParams({
-      location: locationId,
+      location: location,
       offset: 0,
       limit: DEFAULT_SPEAKER_LIMIT,
       append: false
     });
-    this.props.updateSelection({ selectedLocation: locationId });
+    this.props.updateSelection({ selectedLocation: location.id });
   }
 
   handleSelectIdentity = (identity) => {
@@ -83,13 +83,13 @@ class Sidebar extends Component {
                   <Collapse in={this.state.expand[country]} timeout="auto" unmountOnExit>
                   <List component="div" disablePadding>
                     {
-                      cities.map((city, index) => {
-                        const selected = city.id === this.props.selectedLocation;
-                        const handleClick = () => this.handleSelectCity(city.id);
+                      cities.map((location, index) => {
+                        const selected = location.id === this.props.selectedLocation;
+                        const handleClick = () => this.handleSelectCity(location);
 
                         return (
                           <ListItem key={index} button style={selected ? selectedStyle : {}} onClick={handleClick}>
-                            <ListItemText inset primary={city.city} />
+                            <ListItemText inset primary={location.city} />
                           </ListItem>
                         )
                       })
