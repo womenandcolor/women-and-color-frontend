@@ -29,7 +29,11 @@ const Home = (props) => {
           </Grid>
           <Grid item xs={12} md={9}>
             <div className={css.contentTitles}>{'Speakers in Toronto for all topics'}</div>
-            <SpeakerList speakers={props.speakers} loadMoreSpeakers={props.loadMoreSpeakers} />
+            <SpeakerList
+              speakers={props.speakers}
+              endOfResults={props.endOfResults}
+              loadMoreSpeakers={props.loadMoreSpeakers}
+            />
           </Grid>
         </Grid>
       </Grid>
@@ -65,6 +69,7 @@ class HomeContainer extends Component {
       <Home
         speakers={this.props.speakers}
         locations={this.props.locations}
+        endOfResults={this.props.endOfResults}
         loadMoreSpeakers={this.loadMoreSpeakers}
       />
     )
@@ -76,7 +81,8 @@ const mapStateToProps = (state) => {
   return {
     speakers: state.speaker.results,
     locations: state.location.locations,
-    searchParams: state.speaker.searchParams
+    searchParams: state.speaker.searchParams,
+    endOfResults: state.speaker.endOfResults
   }
 }
 

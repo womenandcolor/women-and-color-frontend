@@ -70,6 +70,7 @@ export function getSpeaker(id) {
 // Reducer
 const INITIAL_STATE = {
   results: [],
+  endOfResults: false,
   searchParams: { offset: 0, limit: DEFAULT_SPEAKER_LIMIT },
   selectedLocation: null,
   selectedIdentity: IDENTITIES[0].label,
@@ -82,12 +83,14 @@ export const reducer = (state = INITIAL_STATE, action) => {
       if (action.append) {
         return {
           ...state,
-          results: uniqBy(state.results.concat(action.results), 'id')
+          results: uniqBy(state.results.concat(action.results), 'id'),
+          endOfResults: action.results.length < DEFAULT_SPEAKER_LIMIT
         }
       }
       return {
         ...state,
-        results: uniqBy(action.results, 'id')
+        results: uniqBy(action.results, 'id'),
+        endOfResults: action.results.length < DEFAULT_SPEAKER_LIMIT
       };
     case UPDATE_SPEAKER:
       return {

@@ -8,8 +8,9 @@ import StyledButton from 'appCommon/StyledButton';
 import css from '../styles.css';
 
 
-const SpeakerList = ({ speakers, loadMoreSpeakers }) => {
+const SpeakerList = ({ speakers, endOfResults, loadMoreSpeakers }) => {
   const noResults = speakers.length === 0;
+  console.log(endOfResults)
 
   if (noResults) {
     return <div className={css.noResults}>No results</div>
@@ -24,11 +25,14 @@ const SpeakerList = ({ speakers, loadMoreSpeakers }) => {
           ))
         }
       </div>
-      <Grid container justify={'center'}>
-        <Grid item>
-          <StyledButton color="secondary" onClick={loadMoreSpeakers}>Load more speakers</StyledButton>
+      {
+        !endOfResults &&
+        <Grid container justify={'center'}>
+          <Grid item>
+            <StyledButton color="secondary" onClick={loadMoreSpeakers}>Load more speakers</StyledButton>
+          </Grid>
         </Grid>
-      </Grid>
+      }
     </div>
   )
 }
