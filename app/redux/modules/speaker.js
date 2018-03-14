@@ -38,6 +38,7 @@ export function updateSelection(selected) {
 export function fetchSpeakers(params = {}) {
   const queryParams = map(params, (v, k) => {
     if (!!v) {
+      v = typeof(v) === 'object' ? v.id : v;
       return `${k}=${v}`;
     }
   });

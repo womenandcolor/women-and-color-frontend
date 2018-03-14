@@ -17,6 +17,9 @@ import {
 import { DEFAULT_SPEAKER_LIMIT } from 'appHelpers/constants'
 
 const Home = (props) => {
+  const searchParams = props.searchParams
+  const location = searchParams.location ? searchParams.location.city : 'all cities';
+
   return (
     <Grid container justify="center">
       <Grid item xs={12}>
@@ -28,7 +31,7 @@ const Home = (props) => {
             <Sidebar locations={props.locations} />
           </Grid>
           <Grid item xs={12} md={9}>
-            <div className={css.contentTitles}>{'Speakers in Toronto for all topics'}</div>
+            <div className={css.contentTitles}>{`Speakers in ${location} for all topics`}</div>
             <SpeakerList
               speakers={props.speakers}
               endOfResults={props.endOfResults}
@@ -67,10 +70,8 @@ class HomeContainer extends Component {
   render() {
     return (
       <Home
-        speakers={this.props.speakers}
-        locations={this.props.locations}
-        endOfResults={this.props.endOfResults}
         loadMoreSpeakers={this.loadMoreSpeakers}
+        {...this.props}
       />
     )
   }

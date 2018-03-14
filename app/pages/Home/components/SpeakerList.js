@@ -10,7 +10,6 @@ import css from '../styles.css';
 
 const SpeakerList = ({ speakers, endOfResults, loadMoreSpeakers }) => {
   const noResults = speakers.length === 0;
-  console.log(endOfResults)
 
   if (noResults) {
     return <div className={css.noResults}>No results</div>
