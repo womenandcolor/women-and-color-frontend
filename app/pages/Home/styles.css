@@ -112,3 +112,7 @@
 .speakersList {
   margin-bottom: 2rem;
 }
+
+.noResults {
+  margin: 2rem 0;
+}

@@ -11,6 +11,7 @@ import axios from "appHelpers/axios";
 
 const MODULE_NAME = "SPEAKER";
 
+const GET_SPEAKER = `${MODULE_NAME}/GET_SPEAKER`;
 const UPDATE_SPEAKER = `${MODULE_NAME}/UPDATE_SPEAKER`;
 const UPDATE_SPEAKERS = `${MODULE_NAME}/UPDATE_SPEAKERS`;
 const UPDATE_SEARCH_PARAMS = `${MODULE_NAME}/UPDATE_SEARCH_PARAMS`;
@@ -60,7 +61,6 @@ export function getSpeaker(id) {
     axios
       .get(`${BASE_URL_PATH}/api/v1/profiles/${id}`)
       .then(res => {
-        console.log("getSpeaker", res);
         dispatch(updateSpeaker(res.data));
       })
       .catch(err => console.log(err));

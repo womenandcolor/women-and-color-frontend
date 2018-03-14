@@ -24,16 +24,42 @@ const styles = {
   },
   flex: {
     flex: 1,
-  }
+  },
 };
+
+const LoginButton = (props) => (
+  <StyledButton color="secondary" href="/accounts/login">Log in</StyledButton>
+)
+
+const LogoutButton = (props) => (
+  <StyledButton color="primary" href="/accounts/logout">Log out</StyledButton>
+)
+
+const SignUpButton = (props) => (
+  <StyledButton color="primary" href="/accounts/signup">Be a speaker</StyledButton>
+)
+
+const EditProfileButton = (props) => (
+  <StyledButton color="secondary" href="/#/profile">Edit profile</StyledButton>
+)
+
+const LoggedInMenu = (props) => (
+  <div>
+    <EditProfileButton {...props} />
+    <LogoutButton {...props} />
+  </div>
+)
+
+const LoggedOutMenu = (props) => (
+  <div>
+    <LoginButton {...props} />
+    <SignUpButton {...props} />
+  </div>
+)
 
 class Navigation extends React.Component {
   state = {
     anchorEl: null,
-  };
-
-  handleChange = (event, checked) => {
-    this.setState({ auth: checked });
   };
 
   handleMenu = event => {
@@ -44,86 +70,38 @@ class Navigation extends React.Component {
     this.setState({ anchorEl: null });
   };
 
-  renderNavLinksAuthentication = () => {
-    if (this.props.user.id) {
-      return (
-        <div>
-          <MenuItem onClick={this.handleClose}>
-            <a className={link} href='/accounts/logout'>{'Logout'}</a>
-          </MenuItem>
-        </div>
-      )
-    } else {
-      return (
-        <div>
-          <MenuItem onClick={this.handleClose}>
-            <a className={link} href='/accounts/login'>{'Login'}</a>
-          </MenuItem>
-          <MenuItem onClick={this.handleClose}>
-            <a className={link} href='/accounts/signup'>{'Register'}</a>
-          </MenuItem>
-        </div>
-      )
-    }
-  };
 
   render() {
     const { classes, showSearch } = this.props;
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
+    const authed = !!this.props.user.id;
 
     return (
       <div className={classes.root}>
         <AppBar position="fixed" className={classes.root}>
           <Toolbar>
             <Grid container justify="center">
-              <Grid item xs={8}>
+              <Grid item xs={12} sm={8}>
                 <Grid container justify="space-between" alignItems="center">
-                  <Grid item xs={3}>
+                  <Grid item xs={4} sm={3}>
                     <a href='/' className={classes.flex} style={{textDecoration: 'none'}}>
                       <Logo className={navTitle} height="24px" width="100%" />
                     </a>
                   </Grid>
                   {
                     showSearch &&
-                    <Grid item xs={5}>
+                    <Grid item xs={8} sm={5}>
                       <SearchField updateSearchParams={this.props.updateSearchParams} />
                     </Grid>
                   }
-                  <Grid item xs={3}>
+                  <Grid item xs={12} sm={4}>
                     <Grid container justify="flex-end">
                       {
-                        this.props.user.id ? <StyledButton color="primary" href="/accounts/logout">Log out</StyledButton> : <StyledButton color="primary" href="/accounts/signup">Be a speaker</StyledButton>
+                        authed ?
+                        <LoggedInMenu /> :
+                        <LoggedOutMenu />
                       }
-                      <div>
-                        <IconButton
-                          aria-owns={open ? 'menu-appbar' : null}
-                          aria-haspopup="true"
-                          onClick={this.handleMenu}
-                          color="default"
-                        >
-                          <MenuIcon />
-                        </IconButton>
-                        <Menu
-                          id="menu-appbar"
-                          anchorEl={anchorEl}
-                          anchorOrigin={{
-                            vertical: 'top',
-                            horizontal: 'right',
-                          }}
-                          transformOrigin={{
-                            vertical: 'top',
-                            horizontal: 'right',
-                          }}
-                          open={open}
-                          onClose={this.handleClose}
-                        >
-                          <MenuItem onClick={this.handleClose}>
-                            <a className={link} href='/#/about'>{'About'}</a>
-                          </MenuItem>
-                          { this.renderNavLinksAuthentication() }
-                        </Menu>
-                      </div>
                       </Grid>
                   </Grid>
                 </Grid>
