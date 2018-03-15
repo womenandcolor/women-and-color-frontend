@@ -37,7 +37,7 @@ const CURRENT_PAGE = 'profile';
 const Profile = (props) => {
   const generateHandler = (fieldName) => {
     return (event) => {
-      props.handleProfileInputChange(fieldName, event.currentTarget.value)
+      props.handleProfileInputChange(fieldName, event.target.value)
     }
   }
 
