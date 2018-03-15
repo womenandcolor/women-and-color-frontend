@@ -1,5 +1,6 @@
 import React from "react";
 import { MuiThemeProvider, createMuiTheme } from "material-ui/styles";
+import CssBaseline from 'material-ui/CssBaseline';
 import indigo from "material-ui/colors/indigo";
 import grey from "material-ui/colors/grey";
 import pink from "material-ui/colors/pink";
@@ -23,12 +24,15 @@ const theme = createMuiTheme({
 });
 
 const MainContainer = props => (
-  <MuiThemeProvider theme={theme}>
-    <div className={container}>
-      <Navigation showSearch={true} />
-      <div className={innerContainer}>{props.children}</div>
-    </div>
-  </MuiThemeProvider>
+  <div>
+    <CssBaseline />
+    <MuiThemeProvider theme={theme}>
+      <div className={container}>
+        <Navigation showSearch={true} />
+        <div className={innerContainer}>{props.children}</div>
+      </div>
+    </MuiThemeProvider>
+  </div>
 );
 
 export default MainContainer;
