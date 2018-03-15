@@ -22,7 +22,7 @@ export const pronounDict = {
   they: 'They, them, their'
 };
 
-export const BASE_URL_PATH = process.env.production
+export const BASE_URL_PATH = process.env.NODE_ENV === 'production'
   ? 'https://women-and-color-backend.herokuapp.com'
   : 'http://localhost:8000';
 
