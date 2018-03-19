@@ -39,8 +39,8 @@ class SpeakerContainer extends Component {
   }
 
   componentDidMount() {
-    const { match: { params: { id } } } = this.props;
-    this.props.getSpeaker(id);
+    const { match: { params: { id, fullName } } } = this.props;
+    this.props.getSpeaker(id, fullName);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -94,8 +94,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch, props) {
   return {
-    getSpeaker: id => {
-      dispatch(getSpeaker(id));
+    getSpeaker: (id, fullName) => {
+      dispatch(getSpeaker(id, fullName));
     },
   };
 }

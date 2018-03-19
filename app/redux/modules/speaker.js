@@ -1,15 +1,17 @@
 // NPM
-import { map, compact, uniqBy } from "lodash";
+import { map, compact, uniqBy } from 'lodash';
+import { equals } from 'ramda';
+import { push } from 'react-router-redux';
 
 // App
 import {
   BASE_URL_PATH,
   IDENTITIES,
-  DEFAULT_SPEAKER_LIMIT
-} from "appHelpers/constants";
-import axios from "appHelpers/axios";
+  DEFAULT_SPEAKER_LIMIT,
+} from 'appHelpers/constants';
+import axios from 'appHelpers/axios';
 
-const MODULE_NAME = "SPEAKER";
+const MODULE_NAME = 'SPEAKER';
 
 const GET_SPEAKER = `${MODULE_NAME}/GET_SPEAKER`;
 const UPDATE_SPEAKER = `${MODULE_NAME}/UPDATE_SPEAKER`;
@@ -38,31 +40,35 @@ export function updateSelection(selected) {
 export function fetchSpeakers(params = {}) {
   const queryParams = map(params, (v, k) => {
     if (!!v) {
-      v = typeof(v) === 'object' ? v.id : v;
+      v = typeof v === 'object' ? v.id : v;
       return `${k}=${v}`;
     }
   });
   const compacted = compact(queryParams);
-  const queryString = compacted.join("&");
-  console.log('queryString', queryString)
+  const queryString = compacted.join('&');
+  console.log('queryString', queryString);
 
   return dispatch => {
     axios
       .get(`${BASE_URL_PATH}/api/v1/profiles?${queryString}`)
       .then(res => {
-        console.log("response", res);
         dispatch(updateSpeakers(res.data, params.append));
       })
       .catch(err => console.log(err));
   };
 }
 
-export function getSpeaker(id) {
+export function getSpeaker(id, fullName) {
   return dispatch => {
     axios
       .get(`${BASE_URL_PATH}/api/v1/profiles/${id}`)
       .then(res => {
         dispatch(updateSpeaker(res.data));
+
+        const { id, first_name, last_name } = res.data;
+        if (!equals(fullName, `${first_name}-${last_name}`)) {
+          dispatch(push(`/speaker/${id}/${first_name}-${last_name}`));
+        }
       })
       .catch(err => console.log(err));
   };
@@ -75,7 +81,7 @@ const INITIAL_STATE = {
   searchParams: { offset: 0, limit: DEFAULT_SPEAKER_LIMIT },
   selectedLocation: null,
   selectedIdentity: IDENTITIES[0].label,
-  speaker: null
+  speaker: null,
 };
 
 export const reducer = (state = INITIAL_STATE, action) => {
@@ -85,31 +91,31 @@ export const reducer = (state = INITIAL_STATE, action) => {
         return {
           ...state,
           results: uniqBy(state.results.concat(action.results), 'id'),
-          endOfResults: action.results.length < DEFAULT_SPEAKER_LIMIT
-        }
+          endOfResults: action.results.length < DEFAULT_SPEAKER_LIMIT,
+        };
       }
       return {
         ...state,
         results: uniqBy(action.results, 'id'),
-        endOfResults: action.results.length < DEFAULT_SPEAKER_LIMIT
+        endOfResults: action.results.length < DEFAULT_SPEAKER_LIMIT,
       };
     case UPDATE_SPEAKER:
       return {
         ...state,
-        speaker: action.result
+        speaker: action.result,
       };
     case UPDATE_SEARCH_PARAMS:
       return {
         ...state,
         searchParams: {
           ...state.searchParams,
-          ...action.params
-        }
+          ...action.params,
+        },
       };
     case UPDATE_SELECTION:
       return {
         ...state,
-        ...action.selected
+        ...action.selected,
       };
     default:
       return state;

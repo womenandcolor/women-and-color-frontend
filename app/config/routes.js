@@ -27,7 +27,7 @@ const routes = (
           <Route path="/get-started/profile" component={Profile} />
           <Route path="/get-started/work" component={Work} />
           <Route path="/get-started/social" component={Social} />
-          <Route path="/speaker/:id" component={Speaker} />
+          <Route path="/speaker/:id/:fullName?" component={Speaker} />
           <Route path="/profile" component={EditProfile} />
         </Switch>
       </MainContainer>

@@ -24,7 +24,9 @@ const SpeakerCard = ({ speaker }) => {
         <StyledButton
           color="primary"
           label="View profile"
-          href={`#/speaker/${speaker.id}`}
+          href={`#/speaker/${speaker.id}/${speaker.first_name}-${
+            speaker.last_name
+          }`}
         >
           View profile
         </StyledButton>
