@@ -1,6 +1,7 @@
 // NPM
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
+import { withStyles } from 'material-ui/styles';
 import List, { ListItem, ListItemText } from 'material-ui/List';
 import Collapse from 'material-ui/transitions/Collapse';
 import ExpandLess from 'material-ui-icons/ExpandLess';
@@ -15,6 +16,12 @@ import { IDENTITIES, DEFAULT_SPEAKER_LIMIT } from 'appHelpers/constants';
 const selectedStyle = {
   backgroundColor: 'var(--color-secondary)',
 };
+
+const styles = {
+  primary: {
+    fontWeight: 'var(--font-weight-semibold)'
+  }
+}
 
 class Sidebar extends Component {
   constructor(props) {
@@ -76,7 +83,7 @@ class Sidebar extends Component {
           >
             <ListItemText
               primary="all cities"
-              classes={{ primary: css.sidebarSubtitle }}
+              classes={{ primary: this.props.classes.primary }}
             />
           </ListItem>
           {map(locations, (cities, country) => {
@@ -85,7 +92,7 @@ class Sidebar extends Component {
                 <ListItem onClick={() => this.toggleCountry(country)} button>
                   <ListItemText
                     primary={country}
-                    classes={{ primary: css.sidebarSubtitle }}
+                    classes={{ primary: this.props.classes.primary }}
                   />
                   {this.state.expand[country] ? <ExpandLess /> : <ExpandMore />}
                 </ListItem>
@@ -162,4 +169,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Sidebar));

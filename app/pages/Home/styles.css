@@ -28,10 +28,6 @@
   margin-bottom: 8px;
 }
 
-.sidebarSubtitle {
-  font-weight: var(--font-weight-semibold) !important;
-}
-
 // Content
 
 .content {
