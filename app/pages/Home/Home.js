@@ -14,7 +14,7 @@ import { get as getLocations } from 'appRedux/modules/location';
 import { get as getUser } from 'appRedux/modules/user';
 import { DEFAULT_SPEAKER_LIMIT } from 'appHelpers/constants';
 
-const searchParamsToIdentityString = ({ poc, woman }) => {
+const searchParamsToSpeakerIdentity = ({ poc, woman }) => {
   if (!poc && !woman) {
     return 'All speakers';
   } else {
@@ -29,7 +29,7 @@ const Home = props => {
   const location = searchParams.location
     ? searchParams.location.city
     : 'all cities';
-  const speakerIdentity = searchParamsToIdentityString(searchParams);
+  const speakerIdentity = searchParamsToSpeakerIdentity(searchParams);
 
   return (
     <Grid container justify="center">
