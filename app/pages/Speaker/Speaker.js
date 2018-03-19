@@ -23,7 +23,7 @@ const Speaker = props => {
             <SpeakerCard speaker={speaker} />
           </Grid>
           <Grid item xs={12} md={8}>
-            <SpeakerInfo speaker={speaker} />
+            {speaker.description && <SpeakerInfo speaker={speaker} />}
             <MessageSpeakerForm speaker={speaker} />
           </Grid>
         </Grid>

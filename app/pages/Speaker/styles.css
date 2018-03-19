@@ -7,7 +7,7 @@
   align-items: center;
 }
 
-.speakerPhoto {
+.speakerCardPhoto {
   display: flex;
   justify-content: center;
   margin-bottom: 1rem;
@@ -17,15 +17,15 @@
   border-radius: 50%;
 }
 
-.speakerPhoto img {
+.speakerCardPhoto img {
   height: 100%;
 }
 
-.speakerInfo {
+.speakerCardInfo {
   text-align: center;
 }
 
-.speakerName {
+.speakerCardName {
   font-size: 24px;
   font-weight: 600;
   line-height: 32px;
@@ -33,40 +33,44 @@
   margin-bottom: 0;
 }
 
-.speakerTitle {
+.speakerCardTitle {
   font-size: 16px;
   line-height: 24px;
   margin-top: 0;
   margin-bottom: 0;
 }
 
-.speakerOrganization {
+.speakerCardOrganization {
   margin-top: 0;
   margin-bottom: 1rem;
 }
 
-.speakerTags {
+.speakerCardTags {
   font-size: 14px;
   line-height: 21px;
   margin-top: 0;
   margin-bottom: 0;
 }
 
-.speakerInfoListPronouns {
+.speakerCardListPronouns {
   text-align: center;
   padding-right: 0 !important; /* override material-ui padding so text can really center */
 }
 
-.speakerInfoListLocation {
+.speakerCardListLocation {
   text-align: center;
   padding-right: 0 !important; /* override material-ui padding so text can really center */
 }
 
-.speakerInfoListSocial {
+.speakerCardListSocial {
   justify-content: space-around !important; /* override materiaul-ui jc */
 }
 
 /* Speaker Info */
+
+.speakerInfo {
+  margin-bottom: 4rem;
+}
 
 .sectionHeader {
   font-size: 2rem;
@@ -80,11 +84,12 @@
   text-transform: uppercase;
   border-bottom: 1px solid var(--color-grey-light);
   font-weight: var(--font-weight-semibold);
+  margin-bottom: 0;
 }
 
 .speakerInfoDescription {
   color: var(--color-grey-dark);
-  margin-bottom: 2rem;
+  margin-bottom: 0;
 }
 
 /* FeaturedTalks */
