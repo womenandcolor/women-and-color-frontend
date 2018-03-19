@@ -11,14 +11,25 @@ import Banner from 'appCommon/Banner';
 import css from './styles.css';
 import { fetchSpeakers, updateSearchParams } from 'appRedux/modules/speaker';
 import { get as getLocations } from 'appRedux/modules/location';
-import {
-  get as getUser
-} from 'appRedux/modules/user';
-import { DEFAULT_SPEAKER_LIMIT } from 'appHelpers/constants'
+import { get as getUser } from 'appRedux/modules/user';
+import { DEFAULT_SPEAKER_LIMIT } from 'appHelpers/constants';
 
-const Home = (props) => {
-  const searchParams = props.searchParams
-  const location = searchParams.location ? searchParams.location.city : 'all cities';
+const searchParamsToIdentityString = ({ poc, woman }) => {
+  if (!poc && !woman) {
+    return 'All speakers';
+  } else {
+    const genderIdentityString = woman ? 'Women' : 'People';
+    const pocIdentityString = poc ? 'of color' : '';
+    return `${genderIdentityString} ${pocIdentityString}`;
+  }
+};
+
+const Home = props => {
+  const searchParams = props.searchParams;
+  const location = searchParams.location
+    ? searchParams.location.city
+    : 'all cities';
+  const speakerIdentity = searchParamsToIdentityString(searchParams);
 
   return (
     <Grid container justify="center">
@@ -31,7 +42,9 @@ const Home = (props) => {
             <Sidebar locations={props.locations} />
           </Grid>
           <Grid item xs={12} md={9}>
-            <div className={css.contentTitles}>{`Speakers in ${location} for all topics`}</div>
+            <div
+              className={css.contentTitles}
+            >{`${speakerIdentity} in ${location} for all topics`}</div>
             <SpeakerList
               speakers={props.speakers}
               endOfResults={props.endOfResults}
@@ -41,13 +54,13 @@ const Home = (props) => {
         </Grid>
       </Grid>
     </Grid>
-  )
-}
+  );
+};
 
 class HomeContainer extends Component {
   constructor(props) {
-    super(props)
-    this.state = {}
+    super(props);
+    this.state = {};
     this.props.getUser();
     this.props.getLocations();
     this.props.fetchSpeakers(this.props.searchParams);
@@ -55,7 +68,7 @@ class HomeContainer extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.searchParams != nextProps.searchParams) {
-      this.props.fetchSpeakers(nextProps.searchParams)
+      this.props.fetchSpeakers(nextProps.searchParams);
     }
   }
 
@@ -63,37 +76,31 @@ class HomeContainer extends Component {
     this.props.updateSearchParams({
       limit: DEFAULT_SPEAKER_LIMIT,
       offset: this.props.searchParams.offset + DEFAULT_SPEAKER_LIMIT,
-      append: true
-    })
-  }
+      append: true,
+    });
+  };
 
   render() {
-    return (
-      <Home
-        loadMoreSpeakers={this.loadMoreSpeakers}
-        {...this.props}
-      />
-    )
+    return <Home loadMoreSpeakers={this.loadMoreSpeakers} {...this.props} />;
   }
 }
 
-
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     speakers: state.speaker.results,
     locations: state.location.locations,
     searchParams: state.speaker.searchParams,
-    endOfResults: state.speaker.endOfResults
-  }
-}
+    endOfResults: state.speaker.endOfResults,
+  };
+};
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
-    fetchSpeakers: (params) => {
-      dispatch(fetchSpeakers(params))
+    fetchSpeakers: params => {
+      dispatch(fetchSpeakers(params));
     },
-    updateSearchParams: (params) => {
-      dispatch(updateSearchParams(params))
+    updateSearchParams: params => {
+      dispatch(updateSearchParams(params));
     },
     getUser: () => {
       dispatch(getUser());
@@ -101,10 +108,7 @@ const mapDispatchToProps = (dispatch) => {
     getLocations: () => {
       dispatch(getLocations());
     },
-  }
-}
+  };
+};
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(HomeContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer);
