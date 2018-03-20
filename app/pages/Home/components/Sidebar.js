@@ -89,7 +89,7 @@ class Sidebar extends Component {
 
                         return (
                           <ListItem key={index} button style={selected ? selectedStyle : {}} onClick={handleClick}>
-                            <ListItemText inset primary={location.city} />
+                            <ListItemText inset primary={location.city.toLowerCase()} />
                           </ListItem>
                         )
                       })
