@@ -24,8 +24,14 @@ const searchParamsToSpeakerIdentity = ({ poc, woman }) => {
   }
 };
 
-const Home = props => {
-  const searchParams = props.searchParams;
+const Home = ({
+  searchParams,
+  locations,
+  speakers,
+  endOfResults,
+  loadMoreSpeakers,
+}) => {
+  const searchQuery = searchParams.q ? `'${searchParams.q}'` : 'all topics';
   const location = searchParams.location
     ? searchParams.location.city
     : 'all cities';
@@ -39,16 +45,16 @@ const Home = props => {
       <Grid item xs={8}>
         <Grid container>
           <Grid item xs={12} md={3}>
-            <Sidebar locations={props.locations} />
+            <Sidebar locations={locations} />
           </Grid>
           <Grid item xs={12} md={9}>
             <div
               className={css.contentTitles}
-            >{`${speakerIdentity} in ${location} for all topics`}</div>
+            >{`${speakerIdentity} in ${location} for ${searchQuery}`}</div>
             <SpeakerList
-              speakers={props.speakers}
-              endOfResults={props.endOfResults}
-              loadMoreSpeakers={props.loadMoreSpeakers}
+              speakers={speakers}
+              endOfResults={endOfResults}
+              loadMoreSpeakers={loadMoreSpeakers}
             />
           </Grid>
         </Grid>
