@@ -102,7 +102,7 @@ class Sidebar extends Component {
           }
         </List>
 
-        <div className={css.sidebarTitles}>SELF-IDENTITY</div>
+        <div className={css.sidebarTitles}>FILTER</div>
         <List>
           {
             IDENTITIES.map((identity, index) => {
