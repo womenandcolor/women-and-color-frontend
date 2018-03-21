@@ -13,10 +13,14 @@ const SpeakerCard = ({ speaker }) => {
   return (
     <div className={css.contentCard}>
       <div className={css.photo}>
-        <img src={speaker.image} alt={name} />
+        <a href={`#/speaker/${speaker.id}`>
+          <img src={speaker.image} alt={name} />
+        </a>
       </div>
       <div className={css.info}>
-        <h3 className={css.name}>{name}</h3>
+        <a href={`#/speaker/${speaker.id}`>
+          <h3 className={css.name}>{name}</h3>
+        </a>
         <p className={css.speakerTitle}>{title}</p>
         <p className={css.speakerTags}>{speaker.topic_list}</p>
       </div>
