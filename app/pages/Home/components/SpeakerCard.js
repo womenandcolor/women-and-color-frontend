@@ -13,12 +13,12 @@ const SpeakerCard = ({ speaker }) => {
   return (
     <div className={css.contentCard}>
       <div className={css.photo}>
-        <a href={`#/speaker/${speaker.id}`>
+        <a href={`#/speaker/${speaker.id}`}>
           <img src={speaker.image} alt={name} />
         </a>
       </div>
       <div className={css.info}>
-        <a href={`#/speaker/${speaker.id}`>
+        <a href={`#/speaker/${speaker.id}`}>
           <h3 className={css.name}>{name}</h3>
         </a>
         <p className={css.speakerTitle}>{title}</p>
