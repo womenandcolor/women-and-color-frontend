@@ -10,46 +10,44 @@
   composes: h2 from 'sharedStyles/styles.css';
 }
 
-
 // Sidebar
 
 .sidebar {
-	height: 100%;
-	width: 192px;
+  height: 100%;
+  width: 192px;
 }
 
 .sidebarTitles {
-	height: 21px;
-	width: 100%; /* 192px; */
-	color: #212121;
-	font-family: "Open Sans";
-	font-size: 14px;
-	font-weight: bold;
-  border-bottom: 1px solid #E0E0E0;
+  height: 21px;
+  width: 100%; /* 192px; */
+  color: #212121;
+  font-family: 'Open Sans';
+  font-size: 14px;
+  font-weight: bold;
+  border-bottom: 1px solid #e0e0e0;
   margin-bottom: 8px;
 }
-
 
 // Content
 
 .content {
-	height: 1488px;
-	width: 704px;
+  height: 1488px;
+  width: 704px;
 }
 
 .contentTitles {
-	color: #000000;
-	font-family: "Open Sans";
-	font-size: 32px;
-	font-weight: 300;
-	line-height: 40px;
+  color: #000000;
+  font-family: 'Open Sans';
+  font-size: 32px;
+  font-weight: 300;
+  line-height: 40px;
 }
 
 .contentCard {
-	background-color: #FFFFFF;
+  background-color: #ffffff;
   padding: 20px;
   display: flex;
-  border-bottom: 1px solid #E0E0E0;
+  border-bottom: 1px solid #e0e0e0;
   justify-content: space-between;
 }
 
@@ -59,7 +57,8 @@
 
 .info {
   flex-grow: 1;
-  max-width: 312px;
+  flex-shrink: 1;
+  min-width: 6.25rem;
 }
 
 .info h3 {
@@ -68,13 +67,14 @@
 }
 
 .photo {
-	height: 116px;
+  height: 116px;
   width: 116px;
   background: #e5e8f5;
   border-radius: 50%;
   overflow: hidden;
   display: flex;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .photo img {
@@ -82,35 +82,39 @@
 }
 
 .name {
-	color: #000000;
-	font-family: "Open Sans";
-	font-size: 24px;
-	font-weight: 600;
-	line-height: 32px;
-	margin-top: 0;
-	margin-bottom: 0.5rem;
+  color: #000000;
+  font-family: 'Open Sans';
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 32px;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
 }
 
 .speakerTitle {
-	color: #424242;
-	font-family: "Open Sans";
-	font-size: 16px;
-	line-height: 24px;
-	margin-top: 0;
-	margin-bottom: 1rem;
+  color: #424242;
+  font-family: 'Open Sans';
+  font-size: 16px;
+  line-height: 24px;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .speakerTags {
-	color: #757575;
-	font-family: "Open Sans";
-	font-size: 14px;
-	line-height: 21px;
-	margin-top: 0;
-	margin-bottom: 1rem;
+  color: #757575;
+  font-family: 'Open Sans';
+  font-size: 14px;
+  line-height: 21px;
+  margin-top: 0;
+  margin-bottom: 1rem;
 }
 
 .speakersList {
   margin-bottom: 2rem;
+  min-width: 32rem;
 }
 
 .noResults {
