@@ -9,6 +9,7 @@ import {
   IDENTITIES,
   DEFAULT_SPEAKER_LIMIT,
 } from 'appHelpers/constants';
+import { speakerToNamePath, speakerToProfilePath } from 'appHelpers/url';
 import axios from 'appHelpers/axios';
 
 const MODULE_NAME = 'SPEAKER';
@@ -58,16 +59,15 @@ export function fetchSpeakers(params = {}) {
   };
 }
 
-export function getSpeaker(id, fullName) {
+export function getSpeaker(id, fullName = '') {
   return dispatch => {
     axios
       .get(`${BASE_URL_PATH}/api/v1/profiles/${id}`)
       .then(res => {
         dispatch(updateSpeaker(res.data));
-
-        const { id, first_name, last_name } = res.data;
-        if (!equals(fullName, `${first_name}-${last_name}`)) {
-          dispatch(push(`/speaker/${id}/${first_name}-${last_name}`));
+        if (!equals(fullName, speakerToNamePath(res.data))) {
+          const speakerProfilePath = speakerToProfilePath(res.data);
+          dispatch(push(speakerProfilePath));
         }
       })
       .catch(err => console.log(err));

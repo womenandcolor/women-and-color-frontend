@@ -1,4 +1,8 @@
+// NPM
 import React, { PropTypes } from 'react';
+
+// App
+import { speakerToProfilePath } from 'appHelpers/url';
 import StyledButton from 'appCommon/StyledButton';
 import css from '../styles.css';
 
@@ -9,7 +13,10 @@ const SpeakerCard = ({ speaker }) => {
       ? `${speaker.position} at ${speaker.organization}`
       : `${speaker.position || 'Independent'}, ${speaker.organization ||
           'No affiliation'}`;
-
+  const speakerProfilePath = speakerToProfilePath({
+    basePath: '#',
+    ...speaker,
+  });
   return (
     <div className={css.contentCard}>
       <div className={css.photo}>
@@ -24,9 +31,7 @@ const SpeakerCard = ({ speaker }) => {
         <StyledButton
           color="primary"
           label="View profile"
-          href={`#/speaker/${speaker.id}/${speaker.first_name}-${
-            speaker.last_name
-          }`}
+          href={speakerProfilePath}
         >
           View profile
         </StyledButton>
