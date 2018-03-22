@@ -30,7 +30,6 @@ export const speakerToProfilePath = ({
   first_name,
   last_name,
 }) => {
-  const idPath = `${id}`;
   const namePath = speakerToNamePath({ first_name, last_name });
-  return `${basePath}/speaker/${idPath}/${namePath}`;
+  return `${basePath}/speaker/${id}/${namePath}`;
 };
