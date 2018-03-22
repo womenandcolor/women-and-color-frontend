@@ -19,9 +19,9 @@ const selectedStyle = {
 
 const styles = {
   primary: {
-    fontWeight: 'var(--font-weight-semibold)'
-  }
-}
+    fontWeight: 'var(--font-weight-semibold)',
+  },
+};
 
 class Sidebar extends Component {
   constructor(props) {
@@ -169,4 +169,6 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Sidebar));
+export default connect(mapStateToProps, mapDispatchToProps)(
+  withStyles(styles)(Sidebar)
+);
