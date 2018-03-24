@@ -14,16 +14,16 @@ const SideBarLink = ({ href, text, isActive }) => (
   </ListItem>
 );
 
-const SideBar = ({ baseUrl, subroutes }) => (
+const SideBar = ({ baseUrl, subroutes, activeSubroute }) => (
   <div>
     <h2 className={css.sidebarTitle}>MENU</h2>
     <List component="nav">
-      {subroutes.map((subroute, index) => (
+      {subroutes.map(subroute => (
         <SideBarLink
-          key={index}
+          key={subroute.id}
           href={`#${baseUrl}/${subroute.path}`}
           text={subroute.text}
-          isActive={false} // TODO determine if active
+          isActive={subroute.id === activeSubroute}
         />
       ))}
     </List>
