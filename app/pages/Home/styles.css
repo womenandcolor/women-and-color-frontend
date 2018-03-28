@@ -61,6 +61,15 @@
   min-width: 6.25rem;
 }
 
+.info a {
+  text-decoration: none;
+}
+
+.info a:hover {
+  text-decoration: underline;
+  text-decoration-color: #000000;
+}
+
 .info h3 {
   overflow: hidden;
   flex-wrap: wrap;
@@ -79,6 +88,7 @@
 
 .photo img {
   height: 100%;
+  text-align: center;
 }
 
 .name {
