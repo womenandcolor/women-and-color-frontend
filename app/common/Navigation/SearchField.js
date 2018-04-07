@@ -10,7 +10,8 @@ import { connect } from 'react-redux'
 import StyledButton from 'appCommon/StyledButton';
 import { updateSearchParams } from 'appRedux/modules/speaker';
 import css from './styles.css';
-import { searchForm } from '../../sharedStyles/styles.css';
+import { searchForm, hideOnMobile } from '../../sharedStyles/styles.css';
+import { MAX_MOBILE_WIDTH } from 'appHelpers/constants';
 
 const styles = {
   form: {
@@ -62,7 +63,7 @@ class SearchField extends Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.searchProfiles} className={searchForm} style={styles.form}>
+        <form onSubmit={this.searchProfiles} className={`${searchForm} ${hideOnMobile}`} style={styles.form}>
           <IconButton color="secondary" type="submit" style={styles.searchButton}>
             <SearchIcon />
           </IconButton>
