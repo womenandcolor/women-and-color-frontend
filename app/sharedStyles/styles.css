@@ -72,6 +72,11 @@ body {
   border: 1px solid transparent;
 }
 
+.button:hover {
+  background-color: var(--color-primary);
+  opacity: 0.8;
+}
+
 .button-primary {
   composes: button;
   background-color: var(--color-primary);
