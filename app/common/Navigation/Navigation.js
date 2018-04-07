@@ -86,7 +86,7 @@ class Navigation extends React.Component {
                 <Grid container justify="space-between" alignItems="center">
                   <Grid item xs={4} sm={3}>
                     <a href='/' className={classes.flex} style={{textDecoration: 'none'}}>
-                      <Logo className={navTitle} height="24px" width="100%" />
+                      <Logo className={navTitle} height="50px" font-size="20px" width="100%" />
                     </a>
                   </Grid>
                   {
