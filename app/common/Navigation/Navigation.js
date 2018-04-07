@@ -7,8 +7,9 @@ import Toolbar from 'material-ui/Toolbar';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
 import Menu, { MenuItem } from 'material-ui/Menu';
+import Button from 'material-ui/Button';
 import Grid from 'material-ui/Grid';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
 // App
 import { link, navTitle } from './styles.css';
@@ -45,17 +46,19 @@ const EditProfileButton = (props) => (
 
 const LoggedInMenu = (props) => (
   <div>
-    <MenuIcon />
-    <EditProfileButton {...props} />
-    <LogoutButton {...props} />
+    <Menu>
+        <MenuItem onClick={props.handleClose}>Edit Profile<EditProfileButton {...props} /></MenuItem>
+        <MenuItem onClick={props.handleClose}>Log Out<LogoutButton {...props} /></MenuItem>
+      </Menu>
   </div>
 )
 
 const LoggedOutMenu = (props) => (
   <div>
-    <MenuIcon />
-    <LoginButton {...props} />
-    <SignUpButton {...props} />
+    <Menu>
+      <MenuItem onClick={props.handleClose}>Log In<LoginButton {...props} /></MenuItem>
+      <MenuItem onClick={props.handleClose}>Sign Up<SignUpButton {...props} /></MenuItem>
+    </Menu>
   </div>
 )
 
@@ -99,6 +102,13 @@ class Navigation extends React.Component {
                   }
                   <Grid item xs={12} sm={4}>
                     <Grid container justify="flex-end">
+                    <Button
+                      aria-owns={anchorEl ? 'simple-menu' : null}
+                      aria-haspopup="true"
+                      onClick={this.handleClick}
+                    >
+                      <MenuIcon />
+                    </Button>
                       {
                         authed ?
                         <LoggedInMenu /> :
