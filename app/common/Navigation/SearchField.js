@@ -11,7 +11,6 @@ import StyledButton from 'appCommon/StyledButton';
 import { updateSearchParams } from 'appRedux/modules/speaker';
 import css from './styles.css';
 import { searchForm, hideOnMobile } from '../../sharedStyles/styles.css';
-import { MAX_MOBILE_WIDTH } from 'appHelpers/constants';
 
 const styles = {
   form: {
