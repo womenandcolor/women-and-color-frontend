@@ -17,13 +17,25 @@ const styles = (theme) => ({
 	},
 	flatPrimary: {
 		color: 'var(--color-inverted-light)',
-		backgroundColor: 'var(--color-primary)'
+		backgroundColor: 'var(--color-primary)',
+		
+		'&:hover': {
+			opacity: 0.6,
+			backgroundColor: 'var(--color-primary)',
+		  }
 	},
+
 	flatSecondary: {
 		color: 'var(--color-primary)',
 		backgroundColor: 'var(--color-inverted-light)',
-		border: '1px solid var(--color-primary)'
-	}
+		border: '1px solid var(--color-primary)',
+
+		'&:hover': {
+			opacity: 0.6,
+			backgroundColor: 'var(--color-inverted-light)',
+			color: 'var(--color-primary)',
+		  }
+	},
 })
 
 const StyledButton = (props) => {
