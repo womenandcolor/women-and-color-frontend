@@ -6,7 +6,6 @@ import Input, { InputLabel } from 'material-ui/Input';
 import Grid from 'material-ui/Grid';
 import Snackbar from 'material-ui/Snackbar';
 
-
 // App
 import StyledButton from 'appCommon/StyledButton';
 import FormField from 'appCommon/FormField';
@@ -14,13 +13,12 @@ import css from '../styles.css';
 import axios from 'appHelpers/axios';
 import { BASE_URL_PATH } from 'appHelpers/constants';
 
-import { create, onChange } from "appRedux/modules/contactForm";
-import { hideNotification } from "appRedux/modules/notification";
+import { create, onChange } from 'appRedux/modules/contactForm';
+import { hideNotification } from 'appRedux/modules/notification';
 
 const MessageSpeakerForm = ({ speaker, onInputChange, onSubmit, form }) => {
-  const generateHandler = fieldName => event => {
+  const generateHandler = fieldName => event =>
     onInputChange(fieldName, event.target.value);
-  }
   const title = `Message ${speaker.first_name}`;
   console.log('form', form)
   return (
@@ -151,22 +149,23 @@ const MessageSpeakerForm = ({ speaker, onInputChange, onSubmit, form }) => {
             </Grid>
           </Grid>
         </div>
-        <StyledButton type="submit" color="primary">Send Message</StyledButton>
+        <StyledButton type="submit" color="primary">
+          Send Message
+        </StyledButton>
       </form>
     </section>
   );
 };
 
-const MessageSpeakerFormContainer = (props) => {
-
+const MessageSpeakerFormContainer = props => {
   const handleInputChange = (fieldname, value) => {
-    props.onChange({ [fieldname]: value })
+    props.onChange({ [fieldname]: value });
   };
 
-  const submitForm = (event) => {
+  const submitForm = event => {
     event.preventDefault();
     props.submitForm();
-  }
+  };
 
   return (
     <div>
@@ -187,19 +186,19 @@ const MessageSpeakerFormContainer = (props) => {
         form={props.form}
       />
     </div>
-  )
-}
+  );
+};
 
 function mapDispatchToProps(dispatch, props) {
   return {
     submitForm: () => {
       dispatch(create());
     },
-    onChange: (data) => {
+    onChange: data => {
       dispatch(onChange(data));
     },
     hideNotification: () => {
-      dispatch(hideNotification())
+      dispatch(hideNotification());
     },
   };
 }
@@ -208,8 +207,10 @@ function mapStateToProps(state) {
   return {
     form: state.contactForm.form,
     speaker: state.speaker.speaker,
-    notification: state.notification.message
-  }
+    notification: state.notification.message,
+  };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MessageSpeakerFormContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(
+  MessageSpeakerFormContainer
+);
