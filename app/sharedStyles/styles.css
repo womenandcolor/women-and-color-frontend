@@ -97,3 +97,9 @@ body {
   display: flex;
   align-items: center;
 }
+
+@media (max-width: 380px){
+  .hideOnMobile {
+    display: none !important;
+  }
+}
