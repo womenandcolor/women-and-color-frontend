@@ -42,6 +42,7 @@ const Account = props => {
               <TextField
                 label="Email Address"
                 value={props.user.email}
+                type="email"
                 onChange={generateHandler('email')}
               />
             </FormField>
