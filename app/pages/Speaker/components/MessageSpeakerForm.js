@@ -18,9 +18,11 @@ import { create, onChange } from "appRedux/modules/contactForm";
 import { hideNotification } from "appRedux/modules/notification";
 
 const MessageSpeakerForm = ({ speaker, onInputChange, onSubmit, form }) => {
-  const generateHandler = fieldName => event =>
-    onInputChange(fieldName, event.currentTarget.value);
+  const generateHandler = fieldName => event => {
+    onInputChange(fieldName, event.target.value);
+  }
   const title = `Message ${speaker.first_name}`;
+  console.log('form', form)
   return (
     <section>
       <h2 className={css.sectionHeader}>{title}</h2>
@@ -41,6 +43,7 @@ const MessageSpeakerForm = ({ speaker, onInputChange, onSubmit, form }) => {
               <FormField fullWidth>
                 <TextField
                   label="Email"
+                  type="email"
                   value={form.email}
                   onChange={generateHandler('email')}
                 />
