@@ -12,3 +12,8 @@
   color: #283ca7 !important;
   background-color: #e5e8f4 !important; /* oh I need to find a better way than this */
 }
+
+/* main content */
+.editProfileContainer {
+  padding-top: 2rem;
+}

@@ -23,7 +23,7 @@ export const pronounDict = {
 };
 
 export const BASE_URL_PATH = process.env.NODE_ENV === 'production'
-  ? 'https://women-and-color-backend.herokuapp.com'
+  ? 'http://beta.womenandcolor.com'
   : 'http://localhost:8000';
 
 export const IDENTITIES = [
