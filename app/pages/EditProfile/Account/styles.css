@@ -1,5 +1,3 @@
-/* about */
-
 .header {
   font-size: 2rem;
   color: var(--color-grey-dark);
@@ -7,22 +5,8 @@
   margin: 0;
 }
 
-.photo {
-  display: flex;
-  justify-content: center;
-  width: 10rem;
-  height: 10rem;
-  overflow: hidden;
-  border-radius: 50%;
-  margin-bottom: 1rem;
-}
-
-.photo img {
-  height: 100%;
-}
-
-.fileInput {
-  display: none;
+.changePasswordLink {
+  text-decoration: none;
 }
 
 .section {
