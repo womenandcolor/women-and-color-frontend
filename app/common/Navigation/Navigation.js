@@ -45,6 +45,7 @@ const EditProfileButton = (props) => (
 
 const LoggedInMenu = (props) => (
   <div>
+    <MenuIcon />
     <EditProfileButton {...props} />
     <LogoutButton {...props} />
   </div>
@@ -52,6 +53,7 @@ const LoggedInMenu = (props) => (
 
 const LoggedOutMenu = (props) => (
   <div>
+    <MenuIcon />
     <LoginButton {...props} />
     <SignUpButton {...props} />
   </div>
