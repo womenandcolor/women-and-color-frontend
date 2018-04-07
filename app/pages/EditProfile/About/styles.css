@@ -4,9 +4,7 @@
   font-size: 2rem;
   color: var(--color-grey-dark);
   font-weight: var(--font-weight-light);
-  margin-top: 0.5rem;
-  padding-bottom: 2rem; /* to push the border down */
-  border-bottom: 1px solid var(--color-grey-light);
+  margin: 0;
 }
 
 .photo {
@@ -25,4 +23,14 @@
 
 .fileInput {
   display: none;
+}
+
+.section {
+  padding: 0 1rem 2rem 1rem;
+  border-bottom: 1px solid var(--color-grey-light);
+  margin-bottom: 2rem;
+}
+
+.sectionBorderless {
+  padding: 0 1rem 2rem 1rem;
 }

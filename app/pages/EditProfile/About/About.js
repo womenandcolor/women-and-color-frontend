@@ -45,199 +45,227 @@ const About = props => {
 
   return (
     <form onSubmit={props.handleSubmit}>
-      <h1 className={css.header}>Edit about</h1>
+      <div className={css.section}>
+        <h1 className={css.header}>Edit about</h1>
+      </div>
 
-      <Grid container>
-        <Grid item xs={12}>
-          <div className={css.photo}>
-            <img src={props.profile.image} />
-          </div>
-          <StyledButton component="label" color="primary">
-            <input
-              type="file"
-              accept="image/*"
-              className={css.fileInput}
-              onChange={props.handleImageChange}
-            />
-            Choose Image
-          </StyledButton>
-        </Grid>
-
-        <Grid item xs={6}>
-          <FormField fullWidth className={css.formControl}>
-            <TextField
-              label="First Name"
-              value={props.profile.first_name}
-              onChange={generateHandler('first_name')}
-            />
-          </FormField>
-        </Grid>
-        <Grid item xs={6}>
-          <FormField fullWidth className={css.formControl}>
-            <TextField
-              label="Last Name"
-              value={props.profile.last_name}
-              onChange={generateHandler('last_name')}
-            />
-          </FormField>
-        </Grid>
-
-        <Grid item xs={6}>
-          <FormField fullWidth className={css.formControl}>
-            <TextField
-              label="Position"
-              value={props.profile.position}
-              onChange={generateHandler('position')}
-            />
-          </FormField>
-        </Grid>
-        <Grid item xs={6}>
-          <FormField fullWidth className={css.formControl}>
-            <TextField
-              label="Organization"
-              value={props.profile.organization}
-              onChange={generateHandler('organization')}
-            />
-          </FormField>
-        </Grid>
-
-        <Grid item xs={6}>
-          <FormField fullWidth className={css.formControl}>
-            <InputLabel htmlFor="speaker-location">City</InputLabel>
-            <Select
-              value={props.profile.location}
-              onChange={generateHandler('location')}
-              input={<Input name="location" id="location" />}
-            >
-              {props.locations &&
-                props.locations.map((location, index) => (
-                  <MenuItem key={index} value={location.id}>
-                    {location.city}
-                  </MenuItem>
-                ))}
-            </Select>
-          </FormField>
-        </Grid>
-
-        <Grid item xs={12}>
-          <FormField fullWidth className={css.formControl}>
-            <TextField
-              multiline
-              rows={5}
-              label="Bio"
-              value={props.profile.description}
-              onChange={generateHandler('description')}
-            />
-          </FormField>
-        </Grid>
-
-        <Grid item xs={6}>
-          <FormField fullWidth className={css.formControl}>
-            <FormLabel component="legend">
-              Do you identify as a woman?
-            </FormLabel>
-            <RadioGroup
-              aria-label="woman"
-              name="woman"
-              value={
-                props.profile.woman === null
-                  ? 'true'
-                  : props.profile.woman.toString()
-              }
-              onChange={generateHandler('woman')}
-            >
-              <FormControlLabel value="true" control={<Radio />} label="Yes" />
-              <FormControlLabel value="false" control={<Radio />} label="No" />
-            </RadioGroup>
-          </FormField>
-        </Grid>
-        <Grid item xs={6}>
-          <FormField fullWidth className={css.formControl}>
-            <FormLabel component="legend">
-              Do you identify as a person of color?
-            </FormLabel>
-            <RadioGroup
-              aria-label="poc"
-              name="poc"
-              value={
-                props.profile.poc === null
-                  ? 'true'
-                  : props.profile.poc.toString()
-              }
-              onChange={generateHandler('poc')}
-            >
-              <FormControlLabel value="true" control={<Radio />} label="Yes" />
-              <FormControlLabel value="false" control={<Radio />} label="No" />
-            </RadioGroup>
-          </FormField>
-        </Grid>
-
-        <Grid item xs={12}>
-          <FormField fullWidth className={css.formControl}>
-            <FormLabel component="legend">What pronouns do you use?</FormLabel>
-            <RadioGroup
-              aria-label="pronouns"
-              name="pronouns"
-              value={props.profile.pronouns || 'they'}
-              onChange={generateHandler('pronouns')}
-            >
-              <FormControlLabel
-                value="they"
-                control={<Radio />}
-                label="They, them, their"
+      <div className={css.section}>
+        <Grid container>
+          <Grid item xs={12}>
+            <div className={css.photo}>
+              <img src={props.profile.image} />
+            </div>
+            <StyledButton component="label" color="primary">
+              <input
+                type="file"
+                accept="image/*"
+                className={css.fileInput}
+                onChange={props.handleImageChange}
               />
-              <FormControlLabel
-                value="she"
-                control={<Radio />}
-                label="She, her, her"
-              />
-              <FormControlLabel
-                value="he"
-                control={<Radio />}
-                label="He, him, his"
-              />
-            </RadioGroup>
-          </FormField>
-        </Grid>
+              Choose Image
+            </StyledButton>
+          </Grid>
 
-        <Grid item xs={6}>
-          <FormField fullWidth className={css.formControl}>
-            <TextField
-              label="Twitter"
-              value={props.profile.twitter}
-              onChange={generateHandler('twitter')}
-            />
-          </FormField>
-        </Grid>
-        <Grid item xs={6}>
-          <FormField fullWidth className={css.formControl}>
-            <TextField
-              label="LinkedIn"
-              value={props.profile.linkedin}
-              onChange={generateHandler('linkedin')}
-            />
-          </FormField>
-        </Grid>
-        <Grid item xs={6}>
-          <FormField fullWidth className={css.formControl}>
-            <TextField
-              label="Website"
-              value={props.profile.website}
-              onChange={generateHandler('website')}
-            />
-          </FormField>
-        </Grid>
-
-        <Grid item xs={12}>
-          <div>
-            <FormField className={css.formControl}>
-              <StyledButton label="Submit" type="submit" color="primary">
-                Save changes
-              </StyledButton>
+          <Grid item xs={12} sm={6}>
+            <FormField fullWidth className={css.formControl}>
+              <TextField
+                label="First Name"
+                value={props.profile.first_name}
+                onChange={generateHandler('first_name')}
+              />
             </FormField>
-          </div>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <FormField fullWidth className={css.formControl}>
+              <TextField
+                label="Last Name"
+                value={props.profile.last_name}
+                onChange={generateHandler('last_name')}
+              />
+            </FormField>
+          </Grid>
+
+          <Grid item xs={12} sm={6}>
+            <FormField fullWidth className={css.formControl}>
+              <TextField
+                label="Position"
+                value={props.profile.position}
+                onChange={generateHandler('position')}
+              />
+            </FormField>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <FormField fullWidth className={css.formControl}>
+              <TextField
+                label="Organization"
+                value={props.profile.organization}
+                onChange={generateHandler('organization')}
+              />
+            </FormField>
+          </Grid>
+
+          <Grid item xs={12} sm={6}>
+            <FormField fullWidth className={css.formControl}>
+              <InputLabel htmlFor="speaker-location">City</InputLabel>
+              <Select
+                value={props.profile.location}
+                onChange={generateHandler('location')}
+                input={<Input name="location" id="location" />}
+              >
+                {props.locations &&
+                  props.locations.map((location, index) => (
+                    <MenuItem key={index} value={location.id}>
+                      {location.city}
+                    </MenuItem>
+                  ))}
+              </Select>
+            </FormField>
+          </Grid>
+
+          <Grid item xs={12}>
+            <FormField fullWidth className={css.formControl}>
+              <TextField
+                multiline
+                rows={5}
+                label="Bio"
+                value={props.profile.description}
+                onChange={generateHandler('description')}
+              />
+            </FormField>
+          </Grid>
         </Grid>
-      </Grid>
+      </div>
+
+      <div className={css.section}>
+        <Grid container>
+          <Grid item xs={12} sm={6}>
+            <FormField fullWidth className={css.formControl}>
+              <FormLabel component="legend">
+                Do you identify as a woman?
+              </FormLabel>
+              <RadioGroup
+                aria-label="woman"
+                name="woman"
+                value={
+                  props.profile.woman === null
+                    ? 'true'
+                    : props.profile.woman.toString()
+                }
+                onChange={generateHandler('woman')}
+              >
+                <FormControlLabel
+                  value="true"
+                  control={<Radio />}
+                  label="Yes"
+                />
+                <FormControlLabel
+                  value="false"
+                  control={<Radio />}
+                  label="No"
+                />
+              </RadioGroup>
+            </FormField>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <FormField fullWidth className={css.formControl}>
+              <FormLabel component="legend">
+                Do you identify as a person of color?
+              </FormLabel>
+              <RadioGroup
+                aria-label="poc"
+                name="poc"
+                value={
+                  props.profile.poc === null
+                    ? 'true'
+                    : props.profile.poc.toString()
+                }
+                onChange={generateHandler('poc')}
+              >
+                <FormControlLabel
+                  value="true"
+                  control={<Radio />}
+                  label="Yes"
+                />
+                <FormControlLabel
+                  value="false"
+                  control={<Radio />}
+                  label="No"
+                />
+              </RadioGroup>
+            </FormField>
+          </Grid>
+
+          <Grid item xs={12}>
+            <FormField fullWidth className={css.formControl}>
+              <FormLabel component="legend">
+                What pronouns do you use?
+              </FormLabel>
+              <RadioGroup
+                aria-label="pronouns"
+                name="pronouns"
+                value={props.profile.pronouns || 'they'}
+                onChange={generateHandler('pronouns')}
+              >
+                <FormControlLabel
+                  value="they"
+                  control={<Radio />}
+                  label="They, them, their"
+                />
+                <FormControlLabel
+                  value="she"
+                  control={<Radio />}
+                  label="She, her, her"
+                />
+                <FormControlLabel
+                  value="he"
+                  control={<Radio />}
+                  label="He, him, his"
+                />
+              </RadioGroup>
+            </FormField>
+          </Grid>
+        </Grid>
+      </div>
+
+      <div className={css.section}>
+        <Grid container>
+          <Grid item xs={12} sm={6}>
+            <FormField fullWidth className={css.formControl}>
+              <TextField
+                label="Twitter"
+                value={props.profile.twitter}
+                onChange={generateHandler('twitter')}
+              />
+            </FormField>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <FormField fullWidth className={css.formControl}>
+              <TextField
+                label="LinkedIn"
+                value={props.profile.linkedin}
+                onChange={generateHandler('linkedin')}
+              />
+            </FormField>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <FormField fullWidth className={css.formControl}>
+              <TextField
+                label="Website"
+                value={props.profile.website}
+                onChange={generateHandler('website')}
+              />
+            </FormField>
+          </Grid>
+        </Grid>
+      </div>
+
+      <div className={css.sectionBorderless}>
+        <FormField className={css.formControl}>
+          <StyledButton label="Submit" type="submit" color="primary">
+            Save changes
+          </StyledButton>
+        </FormField>
+      </div>
     </form>
   );
 };

@@ -31,34 +31,44 @@ const Account = props => {
 
   return (
     <form onSubmit={props.handleSubmit}>
-      <h1 className={css.header}>Edit account</h1>
+      <div className={css.section}>
+        <h1 className={css.header}>Edit account</h1>
+      </div>
 
-      <Grid container>
-        <Grid item xs={6}>
-          <FormField fullWidth className={css.formControl}>
-            <TextField
-              label="Email Address"
-              value={props.user.email}
-              onChange={generateHandler('email')}
-            />
-          </FormField>
-        </Grid>
-        <Grid item xs={6} />
-
-        <a href="/accounts/password/change" className={css.changePasswordLink}>
-          Click here to change your password.
-        </a>
-
-        <Grid item xs={12}>
-          <div>
-            <FormField className={css.formControl}>
-              <StyledButton label="Submit" type="submit" color="primary">
-                Save changes
-              </StyledButton>
+      <div className={css.section}>
+        <Grid container>
+          <Grid item xs={12} md={6}>
+            <FormField fullWidth className={css.formControl}>
+              <TextField
+                label="Email Address"
+                value={props.user.email}
+                onChange={generateHandler('email')}
+              />
             </FormField>
-          </div>
+          </Grid>
         </Grid>
-      </Grid>
+      </div>
+
+      <div className={css.section}>
+        <Grid container>
+          <Grid item xs={12}>
+            <a
+              href="/accounts/password/change"
+              className={css.changePasswordLink}
+            >
+              Click here to change your password.
+            </a>
+          </Grid>
+        </Grid>
+      </div>
+
+      <div className={css.sectionBorderless}>
+        <FormField className={css.formControl}>
+          <StyledButton label="Submit" type="submit" color="primary">
+            Save changes
+          </StyledButton>
+        </FormField>
+      </div>
     </form>
   );
 };
