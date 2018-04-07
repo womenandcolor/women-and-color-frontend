@@ -45,7 +45,7 @@ const About = props => {
 
   return (
     <form onSubmit={props.handleSubmit}>
-      <h1 className={css.header}>Edit About</h1>
+      <h1 className={css.header}>Edit about</h1>
 
       <Grid container>
         <Grid item xs={12}>

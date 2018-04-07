@@ -6,6 +6,7 @@ import Grid from 'material-ui/Grid';
 import SideBar from './SideBar';
 import About from './About/About';
 import Account from './Account/Account';
+import css from './styles.css';
 
 const subroutes = [
   {
@@ -44,25 +45,27 @@ const _renderRoute = ({ component: Component, baseUrl, path, key }) => (
 );
 
 const EditProfile = ({ match }) => (
-  <Grid container justify="center">
-    <Grid item xs={8}>
-      <Switch>
-        <Redirect
-          exact
-          from={match.path}
-          to={`${match.path}/${subroutes[0].path}`}
-        />
-        {subroutes.map(subroute =>
-          _renderRoute({
-            key: subroute.id,
-            component: subroute.component,
-            baseUrl: match.url,
-            path: `${match.path}/${subroute.path}`,
-          })
-        )}
-      </Switch>
+  <div className={css.editProfileContainer}>
+    <Grid container justify="center">
+      <Grid item xs={8}>
+        <Switch>
+          <Redirect
+            exact
+            from={match.path}
+            to={`${match.path}/${subroutes[0].path}`}
+          />
+          {subroutes.map(subroute =>
+            _renderRoute({
+              key: subroute.id,
+              component: subroute.component,
+              baseUrl: match.url,
+              path: `${match.path}/${subroute.path}`,
+            })
+          )}
+        </Switch>
+      </Grid>
     </Grid>
-  </Grid>
+  </div>
 );
 
 export default EditProfile;

@@ -31,7 +31,7 @@ const Account = props => {
 
   return (
     <form onSubmit={props.handleSubmit}>
-      <h1 className={css.header}>Edit Account</h1>
+      <h1 className={css.header}>Edit account</h1>
 
       <Grid container>
         <Grid item xs={6}>
