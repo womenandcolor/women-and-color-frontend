@@ -7,11 +7,12 @@ import Toolbar from 'material-ui/Toolbar';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
 import Menu, { MenuItem } from 'material-ui/Menu';
+import Button from 'material-ui/Button';
 import Grid from 'material-ui/Grid';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
 // App
-import { link, navTitle } from './styles.css';
+import { link, navTitle, hamburgerIcon } from './styles.css';
 import StyledButton from 'appCommon/StyledButton';
 import SearchField from './SearchField';
 import Logo from 'svg-react-loader?name=Logo!../../assets/logo_women_and_color.svg';
@@ -45,13 +46,22 @@ const EditProfileButton = (props) => (
 
 const LoggedInMenu = (props) => (
   <div>
-    <EditProfileButton {...props} />
-    <LogoutButton {...props} />
+    <Menu>
+        <MenuItem onClick={props.handleClose}>Edit Profile<EditProfileButton {...props} /></MenuItem>
+        <MenuItem onClick={props.handleClose}>Log Out<LogoutButton {...props} /></MenuItem>
+      </Menu>
+
+      <EditProfileButton {...props} />
+      <LogoutButton {...props} />
   </div>
 )
 
 const LoggedOutMenu = (props) => (
   <div>
+    <Menu>
+      <MenuItem onClick={props.handleClose}>Log In<LoginButton {...props} /></MenuItem>
+      <MenuItem onClick={props.handleClose}>Sign Up<SignUpButton {...props} /></MenuItem>
+    </Menu>
     <LoginButton {...props} />
     <SignUpButton {...props} />
   </div>
@@ -97,6 +107,15 @@ class Navigation extends React.Component {
                   }
                   <Grid item xs={12} sm={4}>
                     <Grid container justify="flex-end">
+
+                    <Button
+                      className={hamburgerIcon}
+                      aria-owns={anchorEl ? 'simple-menu' : null}
+                      aria-haspopup="true"
+                      onClick={this.handleClick}
+                    >
+                      <MenuIcon />
+                    </Button>
                       {
                         authed ?
                         <LoggedInMenu /> :
