@@ -28,9 +28,9 @@ export const BASE_URL_PATH = process.env.NODE_ENV === 'production'
 
 export const IDENTITIES = [
   { label: 'All speakers', value: { woman: null, poc: null } },
-  { label: 'Woman', value: { woman: true, poc: null } },
-  { label: 'Woman of color', value: { woman: true, poc: true } },
-  { label: 'Person of color', value: { poc: true, woman: null } },
+  { label: 'Women', value: { woman: true, poc: null } },
+  { label: 'Women of color', value: { woman: true, poc: true } },
+  { label: 'People of color', value: { poc: true, woman: null } },
 ];
 
 export const DEFAULT_SPEAKER_LIMIT = 20;

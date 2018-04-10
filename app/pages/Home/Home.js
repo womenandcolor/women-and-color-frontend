@@ -42,15 +42,17 @@ const Home = ({
       <Grid item xs={12}>
         <Banner />
       </Grid>
-      <Grid item xs={8}>
+      <Grid item xs={12} md={8}>
         <Grid container>
           <Grid item xs={12} md={3}>
             <Sidebar locations={locations} />
           </Grid>
           <Grid item xs={12} md={9}>
-            <div
-              className={css.contentTitles}
-            >{`${speakerIdentity} in ${location} for ${searchQuery}`}</div>
+            <Grid container>
+              <Grid item xs={12} className={css.contentTitles}>
+                {`${speakerIdentity} in ${location} for ${searchQuery}`}
+              </Grid>
+            </Grid>
             <SpeakerList
               speakers={speakers}
               endOfResults={endOfResults}

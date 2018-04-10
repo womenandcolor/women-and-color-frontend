@@ -1,19 +1,17 @@
 // NPM
 import React, { PropTypes } from 'react'
-import { Link } from 'react-router-dom'
 import { withStyles } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
-import IconButton from 'material-ui/IconButton';
-import MenuIcon from 'material-ui-icons/Menu';
-import Menu, { MenuItem } from 'material-ui/Menu';
 import Grid from 'material-ui/Grid';
+import Hidden from 'material-ui/Hidden';
 import { connect } from 'react-redux'
 
 // App
 import { link, navTitle } from './styles.css';
-import StyledButton from 'appCommon/StyledButton';
 import SearchField from './SearchField';
+import MenuDropdown from './MenuDropdown';
+import ButtonMenu from './ButtonMenu';
 import Logo from 'svg-react-loader?name=Logo!../../assets/logo_women_and_color.svg';
 
 const styles = {
@@ -27,91 +25,56 @@ const styles = {
   },
 };
 
-const LoginButton = (props) => (
-  <StyledButton color="secondary" href="/accounts/login">Log in</StyledButton>
-)
+const loggedOutMenuItems =  [
+  { title: 'Log in', slug: '/accounts/login', color: 'secondary'},
+  { title: 'Be a speaker', slug: '/accounts/signup', color: 'primary'},
+]
 
-const LogoutButton = (props) => (
-  <StyledButton color="primary" href="/accounts/logout">Log out</StyledButton>
-)
+const loggedInMenuItems =  [
+  { title: 'Log out', slug: '/accounts/logout', color: 'primary'},
+  { title: 'Edit profile', slug: '/profile', color: 'secondary'},
+]
 
-const SignUpButton = (props) => (
-  <StyledButton color="primary" href="/accounts/signup">Be a speaker</StyledButton>
-)
+const Navigation = (props) => {
+  const { classes, showSearch, updateSearchParams } = props;
+  const authed = !!props.user.id;
+  const menuItems = authed ? loggedInMenuItems : loggedOutMenuItems;
 
-const EditProfileButton = (props) => (
-  <StyledButton color="secondary" href="/#/profile">Edit profile</StyledButton>
-)
-
-const LoggedInMenu = (props) => (
-  <div>
-    <EditProfileButton {...props} />
-    <LogoutButton {...props} />
-  </div>
-)
-
-const LoggedOutMenu = (props) => (
-  <div>
-    <LoginButton {...props} />
-    <SignUpButton {...props} />
-  </div>
-)
-
-class Navigation extends React.Component {
-  state = {
-    anchorEl: null,
-  };
-
-  handleMenu = event => {
-    this.setState({ anchorEl: event.currentTarget });
-  };
-
-  handleClose = () => {
-    this.setState({ anchorEl: null });
-  };
-
-
-  render() {
-    const { classes, showSearch } = this.props;
-    const { anchorEl } = this.state;
-    const open = Boolean(anchorEl);
-    const authed = !!this.props.user.id;
-
-    return (
-      <div className={classes.root}>
-        <AppBar position="fixed" className={classes.root}>
-          <Toolbar>
-            <Grid container justify="center">
-              <Grid item xs={12} sm={8}>
-                <Grid container justify="space-between" alignItems="center">
-                  <Grid item xs={4} sm={3}>
-                    <a href='/' className={classes.flex} style={{textDecoration: 'none'}}>
-                      <Logo className={navTitle} height="50px" font-size="20px" width="100%" />
-                    </a>
+  return (
+    <div className={classes.root}>
+      <AppBar position="fixed" className={classes.root}>
+        <Toolbar>
+          <Grid container justify="center">
+            <Grid item xs={12} sm={10} md={8}>
+              <Grid container justify="space-between" alignItems="center">
+                <Grid item xs={6} sm={4} md={3}>
+                  <a href='/' className={classes.flex} style={{textDecoration: 'none'}}>
+                    <Logo className={navTitle} height="50px" width="100%" />
+                  </a>
+                </Grid>
+                {
+                  showSearch &&
+                  <Grid item md={5} hidden={{ smDown: true }}>
+                    <SearchField updateSearchParams={updateSearchParams} />
                   </Grid>
-                  {
-                    showSearch &&
-                    <Grid item xs={8} sm={5}>
-                      <SearchField updateSearchParams={this.props.updateSearchParams} />
-                    </Grid>
-                  }
-                  <Grid item xs={12} sm={4}>
-                    <Grid container justify="flex-end">
-                      {
-                        authed ?
-                        <LoggedInMenu /> :
-                        <LoggedOutMenu />
-                      }
-                      </Grid>
+                }
+                <Grid item xs={6} sm={6} md={4}>
+                  <Grid container justify="flex-end">
+                    <Hidden smDown>
+                      <ButtonMenu menuItems={menuItems} />
+                    </Hidden>
+                    <Hidden mdUp>
+                      <MenuDropdown menuItems={menuItems} />
+                    </Hidden>
                   </Grid>
                 </Grid>
               </Grid>
             </Grid>
-          </Toolbar>
-        </AppBar>
-      </div>
-    );
-  }
+          </Grid>
+        </Toolbar>
+      </AppBar>
+    </div>
+  );
 }
 
 Navigation.propTypes = {

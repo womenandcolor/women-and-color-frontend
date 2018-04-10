@@ -6,6 +6,7 @@ import SearchIcon from 'material-ui-icons/Search';
 import TextField from 'material-ui/TextField';
 import Typography from 'material-ui/Typography';
 import Grid from 'material-ui/Grid';
+import Hidden from 'material-ui/Hidden';
 import { connect } from 'react-redux';
 
 // APP
@@ -86,12 +87,14 @@ class Banner extends Component {
   render() {
     return (
       <Grid container justify="center" style={styles.banner}>
-        <Grid item xs={8}>
+        <Grid item xs={10} md={8}>
           <Typography variant="headline" style={styles.headline}>
             Find talented <span style={styles.highlight}>women and people of color</span> available for speaking opportunities at tech-related events.
           </Typography>
           <form onSubmit={this.searchProfiles} className={searchForm} style={styles.searchForm}>
-            <SearchIcon />
+            <Hidden only='xs'>
+              <SearchIcon />
+            </Hidden>
             <TextField
               fullWidth
               type="search"
@@ -102,9 +105,14 @@ class Banner extends Component {
               style={styles.textField}
             />
             <div>
-            <StyledButton color="primary" type="submit" >
-              Find Speakers
-            </StyledButton>
+              <StyledButton color="primary" type="submit" >
+                <Hidden smUp>
+                  <SearchIcon />
+                </Hidden>
+                <Hidden only='xs'>
+                  <span>Find Speakers</span>
+                </Hidden>
+              </StyledButton>
             </div>
           </form>
         </Grid>

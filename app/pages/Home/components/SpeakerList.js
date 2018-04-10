@@ -16,11 +16,11 @@ const SpeakerList = ({ speakers, endOfResults, loadMoreSpeakers }) => {
 
   return (
     <div>
-      <div className={css.speakersList}>
+      <Grid container className={css.speakersList}>
         {speakers.map((speaker, index) => (
           <SpeakerCard speaker={speaker} key={speaker.id} />
         ))}
-      </div>
+      </Grid>
       {!endOfResults && (
         <Grid container justify={'center'}>
           <Grid item>
