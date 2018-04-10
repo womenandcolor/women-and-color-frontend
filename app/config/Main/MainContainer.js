@@ -16,7 +16,7 @@ const theme = createMuiTheme({
       contrastText: '#fff',
     },
     secondary: grey,
-    error: pink
+    error: pink,
   },
   typography: {
     fontFamily: '"Open Sans", "Helvetica", "Arial", sans-serif'

@@ -73,7 +73,7 @@ class Sidebar extends Component {
     const locations = this.createLocationDict(this.props.locations, {});
 
     return (
-      <div>
+      <div className={css.sidebarContainer}>
         <h2 className={css.sidebarTitles}>CITY</h2>
         <List>
           <ListItem

@@ -49,8 +49,10 @@ const Home = ({
           </Grid>
           <Grid item xs={12} md={9}>
             <Grid container>
-              <Grid item xs={12} className={css.contentTitles}>
-                {`${speakerIdentity} in ${location} for ${searchQuery}`}
+              <Grid item xs={12}>
+                <div className={css.contentTitles}>
+                  {`${speakerIdentity} in ${location} for ${searchQuery}`}
+                </div>
               </Grid>
             </Grid>
             <SpeakerList
