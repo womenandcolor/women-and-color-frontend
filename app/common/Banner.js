@@ -41,8 +41,10 @@ const styles = {
     paddingBottom: '1rem'
   },
   textField: {
-    marginRight: '1rem',
-    marginLeft: '1rem'
+    marginRight: '1rem'
+  },
+  searchIcon: {
+    marginRight: '1rem'
   }
 }
 
@@ -93,7 +95,7 @@ class Banner extends Component {
           </Typography>
           <form onSubmit={this.searchProfiles} className={searchForm} style={styles.searchForm}>
             <Hidden only='xs'>
-              <SearchIcon />
+              <SearchIcon style={styles.searchIcon} />
             </Hidden>
             <TextField
               fullWidth

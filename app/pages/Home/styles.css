@@ -132,3 +132,14 @@
 .noResults {
   margin: 2rem 0;
 }
+
+@media (max-width: 380px) {
+  .sidebarContainer {
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+
+  .contentTitles {
+    padding: 1rem;
+  }
+}
