@@ -20,7 +20,6 @@ const MessageSpeakerForm = ({ speaker, onInputChange, onSubmit, form }) => {
   const generateHandler = fieldName => event =>
     onInputChange(fieldName, event.target.value);
   const title = `Message ${speaker.first_name}`;
-  console.log('form', form)
   return (
     <section>
       <h2 className={css.sectionHeader}>{title}</h2>
