@@ -37,6 +37,7 @@ const _renderRoute = ({ component: Component, baseUrl, path, key }) => (
           />
         </Grid>
         <Grid item xs={12} md={9}>
+            THIS SHOWS UP
           <Component />
         </Grid>
       </Grid>

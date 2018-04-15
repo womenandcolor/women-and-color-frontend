@@ -13,6 +13,8 @@ import { FormLabel, FormControlLabel } from 'material-ui/Form';
 import Avatar from 'material-ui/Avatar';
 import { Link } from 'react-router-dom';
 import ReactLoading from 'react-loading';
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
 
 // App
 import axios from 'appHelpers/axios';
@@ -121,7 +123,6 @@ const About = props => {
               </Select>
             </FormField>
           </Grid>
-
           <Grid item xs={12}>
             <FormField fullWidth className={css.formControl}>
               <TextField
@@ -130,6 +131,18 @@ const About = props => {
                 label="Bio"
                 value={props.profile.description}
                 onChange={generateHandler('description')}
+              />
+            </FormField>
+          </Grid>
+          // Updated April 15
+          <Grid item xs={12}>
+            <FormField fullWidth className={css.formControl}>
+              <TextField
+                multiline
+                rows={5}
+                label="Topics"
+                value={props.profile.topics}
+                onChange={generateHandler('topics')}
               />
             </FormField>
           </Grid>
@@ -225,6 +238,12 @@ const About = props => {
             </FormField>
           </Grid>
         </Grid>
+      </div>
+
+       <div className={css.section}>
+        <FormField className={css.formControl}>
+          TOPICS
+        </FormField>
       </div>
 
       <div className={css.section}>
