@@ -13,7 +13,7 @@ import { FormLabel, FormControlLabel } from 'material-ui/Form';
 import Avatar from 'material-ui/Avatar';
 import { Link } from 'react-router-dom';
 import ReactLoading from 'react-loading';
-import Select from 'react-select';
+import ReactSelect from 'react-select';
 import 'react-select/dist/react-select.css';
 
 // App
@@ -134,17 +134,9 @@ const About = props => {
               />
             </FormField>
           </Grid>
-          // Updated April 15
+          
           <Grid item xs={12}>
-            <FormField fullWidth className={css.formControl}>
-              <TextField
-                multiline
-                rows={5}
-                label="Topics"
-                value={props.profile.topics}
-                onChange={generateHandler('topics')}
-              />
-            </FormField>
+            <ReactSelect></ReactSelect>
           </Grid>
         </Grid>
       </div>
