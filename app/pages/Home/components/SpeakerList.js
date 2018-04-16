@@ -15,8 +15,8 @@ const SpeakerList = ({ speakers, endOfResults, loadMoreSpeakers }) => {
   }
 
   return (
-    <div>
-      <Grid container className={css.speakersList}>
+    <Grid container spacing={0}>
+      <Grid container className={css.speakersList} spacing={10}>
         {speakers.map((speaker, index) => (
           <SpeakerCard speaker={speaker} key={speaker.id} />
         ))}
@@ -30,7 +30,7 @@ const SpeakerList = ({ speakers, endOfResults, loadMoreSpeakers }) => {
           </Grid>
         </Grid>
       )}
-    </div>
+    </Grid>
   );
 };
 
