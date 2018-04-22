@@ -48,7 +48,7 @@ const Home = ({
             <Sidebar locations={locations} />
           </Grid>
           <Grid item xs={12} md={9}>
-            <Grid container>
+            <Grid container spacing={0}>
               <Grid item xs={12}>
                 <div className={css.contentTitles}>
                   {`${speakerIdentity} in ${location} for ${searchQuery}`}
