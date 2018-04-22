@@ -13,6 +13,11 @@ import { FormLabel, FormControlLabel } from 'material-ui/Form';
 import Avatar from 'material-ui/Avatar';
 import { Link } from 'react-router-dom';
 import ReactLoading from 'react-loading';
+import Checkbox from 'material-ui/Checkbox';
+import { ListItemText } from 'material-ui/List';
+import Chip from 'material-ui/Chip';
+
+import { find } from 'lodash';
 
 // App
 import axios from 'appHelpers/axios';
@@ -22,17 +27,28 @@ import {
 } from 'appRedux/modules/profile';
 import { get as getUser } from 'appRedux/modules/user';
 import { get as getLocations } from 'appRedux/modules/location';
+import { get as getTopics, create as createTopic } from 'appRedux/modules/topic';
 import StyledButton from 'appCommon/StyledButton';
 import FormField from 'appCommon/FormField';
 import { BASE_URL_PATH } from 'appHelpers/constants';
+
+import TopicSelector from '../FormComponents/TopicSelector/TopicSelector'
+
 import css from './styles.css';
 
 const About = props => {
-  const generateHandler = fieldName => {
-    return event => {
-      props.handleProfileInputChange(fieldName, event.currentTarget.value);
-    };
+  const generateHandler = fieldName => event => {
+    props.handleProfileInputChange(fieldName, event.currentTarget.value);
   };
+
+  const handleLocationChange = (event) => {
+    const selectedLocation = event.target.value;
+    props.handleProfileInputChange('location', selectedLocation)
+  }
+
+  const handleTopicsChange = (topics) => {
+    props.handleProfileInputChange('topics', topics)
+  }
 
   if (!props.profile.id) {
     return (
@@ -109,19 +125,20 @@ const About = props => {
               <InputLabel htmlFor="speaker-location">City</InputLabel>
               <Select
                 value={props.profile.location}
-                onChange={generateHandler('location')}
+                onChange={handleLocationChange}
                 input={<Input name="location" id="location" />}
               >
                 {props.locations &&
-                  props.locations.map((location, index) => (
+                  props.locations.map((location, index) => {
+                    return (
                     <MenuItem key={index} value={location.id}>
-                      {location.city}
+                      <ListItemText primary={location.city} />
                     </MenuItem>
-                  ))}
+                  )}
+                )}
               </Select>
             </FormField>
           </Grid>
-
           <Grid item xs={12}>
             <FormField fullWidth className={css.formControl}>
               <TextField
@@ -133,6 +150,7 @@ const About = props => {
               />
             </FormField>
           </Grid>
+
         </Grid>
       </div>
 
@@ -228,6 +246,20 @@ const About = props => {
       </div>
 
       <div className={css.section}>
+        <Grid item xs={12}>
+          <FormLabel component="legend">
+            Topics
+          </FormLabel>
+          <TopicSelector
+            topics={props.topics}
+            selectedTopics={props.profile.topics}
+            handleChange={handleTopicsChange}
+            createTopic={props.createTopic}
+          />
+        </Grid>
+      </div>
+
+      <div className={css.section}>
         <Grid container>
           <Grid item xs={12} sm={6}>
             <FormField fullWidth className={css.formControl}>
@@ -280,6 +312,7 @@ class AboutContainer extends Component {
   componentWillMount() {
     this.props.getUser();
     this.props.getLocations();
+    this.props.getTopics();
   }
 
   _handleImageChange(event) {
@@ -344,6 +377,7 @@ function mapStateToProps(state) {
     profile: state.profile,
     notification: state.notification.message,
     locations: state.location.locations,
+    topics: state.topic.topics,
   };
 }
 
@@ -354,6 +388,12 @@ function mapDispatchToProps(dispatch, props) {
     },
     getLocations: () => {
       dispatch(getLocations());
+    },
+    getTopics: () => {
+      dispatch(getTopics());
+    },
+    createTopic: (topic) => {
+      dispatch(createTopic(topic))
     },
     onChangeProfile: attrs => {
       dispatch(onChangeProfile(attrs));

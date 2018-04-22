@@ -8,13 +8,28 @@ import { speakerToProfilePath } from 'appHelpers/url';
 import StyledButton from 'appCommon/StyledButton';
 import css from '../styles.css';
 
+function buildTitle(position, organization) {
+  let separator;
+  if (position && organization) {
+    separator = ` at `;
+  } else {
+    separator = ', ';
+  }
+
+  return (
+    <p className={css.speakerTitle}>
+      <span className={css.position}>{position || 'Independent'}</span>
+      <span className={css.separator}>{separator}</span>
+      <span className={css.organization}>
+        {organization || 'No affiliation'}
+      </span>
+    </p>
+  );
+}
+
 const SpeakerCard = ({ speaker }) => {
   const name = !!speaker.display_name ? speaker.display_name : speaker.email;
-  const title =
-    speaker.position && speaker.organization
-      ? `${speaker.position} at ${speaker.organization}`
-      : `${speaker.position || 'Independent'}, ${speaker.organization ||
-          'No affiliation'}`;
+  const title = buildTitle(speaker.position, speaker.organization);
   const speakerProfilePath = speakerToProfilePath({
     basePath: '#',
     ...speaker,
@@ -31,7 +46,7 @@ const SpeakerCard = ({ speaker }) => {
           <a href={speakerProfilePath}>
             <h3 className={css.name}>{name}</h3>
           </a>
-          <p className={css.speakerTitle}>{title}</p>
+          {title}
           <p className={css.speakerTags}>{speaker.topic_list}</p>
         </Grid>
         <Hidden smDown>

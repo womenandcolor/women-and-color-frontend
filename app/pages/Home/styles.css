@@ -135,6 +135,13 @@
   margin: 2rem 0;
 }
 
+@media (max-width: 960px) {
+  .separator,
+  .organization {
+    display: none;
+  }
+}
+
 @media (max-width: 380px) {
   .sidebarContainer {
     padding-right: 1rem;
