@@ -6,7 +6,9 @@ import Grid from 'material-ui/Grid';
 // App
 import { speakerToProfilePath } from 'appHelpers/url';
 import StyledButton from 'appCommon/StyledButton';
+
 import css from '../styles.css';
+import { profilePhoto } from 'appSharedStyles/styles.css'
 
 function buildTitle(position, organization) {
   let separator;
@@ -38,7 +40,7 @@ const SpeakerCard = ({ speaker }) => {
     <Grid item xs={12} className={css.contentCard}>
       <Grid container>
         <Grid item xs={3} md={3}>
-          <a href={speakerProfilePath} className={css.photo}>
+          <a href={speakerProfilePath} className={profilePhoto}>
             <img src={speaker.image} alt={name} />
           </a>
         </Grid>

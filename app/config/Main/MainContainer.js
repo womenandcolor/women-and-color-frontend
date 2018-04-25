@@ -17,17 +17,21 @@ const theme = createMuiTheme({
     },
     secondary: grey,
     error: pink,
+    background: {
+      paper: '#FFF',
+      default: '#FFF',
+    }
   },
   typography: {
     fontFamily: '"Open Sans", "Helvetica", "Arial", sans-serif'
-  }
+  },
 });
 
 const MainContainer = props => (
   <div>
-    <CssBaseline />
     <MuiThemeProvider theme={theme}>
       <div className={container}>
+        <CssBaseline />
         <Navigation showSearch={true} />
         <div className={innerContainer}>{props.children}</div>
       </div>

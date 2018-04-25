@@ -58,6 +58,7 @@ const base = {
       appRedux: path.resolve(__dirname, 'app/redux/'),
       appHelpers: path.resolve(__dirname, 'app/helpers/'),
       appAssets: path.resolve(__dirname, 'app/assets/'),
+      appSharedStyles: path.resolve(__dirname, 'app/sharedStyles/'),
     }
   }
 }

@@ -31,6 +31,7 @@
   line-height: 32px;
   margin-top: 0;
   margin-bottom: 0;
+  color: var(--color-grey-dark);
 }
 
 .speakerCardTitle {
@@ -52,18 +53,13 @@
   margin-bottom: 0;
 }
 
-.speakerCardListPronouns {
-  text-align: center;
-  padding-right: 0 !important; /* override material-ui padding so text can really center */
+.socialLinks a {
+  color: var(--color-grey-dark);
+  text-decoration: none;
 }
 
-.speakerCardListLocation {
-  text-align: center;
-  padding-right: 0 !important; /* override material-ui padding so text can really center */
-}
-
-.speakerCardListSocial {
-  justify-content: space-around !important; /* override materiaul-ui jc */
+.socialLinks a:hover, .socialLinks a:focus {
+  text-decoration: underline;
 }
 
 /* Speaker Info */
