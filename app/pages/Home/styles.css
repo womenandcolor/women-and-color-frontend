@@ -76,27 +76,6 @@
   flex-wrap: wrap;
 }
 
-.photo {
-  background: #e5e8f5;
-  border-radius: 50%;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  flex-shrink: 0;
-  width: 100%;
-  padding-top: 100%;
-  position: relative;
-}
-
-.photo img {
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  object-fit: cover;
-}
-
 .name {
   color: #000000;
   font-family: 'Open Sans';

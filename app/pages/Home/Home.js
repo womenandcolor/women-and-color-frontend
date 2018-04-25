@@ -8,11 +8,12 @@ import SpeakerList from './components/SpeakerList';
 import Sidebar from './components/Sidebar';
 import StyledButton from 'appCommon/StyledButton';
 import Banner from 'appCommon/Banner';
-import css from './styles.css';
 import { fetchSpeakers, updateSearchParams } from 'appRedux/modules/speaker';
 import { get as getLocations } from 'appRedux/modules/location';
 import { get as getUser } from 'appRedux/modules/user';
 import { DEFAULT_SPEAKER_LIMIT } from 'appHelpers/constants';
+
+import css from './styles.css';
 
 const searchParamsToSpeakerIdentity = ({ poc, woman }) => {
   if (!poc && !woman) {
