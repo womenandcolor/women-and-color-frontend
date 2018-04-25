@@ -1,23 +1,20 @@
 // NPM
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import ReactLoading from 'react-loading';
+import { find } from 'lodash';
+
 import Grid from 'material-ui/Grid';
 import Snackbar from 'material-ui/Snackbar';
 import TextField from 'material-ui/TextField';
-import Button from 'material-ui/Button';
 import Select from 'material-ui/Select';
 import Input, { InputLabel } from 'material-ui/Input';
 import { MenuItem } from 'material-ui/Menu';
 import Radio, { RadioGroup } from 'material-ui/Radio';
 import { FormLabel, FormControlLabel } from 'material-ui/Form';
-import Avatar from 'material-ui/Avatar';
-import { Link } from 'react-router-dom';
-import ReactLoading from 'react-loading';
-import Checkbox from 'material-ui/Checkbox';
 import { ListItemText } from 'material-ui/List';
-import Chip from 'material-ui/Chip';
 
-import { find } from 'lodash';
 
 // App
 import axios from 'appHelpers/axios';
@@ -29,10 +26,9 @@ import { get as getUser } from 'appRedux/modules/user';
 import { get as getLocations } from 'appRedux/modules/location';
 import { get as getTopics, create as createTopic } from 'appRedux/modules/topic';
 import StyledButton from 'appCommon/StyledButton';
+import TopicSelector from '../FormComponents/TopicSelector/TopicSelector'
 import FormField from 'appCommon/FormField';
 import { BASE_URL_PATH } from 'appHelpers/constants';
-
-import TopicSelector from '../FormComponents/TopicSelector/TopicSelector'
 
 import css from './styles.css';
 
