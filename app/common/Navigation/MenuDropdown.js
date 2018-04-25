@@ -1,5 +1,4 @@
 import React from 'react';
-import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import IconButton from 'material-ui/IconButton';
@@ -32,28 +31,36 @@ class MenuDropdown extends React.Component {
           <MenuIcon />
         </IconButton>
         <Menu
-          id='main-menu'
+          id="main-menu"
           anchorEl={this.state.anchorEl}
           open={Boolean(this.state.anchorEl)}
           onClose={this.handleClose}
         >
-          {
-            this.props.menuItems.map(item => {
-              if (item.slug.startsWith('/accounts/')) {
-                return(
-                  <MenuItem button key={item.title} onClick={() => window.location.href = item.slug}>
-                    {item.title}
-                  </MenuItem>
-                )
-              } else {
-                return (
-                  <MenuItem button key={item.title} component={Link} to={item.slug} onClick={this.handleClose}>
-                    {item.title}
-                  </MenuItem>
-                )
-              }
-            })
-          }
+          {this.props.menuItems.map(item => {
+            if (item.slug.startsWith('/accounts/')) {
+              return (
+                <MenuItem
+                  button
+                  key={item.title}
+                  onClick={() => (window.location.href = item.slug)}
+                >
+                  {item.title}
+                </MenuItem>
+              );
+            } else {
+              return (
+                <MenuItem
+                  button
+                  key={item.title}
+                  component={Link}
+                  to={item.slug}
+                  onClick={this.handleClose}
+                >
+                  {item.title}
+                </MenuItem>
+              );
+            }
+          })}
         </Menu>
       </div>
     );
