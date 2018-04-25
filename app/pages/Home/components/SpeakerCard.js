@@ -1,14 +1,24 @@
 // NPM
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 import Hidden from 'material-ui/Hidden';
 import Grid from 'material-ui/Grid';
+import Chip from 'material-ui/Chip';
+import { withStyles } from 'material-ui/styles';
 
 // App
 import { speakerToProfilePath } from 'appHelpers/url';
 import StyledButton from 'appCommon/StyledButton';
+import { updateSearchParams } from 'appRedux/modules/speaker';
 
 import css from '../styles.css';
 import { profilePhoto } from 'appSharedStyles/styles.css'
+
+const styles = theme => ({
+  chip: {
+    margin: `${theme.spacing.unit / 2}px ${theme.spacing.unit / 4}px`,
+  },
+})
 
 function buildTitle(position, organization) {
   let separator;
@@ -29,7 +39,7 @@ function buildTitle(position, organization) {
   );
 }
 
-const SpeakerCard = ({ speaker }) => {
+const SpeakerCard = ({ speaker, updateSearchParams, classes }) => {
   const name = !!speaker.display_name ? speaker.display_name : speaker.email;
   const title = buildTitle(speaker.position, speaker.organization);
   const speakerProfilePath = speakerToProfilePath({
@@ -44,15 +54,24 @@ const SpeakerCard = ({ speaker }) => {
             <img src={speaker.image} alt={name} />
           </a>
         </Grid>
-        <Grid item xs={9} md={6} className={css.info}>
+        <Grid item xs={9} md={7} className={css.info}>
           <a href={speakerProfilePath}>
             <h3 className={css.name}>{name}</h3>
           </a>
           {title}
-          <p className={css.speakerTags}>{speaker.topic_list}</p>
+          { (speaker.topics.length > 0) &&
+            speaker.topics.map(topic => (
+              <Chip
+                key={topic.topic}
+                label={topic.topic}
+                className={classes.chip}
+                onClick={() => { updateSearchParams({ q: topic.topic })}}
+              />
+            ))
+          }
         </Grid>
         <Hidden smDown>
-          <Grid item md={3} className={`${css.info} actions`}>
+          <Grid item md={2} className={`${css.info} actions`}>
             <StyledButton
               color="primary"
               label="View profile"
@@ -67,4 +86,16 @@ const SpeakerCard = ({ speaker }) => {
   );
 };
 
-export default SpeakerCard;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateSearchParams: (params) => {
+      dispatch(updateSearchParams(params))
+    }
+  }
+}
+
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(withStyles(styles)(SpeakerCard));
