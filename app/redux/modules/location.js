@@ -29,11 +29,11 @@ export function getError() {
 }
 
 // Async Actions
-export function get() {
+export function get(opts={}) {
   return dispatch => {
     dispatch(getRequest());
-
-    axios.get(ENDPOINT_URL)
+    const active = opts.active ? 'active' : ''
+    axios.get(`${ENDPOINT_URL}${active}`)
     .then(res => {
       dispatch(getSuccess(res.data));
     })
