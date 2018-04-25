@@ -73,7 +73,7 @@ class HomeContainer extends Component {
     super(props);
     this.state = {};
     this.props.getUser();
-    this.props.getLocations();
+    this.props.getLocations({ active: true });
     this.props.fetchSpeakers(this.props.searchParams);
   }
 
@@ -116,8 +116,8 @@ const mapDispatchToProps = dispatch => {
     getUser: () => {
       dispatch(getUser());
     },
-    getLocations: () => {
-      dispatch(getLocations());
+    getLocations: (opts) => {
+      dispatch(getLocations(opts));
     },
   };
 };
