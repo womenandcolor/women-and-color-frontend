@@ -1,11 +1,12 @@
-import React from "react";
-import { MuiThemeProvider, createMuiTheme } from "material-ui/styles";
+import React from 'react';
+import { withRouter } from 'react-router';
+import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import CssBaseline from 'material-ui/CssBaseline';
-import indigo from "material-ui/colors/indigo";
-import grey from "material-ui/colors/grey";
-import pink from "material-ui/colors/pink";
-import Navigation from "appCommon/Navigation/Navigation";
-import { container, innerContainer } from "./styles.css";
+import indigo from 'material-ui/colors/indigo';
+import grey from 'material-ui/colors/grey';
+import pink from 'material-ui/colors/pink';
+import Navigation from 'appCommon/Navigation/Navigation';
+import { container, innerContainer } from './styles.css';
 
 const theme = createMuiTheme({
   palette: {
@@ -20,10 +21,10 @@ const theme = createMuiTheme({
     background: {
       paper: '#FFF',
       default: '#FFF',
-    }
+    },
   },
   typography: {
-    fontFamily: '"Open Sans", "Helvetica", "Arial", sans-serif'
+    fontFamily: '"Open Sans", "Helvetica", "Arial", sans-serif',
   },
 });
 
@@ -32,11 +33,11 @@ const MainContainer = props => (
     <MuiThemeProvider theme={theme}>
       <div className={container}>
         <CssBaseline />
-        <Navigation showSearch={true} />
+        <Navigation showSearch={true} location={props.location} />
         <div className={innerContainer}>{props.children}</div>
       </div>
     </MuiThemeProvider>
   </div>
 );
 
-export default MainContainer;
+export default withRouter(MainContainer);
