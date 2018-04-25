@@ -61,13 +61,13 @@ const SpeakerCard = ({ speaker, updateSearchParams, classes }) => {
           {title}
           { (speaker.topics.length > 0) &&
             speaker.topics.map(topic => (
-              <Chip
+              <a
+                href={"javascript:void(0)"}
                 key={topic.topic}
-                label={topic.topic}
-                className={classes.chip}
-                onClick={() => { updateSearchParams({ q: topic.topic })}}
-              />
-            ))
+                onClick={() => { updateSearchParams({ q: topic.topic })}}>
+                {topic.topic}
+              </a>
+            )).reduce((prev, curr) => [prev, ', ', curr])
           }
         </Grid>
         <Hidden smDown>
