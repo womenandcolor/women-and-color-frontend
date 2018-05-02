@@ -11,7 +11,7 @@ import Select from 'material-ui/Select';
 import Input, { InputLabel } from 'material-ui/Input';
 import { MenuItem } from 'material-ui/Menu';
 import Radio, { RadioGroup } from 'material-ui/Radio';
-import { FormLabel, FormControlLabel } from 'material-ui/Form';
+import { FormLabel, FormControlLabel, FormHelperText } from 'material-ui/Form';
 import { ListItemText } from 'material-ui/List';
 
 // App
@@ -152,7 +152,11 @@ const About = props => {
                 error={props.profile.description.length > 1000}
                 value={props.profile.description}
                 onChange={generateHandler('description')}
+                aria-describedby="bio-error-text"
               />
+              <FormHelperText id="bio-error-text">
+                {`Characters: ${props.profile.description.length} (maximum 1000)`}
+              </FormHelperText>
             </FormField>
           </Grid>
         </Grid>
