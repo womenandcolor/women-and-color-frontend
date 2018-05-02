@@ -10,15 +10,21 @@
 .photo {
   display: flex;
   justify-content: center;
-  width: 10rem;
-  height: 10rem;
   overflow: hidden;
-  border-radius: 50%;
   margin-bottom: 1rem;
+  flex-direction: column;
 }
 
 .photo img {
-  height: 100%;
+  height: 10rem;
+  width: 10rem;
+  border-radius: 50%;
+  margin-bottom: 0.5rem;
+}
+
+.imageError {
+  font-size: 0.8rem;
+  color: red;
 }
 
 .fileInput {

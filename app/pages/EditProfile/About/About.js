@@ -1,6 +1,5 @@
 // NPM
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import ReactLoading from 'react-loading';
 import { find } from 'lodash';
@@ -12,9 +11,8 @@ import Select from 'material-ui/Select';
 import Input, { InputLabel } from 'material-ui/Input';
 import { MenuItem } from 'material-ui/Menu';
 import Radio, { RadioGroup } from 'material-ui/Radio';
-import { FormLabel, FormControlLabel } from 'material-ui/Form';
+import { FormLabel, FormControlLabel, FormHelperText } from 'material-ui/Form';
 import { ListItemText } from 'material-ui/List';
-
 
 // App
 import axios from 'appHelpers/axios';
@@ -24,12 +22,14 @@ import {
 } from 'appRedux/modules/profile';
 import { get as getUser } from 'appRedux/modules/user';
 import { get as getLocations } from 'appRedux/modules/location';
-import { get as getTopics, create as createTopic } from 'appRedux/modules/topic';
+import {
+  get as getTopics,
+  create as createTopic,
+} from 'appRedux/modules/topic';
 import StyledButton from 'appCommon/StyledButton';
-import TopicSelector from '../FormComponents/TopicSelector/TopicSelector'
+import TopicSelector from '../FormComponents/TopicSelector/TopicSelector';
 import FormField from 'appCommon/FormField';
-import { BASE_URL_PATH } from 'appHelpers/constants';
-
+import { BASE_URL_PATH, MAXIMUM_IMAGE_SIZE } from 'appHelpers/constants';
 import css from './styles.css';
 
 const About = props => {
@@ -37,14 +37,14 @@ const About = props => {
     props.handleProfileInputChange(fieldName, event.currentTarget.value);
   };
 
-  const handleLocationChange = (event) => {
+  const handleLocationChange = event => {
     const selectedLocation = event.target.value;
-    props.handleProfileInputChange('location', selectedLocation)
-  }
+    props.handleProfileInputChange('location', selectedLocation);
+  };
 
-  const handleTopicsChange = (topics) => {
-    props.handleProfileInputChange('topics', topics)
-  }
+  const handleTopicsChange = topics => {
+    props.handleProfileInputChange('topics', topics);
+  };
 
   if (!props.profile.id) {
     return (
@@ -54,7 +54,6 @@ const About = props => {
       </div>
     );
   }
-
   return (
     <form onSubmit={props.handleSubmit}>
       <div className={css.section}>
@@ -66,6 +65,11 @@ const About = props => {
           <Grid item xs={12}>
             <div className={css.photo}>
               <img src={props.profile.image} />
+              {props.imageError ? (
+                <div className={css.imageError}>
+                  ** The file size can not exceed 2MB.
+                </div>
+              ) : null}
             </div>
             <StyledButton component="label" color="primary">
               <input
@@ -81,6 +85,7 @@ const About = props => {
           <Grid item xs={12} sm={6}>
             <FormField fullWidth className={css.formControl}>
               <TextField
+                required
                 label="First Name"
                 value={props.profile.first_name}
                 onChange={generateHandler('first_name')}
@@ -90,6 +95,7 @@ const About = props => {
           <Grid item xs={12} sm={6}>
             <FormField fullWidth className={css.formControl}>
               <TextField
+                required
                 label="Last Name"
                 value={props.profile.last_name}
                 onChange={generateHandler('last_name')}
@@ -100,6 +106,7 @@ const About = props => {
           <Grid item xs={12} sm={6}>
             <FormField fullWidth className={css.formControl}>
               <TextField
+                required
                 label="Position"
                 value={props.profile.position}
                 onChange={generateHandler('position')}
@@ -109,6 +116,7 @@ const About = props => {
           <Grid item xs={12} sm={6}>
             <FormField fullWidth className={css.formControl}>
               <TextField
+                required
                 label="Organization"
                 value={props.profile.organization}
                 onChange={generateHandler('organization')}
@@ -127,11 +135,11 @@ const About = props => {
                 {props.locations &&
                   props.locations.map((location, index) => {
                     return (
-                    <MenuItem key={index} value={location.id}>
-                      <ListItemText primary={location.city} />
-                    </MenuItem>
-                  )}
-                )}
+                      <MenuItem key={index} value={location.id}>
+                        <ListItemText primary={location.city} />
+                      </MenuItem>
+                    );
+                  })}
               </Select>
             </FormField>
           </Grid>
@@ -141,12 +149,16 @@ const About = props => {
                 multiline
                 rows={5}
                 label="Bio"
+                error={props.profile.description.length > 1000}
                 value={props.profile.description}
                 onChange={generateHandler('description')}
+                aria-describedby="bio-error-text"
               />
+              <FormHelperText id="bio-error-text">
+                {`Characters: ${props.profile.description.length} (maximum 1000)`}
+              </FormHelperText>
             </FormField>
           </Grid>
-
         </Grid>
       </div>
 
@@ -243,9 +255,7 @@ const About = props => {
 
       <div className={css.section}>
         <Grid item xs={12}>
-          <FormLabel component="legend">
-            Topics
-          </FormLabel>
+          <FormLabel component="legend">Topics</FormLabel>
           <TopicSelector
             topics={props.topics}
             selectedTopics={props.profile.topics}
@@ -301,7 +311,9 @@ const About = props => {
 class AboutContainer extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      imageError: false,
+    };
     this.handleImageChange = e => this._handleImageChange(e);
   }
 
@@ -313,11 +325,22 @@ class AboutContainer extends Component {
 
   _handleImageChange(event) {
     const file = event.currentTarget.files[0];
+    // image must not larger than 2MB
+    if (file.size > MAXIMUM_IMAGE_SIZE) {
+      this.setState({
+        imageError: true,
+      });
+      return;
+    }
+
+    this.setState({
+      imageError: false,
+    });
+
     const data = new FormData();
     data.append('file', file);
     data.append('profile', this.props.profile.id);
     const url = `${BASE_URL_PATH}/api/v1/images/`;
-
     axios({
       url,
       data,
@@ -361,6 +384,7 @@ class AboutContainer extends Component {
           }}
           handleImageChange={this.handleImageChange}
           {...props}
+          imageError={this.state.imageError}
         />
       </div>
     );
@@ -377,7 +401,7 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps(dispatch, props) {
+function mapDispatchToProps(dispatch) {
   return {
     getUser: () => {
       dispatch(getUser());
@@ -388,8 +412,8 @@ function mapDispatchToProps(dispatch, props) {
     getTopics: () => {
       dispatch(getTopics());
     },
-    createTopic: (topic) => {
-      dispatch(createTopic(topic))
+    createTopic: topic => {
+      dispatch(createTopic(topic));
     },
     onChangeProfile: attrs => {
       dispatch(onChangeProfile(attrs));
