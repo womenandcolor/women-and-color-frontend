@@ -33,4 +33,5 @@ export const IDENTITIES = [
   { label: 'People of color', value: { poc: true, woman: null } },
 ];
 
+export const MAXIMUM_IMAGE_SIZE = 2 * 1024 * 1024; //less than 2MB in bytes
 export const DEFAULT_SPEAKER_LIMIT = 20;

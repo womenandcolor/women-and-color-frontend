@@ -7,7 +7,6 @@ import TextField from 'material-ui/TextField';
 import ReactLoading from 'react-loading';
 
 // App
-import axios from 'appHelpers/axios';
 import {
   update as updateUser,
   onChange as onChangeUser,
@@ -40,6 +39,7 @@ const Account = props => {
           <Grid item xs={12} md={6}>
             <FormField fullWidth className={css.formControl}>
               <TextField
+                required
                 label="Email Address"
                 value={props.user.email}
                 type="email"
@@ -125,7 +125,7 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps(dispatch, props) {
+function mapDispatchToProps(dispatch) {
   return {
     getUser: () => {
       dispatch(getUser());
