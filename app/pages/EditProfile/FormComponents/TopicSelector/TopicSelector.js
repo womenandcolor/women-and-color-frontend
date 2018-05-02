@@ -11,13 +11,12 @@ import Chip from 'material-ui/Chip';
 
 import { find } from 'lodash';
 
-
 const styles = theme => ({
   container: {
     flexGrow: 1,
     position: 'relative',
     marginTop: '1rem',
-    marginBottom: '1rem'
+    marginBottom: '1rem',
   },
   paper: {
     position: 'absolute',
@@ -91,8 +90,8 @@ const getSuggestions = (inputValue, topics, selectedTopics) => {
   return topics.filter(suggestion => {
     const keep =
       (!inputValue ||
-        suggestion.topic.toLowerCase().indexOf(inputValue.toLowerCase()) !==
-          -1) &&
+        (suggestion.topic &&
+          suggestion.topic.toLowerCase().includes(inputValue.toLowerCase()))) &&
       count < 5;
 
     if (keep) {
@@ -110,18 +109,19 @@ class TopicSelector extends React.Component {
 
   handleKeyDown = event => {
     const { inputValue } = this.state;
-    const { selectedTopics, handleChange, createTopic } = this.props;
+    const { selectedTopics, handleChange, createTopic, topics } = this.props;
     if (
-    selectedTopics.length &&
+      selectedTopics.length &&
       !inputValue.length &&
       keycode(event) === 'backspace'
     ) {
-      const updatedTopics = selectedTopics.slice(0, selectedTopics.length - 1)
-      handleChange(updatedTopics)
+      const updatedTopics = selectedTopics.slice(0, selectedTopics.length - 1);
+      handleChange(updatedTopics);
     }
 
     if (keycode(event) === 'enter' && inputValue.length > 1) {
-      console.log('create topic: ', inputValue);
+      const topicList = topics.map(topic => topic.topic);
+      if (topicList.includes(inputValue)) return; // prevent creating same topic name with different ids
       createTopic(inputValue);
     }
   };
@@ -137,15 +137,15 @@ class TopicSelector extends React.Component {
       selectedTopics = [...selectedTopics, item];
     }
 
-    handleChange(selectedTopics)
-    this.setState({ inputValue: '' })
+    handleChange(selectedTopics);
+    this.setState({ inputValue: '' });
   };
 
   handleDelete = item => () => {
     const selectedTopics = [...this.props.selectedTopics];
     selectedTopics.splice(selectedTopics.indexOf(item), 1);
 
-    this.props.handleChange(selectedTopics)
+    this.props.handleChange(selectedTopics);
   };
 
   render() {
@@ -183,19 +183,20 @@ class TopicSelector extends React.Component {
                 onChange: this.handleInputChange,
                 onKeyDown: this.handleKeyDown,
                 placeholder: 'Select topics',
-                id: 'integration-downshift-multiple'
+                id: 'integration-downshift-multiple',
               }),
             })}
             {isOpen ? (
               <Paper className={classes.paper} square>
-                {getSuggestions(inputValue2, topics, selectedTopics).map((suggestion, index) =>
-                  renderSuggestion({
-                    suggestion,
-                    index,
-                    itemProps: getItemProps({ item: suggestion }),
-                    highlightedIndex,
-                    selectedItem: selectedItem2,
-                  })
+                {getSuggestions(inputValue2, topics, selectedTopics).map(
+                  (suggestion, index) =>
+                    renderSuggestion({
+                      suggestion,
+                      index,
+                      itemProps: getItemProps({ item: suggestion }),
+                      highlightedIndex,
+                      selectedItem: selectedItem2,
+                    })
                 )}
               </Paper>
             ) : null}
