@@ -29,15 +29,15 @@ const FullFooter = () => {
       </Grid>
 
       <Grid container justify="center" className={`${css.footerRow} ${css.backgroundPrimary}`} spacing={0}>
-        <Grid item xs={12} md={9}>
+        <Grid item xs={11} md={9}>
           <Grid container justify="space-between">
-            <Grid item>
+            <Grid item xs={12} md={8}>
               <a href="#">About us</a>
               <a href="#">Special Thanks</a>
               <a href="#">Our Partners</a>
               <a href="#">Contact Us</a>
             </Grid>
-            <Grid item>
+            <Grid item xs={11} md={4} className={css.alignRight}>
               <a href="https://twitter.com/womenandcolor" target='_blank'>
                 <FontAwesomeIcon icon={faTwitter} size='lg' />
               </a>
@@ -53,13 +53,13 @@ const FullFooter = () => {
       </Grid>
 
       <Grid container justify="center" className={`${css.footerRow} ${css.backgroundPrimaryDark}`} spacing={0}>
-        <Grid item xs={12} md={9}>
+        <Grid item xs={11} md={9}>
           <Grid container justify="space-between">
-            <Grid item>
+            <Grid item xs={12} md={6}>
               <a href="#">Terms of Service</a>
               <a href="#">Privacy Policy</a>
             </Grid>
-            <Grid item>
+            <Grid item xs={12} md={6} className={css.alignRight}>
               &copy; 2016 - 2018 Women and Color
             </Grid>
           </Grid>

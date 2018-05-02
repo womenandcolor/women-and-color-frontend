@@ -24,6 +24,10 @@
   margin-right: 1.5rem;
 }
 
+.footerRow a:last-of-type {
+  margin-right: 0;
+}
+
 .footerRow a:hover, .footerRow a:focus {
   text-decoration: underline;
 }
@@ -52,4 +56,8 @@
 
 .partnerLogos a {
   margin: 2rem;
+}
+
+.alignRight {
+  text-align: right;
 }
