@@ -49,6 +49,15 @@
   color: var(--color-primary);
 }
 
+.backgroundGrey {
+  background-color: #f5f5f5;
+  color: var(--color-grey-dark);
+}
+
+.backgroundGrey a {
+  color: var(--color-grey-dark);
+}
+
 .partnerLogos {
   padding-top: 3rem;
   padding-bottom: 3rem;

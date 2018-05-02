@@ -7,6 +7,7 @@ import grey from 'material-ui/colors/grey';
 import pink from 'material-ui/colors/pink';
 import Navigation from 'appCommon/Navigation/Navigation';
 import FullFooter from 'appCommon/Footer/FullFooter';
+import MiniFooter from 'appCommon/Footer/MiniFooter';
 import { container, innerContainer } from './styles.css';
 
 const theme = createMuiTheme({
@@ -36,7 +37,7 @@ const MainContainer = props => (
         <CssBaseline />
         <Navigation showSearch={true} location={props.location} />
         <div className={innerContainer}>{props.children}</div>
-        <FullFooter />
+        <MiniFooter />
       </div>
     </MuiThemeProvider>
   </div>

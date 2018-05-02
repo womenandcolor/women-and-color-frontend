@@ -1,6 +1,5 @@
 // NPM
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Grid from 'material-ui/Grid';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faGithub from '@fortawesome/fontawesome-free-brands/faGithub'
