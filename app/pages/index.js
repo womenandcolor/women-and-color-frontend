@@ -5,3 +5,5 @@ export Register from './Register/Register';
 export * from './Onboarding';
 export Speaker from './Speaker/Speaker';
 export EditProfile from './EditProfile/EditProfile';
+export ComingSoon from './Static/ComingSoon';
+export Privacy from './Static/Privacy';

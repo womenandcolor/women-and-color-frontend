@@ -30,13 +30,13 @@ const FullFooter = () => {
       <Grid container justify="center" className={`${css.footerRow} ${css.backgroundPrimary}`} spacing={0}>
         <Grid item xs={11} md={9}>
           <Grid container justify="space-between">
-            <Grid item xs={12} md={8}>
+            <Grid item xs={12} sm={8} className={css.verticalOnMobile}>
               <a href="#">About us</a>
               <a href="#">Special Thanks</a>
               <a href="#">Our Partners</a>
               <a href="#">Contact Us</a>
             </Grid>
-            <Grid item xs={11} md={4} className={css.alignRight}>
+            <Grid item xs={12} sm={4} className={`${css.alignRight} ${css.alignCenterOnMobile}`}>
               <a href="https://twitter.com/womenandcolor" target='_blank'>
                 <FontAwesomeIcon icon={faTwitter} size='lg' />
               </a>
@@ -54,11 +54,11 @@ const FullFooter = () => {
       <Grid container justify="center" className={`${css.footerRow} ${css.backgroundPrimaryDark}`} spacing={0}>
         <Grid item xs={11} md={9}>
           <Grid container justify="space-between">
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} sm={6} className={css.verticalOnMobile}>
               <a href="#">Terms of Service</a>
               <a href="#">Privacy Policy</a>
             </Grid>
-            <Grid item xs={12} md={6} className={css.alignRight}>
+            <Grid item xs={12} sm={6} className={`${css.alignRight} ${css.alignCenterOnMobile}`}>
               &copy; 2016 - 2018 Women and Color
             </Grid>
           </Grid>
