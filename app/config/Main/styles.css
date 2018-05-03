@@ -1,7 +1,11 @@
 .container {
   box-sizing: border-box; /* so that a child with width:100% will not overflow */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .innerContainer {
   padding-top: var(--navbar-height);
+  flex-grow: 1;
 }

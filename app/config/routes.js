@@ -25,7 +25,6 @@ const routes = (
       <MainContainer>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/about" component={Page} />
           <Route path="/get-started/profile" component={Profile} />
           <Route path="/get-started/work" component={Work} />
           <Route path="/get-started/social" component={Social} />

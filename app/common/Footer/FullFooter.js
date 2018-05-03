@@ -5,6 +5,7 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faGithub from '@fortawesome/fontawesome-free-brands/faGithub'
 import faTwitter from '@fortawesome/fontawesome-free-brands/faTwitter'
 import faInstagram from '@fortawesome/fontawesome-free-brands/faInstagram'
+import { Link } from 'react-router-dom';
 
 // APP
 import css from './styles.css';
@@ -31,10 +32,10 @@ const FullFooter = () => {
         <Grid item xs={11} md={9}>
           <Grid container justify="space-between">
             <Grid item xs={12} sm={8} className={css.verticalOnMobile}>
-              <a href="#">About us</a>
-              <a href="#">Special Thanks</a>
-              <a href="#">Our Partners</a>
-              <a href="#">Contact Us</a>
+              <Link to='/about'>About Us</Link>
+              <Link to='/thanks'>Special Thanks</Link>
+              <Link to='/partners'>Our Partners</Link>
+              <Link to='/contact'>Contact Us</Link>
             </Grid>
             <Grid item xs={12} sm={4} className={`${css.alignRight} ${css.alignCenterOnMobile}`}>
               <a href="https://twitter.com/womenandcolor" target='_blank'>
@@ -55,8 +56,8 @@ const FullFooter = () => {
         <Grid item xs={11} md={9}>
           <Grid container justify="space-between">
             <Grid item xs={12} sm={6} className={css.verticalOnMobile}>
-              <a href="#">Terms of Service</a>
-              <a href="#">Privacy Policy</a>
+              <Link to='/terms'>Terms of Service</Link>
+              <Link to='/privacy'>Privacy Policy</Link>
             </Grid>
             <Grid item xs={12} sm={6} className={`${css.alignRight} ${css.alignCenterOnMobile}`}>
               &copy; 2016 - 2018 Women and Color
@@ -67,6 +68,5 @@ const FullFooter = () => {
     </footer>
   )
 }
-
 
 export default FullFooter;
