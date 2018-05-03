@@ -55,7 +55,9 @@ const SpeakerCard = ({ speaker, classes }) => {
           </a>
           {title}
           { (speaker.topics.length > 0) &&
-            <Topics topics={speaker.topics} />
+            <Hidden smDown>
+              <Topics topics={speaker.topics} />
+            </Hidden>
           }
         </Grid>
         <Hidden smDown>

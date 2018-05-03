@@ -119,6 +119,18 @@
   margin: 2rem 0;
 }
 
+.filterLabel {
+  background-color: var(--color-grey-pale);
+  color: var(--color-grey-dark);
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+}
+
+.filterLabel span {
+  margin-left: 1rem;
+}
+
 @media (max-width: 960px) {
   .separator,
   .organization {

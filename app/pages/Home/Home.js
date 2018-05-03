@@ -5,7 +5,7 @@ import Grid from 'material-ui/Grid';
 
 // APP
 import SpeakerList from './components/SpeakerList';
-import Sidebar from './components/Sidebar';
+import Filters from './components/Filters';
 import StyledButton from 'appCommon/StyledButton';
 import Banner from 'appCommon/Banner';
 import { fetchSpeakers, updateSearchParams } from 'appRedux/modules/speaker';
@@ -45,8 +45,8 @@ const Home = ({
       </Grid>
       <Grid item xs={12} md={9}>
         <Grid container>
-          <Grid item xs={12} md={3}>
-            <Sidebar locations={locations} />
+          <Grid item xs={12} md={3} style={{ paddingTop: '0' }}>
+            <Filters locations={locations} />
           </Grid>
           <Grid item xs={12} md={9}>
             <Grid container spacing={0}>

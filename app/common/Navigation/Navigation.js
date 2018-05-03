@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 
 // App
 import { link, navTitle } from './styles.css';
+import AnimatedSearchField from './AnimatedSearchField';
 import SearchField from './SearchField';
 import MenuDropdown from './MenuDropdown';
 import ButtonMenu from './ButtonMenu';
@@ -86,7 +87,7 @@ const Navigation = props => {
       <AppBar position="fixed" className={classes.root}>
         <Toolbar>
           <Grid container justify="center">
-            <Grid item xs={12} sm={10} md={9}>
+            <Grid item xs={12} md={9}>
               <Grid container justify="space-between" alignItems="center">
                 <Grid item xs={6} sm={4} md={3}>
                   <a
@@ -102,10 +103,13 @@ const Navigation = props => {
                     <SearchField updateSearchParams={updateSearchParams} />
                   </Grid>
                 )}
-                <Grid item xs={6} sm={6} md={4}>
+                <Grid item xs={6} md={4}>
                   <Grid container justify="flex-end">
                     <Hidden smDown>
                       <ButtonMenu menuItems={menuItems} />
+                    </Hidden>
+                    <Hidden mdUp>
+                      <AnimatedSearchField updateSearchParams={updateSearchParams} />
                     </Hidden>
                     <Hidden mdUp>
                       <MenuDropdown menuItems={menuItems} />
