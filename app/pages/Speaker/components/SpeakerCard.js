@@ -7,11 +7,12 @@ import { withStyles } from 'material-ui/styles';
 
 // App
 import css from '../styles.css';
-import { profilePhoto } from 'appSharedStyles/styles.css'
+import { profilePhoto } from 'appSharedStyles/styles.css';
 import { pronounDict } from 'appHelpers/constants';
+import Topics from './Topics';
 
 const styles = {
-  city:{
+  city: {
     backgroundColor: '#f5f5f5',
     textAlign: 'center',
     borderTop: '1px solid var(--color-grey-light)',
@@ -29,19 +30,20 @@ const styles = {
   },
   card: {
     borderRadius: '8px',
-    border: '1px solid var(--color-grey-light)'
+    border: '1px solid var(--color-grey-light)',
   },
   photo: {
     marginBottom: '1rem',
     marginTop: '1rem',
   },
   listItemText: {
-    padding: '0'
-  }
-}
+    padding: '0',
+  },
+};
 
 const SpeakerCard = ({ speaker, classes }) => {
   const hasSocial = speaker.linkedin || speaker.twitter || speaker.website;
+
   return (
     <Card elevation={0} square={false} className={classes.card}>
       <Grid container>
@@ -49,38 +51,40 @@ const SpeakerCard = ({ speaker, classes }) => {
           <CardContent className={css.speakerCard}>
             <Grid container justify="center">
               <Grid item xs={8}>
-              <div className={`${profilePhoto} ${classes.photo}`}>
-                <img src={speaker.image} alt={speaker.display_name} />
-              </div>
-            </Grid>
+                <div className={`${profilePhoto} ${classes.photo}`}>
+                  <img src={speaker.image} alt={speaker.display_name} />
+                </div>
+              </Grid>
             </Grid>
             <div className={css.speakerCardInfo}>
               <h5 className={css.speakerCardName}>{speaker.display_name}</h5>
               <p className={css.speakerCardTitle}>{speaker.position}</p>
-              <p className={css.speakerCardOrganization}>{speaker.organization}</p>
-              <p className={css.speakerCardTags}>{speaker.topic_list}</p>
+              <p className={css.speakerCardOrganization}>
+                {speaker.organization}
+              </p>
+              {speaker.topics.length > 0 &&
+                <Topics topics={speaker.topics} />
+              }
             </div>
           </CardContent>
           <List>
-            {
-              speaker.pronouns &&
+            {speaker.pronouns && (
               <ListItem className={classes.pronouns}>
                 <ListItemText
                   className={classes.listItemText}
                   primary={pronounDict[speaker.pronouns]}
                 />
               </ListItem>
-            }
+            )}
 
-            {
-              speaker.city &&
+            {speaker.city && (
               <ListItem className={classes.city}>
                 <ListItemText
                   className={classes.listItemText}
                   primary={`${speaker.city}`}
                 />
               </ListItem>
-            }
+            )}
             {hasSocial && (
               <ListItem className={`${classes.socials} ${css.socialLinks}`}>
                 {speaker.twitter && (
@@ -113,4 +117,4 @@ const SpeakerCard = ({ speaker, classes }) => {
   );
 };
 
-export default withStyles(styles)(SpeakerCard);
+export default withStyles(styles)(SpeakerCard)

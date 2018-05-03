@@ -1,6 +1,5 @@
 // NPM
 import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
 import Hidden from 'material-ui/Hidden';
 import Grid from 'material-ui/Grid';
 import Chip from 'material-ui/Chip';
@@ -9,6 +8,7 @@ import { withStyles } from 'material-ui/styles';
 // App
 import { speakerToProfilePath } from 'appHelpers/url';
 import StyledButton from 'appCommon/StyledButton';
+import Topics from 'appPages/Speaker/components/Topics';
 import { updateSearchParams } from 'appRedux/modules/speaker';
 
 import css from '../styles.css';
@@ -39,7 +39,7 @@ function buildTitle(position, organization) {
   );
 }
 
-const SpeakerCard = ({ speaker, updateSearchParams, classes }) => {
+const SpeakerCard = ({ speaker, classes }) => {
   const name = !!speaker.display_name ? speaker.display_name : speaker.email;
   const title = buildTitle(speaker.position, speaker.organization);
   const speakerProfilePath = speakerToProfilePath({
@@ -60,14 +60,7 @@ const SpeakerCard = ({ speaker, updateSearchParams, classes }) => {
           </a>
           {title}
           { (speaker.topics.length > 0) &&
-            speaker.topics.map(topic => (
-              <a
-                href={"javascript:void(0)"}
-                key={topic.topic}
-                onClick={() => { updateSearchParams({ q: topic.topic })}}>
-                {topic.topic}
-              </a>
-            )).reduce((prev, curr) => [prev, ', ', curr])
+            <Topics topics={speaker.topics} />
           }
         </Grid>
         <Hidden smDown>
@@ -86,16 +79,5 @@ const SpeakerCard = ({ speaker, updateSearchParams, classes }) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    updateSearchParams: (params) => {
-      dispatch(updateSearchParams(params))
-    }
-  }
-}
 
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(withStyles(styles)(SpeakerCard));
+export default withStyles(styles)(SpeakerCard);

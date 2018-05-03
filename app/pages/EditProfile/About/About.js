@@ -271,8 +271,9 @@ const About = props => {
             <FormField fullWidth className={css.formControl}>
               <TextField
                 label="Twitter"
-                value={props.profile.twitter}
+                value={props.profile.twitter || '@'}
                 onChange={generateHandler('twitter')}
+                placeholder='@twitterhandle'
               />
             </FormField>
           </Grid>
@@ -280,8 +281,9 @@ const About = props => {
             <FormField fullWidth className={css.formControl}>
               <TextField
                 label="LinkedIn"
-                value={props.profile.linkedin}
+                value={props.profile.linkedin || 'https://'}
                 onChange={generateHandler('linkedin')}
+                placeholder='https://www.linkedin.com'
               />
             </FormField>
           </Grid>
@@ -289,8 +291,9 @@ const About = props => {
             <FormField fullWidth className={css.formControl}>
               <TextField
                 label="Website"
-                value={props.profile.website}
+                value={props.profile.website || 'https://'}
                 onChange={generateHandler('website')}
+                placeholder='https://www.yourwebsite.com'
               />
             </FormField>
           </Grid>
