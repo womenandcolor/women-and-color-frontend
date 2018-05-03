@@ -6,7 +6,7 @@ const styles = (theme) => ({
 	root: {
 		fontFamily: 'var(--font-family-sans-serif)',
 		fontSize: 'var(--font-size-base)',
-		fontWeight: 'var(--font-weight-light)',
+		fontWeight: 'var(--font-weight-regular)',
 		lineHeight: 'var(--line-height-base)',
 		textTransform: 'none',
 		padding: 'var(--padding-vertical) var(--padding-horizontal)',
@@ -18,7 +18,7 @@ const styles = (theme) => ({
 	flatPrimary: {
 		color: 'var(--color-inverted-light)',
 		backgroundColor: 'var(--color-primary)',
-		
+
 		'&:hover': {
 			opacity: 0.6,
 			backgroundColor: 'var(--color-primary)',

@@ -3,7 +3,6 @@ import React, { PropTypes } from 'react';
 import Hidden from 'material-ui/Hidden';
 import Grid from 'material-ui/Grid';
 import Chip from 'material-ui/Chip';
-import { withStyles } from 'material-ui/styles';
 
 // App
 import { speakerToProfilePath } from 'appHelpers/url';
@@ -13,12 +12,6 @@ import { updateSearchParams } from 'appRedux/modules/speaker';
 
 import css from '../styles.css';
 import { profilePhoto } from 'appSharedStyles/styles.css'
-
-const styles = theme => ({
-  chip: {
-    margin: `${theme.spacing.unit / 2}px ${theme.spacing.unit / 4}px`,
-  },
-})
 
 function buildTitle(position, organization) {
   let separator;
@@ -50,9 +43,11 @@ const SpeakerCard = ({ speaker, classes }) => {
     <Grid item xs={12} className={css.contentCard}>
       <Grid container>
         <Grid item xs={3} md={3}>
-          <a href={speakerProfilePath} className={profilePhoto}>
-            <img src={speaker.image} alt={name} />
-          </a>
+          <div className={css.speakerPhoto}>
+            <a href={speakerProfilePath} className={profilePhoto}>
+              <img src={speaker.image} alt={name} />
+            </a>
+          </div>
         </Grid>
         <Grid item xs={9} md={7} className={css.info}>
           <a href={speakerProfilePath}>
@@ -64,7 +59,7 @@ const SpeakerCard = ({ speaker, classes }) => {
           }
         </Grid>
         <Hidden smDown>
-          <Grid item md={2} className={`${css.info} actions`}>
+          <Grid item md={2} className={`actions`}>
             <StyledButton
               color="primary"
               label="View profile"
@@ -80,4 +75,4 @@ const SpeakerCard = ({ speaker, classes }) => {
 };
 
 
-export default withStyles(styles)(SpeakerCard);
+export default SpeakerCard;

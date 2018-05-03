@@ -97,6 +97,11 @@
   margin-bottom: 1rem;
 }
 
+.speakerPhoto {
+  max-width: 112px;
+  margin: auto;
+}
+
 .speakerTags {
   color: #757575;
   font-family: 'Open Sans';

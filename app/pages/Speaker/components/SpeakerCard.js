@@ -33,6 +33,7 @@ const styles = {
     border: '1px solid var(--color-grey-light)',
   },
   photo: {
+    maxWidth: '128px',
     marginBottom: '1rem',
     marginTop: '1rem',
   },
@@ -50,8 +51,8 @@ const SpeakerCard = ({ speaker, classes }) => {
         <Grid item xs={12}>
           <CardContent className={css.speakerCard}>
             <Grid container justify="center">
-              <Grid item xs={8}>
-                <div className={`${profilePhoto} ${classes.photo}`}>
+              <Grid item xs={8} style={styles.photo}>
+                <div className={`${profilePhoto}`}>
                   <img src={speaker.image} alt={speaker.display_name} />
                 </div>
               </Grid>
