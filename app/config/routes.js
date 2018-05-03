@@ -12,6 +12,8 @@ import {
   Work,
   Social,
   EditProfile,
+  ComingSoon,
+  Privacy,
 } from 'pages';
 import MainContainer from './Main/MainContainer';
 
@@ -23,12 +25,17 @@ const routes = (
       <MainContainer>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/about" component={Page} />
           <Route path="/get-started/profile" component={Profile} />
           <Route path="/get-started/work" component={Work} />
           <Route path="/get-started/social" component={Social} />
           <Route path="/speaker/:id/:fullName?" component={Speaker} />
           <Route path="/profile" component={EditProfile} />
+          <Route path="/terms" component={ComingSoon} />
+          <Route path="/privacy" component={Privacy} />
+          <Route path="/about" component={ComingSoon} />
+          <Route path="/thanks" component={ComingSoon} />
+          <Route path="/partners" component={ComingSoon} />
+          <Route path="/contact" component={ComingSoon} />
         </Switch>
       </MainContainer>
     </Router>

@@ -86,7 +86,7 @@ const Navigation = props => {
       <AppBar position="fixed" className={classes.root}>
         <Toolbar>
           <Grid container justify="center">
-            <Grid item xs={12} sm={10} md={8}>
+            <Grid item xs={12} sm={10} md={9}>
               <Grid container justify="space-between" alignItems="center">
                 <Grid item xs={6} sm={4} md={3}>
                   <a

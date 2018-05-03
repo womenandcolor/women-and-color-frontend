@@ -2,7 +2,7 @@
 import React, { PropTypes, Component } from 'react'
 import {withRouter} from 'react-router-dom'
 import IconButton from 'material-ui/IconButton';
-import SearchIcon from 'material-ui-icons/Search';
+import SearchIcon from '@material-ui/icons/Search';
 import TextField from 'material-ui/TextField';
 import { connect } from 'react-redux'
 

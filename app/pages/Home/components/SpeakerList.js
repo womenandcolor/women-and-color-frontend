@@ -24,7 +24,7 @@ const SpeakerList = ({ speakers, endOfResults, loadMoreSpeakers }) => {
       {!endOfResults && (
         <Grid container justify={'center'}>
           <Grid item>
-            <StyledButton color="secondary" onClick={loadMoreSpeakers}>
+            <StyledButton color="secondary" onClick={loadMoreSpeakers} className={css.loadMoreButton}>
               Load more speakers
             </StyledButton>
           </Grid>

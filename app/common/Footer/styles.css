@@ -1,0 +1,97 @@
+.footer {
+  border-top: 1px solid var(--color-grey-light);
+  margin-top: 2rem;
+}
+
+.footer a {
+  color: var(--color-inverted-light);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.footer a:hover, .footer a:focus {
+  text-decoration: underline;
+}
+
+.footerRow {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  color: var(--color-inverted-light);
+}
+
+.footerRow a {
+  color: var(--color-inverted-light);
+  text-decoration: none;
+  margin-right: 1.2rem;
+}
+
+.footerRow a:last-of-type {
+  margin-right: 0;
+}
+
+.footerRow a:hover, .footerRow a:focus {
+  text-decoration: underline;
+}
+
+.backgroundPrimary {
+  background-color: var(--color-primary);
+}
+
+.backgroundPrimaryDark {
+  background-color: #21328c;
+}
+
+.backgroundPrimary a {
+  font-weight: 700;
+}
+
+.backgroundSecondary {
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
+}
+
+.backgroundGrey {
+  background-color: #f5f5f5;
+  color: var(--color-grey-dark);
+}
+
+.backgroundGrey a {
+  color: var(--color-grey-dark);
+}
+
+.partnerLogos {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+.partnerLogos a {
+  margin: 2rem;
+}
+
+.alignRight {
+  text-align: right;
+}
+
+.verticalOnMobile {
+  display: flex;
+}
+
+@media (max-width: 599px) {
+
+  .partnerLogos a {
+    margin: 1rem;
+  }
+
+  .verticalOnMobile {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footerRow .verticalOnMobile a {
+    margin-right: 0;
+  }
+
+  .alignCenterOnMobile {
+    text-align: center;
+  }
+}
