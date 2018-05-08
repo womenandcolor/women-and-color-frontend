@@ -18,10 +18,10 @@ const FullFooter = () => {
       <Grid container justify="center" className={`${css.backgroundSecondary}`} spacing={0}>
         <Grid item xs={12} md={9}>
           <Grid container justify="center" alignItems="center" className={css.partnerLogos}>
-            <a href="https://www.wealthsimple.com">
+            <a href="https://www.wealthsimple.com" target="_blank">
               <Wealthsimple />
             </a>
-            <a href="http://www.tribalscale.com">
+            <a href="http://www.tribalscale.com" target="_blank">
               <Tribalscale />
             </a>
           </Grid>
