@@ -131,6 +131,16 @@
   margin-left: 1rem;
 }
 
+.mobileSearchInput input {
+  color: var(--color-primary);
+  font-weight: 400;
+}
+
+.mobileSearchInput input::placeholder {
+  color: var(--color-primary);
+  opacity: 1;
+}
+
 @media (max-width: 960px) {
   .separator,
   .organization {

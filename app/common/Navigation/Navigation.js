@@ -109,9 +109,6 @@ const Navigation = props => {
                       <ButtonMenu menuItems={menuItems} />
                     </Hidden>
                     <Hidden mdUp>
-                      <AnimatedSearchField updateSearchParams={updateSearchParams} />
-                    </Hidden>
-                    <Hidden mdUp>
                       <MenuDropdown menuItems={menuItems} />
                     </Hidden>
                   </Grid>
