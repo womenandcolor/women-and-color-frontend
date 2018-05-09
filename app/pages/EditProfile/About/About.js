@@ -54,6 +54,7 @@ const About = props => {
       </div>
     );
   }
+
   return (
     <form onSubmit={props.handleSubmit}>
       <div className={css.section}>
@@ -149,13 +150,13 @@ const About = props => {
                 multiline
                 rows={5}
                 label="Bio"
-                error={props.profile.description.length > 1000}
-                value={props.profile.description}
+                value={props.profile.description || ''}
+                error={(!!props.profile.description) && (props.profile.description.length > 1000)}
                 onChange={generateHandler('description')}
                 aria-describedby="bio-error-text"
               />
               <FormHelperText id="bio-error-text">
-                {`Characters: ${props.profile.description.length} (maximum 1000)`}
+                {`Characters: ${props.profile.description ? props.profile.description.length : '0'} (maximum 1000)`}
               </FormHelperText>
             </FormField>
           </Grid>
