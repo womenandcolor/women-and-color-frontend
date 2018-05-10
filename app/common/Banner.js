@@ -112,8 +112,7 @@ class Banner extends Component {
                 onChange={this.onChange}
                 value={this.state.query}
                 placeholder={'Search for speakers or topics'}
-                InputProps={{ disableUnderline: true }}
-                className={css.textField}
+                InputProps={{ disableUnderline: true, style: { paddingRight: '1rem'} }}
               />
               <div>
                 <StyledButton color="primary" type="submit" >
