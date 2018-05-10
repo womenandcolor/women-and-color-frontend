@@ -55,6 +55,13 @@ class Banner extends Component {
     this.state = { query: this.props.q || '' }
   }
 
+  componentWillReceiveProps(newProps) {
+    if (this.props.q !== newProps.q) {
+      const query = newProps.q || '';
+      this.setState({ query })
+    }
+  }
+
   searchProfiles = (event) => {
     event.preventDefault();
     const home = '/'
