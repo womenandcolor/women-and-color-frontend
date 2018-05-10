@@ -37,7 +37,6 @@ const SpeakerCard = ({ speaker, classes }) => {
   const name = !!speaker.display_name ? speaker.display_name : speaker.email;
   const title = buildTitle(speaker.position, speaker.organization);
   const speakerProfilePath = speakerToProfilePath({
-    basePath: '#',
     ...speaker,
   });
   return (
@@ -46,7 +45,7 @@ const SpeakerCard = ({ speaker, classes }) => {
         <Grid item xs={3} md={3}>
           <div className={css.speakerPhoto}>
           <Link to={speakerProfilePath} className={profilePhoto}>
-              <img src={speaker.image} alt={name} />
+            <img src={speaker.image} alt={name} />
           </Link>
           </div>
         </Grid>
@@ -66,7 +65,8 @@ const SpeakerCard = ({ speaker, classes }) => {
             <StyledButton
               color="primary"
               label="View profile"
-              href={speakerProfilePath}
+              component={Link}
+              to={speakerProfilePath}
             >
               View profile
             </StyledButton>

@@ -98,11 +98,6 @@ const Navigation = props => {
                     <Logo className={navTitle} height="50px" width="100%" />
                   </a>
                 </Grid>
-                {showSearch && (
-                  <Grid item md={5} hidden={{ smDown: true }}>
-                    <SearchField updateSearchParams={updateSearchParams} />
-                  </Grid>
-                )}
                 <Grid item xs={6} md={4}>
                   <Grid container justify="flex-end">
                     <Hidden smDown>
