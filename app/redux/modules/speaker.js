@@ -9,6 +9,7 @@ import {
   IDENTITIES,
   DEFAULT_SPEAKER_LIMIT,
 } from 'appHelpers/constants';
+import { generateQueryString } from 'appHelpers/queryParams';
 import { speakerToNamePath, speakerToProfilePath } from 'appHelpers/url';
 import axios from 'appHelpers/axios';
 
@@ -33,26 +34,16 @@ export function updateSearchParams(params) {
   return { type: UPDATE_SEARCH_PARAMS, params };
 }
 
-export function updateSelection(selected) {
-  return { type: UPDATE_SELECTION, selected };
-}
-
 // Async Actions
 export function fetchSpeakers(params = {}) {
-  const queryParams = map(params, (v, k) => {
-    if (!!v) {
-      v = typeof v === 'object' ? v.id : v;
-      return `${k}=${v}`;
-    }
-  });
-  const compacted = compact(queryParams);
-  const queryString = compacted.join('&');
-  console.log('queryString', queryString);
+  const queryStringforApi = generateQueryString({ params, display: false });
+  const queryStringforDisplay = generateQueryString({ params, display: true });
 
   return dispatch => {
     axios
-      .get(`${BASE_URL_PATH}/api/v1/profiles?${queryString}`)
+      .get(`${BASE_URL_PATH}/api/v1/profiles?${queryStringforApi}`)
       .then(res => {
+        dispatch(push(`?${queryStringforDisplay}`))
         dispatch(updateSpeakers(res.data, params.append));
       })
       .catch(err => console.log(err));
@@ -111,11 +102,6 @@ export const reducer = (state = INITIAL_STATE, action) => {
           ...state.searchParams,
           ...action.params,
         },
-      };
-    case UPDATE_SELECTION:
-      return {
-        ...state,
-        ...action.selected,
       };
     default:
       return state;

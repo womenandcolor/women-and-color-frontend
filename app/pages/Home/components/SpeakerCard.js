@@ -3,6 +3,7 @@ import React, { PropTypes } from 'react';
 import Hidden from 'material-ui/Hidden';
 import Grid from 'material-ui/Grid';
 import Chip from 'material-ui/Chip';
+import { Link } from 'react-router-dom';
 
 // App
 import { speakerToProfilePath } from 'appHelpers/url';
@@ -44,15 +45,15 @@ const SpeakerCard = ({ speaker, classes }) => {
       <Grid container spacing={16}>
         <Grid item xs={3} md={3}>
           <div className={css.speakerPhoto}>
-            <a href={speakerProfilePath} className={profilePhoto}>
+          <Link to={speakerProfilePath} className={profilePhoto}>
               <img src={speaker.image} alt={name} />
-            </a>
+          </Link>
           </div>
         </Grid>
         <Grid item xs={9} md={7} className={css.info}>
-          <a href={speakerProfilePath}>
+          <Link to={speakerProfilePath}>
             <h3 className={css.name}>{name}</h3>
-          </a>
+          </Link>
           {title}
           { (speaker.topics.length > 0) &&
             <Hidden smDown>
