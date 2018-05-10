@@ -37,22 +37,26 @@ const theme = createMuiTheme({
   },
 });
 
-const MainContainer = props => {
-  const parsedParams = parseQueryString(props.location.search)
-  props.updateSearchParams(parsedParams);
+class MainContainer extends React.Component {
+  componentWillMount() {
+    const parsedParams = parseQueryString(this.props.location.search)
+    this.props.updateSearchParams(parsedParams);
+  }
 
-  return (
-    <div>
-      <MuiThemeProvider theme={theme}>
-        <div className={container}>
-          <CssBaseline />
-          <Navigation showSearch={true} location={props.location} />
-          <div className={innerContainer}>{props.children}</div>
-          <FullFooter />
-        </div>
-      </MuiThemeProvider>
-    </div>
-  )
+  render() {
+    return (
+      <div>
+        <MuiThemeProvider theme={theme}>
+          <div className={container}>
+            <CssBaseline />
+            <Navigation showSearch={true} location={this.props.location} />
+            <div className={innerContainer}>{this.props.children}</div>
+            <FullFooter />
+          </div>
+        </MuiThemeProvider>
+      </div>
+    )
+  }
 }
 
 function mapDispatchToProps(dispatch) {
@@ -63,4 +67,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(null, mapDispatchToProps)(withRouter(MainContainer));
+export default withRouter(connect(null, mapDispatchToProps)(MainContainer));

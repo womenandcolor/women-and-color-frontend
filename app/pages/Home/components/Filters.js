@@ -6,13 +6,11 @@ import List, { ListItem, ListItemText } from 'material-ui/List';
 import Collapse from 'material-ui/transitions/Collapse';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import FilterList from '@material-ui/icons/FilterList';
-import Hidden from 'material-ui/Hidden';
-import { map } from 'lodash';
+import { map, find } from 'lodash';
 
 // APP
 import css from '../styles.css';
-import { updateSearchParams, updateSelection } from 'appRedux/modules/speaker';
+import { updateSearchParams } from 'appRedux/modules/speaker';
 import { IDENTITIES, DEFAULT_SPEAKER_LIMIT } from 'appHelpers/constants';
 
 const selectedStyle = {
@@ -29,6 +27,17 @@ class Filters extends Component {
   constructor(props) {
     super(props);
     this.state = { expand: {}, showFilters: false };
+  }
+
+  componentWillReceiveProps(newProps) {
+    if (newProps.selectedLocation && this.props.selectedLocation !== newProps.selectedLocation) {
+      const country  = newProps.selectedLocation.country.toLowerCase();
+      this.setState({
+        expand: {
+          [country]: true
+        }
+      })
+    }
   }
 
   createLocationDict = (locations, dict) => {
@@ -56,14 +65,13 @@ class Filters extends Component {
   }
 
   handleSelectCity = location => {
-    const locationVal = location ? location.id : location
+    const locationVal = location ? location.id : location;
     this.props.updateSearchParams({
       location: locationVal,
       offset: 0,
       limit: DEFAULT_SPEAKER_LIMIT,
       append: false,
     });
-    this.props.updateSelection({ selectedLocation: locationVal });
   };
 
   handleSelectIdentity = identity => {
@@ -73,7 +81,6 @@ class Filters extends Component {
       limit: DEFAULT_SPEAKER_LIMIT,
       append: false,
     });
-    this.props.updateSelection({ selectedIdentity: identity.label });
   };
 
   render() {
@@ -86,7 +93,7 @@ class Filters extends Component {
           <ListItem
             onClick={() => this.handleSelectCity(null)}
             button
-            style={!this.props.selectedLocation ? selectedStyle : {}}
+            style={!this.props.searchParams.location ? selectedStyle : {}}
           >
             <ListItemText
               primary="all cities"
@@ -111,12 +118,13 @@ class Filters extends Component {
                   <List component="div" disablePadding>
                     {cities.map((location, index) => {
                       const selected =
-                        location.id === this.props.selectedLocation;
+                        location === this.props.selectedLocation;
+
                       const handleClick = () => this.handleSelectCity(location);
 
                       return (
                         <ListItem
-                          key={index}
+                          key={`city-${index}`}
                           button
                           style={selected ? selectedStyle : {}}
                           onClick={handleClick}
@@ -135,7 +143,27 @@ class Filters extends Component {
         <div className={css.sidebarTitles}>FILTER</div>
         <List>
           {IDENTITIES.map((identity, index) => {
-            const selected = identity.label === this.props.selectedIdentity;
+            const searchParams = this.props.searchParams;
+            let selected = true;
+
+            switch (identity.label) {
+              case 'All speakers':
+                selected = !searchParams['poc'] && !searchParams['woman'];
+                break;
+              case 'Women':
+                selected = !searchParams['poc'] && !!searchParams['woman'];
+                break;
+              case 'People of color':
+                selected = !!searchParams['poc'] && !searchParams['woman'];
+                break;
+              case 'Women of color':
+                selected = !!searchParams['poc'] && !!searchParams['woman'];
+                break;
+              default:
+                selected = false;
+                break;
+            }
+
             const handleClick = () => this.handleSelectIdentity(identity);
 
             return (
@@ -157,8 +185,7 @@ class Filters extends Component {
 
 const mapStateToProps = state => {
   return {
-    selectedLocation: state.speaker.selectedLocation,
-    selectedIdentity: state.speaker.selectedIdentity,
+    searchParams: state.speaker.searchParams,
   };
 };
 
@@ -166,9 +193,6 @@ const mapDispatchToProps = dispatch => {
   return {
     updateSearchParams: params => {
       dispatch(updateSearchParams(params));
-    },
-    updateSelection: selected => {
-      dispatch(updateSelection(selected));
     },
     fetchSpeakers: params => {
       dispatch(fetchSpeakers(params));

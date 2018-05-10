@@ -1,28 +1,31 @@
 import { map, compact, uniqBy } from 'lodash';
 import { VALID_PARAMS } from './constants';
 
-export const generateQueryString = (params={}) => {
-  const queryParams = map(params, (v, k) => {
+export const generateQueryString = (opts = { params: {}, display: false }) => {
+  const apiOnlyParams = ['limit', 'offset'];
+  const queryParams = map(opts.params, (v, k) => {
     if (!!v) {
-      // v = typeof v === 'object' ? v.id : v;
+      if (opts.display && (k === 'limit' || k === 'offset' || k === 'append')) {
+        return null;
+      }
       return `${k}=${v}`;
     }
   });
   const compacted = compact(queryParams);
   const queryString = compacted.join('&');
 
-  return queryString
-}
+  return queryString;
+};
 
-export const parseQueryString = (queryString, params={}) => {
+export const parseQueryString = (queryString, params = {}) => {
   VALID_PARAMS.map(paramKey => {
-    const regex = new RegExp(`${paramKey}=(.+?)(?=&|$)`)
-    const match = regex.exec(queryString)
+    const regex = new RegExp(`${paramKey}=(.+?)(?=&|$)`);
+    const match = regex.exec(queryString);
     if (match) {
-      const val = match[1]
+      const val = match[1];
       params[paramKey] = val;
     }
-  })
+  });
 
-  return params
-}
+  return params;
+};
