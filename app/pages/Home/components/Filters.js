@@ -56,13 +56,14 @@ class Filters extends Component {
   }
 
   handleSelectCity = location => {
+    const locationVal = location ? location.id : location
     this.props.updateSearchParams({
-      location: location,
+      location: locationVal,
       offset: 0,
       limit: DEFAULT_SPEAKER_LIMIT,
       append: false,
     });
-    this.props.updateSelection({ selectedLocation: location.id });
+    this.props.updateSelection({ selectedLocation: locationVal });
   };
 
   handleSelectIdentity = identity => {

@@ -2,6 +2,7 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import Grid from 'material-ui/Grid';
+import { find } from 'lodash';
 
 // APP
 import SpeakerList from './components/SpeakerList';
@@ -35,8 +36,9 @@ const Home = ({
   loadMoreSpeakers,
 }) => {
   const searchQuery = searchParams.q ? `'${searchParams.q}'` : 'all topics';
-  const location = searchParams.location
-    ? searchParams.location.city
+  const locationObj = find(locations, { id: parseInt(searchParams.location) })
+  const location = locationObj
+    ? locationObj.city
     : 'all cities';
   const speakerIdentity = searchParamsToSpeakerIdentity(searchParams);
 

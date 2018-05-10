@@ -9,6 +9,7 @@ import {
   IDENTITIES,
   DEFAULT_SPEAKER_LIMIT,
 } from 'appHelpers/constants';
+import { generateQueryString } from 'appHelpers/queryParams';
 import { speakerToNamePath, speakerToProfilePath } from 'appHelpers/url';
 import axios from 'appHelpers/axios';
 
@@ -39,20 +40,13 @@ export function updateSelection(selected) {
 
 // Async Actions
 export function fetchSpeakers(params = {}) {
-  const queryParams = map(params, (v, k) => {
-    if (!!v) {
-      v = typeof v === 'object' ? v.id : v;
-      return `${k}=${v}`;
-    }
-  });
-  const compacted = compact(queryParams);
-  const queryString = compacted.join('&');
-  console.log('queryString', queryString);
+  const queryString = generateQueryString(params);
 
   return dispatch => {
     axios
       .get(`${BASE_URL_PATH}/api/v1/profiles?${queryString}`)
       .then(res => {
+        dispatch(push(`?${queryString}`))
         dispatch(updateSpeakers(res.data, params.append));
       })
       .catch(err => console.log(err));
