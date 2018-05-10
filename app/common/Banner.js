@@ -89,7 +89,7 @@ class Banner extends Component {
 
   render() {
     return (
-      <Grid container justify="center" className={css.banner}>
+      <Grid container justify="center" className={css.banner} spacing={0}>
         <Grid item xs={10} md={8}>
           <h2 className={css.headline}>
             Find talented <span className={css.highlight}>women and people of color</span> available for speaking opportunities at tech-related events.

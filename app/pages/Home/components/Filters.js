@@ -79,84 +79,76 @@ class Filters extends Component {
     const locations = this.createLocationDict(this.props.locations, {});
 
     return (
-      <div>
-        <Hidden mdUp>
-          <div className={css.filterLabel} onClick={this.toggleFilters}>
-            <FilterList />
-            <span>Filter results</span>
-          </div>
-        </Hidden>
-        <div className={css.sidebarContainer} hidden={!this.state.showFilters}>
-          <h2 className={css.sidebarTitles}>CITY</h2>
-          <List>
-            <ListItem
-              onClick={() => this.handleSelectCity(null)}
-              button
-              style={!this.props.selectedLocation ? selectedStyle : {}}
-            >
-              <ListItemText
-                primary="all cities"
-                classes={{ primary: this.props.classes.primary }}
-              />
-            </ListItem>
-            {map(locations, (cities, country) => {
-              return (
-                <div key={country}>
-                  <ListItem onClick={() => this.toggleCountry(country)} button>
-                    <ListItemText
-                      primary={country}
-                      classes={{ primary: this.props.classes.primary }}
-                    />
-                    {this.state.expand[country] ? <ExpandLess /> : <ExpandMore />}
-                  </ListItem>
-                  <Collapse
-                    in={this.state.expand[country]}
-                    timeout="auto"
-                    unmountOnExit
-                  >
-                    <List component="div" disablePadding>
-                      {cities.map((location, index) => {
-                        const selected =
-                          location.id === this.props.selectedLocation;
-                        const handleClick = () => this.handleSelectCity(location);
-
-                        return (
-                          <ListItem
-                            key={index}
-                            button
-                            style={selected ? selectedStyle : {}}
-                            onClick={handleClick}
-                          >
-                            <ListItemText primary={location.city.toLowerCase()} />
-                          </ListItem>
-                        );
-                      })}
-                    </List>
-                  </Collapse>
-                </div>
-              );
-            })}
-          </List>
-
-          <div className={css.sidebarTitles}>FILTER</div>
-          <List>
-            {IDENTITIES.map((identity, index) => {
-              const selected = identity.label === this.props.selectedIdentity;
-              const handleClick = () => this.handleSelectIdentity(identity);
-
-              return (
-                <ListItem
-                  key={index}
-                  style={selected ? selectedStyle : {}}
-                  onClick={handleClick}
-                  button
-                >
-                  <ListItemText primary={identity.label.toLowerCase()} />
+      <div className={css.sidebarContainer}>
+        <h2 className={css.sidebarTitles}>CITY</h2>
+        <List>
+          <ListItem
+            onClick={() => this.handleSelectCity(null)}
+            button
+            style={!this.props.selectedLocation ? selectedStyle : {}}
+          >
+            <ListItemText
+              primary="all cities"
+              classes={{ primary: this.props.classes.primary }}
+            />
+          </ListItem>
+          {map(locations, (cities, country) => {
+            return (
+              <div key={country}>
+                <ListItem onClick={() => this.toggleCountry(country)} button>
+                  <ListItemText
+                    primary={country}
+                    classes={{ primary: this.props.classes.primary }}
+                  />
+                  {this.state.expand[country] ? <ExpandLess /> : <ExpandMore />}
                 </ListItem>
-              );
-            })}
-          </List>
-        </div>
+                <Collapse
+                  in={this.state.expand[country]}
+                  timeout="auto"
+                  unmountOnExit
+                >
+                  <List component="div" disablePadding>
+                    {cities.map((location, index) => {
+                      const selected =
+                        location.id === this.props.selectedLocation;
+                      const handleClick = () => this.handleSelectCity(location);
+
+                      return (
+                        <ListItem
+                          key={index}
+                          button
+                          style={selected ? selectedStyle : {}}
+                          onClick={handleClick}
+                        >
+                          <ListItemText primary={location.city.toLowerCase()} />
+                        </ListItem>
+                      );
+                    })}
+                  </List>
+                </Collapse>
+              </div>
+            );
+          })}
+        </List>
+
+        <div className={css.sidebarTitles}>FILTER</div>
+        <List>
+          {IDENTITIES.map((identity, index) => {
+            const selected = identity.label === this.props.selectedIdentity;
+            const handleClick = () => this.handleSelectIdentity(identity);
+
+            return (
+              <ListItem
+                key={index}
+                style={selected ? selectedStyle : {}}
+                onClick={handleClick}
+                button
+              >
+                <ListItemText primary={identity.label.toLowerCase()} />
+              </ListItem>
+            );
+          })}
+        </List>
       </div>
     );
   }

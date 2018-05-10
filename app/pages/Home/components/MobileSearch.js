@@ -14,7 +14,7 @@ import { searchForm, hideOnMobile } from '../../../sharedStyles/styles.css';
 
 const styles = {
   form: {
-    padding: '1rem',
+    height: '48px',
     display: 'flex',
     alignItems: 'center',
     paddingLeft: '2px',

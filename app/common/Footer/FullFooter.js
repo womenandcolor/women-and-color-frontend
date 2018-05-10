@@ -24,6 +24,7 @@ const FullFooter = () => {
         <Grid item xs={12} md={9}>
           <Grid
             container
+            spacing={0}
             justify="center"
             alignItems="center"
             className={css.partnerLogos}
@@ -45,7 +46,7 @@ const FullFooter = () => {
         spacing={0}
       >
         <Grid item xs={11} md={9}>
-          <Grid container justify="space-between">
+          <Grid container justify="space-between" spacing={0}>
             <Grid item xs={12} sm={8} className={css.verticalOnMobile}>
               <Link to="/about">About Us</Link>
               <Link to="/thanks">Special Thanks</Link>
@@ -85,7 +86,7 @@ const FullFooter = () => {
         spacing={0}
       >
         <Grid item xs={11} md={9}>
-          <Grid container justify="space-between">
+          <Grid container justify="space-between" spacing={0}>
             <Grid item xs={12} sm={6} className={css.verticalOnMobile}>
               <Link to="/terms">Terms of Service</Link>
               <Link to="/privacy">Privacy Policy</Link>

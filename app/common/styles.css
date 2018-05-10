@@ -39,10 +39,17 @@
   margin-right: 1rem;
 }
 
+@media (max-width: 1059px) {
+  .banner {
+    margin-bottom: 0;
+  }
+}
+
 @media (max-width: 599px) {
   .banner {
     padding-top: 2rem;
     padding-bottom: 2rem;
+    margin-bottom: 0;
   }
 
   .headline {

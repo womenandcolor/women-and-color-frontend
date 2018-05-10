@@ -6,8 +6,9 @@ import Grid from 'material-ui/Grid';
 // APP
 import SpeakerList from './components/SpeakerList';
 import Filters from './components/Filters';
-import StyledButton from 'appCommon/StyledButton';
+import MobileFilters from './components/MobileFilters';
 import MobileSearch from './components/MobileSearch';
+import StyledButton from 'appCommon/StyledButton';
 import Banner from 'appCommon/Banner';
 import { fetchSpeakers, updateSearchParams } from 'appRedux/modules/speaker';
 import { get as getLocations } from 'appRedux/modules/location';
@@ -40,15 +41,18 @@ const Home = ({
   const speakerIdentity = searchParamsToSpeakerIdentity(searchParams);
 
   return (
-    <Grid container justify="center">
+    <Grid container justify="center" spacing={0}>
       <Grid item xs={12}>
         <Banner />
       </Grid>
       <Grid item xs={12} md={9}>
-        <Grid container>
-          <Grid item xs={12} md={3} style={{ paddingTop: '0' }}>
-            <MobileSearch />
+        <Grid container spacing={0}>
+          <Grid item md={3} hidden={{ smDown: true }} className={css.filtersContainer}>
             <Filters locations={locations} />
+          </Grid>
+          <Grid item xs={12} hidden={{ mdUp: true }}>
+            <MobileSearch />
+            <MobileFilters locations={locations} />
           </Grid>
           <Grid item xs={12} md={9}>
             <Grid container spacing={0}>
