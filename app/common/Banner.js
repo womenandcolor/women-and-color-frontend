@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 import StyledButton from 'appCommon/StyledButton';
 import { updateSearchParams } from 'appRedux/modules/speaker';
 import { searchForm } from '../sharedStyles/styles.css';
+import css from './styles.css';
 
 const styles = {
   searchButton: {
@@ -88,35 +89,37 @@ class Banner extends Component {
 
   render() {
     return (
-      <Grid container justify="center" style={styles.banner}>
+      <Grid container justify="center" className={css.banner} spacing={0}>
         <Grid item xs={10} md={8}>
-          <Typography variant="headline" style={styles.headline}>
-            Find talented <span style={styles.highlight}>women and people of color</span> available for speaking opportunities at tech-related events.
-          </Typography>
-          <form onSubmit={this.searchProfiles} className={searchForm} style={styles.searchForm}>
-            <Hidden only='xs'>
-              <SearchIcon style={styles.searchIcon} />
-            </Hidden>
-            <TextField
-              fullWidth
-              type="search"
-              onChange={this.onChange}
-              value={this.state.query}
-              placeholder={'Search for speakers or topics'}
-              InputProps={{ disableUnderline: true }}
-              style={styles.textField}
-            />
-            <div>
-              <StyledButton color="primary" type="submit" >
-                <Hidden smUp>
-                  <SearchIcon />
-                </Hidden>
-                <Hidden only='xs'>
-                  <span>Find Speakers</span>
-                </Hidden>
-              </StyledButton>
-            </div>
-          </form>
+          <h2 className={css.headline}>
+            Find talented <span className={css.highlight}>women and people of color</span> available for speaking opportunities at tech-related events.
+          </h2>
+          <Hidden smDown>
+            <form onSubmit={this.searchProfiles} className={`${searchForm} ${css.searchForm}`}>
+              <Hidden only='xs'>
+                <SearchIcon className={css.searchIcon} />
+              </Hidden>
+              <TextField
+                fullWidth
+                type="search"
+                onChange={this.onChange}
+                value={this.state.query}
+                placeholder={'Search for speakers or topics'}
+                InputProps={{ disableUnderline: true }}
+                className={css.textField}
+              />
+              <div>
+                <StyledButton color="primary" type="submit" >
+                  <Hidden smUp>
+                    <SearchIcon />
+                  </Hidden>
+                  <Hidden only='xs'>
+                    <span>Find Speakers</span>
+                  </Hidden>
+                </StyledButton>
+              </div>
+            </form>
+          </Hidden>
         </Grid>
       </Grid>
     )

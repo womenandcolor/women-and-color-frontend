@@ -30,9 +30,8 @@
 
 // Content
 
-.content {
-  height: 1488px;
-  width: 704px;
+.contentContainer {
+  padding-top: 2rem;
 }
 
 .contentTitles {
@@ -47,7 +46,6 @@
 
 .contentCard {
   background-color: #ffffff;
-  padding: 20px;
   display: flex;
   border-bottom: 1px solid #e0e0e0;
   justify-content: space-between;
@@ -119,19 +117,49 @@
   margin: 2rem 0;
 }
 
+.filterLabel {
+  background-color: var(--color-grey-pale);
+  color: var(--color-grey-dark);
+  display: flex;
+  align-items: center;
+  height: 48px;
+}
+
+.filterOpen {
+  background-color: var(--color-inverted-light)
+}
+
+.filterLabelContainer {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.filtersContainer {
+  padding-right: 1rem;
+}
+
+.mobileSearchInput input {
+  color: var(--color-primary);
+  font-weight: 400;
+  padding-right: 1rem;
+}
+
+.mobileSearchInput input::placeholder {
+  color: var(--color-primary);
+  opacity: 1;
+}
+
 @media (max-width: 960px) {
   .separator,
   .organization {
     display: none;
   }
+
+  .content {
+    margin-top: 0;
+  }
 }
 
 @media (max-width: 380px) {
-  .sidebarContainer {
-    padding-right: 1rem;
-    padding-left: 1rem;
-  }
-
   .contentTitles {
     padding: 1rem;
   }

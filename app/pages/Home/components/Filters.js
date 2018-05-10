@@ -6,6 +6,8 @@ import List, { ListItem, ListItemText } from 'material-ui/List';
 import Collapse from 'material-ui/transitions/Collapse';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
+import FilterList from '@material-ui/icons/FilterList';
+import Hidden from 'material-ui/Hidden';
 import { map } from 'lodash';
 
 // APP
@@ -23,10 +25,10 @@ const styles = {
   },
 };
 
-class Sidebar extends Component {
+class Filters extends Component {
   constructor(props) {
     super(props);
-    this.state = { expand: {} };
+    this.state = { expand: {}, showFilters: false };
   }
 
   createLocationDict = (locations, dict) => {
@@ -48,6 +50,10 @@ class Sidebar extends Component {
       },
     });
   };
+
+  toggleFilters = () => {
+    this.setState({ showFilters: !this.state.showFilters })
+  }
 
   handleSelectCity = location => {
     this.props.updateSearchParams({
@@ -170,5 +176,5 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  withStyles(styles)(Sidebar)
+  withStyles(styles)(Filters)
 );

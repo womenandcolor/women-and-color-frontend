@@ -41,7 +41,7 @@ const SpeakerCard = ({ speaker, classes }) => {
   });
   return (
     <Grid item xs={12} className={css.contentCard}>
-      <Grid container>
+      <Grid container spacing={16}>
         <Grid item xs={3} md={3}>
           <div className={css.speakerPhoto}>
             <a href={speakerProfilePath} className={profilePhoto}>
@@ -55,7 +55,9 @@ const SpeakerCard = ({ speaker, classes }) => {
           </a>
           {title}
           { (speaker.topics.length > 0) &&
-            <Topics topics={speaker.topics} />
+            <Hidden smDown>
+              <Topics topics={speaker.topics} />
+            </Hidden>
           }
         </Grid>
         <Hidden smDown>

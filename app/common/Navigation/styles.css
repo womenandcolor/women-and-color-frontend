@@ -57,3 +57,16 @@
   font-size: 1.4rem;
 }
 
+.animatedSearchForm {
+  transition: all 0.4s ease-in-out;
+  width: 0;
+  position: absolute;
+  background: #FFF;
+}
+
+.expand {
+  width: auto;
+  left: 10px;
+  right: 50px;
+}
+
