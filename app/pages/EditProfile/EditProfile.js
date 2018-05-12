@@ -6,6 +6,7 @@ import Grid from 'material-ui/Grid';
 import SideBar from './SideBar';
 import About from './About/About';
 import Account from './Account/Account';
+import Talks from './Talks/Talks'
 import css from './styles.css';
 
 const subroutes = [
@@ -17,6 +18,12 @@ const subroutes = [
   },
   {
     id: 1,
+    path: 'talks',
+    text: 'talks',
+    component: Talks,
+  },
+  {
+    id: 2,
     path: 'account',
     text: 'account',
     component: Account,

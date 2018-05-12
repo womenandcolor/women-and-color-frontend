@@ -12,7 +12,7 @@ const styles = (theme) => ({
 const FormField = (props) => {
   const classes = props.classes;
   return(
-    <FormControl fullWidth={props.fullWidth} className={`${classes.common}`}>
+    <FormControl fullWidth={props.fullWidth} className={`${classes.common} ${props.className}`}>
       {props.children}
     </FormControl>
   )
