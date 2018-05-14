@@ -90,8 +90,7 @@ const Privacy = () => {
         <h2>Contact Us</h2>
         <p>It is important for us to know what visitors have to say about our Service. To contact us with your questions or comments please email us at hello@womenandcolor.com</p>
         <h2>Terms of Use</h2>
-        <p><a href="https://beta.womenandcolor.com/#/terms">https://beta.womenandcolor.com/#/terms</a></p>
-
+        <p><a href="https://www.womenandcolor.com/#/terms">https://www.womenandcolor.com/#/terms</a></p>
       </Grid>
     </Grid>
   )
