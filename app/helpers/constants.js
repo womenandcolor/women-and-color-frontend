@@ -23,7 +23,7 @@ export const pronounDict = {
 };
 
 export const BASE_URL_PATH = process.env.NODE_ENV === 'production'
-  ? 'https://beta.womenandcolor.com'
+  ? 'https://www.womenandcolor.com'
   : 'http://localhost:8000';
 
 export const IDENTITIES = [
