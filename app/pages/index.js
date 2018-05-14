@@ -7,3 +7,6 @@ export Speaker from './Speaker/Speaker';
 export EditProfile from './EditProfile/EditProfile';
 export ComingSoon from './Static/ComingSoon';
 export Privacy from './Static/Privacy';
+export Terms from './Static/Terms';
+export CodeOfConduct from './Static/CodeOfConduct';
+export PageNotFound from './Static/PageNotFound';

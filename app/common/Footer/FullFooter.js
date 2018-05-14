@@ -59,14 +59,14 @@ const FullFooter = () => {
               sm={4}
               className={`${css.alignRight} ${css.alignCenterOnMobile}`}
             >
-              <a href="https://twitter.com/womenandcolor" target="_blank">
-                <FontAwesomeIcon icon={faTwitter} size="lg" />
-              </a>
               <a
                 href="https://github.com/CivicTechTO/women-and-color-frontend"
                 target="_blank"
               >
                 <FontAwesomeIcon icon={faGithub} size="lg" />
+              </a>
+              <a href="https://twitter.com/womenandcolor" target="_blank">
+                <FontAwesomeIcon icon={faTwitter} size="lg" />
               </a>
               <a
                 href="https://www.instagram.com/womenandcolor/"
@@ -90,6 +90,7 @@ const FullFooter = () => {
             <Grid item xs={12} sm={6} className={css.verticalOnMobile}>
               <Link to="/terms">Terms of Service</Link>
               <Link to="/privacy">Privacy Policy</Link>
+              <Link to="/code-of-conduct">Code of Conduct</Link>
             </Grid>
             <Grid
               item

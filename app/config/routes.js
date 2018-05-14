@@ -14,6 +14,9 @@ import {
   EditProfile,
   ComingSoon,
   Privacy,
+  Terms,
+  CodeOfConduct,
+  PageNotFound
 } from 'pages';
 import MainContainer from './Main/MainContainer';
 
@@ -30,12 +33,14 @@ const routes = (
           <Route path="/get-started/social" component={Social} />
           <Route path="/speaker/:id/:fullName?" component={Speaker} />
           <Route path="/profile" component={EditProfile} />
-          <Route path="/terms" component={ComingSoon} />
+          <Route path="/terms" component={Terms} />
           <Route path="/privacy" component={Privacy} />
+          <Route path="/code-of-conduct" component={CodeOfConduct} />
           <Route path="/about" component={ComingSoon} />
           <Route path="/thanks" component={ComingSoon} />
           <Route path="/partners" component={ComingSoon} />
           <Route path="/contact" component={ComingSoon} />
+          <Route path='*' exact component={PageNotFound} />
         </Switch>
       </MainContainer>
     </Router>
