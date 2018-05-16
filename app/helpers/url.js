@@ -33,3 +33,8 @@ export const speakerToProfilePath = ({
   const namePath = speakerToNamePath({ first_name, last_name });
   return `${basePath}/speaker/${id}/${namePath}`;
 };
+
+
+export const ensureAbsoluteUrl = (url) => {
+  return url.startsWith('http') ? url : `//${url}`;
+}

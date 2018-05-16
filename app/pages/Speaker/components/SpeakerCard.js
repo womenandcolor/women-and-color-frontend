@@ -9,6 +9,7 @@ import { withStyles } from 'material-ui/styles';
 import css from '../styles.css';
 import { profilePhoto } from 'appSharedStyles/styles.css';
 import { pronounDict } from 'appHelpers/constants';
+import { ensureAbsoluteUrl } from 'appHelpers/url';
 import Topics from './Topics';
 
 const styles = {
@@ -105,7 +106,7 @@ const SpeakerCard = ({ speaker, classes }) => {
                   </a>
                 )}
                 {speaker.website && (
-                  <a href={speaker.website} target="_blank">
+                  <a href={ensureAbsoluteUrl(speaker.website)} target="_blank">
                     Website
                   </a>
                 )}
