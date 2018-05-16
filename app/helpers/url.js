@@ -36,5 +36,5 @@ export const speakerToProfilePath = ({
 
 
 export const ensureAbsoluteUrl = (url) => {
-  return url.startsWith('http') ? url : `//${url}`;
+  return url.startsWith('http') ? url : `http://${url}`;
 }
