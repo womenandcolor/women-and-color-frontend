@@ -20,7 +20,7 @@ const styles = {
     height: '100%'
   },
   banner: {
-    backgroundColor: 'var(--color-primary)',
+    backgroundColor: '#283ca7',
     paddingTop: '6rem',
     paddingBottom: '6rem',
     marginBottom: '2rem',
@@ -29,7 +29,7 @@ const styles = {
   },
   headline: {
     fontSize: '2rem',
-    color: 'var(--color-inverted-light)',
+    color: '#FFFFFF',
     marginBottom: '2rem',
     fontWeight: '100'
   },
@@ -37,7 +37,7 @@ const styles = {
     fontWeight: '600'
   },
   searchForm: {
-    backgroundColor: 'var(--color-inverted-light)',
+    backgroundColor: '#FFFFFF',
     paddingTop: '1rem',
     paddingBottom: '1rem'
   },

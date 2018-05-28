@@ -1,9 +1,11 @@
 .footer {
+  border-top: 1px solid #e0e0e0;
   border-top: 1px solid var(--color-grey-light);
   margin-top: 2rem;
 }
 
 .footer a {
+  color: #FFFFFF;
   color: var(--color-inverted-light);
   text-decoration: none;
   white-space: nowrap;
@@ -16,10 +18,12 @@
 .footerRow {
   padding-top: 1rem;
   padding-bottom: 1rem;
+  color: #FFFFFF;
   color: var(--color-inverted-light);
 }
 
 .footerRow a {
+  color: #FFFFFF;
   color: var(--color-inverted-light);
   text-decoration: none;
   margin-right: 1.2rem;
@@ -34,6 +38,7 @@
 }
 
 .backgroundPrimary {
+  background-color: #283ca7;
   background-color: var(--color-primary);
 }
 
@@ -46,16 +51,20 @@
 }
 
 .backgroundSecondary {
+  background-color: #E5E8F4;
   background-color: var(--color-secondary);
+  color: #283ca7;
   color: var(--color-primary);
 }
 
 .backgroundGrey {
   background-color: #f5f5f5;
+  color: #000000;
   color: var(--color-grey-dark);
 }
 
 .backgroundGrey a {
+  color: #000000;
   color: var(--color-grey-dark);
 }
 

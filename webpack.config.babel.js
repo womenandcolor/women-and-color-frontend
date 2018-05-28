@@ -1,7 +1,6 @@
 import webpack from 'webpack';
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import postcssPresetEnv from 'postcss-preset-env';
 import autoprefixer from 'autoprefixer';
 
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
@@ -44,12 +43,6 @@ Object.keys(baseEntry).forEach(function(key) {
   ];
 });
 
-const productionEntry = {};
-Object.keys(baseEntry).forEach(function(key) {
-  var entryPoint = baseEntry[key];
-  productionEntry[key] = ['babel-polyfill', entryPoint];
-});
-
 const base = {
   entry: baseEntry,
   output: {
@@ -61,6 +54,7 @@ const base = {
       { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' },
       {
         test: /\.css$/,
+        exclude: /node_modules/,
         use: [
           'style-loader',
           {
@@ -76,9 +70,6 @@ const base = {
             options: {
               ident: 'postcss',
               plugins: () => [
-                postcssPresetEnv({
-                  browsers: ['last 2 versions', 'IE 11'],
-                }),
                 autoprefixer({
                   browsers: ['last 2 versions', 'IE 11'],
                 }),
@@ -120,7 +111,6 @@ const developmentConfig = {
 };
 
 const productionConfig = {
-  entry: productionEntry,
   devtool: 'cheap-module-source-map',
   plugins: [HtmlWebpackPluginConfig, productionPlugin],
 };
