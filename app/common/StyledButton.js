@@ -4,36 +4,36 @@ import { withStyles } from 'material-ui/styles';
 
 const styles = (theme) => ({
 	root: {
-		fontFamily: 'var(--font-family-sans-serif)',
-		fontSize: 'var(--font-size-base)',
-		fontWeight: 'var(--font-weight-regular)',
-		lineHeight: 'var(--line-height-base)',
+		fontFamily: theme.typography.fontFamily,
+		fontSize: '16px',
+		fontWeight: '400',
+		lineHeight: '24px',
 		textTransform: 'none',
-		padding: 'var(--padding-vertical) var(--padding-horizontal)',
-		borderRadius: 'var(--border-radius)',
+		padding: '8px 16px',
+		borderRadius: '4px',
 		whiteSpace: 'nowrap',
 		marginLeft: '2px',
 		marginRight: '2px',
 	},
 	flatPrimary: {
-		color: 'var(--color-inverted-light)',
-		backgroundColor: 'var(--color-primary)',
+		color: theme.palette.primary.contrastText,
+		backgroundColor: theme.palette.primary.main,
 
 		'&:hover': {
 			opacity: 0.6,
-			backgroundColor: 'var(--color-primary)',
+			backgroundColor: theme.palette.primary.main,
 		  }
 	},
 
 	flatSecondary: {
-		color: 'var(--color-primary)',
-		backgroundColor: 'var(--color-inverted-light)',
-		border: '1px solid var(--color-primary)',
+		color: theme.palette.primary.main,
+		backgroundColor: theme.palette.primary.contrastText,
+		border: `1px solid ${theme.palette.primary.main}`,
 
 		'&:hover': {
 			opacity: 0.6,
-			backgroundColor: 'var(--color-inverted-light)',
-			color: 'var(--color-primary)',
+			backgroundColor: theme.palette.primary.contrastText,
+			color: theme.palette.primary.main,
 		  }
 	},
 })

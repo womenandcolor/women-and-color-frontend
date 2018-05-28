@@ -12,26 +12,26 @@ import { pronounDict } from 'appHelpers/constants';
 import { ensureAbsoluteUrl } from 'appHelpers/url';
 import Topics from './Topics';
 
-const styles = {
+const styles = (theme) => ({
   city: {
-    backgroundColor: '#f5f5f5',
+    backgroundColor: theme.palette.secondary.light,
     textAlign: 'center',
-    borderTop: '1px solid var(--color-grey-light)',
+    borderTop: `1px solid ${theme.palette.secondary.main}`,
   },
   pronouns: {
-    backgroundColor: 'var(--color-secondary)',
+    backgroundColor: theme.palette.primary.light,
     textAlign: 'center',
-    borderTop: '1px solid var(--color-grey-light)',
+    borderTop: `1px solid ${theme.palette.secondary.main}`,
   },
   socials: {
-    backgroundColor: 'var(--color-inverted-light)',
+    backgroundColor: theme.palette.primary.contrastText,
     textAlign: 'center',
     justifyContent: 'space-around',
-    borderTop: '1px solid var(--color-grey-light)',
+    borderTop: `1px solid ${theme.palette.secondary.main}`,
   },
   card: {
     borderRadius: '8px',
-    border: '1px solid var(--color-grey-light)',
+    border: `1px solid ${theme.palette.secondary.main}`,
   },
   photo: {
     maxWidth: '128px',
@@ -41,7 +41,7 @@ const styles = {
   listItemText: {
     padding: '0',
   },
-};
+});
 
 const SpeakerCard = ({ speaker, classes }) => {
   const hasSocial = speaker.linkedin || speaker.twitter || speaker.website;
@@ -52,7 +52,7 @@ const SpeakerCard = ({ speaker, classes }) => {
         <Grid item xs={12}>
           <CardContent className={css.speakerCard}>
             <Grid container justify="center">
-              <Grid item xs={8} style={styles.photo}>
+              <Grid item xs={8} className={classes.photo}>
                 <div className={`${profilePhoto}`}>
                   <img src={speaker.image} alt={speaker.display_name} />
                 </div>

@@ -4,6 +4,12 @@
   font-size: 18px;
 }
 
+.navbar {
+  width: '100%';
+  background-color: var(--color-inverted-light);
+  color: var(--color-grey);
+}
+
 .navContainer {
   display: flex;
   flex-direction: row;
@@ -33,15 +39,6 @@
 
 .link:hover {
   color: #1877E6;
-}
-
-.navTitle {
-  composes: h1 from 'sharedStyles/styles.css';
-  font-family: var(--font-family-serif);
-  font-size: 50px;
-  margin-top: 0;
-  margin-bottom: 0;
-  font-weight: var(--font-weight-regular);
 }
 
 .speakerButton {
