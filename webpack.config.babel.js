@@ -1,42 +1,47 @@
-import webpack from 'webpack'
-import path from 'path'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
+import webpack from 'webpack';
+import path from 'path';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import postcssPresetEnv from 'postcss-preset-env';
+import autoprefixer from 'autoprefixer';
 
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   template: __dirname + '/app/index.html',
   filename: 'index.html',
-  inject: 'body'
-})
+  inject: 'body',
+});
 
 const PATHS = {
   app: path.join(__dirname, 'app/', 'entry/', 'index.js'),
   navigation: path.join(__dirname, 'app/', 'entry/', 'navigation.js'),
   footer: path.join(__dirname, 'app/', 'entry/', 'footer.js'),
   build: path.join(__dirname, 'dist'),
-}
+};
 
-const LAUNCH_COMMAND = process.env.npm_lifecycle_event
+const LAUNCH_COMMAND = process.env.npm_lifecycle_event;
 
-const isProduction = LAUNCH_COMMAND === 'production'
-process.env.BABEL_ENV = LAUNCH_COMMAND
-
+const isProduction = LAUNCH_COMMAND === 'production';
+process.env.BABEL_ENV = LAUNCH_COMMAND;
 
 const productionPlugin = new webpack.DefinePlugin({
   'process.env': {
-    NODE_ENV: JSON.stringify('production')
-  }
-})
+    NODE_ENV: JSON.stringify('production'),
+  },
+});
 
 const baseEntry = {
-  'app': PATHS.app,
-  'navigation': PATHS.navigation,
-  'footer': PATHS.footer
+  app: PATHS.app,
+  navigation: PATHS.navigation,
+  footer: PATHS.footer,
 };
 
 const developEntry = {};
 Object.keys(baseEntry).forEach(function(key) {
   var entryPoint = baseEntry[key];
-  developEntry[key] = ['webpack-dev-server/client?http://0.0.0.0:8080', 'webpack/hot/only-dev-server', entryPoint];
+  developEntry[key] = [
+    'webpack-dev-server/client?http://0.0.0.0:8080',
+    'webpack/hot/only-dev-server',
+    entryPoint,
+  ];
 });
 
 const productionEntry = {};
@@ -44,7 +49,6 @@ Object.keys(baseEntry).forEach(function(key) {
   var entryPoint = baseEntry[key];
   productionEntry[key] = ['babel-polyfill', entryPoint];
 });
-
 
 const base = {
   entry: baseEntry,
@@ -54,9 +58,36 @@ const base = {
   },
   module: {
     loaders: [
-      {test: /\.js$/, exclude: /node_modules/, loader: "babel-loader"},
-      {test: /\.css$/, loader: 'style-loader!css-loader?sourceMap&modules&localIdentName=[name]__[local]___[hash:base64:5]'}
-    ]
+      { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' },
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+              modules: true,
+              localIdentName: '[name]__[local]___[hash:base64:5]',
+            },
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              ident: 'postcss',
+              plugins: () => [
+                postcssPresetEnv({
+                  browsers: ['last 2 versions', 'IE 11'],
+                }),
+                autoprefixer({
+                  browsers: ['last 2 versions', 'IE 11'],
+                }),
+              ],
+            },
+          },
+        ],
+      },
+    ],
   },
   resolve: {
     modules: [path.resolve('./app'), path.resolve('./node_modules')],
@@ -68,9 +99,9 @@ const base = {
       appHelpers: path.resolve(__dirname, 'app/helpers/'),
       appAssets: path.resolve(__dirname, 'app/assets/'),
       appSharedStyles: path.resolve(__dirname, 'app/sharedStyles/'),
-    }
-  }
-}
+    },
+  },
+};
 
 const developmentConfig = {
   entry: developEntry,
@@ -85,15 +116,17 @@ const developmentConfig = {
     filename: '[name].js',
     publicPath: 'http://localhost:8080/',
   },
-  plugins: [HtmlWebpackPluginConfig, new webpack.HotModuleReplacementPlugin()]
-}
+  plugins: [HtmlWebpackPluginConfig, new webpack.HotModuleReplacementPlugin()],
+};
 
 const productionConfig = {
   entry: productionEntry,
   devtool: 'cheap-module-source-map',
-  plugins: [HtmlWebpackPluginConfig, productionPlugin]
-}
+  plugins: [HtmlWebpackPluginConfig, productionPlugin],
+};
 
-export default Object.assign({}, base,
-  isProduction === true ? productionConfig : developmentConfig)
-
+export default Object.assign(
+  {},
+  base,
+  isProduction === true ? productionConfig : developmentConfig
+);
