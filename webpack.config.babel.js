@@ -39,6 +39,13 @@ Object.keys(baseEntry).forEach(function(key) {
   developEntry[key] = ['webpack-dev-server/client?http://0.0.0.0:8080', 'webpack/hot/only-dev-server', entryPoint];
 });
 
+const productionEntry = {};
+Object.keys(baseEntry).forEach(function(key) {
+  var entryPoint = baseEntry[key];
+  productionEntry[key] = ['babel-polyfill', entryPoint];
+});
+
+
 const base = {
   entry: baseEntry,
   output: {
@@ -82,6 +89,7 @@ const developmentConfig = {
 }
 
 const productionConfig = {
+  entry: productionEntry,
   devtool: 'cheap-module-source-map',
   plugins: [HtmlWebpackPluginConfig, productionPlugin]
 }

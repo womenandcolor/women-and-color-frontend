@@ -20,6 +20,7 @@
     "@fortawesome/react-fontawesome": "^0.0.19",
     "@material-ui/icons": "^1.0.0-beta.43",
     "axios": "^0.17.1",
+    "babel-polyfill": "^6.26.0",
     "downshift": "^1.31.11",
     "keycode": "^2.2.0",
     "lodash": "^4.17.4",
