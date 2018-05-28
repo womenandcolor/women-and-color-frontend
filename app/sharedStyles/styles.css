@@ -32,13 +32,9 @@ body {
   padding: 0;
   height: 100%;
   width: 100%;
-  color: #757575;
   color: var(--color-grey);
-  font-family: "Open Sans", sans-serif;
   font-family: var(--font-family-sans-serif);
-  font-size: 16px;
   font-size: var(--font-size-base);
-  line-height: 24px;
   line-height: var(--line-height-base);
 }
 
@@ -57,7 +53,6 @@ body {
 
 .h2 {
   text-align: center;
-  font-weight: 300;
   font-weight: var(--font-weight-light);
   font-size: 1.1rem;
   line-height: 1.7rem;
@@ -73,7 +68,6 @@ body {
   padding: 1rem 2rem;
   display: inline-block;
   text-decoration: none;
-  border-radius: 4px;
   border-radius: var(--border-radius);
   background-color: transparent;
   border: 1px solid transparent;
@@ -81,7 +75,6 @@ body {
 
 .button-primary {
   composes: button;
-  background-color: #283ca7;
   background-color: var(--color-primary);
   color: #ffffff;
 }
@@ -89,18 +82,14 @@ body {
 .input {
   line-height: 2.8rem;
   -webkit-appearance: none;
-  color: #757575;
   color: var(--color-grey);
-  border: 1px solid #e0e0e0;
   border: 1px solid var(--color-grey-light);
-  border-radius: 4px;
   border-radius: var(--border-radius);
   padding: 0;
   font-size: 16px;
 }
 
 .searchForm {
-  border: 1px solid #e0e0e0;
   border: 1px solid var(--color-grey-light);
   border-radius: 4px;
   padding: 6px;
@@ -132,7 +121,6 @@ body {
 }
 
 a {
-  color: #757575;
   color: var(--color-grey);
 }
 
