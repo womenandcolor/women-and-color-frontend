@@ -18,8 +18,8 @@ import Logo from 'svg-react-loader?name=Logo!../../assets/logo_women_and_color.s
 const styles = {
   root: {
     width: '100%',
-    backgroundColor: 'var(--color-inverted-light)',
-    color: 'var(--color-grey)',
+    backgroundColor: '#FFFFFF',
+    color: '#757575',
   },
   flex: {
     flex: 1,
