@@ -15,12 +15,12 @@ import { updateSearchParams } from 'appRedux/modules/speaker';
 import { searchForm } from '../sharedStyles/styles.css';
 import css from './styles.css';
 
-const styles = {
+const styles = theme => ({
   searchButton: {
     height: '100%'
   },
   banner: {
-    backgroundColor: 'var(--color-primary)',
+    backgroundColor: theme.palette.primary.main,
     paddingTop: '6rem',
     paddingBottom: '6rem',
     marginBottom: '2rem',
@@ -29,7 +29,7 @@ const styles = {
   },
   headline: {
     fontSize: '2rem',
-    color: 'var(--color-inverted-light)',
+    color: theme.palette.primary.contrastText,
     marginBottom: '2rem',
     fontWeight: '100'
   },
@@ -37,7 +37,7 @@ const styles = {
     fontWeight: '600'
   },
   searchForm: {
-    backgroundColor: 'var(--color-inverted-light)',
+    backgroundColor: theme.palette.primary.contrastText,
     paddingTop: '1rem',
     paddingBottom: '1rem'
   },
@@ -47,7 +47,7 @@ const styles = {
   searchIcon: {
     marginRight: '1rem'
   }
-}
+});
 
 class Banner extends Component {
   constructor(props) {

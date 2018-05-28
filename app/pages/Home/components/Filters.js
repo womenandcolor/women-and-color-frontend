@@ -13,15 +13,15 @@ import css from '../styles.css';
 import { updateSearchParams } from 'appRedux/modules/speaker';
 import { IDENTITIES, DEFAULT_SPEAKER_LIMIT } from 'appHelpers/constants';
 
-const selectedStyle = {
-  backgroundColor: 'var(--color-secondary)',
-};
-
-const styles = {
+const styles = theme => ({
   primary: {
-    fontWeight: 'var(--font-weight-semibold)',
+    fontWeight: '600',
   },
-};
+  selectedItem: {
+    backgroundColor: theme.palette.primary.light
+  },
+});
+
 
 class Filters extends Component {
   constructor(props) {
@@ -85,6 +85,7 @@ class Filters extends Component {
 
   render() {
     const locations = this.createLocationDict(this.props.locations, {});
+    const { classes } = this.props;
 
     return (
       <div className={css.sidebarContainer}>
@@ -93,7 +94,7 @@ class Filters extends Component {
           <ListItem
             onClick={() => this.handleSelectCity(null)}
             button
-            style={!this.props.searchParams.location ? selectedStyle : {}}
+            className={!this.props.searchParams.location ? classes.selectedItem : ''}
           >
             <ListItemText
               primary="all cities"
@@ -126,7 +127,7 @@ class Filters extends Component {
                         <ListItem
                           key={`city-${index}`}
                           button
-                          style={selected ? selectedStyle : {}}
+                          className={selected ? classes.selectedItem : ''}
                           onClick={handleClick}
                         >
                           <ListItemText primary={location.city.toLowerCase()} />
@@ -169,7 +170,7 @@ class Filters extends Component {
             return (
               <ListItem
                 key={index}
-                style={selected ? selectedStyle : {}}
+                className={selected ? classes.selectedItem : ''}
                 onClick={handleClick}
                 button
               >

@@ -8,23 +8,20 @@ import Hidden from 'material-ui/Hidden';
 import { connect } from 'react-redux';
 
 // App
-import { link, navTitle } from './styles.css';
+import { link } from './styles.css';
 import AnimatedSearchField from './AnimatedSearchField';
 import SearchField from './SearchField';
 import MenuDropdown from './MenuDropdown';
 import ButtonMenu from './ButtonMenu';
 import Logo from 'svg-react-loader?name=Logo!../../assets/logo_women_and_color.svg';
 
-const styles = {
+const styles = theme => ({
   root: {
     width: '100%',
-    backgroundColor: 'var(--color-inverted-light)',
-    color: 'var(--color-grey)',
-  },
-  flex: {
-    flex: 1,
-  },
-};
+    backgroundColor: theme.palette.primary.contrastText,
+    color: theme.palette.secondary.dark,
+  }
+});
 
 const Navigation = props => {
   const loggedOutMenuItems = {
@@ -83,7 +80,7 @@ const Navigation = props => {
   const menuItems = menuItemsList(location, user, profile);
 
   return (
-    <div className={classes.root}>
+    <div>
       <AppBar position="fixed" className={classes.root}>
         <Toolbar>
           <Grid container justify="center" spacing={0}>
@@ -92,10 +89,9 @@ const Navigation = props => {
                 <Grid item xs={6} sm={4} md={3}>
                   <a
                     href="/"
-                    className={classes.flex}
                     style={{ textDecoration: 'none' }}
                   >
-                    <Logo className={navTitle} height="50px" width="100%" />
+                    <Logo height="50px" width="100%" />
                   </a>
                 </Grid>
                 <Grid item xs={6} md={4}>

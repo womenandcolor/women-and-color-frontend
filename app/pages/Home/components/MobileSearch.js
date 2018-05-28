@@ -12,20 +12,20 @@ import { updateSearchParams } from 'appRedux/modules/speaker';
 import css from '../styles.css';
 import { searchForm, hideOnMobile } from '../../../sharedStyles/styles.css';
 
-const styles = {
+const styles = theme => ({
   form: {
     height: '48px',
     display: 'flex',
     alignItems: 'center',
     paddingLeft: '2px',
-    backgroundColor: 'var(--color-secondary)',
-    color: 'var(--color-primary)'
+    backgroundColor: theme.palette.primary.light,
+    color: theme.palette.primary.main
   },
   searchButton: {
     height: '100%',
-    color: 'var(--color-primary)'
+    color: theme.palette.primary.main
   }
-}
+});
 
 class MobileSearch extends Component {
   constructor(props) {
