@@ -1,17 +1,16 @@
-// NPM
-
 
 // App
 import {
   GetRequest, GetSuccess, GetError,
   PostRequest, PostSuccess, PostError,
-  PutRequest, PutSuccess, PutError
+  PutRequest, PutSuccess, PutError,
   OnChange
 } from './action_template';
+import { get as getUser } from './user';
 import { BASE_URL_PATH } from 'appHelpers/constants';
 import axios from 'appHelpers/axios';
 
-const MODULE_NAME = 'REPLACE_ME';
+const MODULE_NAME = 'featured_talks';
 const ENDPOINT_URL = `${BASE_URL_PATH}/api/v1/${MODULE_NAME}/`;
 
 // Actions
@@ -98,18 +97,18 @@ export function get() {
   }
 }
 
-export function create() {
+export function create(data) {
   return (dispatch, getState) => {
     dispatch(postRequest());
-    const { __state__ } = getState();
 
     axios({
       method: 'POST',
-      url: `${ENDPOINT_URL}/`,
-      data: __state__,
+      url: `${ENDPOINT_URL}`,
+      data: data,
       responseType: 'json'
     }).then(res => {
       dispatch(postSuccess(res.data));
+      dispatch(getUser())
     }).catch(err => {
       console.log(err);
       dispatch(postError(err));
@@ -117,21 +116,36 @@ export function create() {
   }
 }
 
-export function update() {
+export function update(data) {
   return (dispatch, getState) => {
     dispatch(putRequest());
-    const { __state__ } = getState();
 
     axios({
       method: 'PUT',
-      url: `${ENDPOINT_URL}${__state__.id}/`,
-      data: __state__,
+      url: `${ENDPOINT_URL}${data.id}/`,
+      data: data,
       responseType: 'json'
     }).then(res => {
       dispatch(putSuccess(res.data));
+      dispatch(getUser())
     }).catch(err => {
       console.log(err);
       dispatch(putError(err));
+    });
+  }
+};
+
+export function destroy(data) {
+  return (dispatch, getState) => {
+    axios({
+      method: 'DELETE',
+      url: `${ENDPOINT_URL}${data.id}/`,
+      data: data,
+      responseType: 'json'
+    }).then(res => {
+      dispatch(getUser())
+    }).catch(err => {
+      console.log(err);
     });
   }
 }

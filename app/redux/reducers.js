@@ -10,6 +10,7 @@ import { reducer as authentication } from './modules/authentication';
 import { reducer as notification } from './modules/notification';
 import { reducer as speaker } from './modules/speaker';
 import { reducer as contactForm } from './modules/contactForm'
+import { reducer as featuredTalk } from './modules/featuredTalk';
 
 
 export default combineReducers({
@@ -20,5 +21,6 @@ export default combineReducers({
   authentication,
   notification,
   speaker,
-  contactForm
+  contactForm,
+  featuredTalk,
 });
