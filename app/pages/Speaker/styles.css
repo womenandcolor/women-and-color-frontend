@@ -93,6 +93,10 @@
   justify-content: space-between;
 }
 
+.talkCardContainer {
+  padding: 1rem 0.5rem;
+}
+
 .talkCard {
   flex: 0 1 100%;
   margin-bottom: 2rem;

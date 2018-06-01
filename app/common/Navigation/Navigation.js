@@ -45,6 +45,14 @@ const Navigation = props => {
           color: 'secondary',
         },
       ],
+      '/profile/talks': [
+        { title: 'Log out', slug: '/accounts/logout', color: 'primary' },
+        {
+          title: 'View profile',
+          slug: `/speaker/${profileId}`,
+          color: 'secondary',
+        },
+      ],
       '/profile/account': [
         { title: 'Log out', slug: '/accounts/logout', color: 'primary' },
         {
