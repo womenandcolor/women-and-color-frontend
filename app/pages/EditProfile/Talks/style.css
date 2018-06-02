@@ -1,0 +1,58 @@
+/* talks */
+
+.header {
+    font-size: 2rem;
+    color: var(--color-grey-dark);
+    font-weight: var(--font-weight-light);
+    margin: 0;
+}
+
+.sectionBorderless {
+    padding: 0 1rem 2rem 1rem;
+}
+
+.talkContainer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.talk {
+    border-radius: 8px;
+}
+
+.talk .formControl {
+    margin: 0 0 1rem 0;
+}
+
+.talk .talkLabel {
+    font-size: 1rem;
+    margin-top: 0;
+}
+
+.addNewTalk {
+    width: 100%;
+}
+
+.section {
+    padding: 0 1rem 2rem 1rem;
+    border-bottom: 1px solid var(--color-grey-light);
+    margin-bottom: 2rem;
+}
+
+.sectionBorderless {
+    padding: 0 1rem 2rem 1rem;
+}
+
+.talkCardImage {
+  height: 12rem;
+  border-radius: 2px 2px 0 0;
+  background-color: var(--color-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fileInput {
+  display: none;
+}

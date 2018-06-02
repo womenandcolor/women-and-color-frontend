@@ -40,7 +40,7 @@ const styles = (theme) => ({
 
 const StyledButton = (props) => {
 	return(
-		<Button {...props} className={`${props.classes.root} ${props.classes[props.color]}`}>
+		<Button {...props} className={`${props.classes.root} ${props.classes[props.color]} ${props.className}`}>
 			{props.children}
 		</Button>
 	)

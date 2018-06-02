@@ -93,6 +93,10 @@
   justify-content: space-between;
 }
 
+.talkCardContainer {
+  padding: 1rem 0.5rem;
+}
+
 .talkCard {
   flex: 0 1 100%;
   margin-bottom: 2rem;
@@ -105,7 +109,9 @@
 }
 
 .talkCardImage {
-  height: 12rem;
+  height: 14rem;
+  border-radius: 2px 2px 0 0;
+  background-color: var(--color-secondary);
 }
 
 .talkCardHeader {

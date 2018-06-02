@@ -11,7 +11,7 @@ import MessageSpeakerForm from './components/MessageSpeakerForm';
 import Banner from 'appCommon/Banner';
 
 const Speaker = props => {
-  const { speaker, talks } = props;
+  const { speaker } = props;
   return (
     <Grid container justify="center">
       <Grid item xs={12}>
@@ -24,6 +24,7 @@ const Speaker = props => {
           </Grid>
           <Grid item xs={12} md={8}>
             {speaker.description && <SpeakerInfo speaker={speaker} />}
+            {(!!speaker.featured_talks.length) && <FeaturedTalks talks={speaker.featured_talks} />}
             <MessageSpeakerForm speaker={speaker} />
           </Grid>
         </Grid>
@@ -53,41 +54,16 @@ class SpeakerContainer extends Component {
 
   render() {
     return this.props.speaker ? (
-      <Speaker speaker={this.props.speaker} talks={this.props.featuredTalks} />
+      <Speaker speaker={this.props.speaker} />
     ) : (
       <div>Loading...</div>
     );
   }
 }
 
-const mockFeaturedTalks = [
-  {
-    id: 1,
-    name: "Building Products That Don't Suck",
-    organization: 'TechToronto',
-    url: 'https://google.ca',
-    image: 'http://via.placeholder.com/250x250',
-  },
-  {
-    id: 2,
-    name: 'Today: Shopify Merchants and Consumers',
-    organization: 'Shopify Partners',
-    url: 'https://google.ca',
-    image: 'http://via.placeholder.com/350x250',
-  },
-  {
-    id: 3,
-    name: 'Third One',
-    organization: 'Some Company',
-    url: 'https://google.ca',
-    image: 'http://via.placeholder.com/250x350',
-  },
-];
-
 function mapStateToProps(state) {
   return {
     speaker: state.speaker.speaker,
-    featuredTalks: mockFeaturedTalks, // state.featuredTalks,
     notification: state.notification.message,
   };
 }

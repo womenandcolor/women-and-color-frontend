@@ -2177,6 +2177,24 @@ currently-unhandled@^0.4.1:
   dependencies:
     array-find-index "^1.0.1"
 
+d3-color@1:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/d3-color/-/d3-color-1.2.0.tgz#d1ea19db5859c86854586276ec892cf93148459a"
+
+d3-ease@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/d3-ease/-/d3-ease-1.0.3.tgz#68bfbc349338a380c44d8acc4fbc3304aa2d8c0e"
+
+d3-interpolate@^1.1.6:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/d3-interpolate/-/d3-interpolate-1.2.0.tgz#40d81bd8e959ff021c5ea7545bc79b8d22331c41"
+  dependencies:
+    d3-color "1"
+
+d3-timer@^1.0.4:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/d3-timer/-/d3-timer-1.0.7.tgz#df9650ca587f6c96607ff4e60cc38229e8dd8531"
+
 d@1:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/d/-/d-1.0.0.tgz#754bb5bfe55451da69a58b94d45f4c5b0462d58f"
@@ -2848,6 +2866,10 @@ execa@^0.7.0:
     p-finally "^1.0.0"
     signal-exit "^3.0.0"
     strip-eof "^1.0.0"
+
+exenv@^1.2.0:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/exenv/-/exenv-1.2.2.tgz#2ae78e85d9894158670b03d47bec1f03bd91bb9d"
 
 expand-brackets@^0.1.4:
   version "0.1.5"
@@ -5247,6 +5269,15 @@ nth-check@~1.0.1:
   dependencies:
     boolbase "~1.0.0"
 
+nuka-carousel@^4.2.1:
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/nuka-carousel/-/nuka-carousel-4.2.1.tgz#f2b0f847e2bf8d44668f6eb5d7fc275706673ec5"
+  dependencies:
+    d3-ease "^1.0.3"
+    exenv "^1.2.0"
+    prop-types "^15.6.0"
+    react-move "^2.7.0"
+
 num2fraction@^1.2.2:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/num2fraction/-/num2fraction-1.2.2.tgz#6f682b6a027a4e9ddfa4564cd2589d1d4e669ede"
@@ -6186,6 +6217,13 @@ react-lifecycles-compat@^1.0.2:
 react-loading@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/react-loading/-/react-loading-1.0.3.tgz#48c2cc9a83916853e4c166dd2e4ee07884823b68"
+
+react-move@^2.7.0:
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/react-move/-/react-move-2.7.0.tgz#8f5b3d37cc614b9de90e1e2744c80a1e3ff2fcfd"
+  dependencies:
+    d3-interpolate "^1.1.6"
+    d3-timer "^1.0.4"
 
 react-popper@^0.8.0:
   version "0.8.2"

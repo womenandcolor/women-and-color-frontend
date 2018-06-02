@@ -6,6 +6,7 @@ import Grid from 'material-ui/Grid';
 import SideBar from './SideBar';
 import About from './About/About';
 import Account from './Account/Account';
+import Talks from './Talks/Talks';
 import css from './styles.css';
 
 const subroutes = [
@@ -17,6 +18,12 @@ const subroutes = [
   },
   {
     id: 1,
+    path: 'talks',
+    text: 'talks',
+    component: Talks,
+  },
+  {
+    id: 2,
     path: 'account',
     text: 'account',
     component: Account,
@@ -47,7 +54,7 @@ const _renderRoute = ({ component: Component, baseUrl, path, key }) => (
 const EditProfile = ({ match }) => (
   <div className={css.editProfileContainer}>
     <Grid container justify="center">
-      <Grid item xs={8}>
+      <Grid item xs={11} md={8}>
         <Switch>
           <Redirect
             exact
