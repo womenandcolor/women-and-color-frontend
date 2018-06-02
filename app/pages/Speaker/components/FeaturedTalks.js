@@ -13,7 +13,7 @@ const FeaturedTalk = props => {
         <CardMedia image={talk.image} className={css.talkCardImage} />
         <CardContent>
           <h2 className={css.talkCardHeader}>{props.talk.event_name}</h2>
-          <a className={css.talkCardLink} href={props.talk.url}>
+          <a className={css.talkCardLink} href={props.talk.url} target="_blank">
             {props.talk.talk_title}
           </a>
         </CardContent>

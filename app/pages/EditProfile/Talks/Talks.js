@@ -17,18 +17,18 @@ import {
 
 import css from './style.css';
 import StyledButton from 'appCommon/StyledButton';
-import PlaceHolder from 'svg-react-loader?name=PlaceHolder!./placeholder-photo.svg'; // remove this later
 import EditTalk from './EditTalk';
 
 const emptyTalk = {
   event_name: '',
   talk_title: '',
   url: '',
+  image: '',
 };
 
 class TalksContainer extends Component {
   state = {
-    talks: this.props.profile.featured_talks ? this.props.profile.featured_talks.reverse() : [],
+    talks: this.props.profile.featured_talks || [],
   };
 
   componentWillMount() {
@@ -39,12 +39,11 @@ class TalksContainer extends Component {
     if (
       nextProps.profile.featured_talks !== this.props.profile.featured_talks
     ) {
-      this.setState({ talks: nextProps.profile.featured_talks.reverse() });
+      this.setState({ talks: nextProps.profile.featured_talks });
     }
   }
 
   saveTalk = talkData => {
-    console.log('save talk', talkData);
     if (talkData.id) {
       this.props.updateTalk({ ...talkData, profile: this.props.profile.id });
     } else {
@@ -74,23 +73,25 @@ class TalksContainer extends Component {
             <EditTalk
               talk={talk}
               key={`talk-${index}`}
-              index={index}
               saveTalk={this.saveTalk}
               destroyTalk={this.destroyTalk}
+              profile={this.props.profile.id}
             />
           ))}
         </div>
 
-        <div className={css.section}>
-          <StyledButton
-            disabled={talks.length >= 7}
-            color="secondary"
-            className={css.addNewTalk}
-            onClick={this.addEmptyTalk}
-          >
-            Add new talk
-          </StyledButton>
-        </div>
+        { (talks.length < 6) &&
+          <div className={css.section}>
+            <StyledButton
+              disabled={talks.length >= 7}
+              color="secondary"
+              className={css.addNewTalk}
+              onClick={this.addEmptyTalk}
+            >
+              Add new talk
+            </StyledButton>
+          </div>
+        }
       </div>
     );
   }

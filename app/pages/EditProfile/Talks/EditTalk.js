@@ -4,8 +4,10 @@ import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
 import { FormHelperText } from 'material-ui/Form';
 import FormField from 'appCommon/FormField';
 import TextField from 'material-ui/TextField';
+import Input from 'material-ui/Input';
 import StyledButton from 'appCommon/StyledButton';
-import PlaceHolder from 'svg-react-loader?name=PlaceHolder!./placeholder-photo.svg'; // remove this later
+import { BASE_URL_PATH } from 'appHelpers/constants';
+import axios from 'appHelpers/axios';
 
 import css from './style.css';
 
@@ -14,7 +16,7 @@ class Talk extends Component {
 
   componentWillReceiveProps(newProps) {
     if (newProps.talk !== this.props.talk) {
-      this.setState({ talk: newProps.talk })
+      this.setState({ talk: newProps.talk });
     }
   }
 
@@ -22,23 +24,50 @@ class Talk extends Component {
     this.setState({
       talk: {
         ...this.state.talk,
-        [fieldName]: event.currentTarget.value
-      }
+        [fieldName]: event.currentTarget.value,
+      },
     });
   };
 
-  onSave = (e) => {
+  onSave = e => {
     e.preventDefault();
-    this.props.saveTalk(this.state.talk)
+    this.props.saveTalk(this.state.talk);
   };
 
   onDelete = () => {
-    this.props.destroyTalk(this.state.talk)
+    this.props.destroyTalk(this.state.talk);
+  };
+
+  handleImageChange = event => {
+    const file = event.currentTarget.files[0];
+    const data = new FormData();
+    data.append('file', file);
+    data.append('profile', this.props.profile);
+    const url = `${BASE_URL_PATH}/api/v1/images/`;
+
+    axios({
+      url,
+      data,
+      method: 'post',
+      responseType: 'json',
+    })
+      .then(res => {
+        this.setState({
+          talk: {
+            ...this.state.talk,
+            image: res.data.file,
+          },
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   render() {
-    const label = this.state.talk.talk_title ? this.state.talk.talk_title : 'New Talk';
-    console.log('this.state.talk', this.state.talk);
+    const label = this.state.talk.talk_title
+      ? this.state.talk.talk_title
+      : 'New Talk';
     return (
       <div className={css.talk}>
         <div className={css.section}>
@@ -50,10 +79,17 @@ class Talk extends Component {
               <Grid container spacing={40}>
                 <Grid item xs={12} md={5}>
                   <Card className={css.card}>
-                    <PlaceHolder />
+                    <CardMedia
+                      image={this.state.talk.image || './'}
+                      className={css.talkCardImage}
+                    />
                     <CardContent>
-                      <div>{this.state.talk.event_name}</div>
-                      <div>{this.state.talk.talk_title}</div>
+                      <div>{this.state.talk.event_name || 'Event Name'}</div>
+                      <div>
+                        <a href={this.state.talk.url} target="_blank">
+                          {this.state.talk.talk_title || 'Talk Title'}
+                        </a>
+                      </div>
                     </CardContent>
                   </Card>
                 </Grid>
@@ -110,16 +146,41 @@ class Talk extends Component {
                         />
                       </FormField>
                     </Grid>
+
                     <Grid item md={12}>
-                      <StyledButton label="Submit" type="submit" color="primary">
+                      <FormField fullWidth className={css.formControl}>
+                        <FormHelperText
+                          id="talk-name-label"
+                          className={css.talkLabel}
+                        >
+                          Image
+                        </FormHelperText>
+                        <Input
+                          type="file"
+                          name="photo"
+                          onChange={this.handleImageChange}
+                        />
+                      </FormField>
+                    </Grid>
+
+                    <Grid item md={12}>
+                      <StyledButton
+                        label="Submit"
+                        type="submit"
+                        color="primary"
+                      >
                         Save
                       </StyledButton>
-                      {
-                        this.state.talk.id &&
-                        <StyledButton label="Cancel" type="button" color="secondary" onClick={this.onDelete}>
+                      {this.state.talk.id && (
+                        <StyledButton
+                          label="Cancel"
+                          type="button"
+                          color="secondary"
+                          onClick={this.onDelete}
+                        >
                           Delete
                         </StyledButton>
-                      }
+                      )}
                     </Grid>
                   </form>
                 </Grid>
@@ -130,6 +191,6 @@ class Talk extends Component {
       </div>
     );
   }
-};
+}
 
 export default Talk;

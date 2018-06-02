@@ -17,6 +17,10 @@
     flex-direction: column;
 }
 
+.talk {
+    border-radius: 8px;
+}
+
 .talk .formControl {
     margin: 0 0 1rem 0;
 }
@@ -38,4 +42,10 @@
 
 .sectionBorderless {
     padding: 0 1rem 2rem 1rem;
+}
+
+.talkCardImage {
+  height: 12rem;
+  border-radius: 2px 2px 0 0;
+  background-color: var(--color-secondary);
 }
