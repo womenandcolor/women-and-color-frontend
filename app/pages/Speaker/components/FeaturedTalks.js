@@ -3,6 +3,7 @@ import Card, { CardContent, CardMedia } from "material-ui/Card";
 import Carousel from 'nuka-carousel';
 
 // App
+import { ensureAbsoluteUrl } from 'appHelpers/url';
 import css from "../styles.css";
 
 const FeaturedTalk = props => {
@@ -13,7 +14,7 @@ const FeaturedTalk = props => {
         <CardMedia image={talk.image} className={css.talkCardImage} />
         <CardContent>
           <h2 className={css.talkCardHeader}>{props.talk.event_name}</h2>
-          <a className={css.talkCardLink} href={props.talk.url} target="_blank">
+          <a className={css.talkCardLink} href={ensureAbsoluteUrl(props.talk.url)} target="_blank">
             {props.talk.talk_title}
           </a>
         </CardContent>
