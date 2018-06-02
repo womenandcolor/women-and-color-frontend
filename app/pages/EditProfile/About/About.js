@@ -182,12 +182,12 @@ const About = props => {
               >
                 <FormControlLabel
                   value="true"
-                  control={<Radio />}
+                  control={<Radio color="primary" />}
                   label="Yes"
                 />
                 <FormControlLabel
                   value="false"
-                  control={<Radio />}
+                  control={<Radio color="primary" />}
                   label="No"
                 />
               </RadioGroup>
@@ -210,12 +210,12 @@ const About = props => {
               >
                 <FormControlLabel
                   value="true"
-                  control={<Radio />}
+                  control={<Radio color="primary" />}
                   label="Yes"
                 />
                 <FormControlLabel
                   value="false"
-                  control={<Radio />}
+                  control={<Radio color="primary" />}
                   label="No"
                 />
               </RadioGroup>
@@ -235,17 +235,17 @@ const About = props => {
               >
                 <FormControlLabel
                   value="they"
-                  control={<Radio />}
+                  control={<Radio color="primary" />}
                   label="They, them, their"
                 />
                 <FormControlLabel
                   value="she"
-                  control={<Radio />}
+                  control={<Radio color="primary" />}
                   label="She, her, her"
                 />
                 <FormControlLabel
                   value="he"
-                  control={<Radio />}
+                  control={<Radio color="primary" />}
                   label="He, him, his"
                 />
               </RadioGroup>
@@ -263,6 +263,9 @@ const About = props => {
             handleChange={handleTopicsChange}
             createTopic={props.createTopic}
           />
+          <FormHelperText>
+            {`Topics: ${props.profile.topics.length || '0'} of 10`}
+          </FormHelperText>
         </Grid>
       </div>
 
