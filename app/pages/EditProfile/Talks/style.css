@@ -48,4 +48,11 @@
   height: 12rem;
   border-radius: 2px 2px 0 0;
   background-color: var(--color-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fileInput {
+  display: none;
 }

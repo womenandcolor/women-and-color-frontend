@@ -80,7 +80,7 @@ class TalksContainer extends Component {
           ))}
         </div>
 
-        { (talks.length < 6) &&
+        {talks.length < 6 && (
           <div className={css.section}>
             <StyledButton
               disabled={talks.length >= 7}
@@ -91,7 +91,7 @@ class TalksContainer extends Component {
               Add new talk
             </StyledButton>
           </div>
-        }
+        )}
       </div>
     );
   }

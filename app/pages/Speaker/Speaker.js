@@ -61,30 +61,6 @@ class SpeakerContainer extends Component {
   }
 }
 
-const mockFeaturedTalks = [
-  {
-    id: 1,
-    name: "Building Products That Don't Suck",
-    organization: 'TechToronto',
-    url: 'https://google.ca',
-    image: 'http://via.placeholder.com/250x250',
-  },
-  {
-    id: 2,
-    name: 'Today: Shopify Merchants and Consumers',
-    organization: 'Shopify Partners',
-    url: 'https://google.ca',
-    image: 'http://via.placeholder.com/350x250',
-  },
-  {
-    id: 3,
-    name: 'Third One',
-    organization: 'Some Company',
-    url: 'https://google.ca',
-    image: 'http://via.placeholder.com/250x350',
-  },
-];
-
 function mapStateToProps(state) {
   return {
     speaker: state.speaker.speaker,

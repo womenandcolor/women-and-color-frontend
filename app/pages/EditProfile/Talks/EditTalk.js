@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
+import axios from 'appHelpers/axios';
 import Grid from 'material-ui/Grid';
 import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
 import { FormHelperText } from 'material-ui/Form';
 import FormField from 'appCommon/FormField';
 import TextField from 'material-ui/TextField';
 import Input from 'material-ui/Input';
+import ReactLoading from 'react-loading';
+
+// app
 import StyledButton from 'appCommon/StyledButton';
 import { BASE_URL_PATH } from 'appHelpers/constants';
-import axios from 'appHelpers/axios';
 
 import css from './style.css';
 
@@ -39,6 +42,7 @@ class Talk extends Component {
   };
 
   handleImageChange = event => {
+    this.setState({ imageLoading: true });
     const file = event.currentTarget.files[0];
     const data = new FormData();
     data.append('file', file);
@@ -57,6 +61,7 @@ class Talk extends Component {
             ...this.state.talk,
             image: res.data.file,
           },
+          imageLoading: false,
         });
       })
       .catch(err => {
@@ -72,17 +77,23 @@ class Talk extends Component {
       <div className={css.talk}>
         <div className={css.section}>
           <Grid container>
-            <Grid item md={12}>
+            <Grid item xs={12}>
               <h2>{label}</h2>
             </Grid>
-            <Grid item md={12}>
+            <Grid item xs={12}>
               <Grid container spacing={40}>
                 <Grid item xs={12} md={5}>
                   <Card className={css.card}>
-                    <CardMedia
-                      image={this.state.talk.image || './'}
-                      className={css.talkCardImage}
-                    />
+                    {this.state.imageLoading ? (
+                      <div className={css.talkCardImage}>
+                        <ReactLoading />
+                      </div>
+                    ) : (
+                      <CardMedia
+                        image={this.state.talk.image}
+                        className={css.talkCardImage}
+                      />
+                    )}
                     <CardContent>
                       <div>{this.state.talk.event_name || 'Event Name'}</div>
                       <div>
@@ -95,6 +106,20 @@ class Talk extends Component {
                 </Grid>
                 <Grid item xs={12} md={7}>
                   <form onSubmit={this.onSave}>
+                    <Grid item md={12}>
+                      <FormField className={css.formControl}>
+                        <StyledButton component="label" color="secondary">
+                          <input
+                            type="file"
+                            accept="image/*"
+                            className={css.fileInput}
+                            onChange={this.handleImageChange}
+                          />
+                          Choose Image
+                        </StyledButton>
+                      </FormField>
+                    </Grid>
+
                     <Grid item md={12}>
                       <FormField fullWidth className={css.formControl}>
                         <FormHelperText
@@ -143,22 +168,6 @@ class Talk extends Component {
                           value={this.state.talk.talk_title}
                           onChange={this.generateHandler('talk_title')}
                           required
-                        />
-                      </FormField>
-                    </Grid>
-
-                    <Grid item md={12}>
-                      <FormField fullWidth className={css.formControl}>
-                        <FormHelperText
-                          id="talk-name-label"
-                          className={css.talkLabel}
-                        >
-                          Image
-                        </FormHelperText>
-                        <Input
-                          type="file"
-                          name="photo"
-                          onChange={this.handleImageChange}
                         />
                       </FormField>
                     </Grid>
