@@ -12,7 +12,7 @@ export const registrationFlow = {
   },
 
   social: {
-    next: '/',
+    next: '/profile',
   },
 };
 
