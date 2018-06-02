@@ -168,6 +168,7 @@ class TopicSelector extends React.Component {
         }) => (
           <div className={classes.container}>
             {renderInput({
+              disabled: (selectedTopics.length >= 10),
               fullWidth: true,
               classes,
               InputProps: getInputProps({

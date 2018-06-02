@@ -136,7 +136,7 @@ function mapDispatchToProps(dispatch, props) {
     },
     updateProfile: () => {
       dispatch(updateProfile()).then(x => {
-        dispatch(push('/'))
+        dispatch(push('/profile'))
       });
     }
   }

@@ -101,7 +101,7 @@ const SpeakerCard = ({ speaker, classes }) => {
                   </a>
                 )}
                 {speaker.linkedin && (
-                  <a href={speaker.linkedin} target="_blank">
+                  <a href={ensureAbsoluteUrl(speaker.linkedin)} target="_blank">
                     LinkedIn
                   </a>
                 )}

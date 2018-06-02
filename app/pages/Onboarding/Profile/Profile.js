@@ -81,8 +81,8 @@ const Profile = (props) => {
             value={props.profile.woman === null ? 'true' : props.profile.woman.toString() }
             onChange={generateHandler('woman')}
           >
-            <FormControlLabel value='true' control={<Radio />} label="Yes" />
-            <FormControlLabel value='false' control={<Radio />} label="No" />
+            <FormControlLabel value='true' control={<Radio color="primary" />} label="Yes" />
+            <FormControlLabel value='false' control={<Radio color="primary" />} label="No" />
           </RadioGroup>
         </FormField>
 
@@ -94,8 +94,8 @@ const Profile = (props) => {
             value={props.profile.poc === null ? 'true' : props.profile.poc.toString()}
             onChange={generateHandler('poc')}
           >
-            <FormControlLabel value='true' control={<Radio />} label="Yes" />
-            <FormControlLabel value='false' control={<Radio />} label="No" />
+            <FormControlLabel value='true' control={<Radio color="primary" />} label="Yes" />
+            <FormControlLabel value='false' control={<Radio color="primary" />} label="No" />
           </RadioGroup>
         </FormField>
 
@@ -107,9 +107,9 @@ const Profile = (props) => {
             value={props.profile.pronouns || 'they'}
             onChange={generateHandler('pronouns')}
           >
-            <FormControlLabel value='they' control={<Radio />} label="They, them, their" />
-            <FormControlLabel value='she' control={<Radio />} label="She, her, her" />
-            <FormControlLabel value='he' control={<Radio />} label="He, him, his" />
+            <FormControlLabel value='they' control={<Radio color="primary" />} label="They, them, their" />
+            <FormControlLabel value='she' control={<Radio color="primary" />} label="She, her, her" />
+            <FormControlLabel value='he' control={<Radio color="primary" />} label="He, him, his" />
           </RadioGroup>
         </FormField>
 

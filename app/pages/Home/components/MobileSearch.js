@@ -5,6 +5,8 @@ import IconButton from 'material-ui/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import TextField from 'material-ui/TextField';
 import { connect } from 'react-redux'
+import { withStyles } from 'material-ui/styles';
+
 
 // APP
 import StyledButton from 'appCommon/StyledButton';
@@ -67,8 +69,8 @@ class MobileSearch extends Component {
 
   render() {
     return (
-      <form onSubmit={this.searchProfiles} style={styles.form}>
-        <IconButton color="secondary" type="submit" style={styles.searchButton}>
+      <form onSubmit={this.searchProfiles} className={this.props.classes.form}>
+        <IconButton color="secondary" type="submit" className={this.props.classes.searchButton}>
           <SearchIcon style={styles.icon} />
         </IconButton>
         <TextField
@@ -102,4 +104,4 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRouter(MobileSearch));
+)(withRouter(withStyles(styles)(MobileSearch)));
