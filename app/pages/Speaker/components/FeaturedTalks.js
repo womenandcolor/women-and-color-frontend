@@ -24,17 +24,17 @@ const FeaturedTalk = props => {
 };
 
 const FeaturedTalks = props => {
-  const settings = {
-      infinite: true,
-      arrows: true,
-      slidesToShow: 3,
-      slidesToScroll: 1
-    };
+  const slidesToShow = screen.width >= 960 ? 2 : 1
   return (
     <section>
       <h4 className={css.sectionSubHeader}>Featured Talks and Links</h4>
       <div className={css.talksWrapper}>
-        <Carousel slidesToShow={2} wrapAround={true} dragging cellAlign={'left'}>
+        <Carousel
+          slidesToShow={slidesToShow}
+          slidesToScroll={1}
+          wrapAround={true}
+          dragging={true}
+        >
           {props.talks.map(talk => <FeaturedTalk talk={talk} key={talk.id} />)}
         </Carousel>
       </div>

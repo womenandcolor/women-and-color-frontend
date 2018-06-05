@@ -102,10 +102,9 @@
   padding: 1rem 0.5rem;
 }
 
-.talkCard {
+/*.talkCard {
   flex: 0 1 100%;
-  margin-bottom: 2rem;
-}
+}*/
 
 @media (min-width: 576px) {
   .talkCard {
