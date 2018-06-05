@@ -102,9 +102,10 @@
   padding: 1rem 0.5rem;
 }
 
-/*.talkCard {
-  flex: 0 1 100%;
-}*/
+.talkCard {
+  max-height: 400px;
+  overflow: hidden;
+}
 
 @media (min-width: 576px) {
   .talkCard {

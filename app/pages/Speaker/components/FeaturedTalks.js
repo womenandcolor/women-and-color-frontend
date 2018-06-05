@@ -34,6 +34,7 @@ const FeaturedTalks = props => {
           slidesToScroll={1}
           wrapAround={true}
           dragging={true}
+          heightMode='max'
         >
           {props.talks.map(talk => <FeaturedTalk talk={talk} key={talk.id} />)}
         </Carousel>
