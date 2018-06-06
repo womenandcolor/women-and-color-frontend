@@ -94,7 +94,8 @@ const initialState = {
   poc: true,
   pronouns: 'they',
   location: 1,
-  error: null
+  error: null,
+  topics: [],
 }
 
 export const reducer = (state=initialState, action) => {

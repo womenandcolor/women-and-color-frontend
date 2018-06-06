@@ -157,6 +157,7 @@ class TopicSelector extends React.Component {
         inputValue={inputValue}
         onChange={this.handleChange}
         selectedItem={selectedTopics}
+        itemToString={i => (i == null ? '' : i.topic)}
       >
         {({
           getInputProps,
