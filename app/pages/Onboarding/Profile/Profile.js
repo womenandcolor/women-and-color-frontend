@@ -139,9 +139,14 @@ class ProfileContainer extends Component {
     super(props)
     this.state = {}
     this.handleImageChange = (e) => this._handleImageChange(e);
-    props.getUser();
     props.getLocations();
     props.onChangeProfile({ current_page: CURRENT_PAGE });
+  }
+
+  componentWillMount() {
+    if (!this.props.profile.id) {
+      this.props.getUser();
+    }
   }
 
   _handleImageChange(event) {

@@ -86,9 +86,14 @@ class WorkContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    props.getUser();
     props.getTopics();
     props.onChangeProfile({ current_page: CURRENT_PAGE });
+  }
+
+  componentWillMount() {
+    if (!this.props.profile.id) {
+      this.props.getUser();
+    }
   }
 
   render() {

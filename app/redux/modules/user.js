@@ -19,12 +19,16 @@ import {
   OnChange,
 } from './action_template';
 import {
+  get as getProfile,
   getSuccess as getProfileSuccess,
   update as updateProfile,
 } from 'appRedux/modules/profile';
 
 const MODULE_NAME = 'users';
 const ENDPOINT_URL = `${BASE_URL_PATH}/api/v1/${MODULE_NAME}/`;
+const REGISTRATION_URL = `${BASE_URL_PATH}/accounts/registration/`;
+const LOGIN_URL = `${BASE_URL_PATH}/accounts/login/`;
+const LOGOUT_URL = `${BASE_URL_PATH}/accounts/logout/`;
 
 // Actions
 function getRequest() {
@@ -83,6 +87,13 @@ function putError() {
   };
 }
 
+function loginSuccess(data) {
+  return {
+    type: 'LOGIN_SUCCESS',
+    data
+  }
+}
+
 export function onChange(data) {
   return {
     type: OnChange(MODULE_NAME),
@@ -91,11 +102,12 @@ export function onChange(data) {
 }
 
 export function get() {
-  return dispatch => {
+  return (dispatch, getState) => {
     dispatch(getRequest());
+    const { user } = getState()
 
     axios
-      .get(ENDPOINT_URL)
+      .get(ENDPOINT_URL, { headers: { 'Authorization': `JWT ${user.token}`}})
       .then(res => {
         if (res.data[0]) {
           const data = res.data[0];
@@ -120,14 +132,18 @@ export function create() {
 
     axios({
       method: 'POST',
-      url: ENDPOINT_URL,
+      url: REGISTRATION_URL,
       data: user,
       responseType: 'json',
     })
       .then(res => {
-        dispatch(postSuccess(res.data));
-        dispatch(getProfileSuccess(res.data.profile));
-        dispatch(showNotification('The user has been created.'));
+        dispatch(postSuccess({
+          ...res.data.user,
+          token: res.data.token,
+          id: res.data.user.pk
+        }));
+        dispatch(showNotification('Your account has been created.'));
+        dispatch(push(registrationFlow[page].next));
       })
       .catch(err => {
         console.log(err);
@@ -151,7 +167,6 @@ export function create() {
 
 export function update() {
   return (dispatch, getState) => {
-    console.log('update user called');
     dispatch(putRequest());
     const { user } = getState();
     const page = user.page;
@@ -163,8 +178,11 @@ export function update() {
       responseType: 'json',
     })
       .then(res => {
-        dispatch(putSuccess(res.data));
-        dispatch(getProfileSuccess(res.data.profile));
+        dispatch(postSuccess({
+          ...res.data.user,
+          token: res.data.token,
+          id: res.data.user.pk
+        }));
         dispatch(showNotification('Your account has been updated.'));
       })
       .catch(err => {
@@ -181,6 +199,75 @@ export function update() {
           );
         } else {
           dispatch(putError(err));
+        }
+      });
+  };
+}
+
+export function login() {
+  return (dispatch, getState) => {
+    const { user } = getState();
+
+    axios({
+      method: 'POST',
+      url: LOGIN_URL,
+      data: user,
+      responseType: 'json',
+    })
+      .then(res => {
+        dispatch(loginSuccess(res.data));
+        dispatch(get());
+        dispatch(showNotification('Welcome back!'));
+        dispatch(push('/'));
+      })
+      .catch(err => {
+        console.log(err);
+        if (err.response && err.response.data) {
+          const errorList = lodash.map(err.response.data, (v, k) => {
+            return `${k}: ${v}`;
+          });
+          dispatch(
+            showNotification(
+              `We were not able to log you in. ${errorList.join(
+                ' \n '
+              )}`
+            )
+          );
+        } else {
+          dispatch(postError(err));
+        }
+      });
+  };
+}
+
+export function logout() {
+  return (dispatch, getState) => {
+    axios({
+      method: 'POST',
+      url: LOGOUT_URL,
+      responseType: 'json',
+    })
+      .then(res => {
+        dispatch(postSuccess(null));
+        dispatch(getProfileSuccess(null));
+        dispatch(push('/'));
+        dispatch(showNotification('You have been logged out of your account.'));
+      })
+      .catch(err => {
+        console.log(err);
+        if (err.response && err.response.data) {
+          const errorList = lodash.map(err.response.data, (v, k) => {
+            return `${k}: ${v}`;
+          });
+          dispatch(
+            showNotification(
+              `We were not able to log you in. ${errorList.join(
+                ' \n '
+              )}`
+            )
+          );
+        } else {
+          dispatch(postError(err));
         }
       });
   };
@@ -242,6 +329,18 @@ export const reducer = (state = initialState, action) => {
         ...state,
         ...action.data,
       };
+    }
+
+    case 'LOGIN_SUCCESS': {
+      return {
+        ...action.data.user,
+        id: action.data.user.pk,
+        token: action.data.token
+      }
+    }
+
+    case 'LOGOUT_SUCCESS': {
+      return { ...initialState }
     }
 
     default: {

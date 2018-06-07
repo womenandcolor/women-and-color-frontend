@@ -80,9 +80,14 @@ class HomeContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.props.getUser();
     this.props.getLocations({ active: true });
     this.props.fetchSpeakers(this.props.searchParams);
+  }
+
+  componentWillMount() {
+    if (!this.props.user) {
+      this.props.getUser();
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -106,6 +111,7 @@ class HomeContainer extends Component {
 
 const mapStateToProps = state => {
   return {
+    user: state.user,
     speakers: state.speaker.results,
     locations: state.location.locations,
     searchParams: state.speaker.searchParams,

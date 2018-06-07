@@ -7,6 +7,8 @@ import {
   Home,
   Page,
   Register,
+  Login,
+  ResetPassword,
   Speaker,
   Profile,
   Work,
@@ -28,6 +30,9 @@ const routes = (
       <MainContainer>
         <Switch>
           <Route exact path="/" component={Home} />
+          <Route path="/register" component={Register} />
+          <Route path="/login" component={Login} />
+          <Route path="/reset-password" component={ResetPassword} />
           <Route path="/get-started/profile" component={Profile} />
           <Route path="/get-started/work" component={Work} />
           <Route path="/get-started/social" component={Social} />

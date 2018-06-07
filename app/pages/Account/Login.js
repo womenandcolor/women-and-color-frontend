@@ -12,61 +12,26 @@ import { Link } from 'react-router-dom'
 // App
 import {
   onChange as onChangeUser,
-  create as submitForm
+  login as submitForm
 } from 'appRedux/modules/user';
-import {
-  onChange as onChangeProfile
-} from 'appRedux/modules/profile';
-import {
-  get as fetchLocations,
-} from 'appRedux/modules/location';
-import StyledButton from 'appCommon/StyledButton';
-import FormField from 'appCommon/FormField';
 import {
   showNotification,
   hideNotification
 } from 'appRedux/modules/notification';
+import StyledButton from 'appCommon/StyledButton';
+import FormField from 'appCommon/FormField';
+
 import css from './styles.css';
 
-const CURRENT_PAGE = 'registration';
-
-const Register = (props) => {
-
+const Login = (props) => {
   const generateHandlerUser = (fieldName) => {
     return (event) => { props.handleUserInputChange(fieldName, event.currentTarget.value) }
-  }
-
-  const generateHandlerProfile = (fieldName) => {
-    return (event) => { props.handleProfileInputChange(fieldName, event.currentTarget.value) }
   }
 
   return(
     <div className={ css.registrationForm }>
       <form onSubmit={ props.handleSubmit }>
-        <h1>Create your profile</h1>
-
-        <FormField fullWidth className={ css.formControl }>
-          <InputLabel htmlFor="speaker-city">City</InputLabel>
-          <Select
-              value={props.profile && props.profile.city || props.locations && props.locations[0].id || ''}
-              onChange={ generateHandlerProfile('city') }
-              input={<Input name="city" id="city" />}
-            >
-            {
-              props.locations && props.locations.map((location, index) => (
-                <MenuItem key={index} value={location.id}>{location.city}</MenuItem>
-              ))
-            }
-          </Select>
-        </FormField>
-
-        <FormField fullWidth className={ css.formControl }>
-          <TextField label="First Name" onChange={ generateHandlerUser('first_name') } />
-        </FormField>
-
-        <FormField fullWidth className={ css.formControl }>
-          <TextField label="Last Name" onChange={ generateHandlerUser('last_name') } />
-        </FormField>
+        <h1>Log in</h1>
 
         <FormField fullWidth className={ css.formControl }>
           <TextField label="Email" type="email" onChange={ generateHandlerUser('email') } />
@@ -77,25 +42,18 @@ const Register = (props) => {
         </FormField>
 
         <FormField className={ css.formControl }>
-          <StyledButton label="Submit" type="submit" color="primary">Create profile</StyledButton>
+          <StyledButton label="Submit" type="submit" color="primary">Submit</StyledButton>
         </FormField>
 
       </form>
-      <div className={ css.loginLink }>
-        <Link to='/auth'>{'Already a speaker? Sign in to your profile.'}</Link>
-      </div>
     </div>
   )
 }
 
 
-class RegisterContainer extends Component {
+class LoginContainer extends Component {
   constructor(props) {
     super(props)
-    this.state = {}
-    this.props.fetchLocations()
-    this.props.onChangeUser({ page: CURRENT_PAGE });
-    this.props.onChangeProfile({ page: CURRENT_PAGE });
   }
 
   render() {
@@ -111,16 +69,13 @@ class RegisterContainer extends Component {
           }}
           message={<span id="message-id">{this.props.notification}</span>}
         />
-        <Register
+        <Login
           handleSubmit={event => {
             event.preventDefault();
-            this.props.submitForm(this.props.user, CURRENT_PAGE);
+            this.props.submitForm(this.props.user);
           }}
           handleUserInputChange={(field, value) => {
             this.props.onChangeUser({ [field]: value })
-          }}
-          handleProfileInputChange={(field, value) => {
-            this.props.onChangeProfile({ [field]: value })
           }}
           {...this.props}
         />
@@ -132,8 +87,6 @@ class RegisterContainer extends Component {
 function mapStateToProps(state) {
   return {
     user: state.user,
-    profile: state.profile,
-    locations: state.location.locations,
     notification: state.notification.message
   }
 }
@@ -142,9 +95,6 @@ function mapDispatchToProps(dispatch, props) {
   return {
     onChangeUser: (attrs) => {
       dispatch(onChangeUser(attrs))
-    },
-    onChangeProfile: (attrs) => {
-      dispatch(onChangeProfile(attrs))
     },
     showNotification: (message) => {
       dispatch(showNotification(message))
@@ -155,8 +105,8 @@ function mapDispatchToProps(dispatch, props) {
     fetchLocations: () => {
       dispatch(fetchLocations())
     },
-    submitForm: (user, profile, page) => {
-      dispatch(submitForm(user, page));
+    submitForm: (user) => {
+      dispatch(submitForm(user));
     }
   }
 }
@@ -164,4 +114,4 @@ function mapDispatchToProps(dispatch, props) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(RegisterContainer);
+)(LoginContainer);

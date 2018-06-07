@@ -26,19 +26,19 @@ const styles = theme => ({
 const Navigation = props => {
   const loggedOutMenuItems = {
     default: [
-      { title: 'Log in', slug: '/accounts/login', color: 'secondary' },
-      { title: 'Be a speaker', slug: '/accounts/signup', color: 'primary' },
+      { title: 'Log in', slug: '/login', color: 'secondary' },
+      { title: 'Be a speaker', slug: '/register', color: 'primary' },
     ],
   };
 
   const loggedInMenuItems = profileId => {
     return {
       default: [
-        { title: 'Log out', slug: '/accounts/logout', color: 'primary' },
+        { title: 'Log out', slug: '/logout', color: 'primary' },
         { title: 'Edit profile', slug: '/profile', color: 'secondary' },
       ],
       '/profile/about': [
-        { title: 'Log out', slug: '/accounts/logout', color: 'primary' },
+        { title: 'Log out', slug: '/logout', color: 'primary' },
         {
           title: 'View profile',
           slug: `/speaker/${profileId}`,
@@ -46,7 +46,7 @@ const Navigation = props => {
         },
       ],
       '/profile/talks': [
-        { title: 'Log out', slug: '/accounts/logout', color: 'primary' },
+        { title: 'Log out', slug: '/logout', color: 'primary' },
         {
           title: 'View profile',
           slug: `/speaker/${profileId}`,
@@ -54,7 +54,7 @@ const Navigation = props => {
         },
       ],
       '/profile/account': [
-        { title: 'Log out', slug: '/accounts/logout', color: 'primary' },
+        { title: 'Log out', slug: '/logout', color: 'primary' },
         {
           title: 'View profile',
           slug: `/speaker/${profileId}`,
@@ -96,7 +96,7 @@ const Navigation = props => {
               <Grid container justify="space-between" alignItems="center">
                 <Grid item xs={6} sm={4} md={3}>
                   <a
-                    href="/"
+                    href="/#/"
                     style={{ textDecoration: 'none' }}
                   >
                     <Logo height="50px" width="100%" />

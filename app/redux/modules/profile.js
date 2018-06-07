@@ -66,7 +66,7 @@ export function onChange(data) {
 export function update() {
   return (dispatch, getState) => {
     dispatch(putRequest());
-    const { profile } = getState();
+    const { profile, user } = getState();
     const page = profile.current_page;
     profile.page = page;
 
@@ -74,7 +74,10 @@ export function update() {
       method: 'PUT',
       url: `${ENDPOINT_URL}${profile.id}/`,
       data: profile,
-      responseType: 'json'
+      responseType: 'json',
+      headers: {
+        'Authorization': `JWT ${user.token}`
+      }
     }).then(res => {
       dispatch(putSuccess(res.data));
       dispatch(showNotification('Your profile has been updated.'));

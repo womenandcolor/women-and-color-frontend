@@ -78,8 +78,13 @@ class SocialContainer extends Component {
   constructor(props) {
     super(props)
     this.state = {}
-    props.getUser();
     props.onChangeProfile({ current_page: null });
+  }
+
+  componentWillMount() {
+    if (!this.props.profile.id) {
+      this.props.getUser();
+    }
   }
 
   render() {
