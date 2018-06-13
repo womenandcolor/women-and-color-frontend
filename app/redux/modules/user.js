@@ -105,9 +105,10 @@ export function get() {
   return (dispatch, getState) => {
     dispatch(getRequest());
     const { user } = getState()
+    const authHeader = user.token ? { 'Authorization': `JWT ${user.token}` } : {}
 
     axios
-      .get(ENDPOINT_URL, { headers: { 'Authorization': `JWT ${user.token}`}})
+      .get(ENDPOINT_URL, { headers: authHeader })
       .then(res => {
         if (res.data[0]) {
           const data = res.data[0];

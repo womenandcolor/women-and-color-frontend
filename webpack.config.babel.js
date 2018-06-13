@@ -13,8 +13,6 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 
 const PATHS = {
   app: path.join(__dirname, 'app/', 'entry/', 'index.js'),
-  navigation: path.join(__dirname, 'app/', 'entry/', 'navigation.js'),
-  footer: path.join(__dirname, 'app/', 'entry/', 'footer.js'),
   build: path.join(__dirname, 'dist'),
 };
 
@@ -30,9 +28,7 @@ const productionPlugin = new webpack.DefinePlugin({
 });
 
 const baseEntry = {
-  app: PATHS.app,
-  navigation: PATHS.navigation,
-  footer: PATHS.footer,
+  app: PATHS.app
 };
 
 const developEntry = {};
