@@ -5,9 +5,11 @@ import Snackbar from 'material-ui/Snackbar';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 import Select from 'material-ui/Select';
+import Grid from 'material-ui/Grid';
 import Input, { InputLabel } from 'material-ui/Input';
 import { MenuItem } from 'material-ui/Menu';
 import { Link } from 'react-router-dom'
+import Card from 'material-ui/Card';
 
 // App
 import {
@@ -20,6 +22,8 @@ import {
 } from 'appRedux/modules/notification';
 import StyledButton from 'appCommon/StyledButton';
 import FormField from 'appCommon/FormField';
+import MinimalTemplate from 'appCommon/templates/MinimalTemplate';
+import AccountFormContainer from './AccountFormContainer';
 
 import css from './styles.css';
 
@@ -29,24 +33,36 @@ const Login = (props) => {
   }
 
   return(
-    <div className={ css.registrationForm }>
-      <form onSubmit={ props.handleSubmit }>
-        <h1>Log in</h1>
+    <MinimalTemplate>
+      <AccountFormContainer>
+        <form onSubmit={ props.handleSubmit }>
+          <h1 className={css.title}>Log in</h1>
 
-        <FormField fullWidth className={ css.formControl }>
-          <TextField label="Email" type="email" onChange={ generateHandlerUser('email') } />
-        </FormField>
+          <FormField fullWidth>
+            <TextField label="Email" type="email" onChange={ generateHandlerUser('email') } />
+          </FormField>
 
-        <FormField fullWidth className={ css.formControl }>
-          <TextField label="Password" type="password" onChange={ generateHandlerUser('password') } />
-        </FormField>
+          <FormField fullWidth>
+            <TextField label="Password" type="password" onChange={ generateHandlerUser('password') } />
+          </FormField>
 
-        <FormField className={ css.formControl }>
-          <StyledButton label="Submit" type="submit" color="primary">Submit</StyledButton>
-        </FormField>
+          <Grid container justify="space-between" className={css.actions}>
+            <Grid item>
+              <Link to={'/reset-password'}>Forgot your password?</Link>
+            </Grid>
+            <Grid item>
+              <StyledButton label="Submit" type="submit" color="primary">Submit</StyledButton>
+            </Grid>
+          </Grid>
 
-      </form>
-    </div>
+        </form>
+      </AccountFormContainer>
+      <Grid container justify="center">
+        <Grid item xs={11} sm={8} md={5}>
+          <p className={css.loginRegisterPrompt}>If you have not created an account yet, then please <Link to="/register">sign up</Link> first.</p>
+        </Grid>
+      </Grid>
+    </MinimalTemplate>
   )
 }
 

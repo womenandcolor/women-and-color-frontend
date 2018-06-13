@@ -9,7 +9,6 @@ import { connect } from 'react-redux';
 
 // App
 import { link } from './styles.css';
-import AnimatedSearchField from './AnimatedSearchField';
 import SearchField from './SearchField';
 import MenuDropdown from './MenuDropdown';
 import ButtonMenu from './ButtonMenu';

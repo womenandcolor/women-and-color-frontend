@@ -49,7 +49,7 @@ const base = {
   },
   module: {
     loaders: [
-      { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' },
+      { test: /\.js$|\.jsx$/, exclude: /node_modules/, loader: 'babel-loader' },
       {
         test: /\.css$/,
         exclude: /node_modules/,
@@ -93,6 +93,7 @@ const base = {
       appAssets: path.resolve(__dirname, 'app/assets/'),
       appSharedStyles: path.resolve(__dirname, 'app/sharedStyles/'),
     },
+    extensions: ['.js', '.jsx']
   },
 };
 

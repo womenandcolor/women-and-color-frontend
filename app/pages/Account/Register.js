@@ -5,6 +5,7 @@ import Snackbar from 'material-ui/Snackbar';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 import Select from 'material-ui/Select';
+import Grid from 'material-ui/Grid';
 import Input, { InputLabel } from 'material-ui/Input';
 import { MenuItem } from 'material-ui/Menu';
 import { Link } from 'react-router-dom'
@@ -20,6 +21,8 @@ import {
 } from 'appRedux/modules/notification';
 import StyledButton from 'appCommon/StyledButton';
 import FormField from 'appCommon/FormField';
+import MinimalTemplate from 'appCommon/templates/MinimalTemplate';
+import AccountFormContainer from './AccountFormContainer';
 
 import css from './styles.css';
 
@@ -31,28 +34,37 @@ const Register = (props) => {
   }
 
   return(
-    <div className={ css.registrationForm }>
-      <form onSubmit={ props.handleSubmit }>
-        <h1>Create an account</h1>
+    <MinimalTemplate>
+      <AccountFormContainer>
+        <form onSubmit={ props.handleSubmit }>
+          <h1 className={css.title}>Sign up</h1>
 
-        <FormField fullWidth className={ css.formControl }>
-          <TextField label="Email" type="email" onChange={ generateHandlerUser('email') } />
-        </FormField>
+          <FormField fullWidth className={ css.formControl }>
+            <TextField label="Email" type="email" onChange={ generateHandlerUser('email') } />
+          </FormField>
 
-        <FormField fullWidth className={ css.formControl }>
-          <TextField label="Password" type="password" onChange={ generateHandlerUser('password1') } />
-        </FormField>
+          <FormField fullWidth className={ css.formControl }>
+            <TextField label="Password" type="password" onChange={ generateHandlerUser('password1') } />
+          </FormField>
 
-        <FormField fullWidth className={ css.formControl }>
-          <TextField label="Password Confirmation" type="password" onChange={ generateHandlerUser('password2') } />
-        </FormField>
+          <FormField fullWidth className={ css.formControl }>
+            <TextField label="Password Confirmation" type="password" onChange={ generateHandlerUser('password2') } />
+          </FormField>
 
-        <FormField className={ css.formControl }>
-          <StyledButton label="Submit" type="submit" color="primary">Create profile</StyledButton>
-        </FormField>
+          <Grid container justify="space-between" className={css.actions}>
+            <Grid item>
+              <StyledButton label="Submit" type="submit" color="primary">Create profile</StyledButton>
+            </Grid>
+          </Grid>
 
-      </form>
-    </div>
+        </form>
+      </AccountFormContainer>
+      <Grid container justify="center">
+        <Grid item xs={11} sm={8} md={5}>
+          <p className={css.loginRegisterPrompt}>Already have an account? Then please <Link to="/login">sign in</Link>.</p>
+        </Grid>
+      </Grid>
+    </MinimalTemplate>
   )
 }
 
@@ -87,9 +99,6 @@ class RegisterContainer extends Component {
           }}
           {...this.props}
         />
-        <div className={ css.loginLink }>
-          <Link to='/login'>{'Already a speaker? Sign in to your profile.'}</Link>
-        </div>
       </div>
     )
   }
