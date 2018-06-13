@@ -5,7 +5,6 @@ import Grid from 'material-ui/Grid';
 import Input from 'material-ui/Input';
 import { FormHelperText } from 'material-ui/Form';
 import FormField from 'appCommon/FormField';
-import Snackbar from 'material-ui/Snackbar';
 import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
 import { onChange as onChangeUser } from 'appRedux/modules/user';
 import { get as getUser } from 'appRedux/modules/user';

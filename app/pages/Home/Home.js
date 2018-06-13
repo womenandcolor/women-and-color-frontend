@@ -85,9 +85,7 @@ class HomeContainer extends Component {
   }
 
   componentWillMount() {
-    console.log('this.props.user', this.props.user)
     if (!this.props.user.id) {
-      console.log('getting user')
       this.props.getUser();
     }
   }

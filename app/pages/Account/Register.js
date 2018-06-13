@@ -1,7 +1,6 @@
 // Project
 import React, { Component }  from 'react'
 import { connect } from 'react-redux'
-import Snackbar from 'material-ui/Snackbar';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 import Select from 'material-ui/Select';
@@ -15,13 +14,8 @@ import {
   onChange as onChangeUser,
   create as submitForm
 } from 'appRedux/modules/user';
-import {
-  showNotification,
-  hideNotification
-} from 'appRedux/modules/notification';
 import StyledButton from 'appCommon/StyledButton';
 import FormField from 'appCommon/FormField';
-import MinimalTemplate from 'appCommon/templates/MinimalTemplate';
 import AccountFormContainer from './AccountFormContainer';
 
 import css from './styles.css';
@@ -34,7 +28,7 @@ const Register = (props) => {
   }
 
   return(
-    <MinimalTemplate>
+    <div>
       <AccountFormContainer>
         <form onSubmit={ props.handleSubmit }>
           <h1 className={css.title}>Sign up</h1>
@@ -64,7 +58,7 @@ const Register = (props) => {
           <p className={css.loginRegisterPrompt}>Already have an account? Then please <Link to="/login">sign in</Link>.</p>
         </Grid>
       </Grid>
-    </MinimalTemplate>
+    </div>
   )
 }
 
@@ -79,16 +73,6 @@ class RegisterContainer extends Component {
   render() {
     return(
       <div>
-        <Snackbar
-          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-          open={!!this.props.notification}
-          onClose={this.props.hideNotification}
-          autoHideDuration={4000}
-          SnackbarContentProps={{
-            'aria-describedby': 'message-id',
-          }}
-          message={<span id="message-id">{this.props.notification}</span>}
-        />
         <Register
           handleSubmit={event => {
             event.preventDefault();
@@ -115,12 +99,6 @@ function mapDispatchToProps(dispatch, props) {
   return {
     onChangeUser: (attrs) => {
       dispatch(onChangeUser(attrs))
-    },
-    showNotification: (message) => {
-      dispatch(showNotification(message))
-    },
-    hideNotification: () => {
-      dispatch(hideNotification())
     },
     fetchLocations: () => {
       dispatch(fetchLocations())

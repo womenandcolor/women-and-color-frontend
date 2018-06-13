@@ -6,6 +6,11 @@ import indigo from 'material-ui/colors/indigo';
 import grey from 'material-ui/colors/grey';
 import pink from 'material-ui/colors/pink';
 
+import Notification from 'appCommon/Notification/Notification'
+import Navigation from 'appCommon/Navigation/Navigation'
+import Footer from 'appCommon/Footer/Footer'
+import { container, innerContainer } from './styles.css';
+
 
 const theme = createMuiTheme({
   palette: {
@@ -36,11 +41,16 @@ const MainContainer = props => (
   <div>
     <MuiThemeProvider theme={theme}>
       <div>
-      <CssBaseline />
-      {props.children}
+        <CssBaseline />
+        <Notification />
+        <div className={container}>
+          <Navigation location={props.location} />
+            <div className={innerContainer}>{props.children}</div>
+          <Footer location={props.location} />
+        </div>
       </div>
     </MuiThemeProvider>
   </div>
 )
 
-export default MainContainer
+export default withRouter(MainContainer)

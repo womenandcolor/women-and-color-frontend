@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getSpeaker } from 'appRedux/modules/speaker';
 import Grid from 'material-ui/Grid';
+import ReactLoading from 'react-loading';
 
 // App
 import SpeakerCard from './components/SpeakerCard';
@@ -56,8 +57,8 @@ class SpeakerContainer extends Component {
     return this.props.speaker ? (
       <Speaker speaker={this.props.speaker} />
     ) : (
-      <div>Loading...</div>
-    );
+      <ReactLoading type="spinningBubbles" color="#000000" />
+    )
   }
 }
 

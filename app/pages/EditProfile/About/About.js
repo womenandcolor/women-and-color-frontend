@@ -5,7 +5,6 @@ import ReactLoading from 'react-loading';
 import { find } from 'lodash';
 
 import Grid from 'material-ui/Grid';
-import Snackbar from 'material-ui/Snackbar';
 import TextField from 'material-ui/TextField';
 import Select from 'material-ui/Select';
 import Input, { InputLabel } from 'material-ui/Input';
@@ -370,30 +369,18 @@ class AboutContainer extends Component {
       return <ReactLoading type="spinningBubbles" color="#000000" />;
     }
     return (
-      <div>
-        <Snackbar
-          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-          open={!!props.notification}
-          onClose={props.closeNotification}
-          autoHideDuration={4000}
-          SnackbarContentProps={{
-            'aria-describedby': 'message-id',
-          }}
-          message={<span id="message-id">{props.notification}</span>}
-        />
-        <About
-          handleSubmit={event => {
-            event.preventDefault();
-            props.updateProfile();
-          }}
-          handleProfileInputChange={(field, value) => {
-            props.onChangeProfile({ [field]: value });
-          }}
-          handleImageChange={this.handleImageChange}
-          {...props}
-          imageError={this.state.imageError}
-        />
-      </div>
+      <About
+        handleSubmit={event => {
+          event.preventDefault();
+          props.updateProfile();
+        }}
+        handleProfileInputChange={(field, value) => {
+          props.onChangeProfile({ [field]: value });
+        }}
+        handleImageChange={this.handleImageChange}
+        {...props}
+        imageError={this.state.imageError}
+      />
     );
   }
 }
@@ -402,7 +389,6 @@ function mapStateToProps(state) {
   return {
     user: state.user,
     profile: state.profile,
-    notification: state.notification.message,
     locations: state.location.locations,
     topics: state.topic.topics,
   };
@@ -424,12 +410,6 @@ function mapDispatchToProps(dispatch) {
     },
     onChangeProfile: attrs => {
       dispatch(onChangeProfile(attrs));
-    },
-    showNotification: message => {
-      dispatch(showNotification(message));
-    },
-    hideNotification: () => {
-      dispatch(hideNotification());
     },
     updateProfile: () => {
       dispatch(updateProfile());

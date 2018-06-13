@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Grid from 'material-ui/Grid';
-import Snackbar from 'material-ui/Snackbar';
 import TextField from 'material-ui/TextField';
 import ReactLoading from 'react-loading';
 
@@ -91,28 +90,16 @@ class AccountContainer extends Component {
       return <ReactLoading type="spinningBubbles" color="#000000" />;
     }
     return (
-      <div>
-        <Snackbar
-          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-          open={!!props.notification}
-          onClose={props.closeNotification}
-          autoHideDuration={4000}
-          SnackbarContentProps={{
-            'aria-describedby': 'message-id',
-          }}
-          message={<span id="message-id">{props.notification}</span>}
-        />
-        <Account
-          handleSubmit={event => {
-            event.preventDefault();
-            props.updateUser();
-          }}
-          handleUserInputChange={(field, value) => {
-            props.onChangeUser({ [field]: value });
-          }}
-          {...props}
-        />
-      </div>
+      <Account
+        handleSubmit={event => {
+          event.preventDefault();
+          props.updateUser();
+        }}
+        handleUserInputChange={(field, value) => {
+          props.onChangeUser({ [field]: value });
+        }}
+        {...props}
+      />
     );
   }
 }
@@ -120,7 +107,6 @@ class AccountContainer extends Component {
 function mapStateToProps(state) {
   return {
     user: state.user,
-    notification: state.notification.message,
     locations: state.location.locations,
   };
 }
@@ -135,12 +121,6 @@ function mapDispatchToProps(dispatch) {
     },
     onChangeUser: attrs => {
       dispatch(onChangeUser(attrs));
-    },
-    showNotification: message => {
-      dispatch(showNotification(message));
-    },
-    hideNotification: () => {
-      dispatch(hideNotification());
     },
     updateUser: () => {
       dispatch(updateUser());

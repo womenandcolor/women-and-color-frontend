@@ -78,7 +78,6 @@ const Navigation = props => {
 
   const {
     classes,
-    showSearch,
     updateSearchParams,
     location,
     user,
