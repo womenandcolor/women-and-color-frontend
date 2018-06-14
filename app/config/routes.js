@@ -1,7 +1,6 @@
 import React from 'react';
 import { Router, Switch, Route, Redirect } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { connect } from 'react-redux';
+import { Provider, connect } from 'react-redux';
 
 // App
 import {

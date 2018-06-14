@@ -17,13 +17,15 @@ const PATHS = {
 };
 
 const LAUNCH_COMMAND = process.env.npm_lifecycle_event;
+const API_BASE_URL = process.env.API_BASE_URL ? process.env.API_BASE_URL : 'http://localhost:8000';
 
 const isProduction = LAUNCH_COMMAND === 'production';
 process.env.BABEL_ENV = LAUNCH_COMMAND;
 
-const productionPlugin = new webpack.DefinePlugin({
+const envPlugin = new webpack.DefinePlugin({
   'process.env': {
-    NODE_ENV: JSON.stringify('production'),
+    NODE_ENV: JSON.stringify(LAUNCH_COMMAND),
+    API_BASE_URL: JSON.stringify(API_BASE_URL)
   },
 });
 
@@ -110,12 +112,12 @@ const developmentConfig = {
     filename: '[name].js',
     publicPath: 'http://localhost:8080/',
   },
-  plugins: [HtmlWebpackPluginConfig, new webpack.HotModuleReplacementPlugin()],
+  plugins: [HtmlWebpackPluginConfig, envPlugin, new webpack.HotModuleReplacementPlugin()],
 };
 
 const productionConfig = {
   devtool: 'cheap-module-source-map',
-  plugins: [HtmlWebpackPluginConfig, productionPlugin],
+  plugins: [HtmlWebpackPluginConfig, envPlugin],
 };
 
 export default Object.assign(
