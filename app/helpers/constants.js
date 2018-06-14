@@ -22,8 +22,8 @@ export const pronounDict = {
   they: 'They, them, their',
 };
 
-export const BASE_URL_PATH = process.env.API_BASE_URL;
-console.log('process.env.API_BASE_URL', process.env.API_BASE_URL)
+export const BASE_URL_PATH = process.env.REACT_APP_API_URL;
+console.log('process.env.REACT_APP_API_URL', process.env.REACT_APP_API_URL)
 console.log('process.env.NODE_ENV', process.env.NODE_ENV)
 
 export const IDENTITIES = [
