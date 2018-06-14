@@ -17,14 +17,14 @@ module.exports = env => {
     build: path.join(__dirname, 'dist'),
   };
 
-  const env.NODE_ENV = env.NODE_ENV;
+  const NODE_ENV = env.NODE_ENV
 
-  const isProduction = env.NODE_ENV === 'production';
-  process.env.BABEL_ENV = env.NODE_ENV;
+  const isProduction = NODE_ENV === 'production';
+  process.env.BABEL_ENV = NODE_ENV;
 
   const envPlugin = new webpack.DefinePlugin({
     'process.env': {
-      NODE_ENV: JSON.stringify(env.NODE_ENV)
+      NODE_ENV: JSON.stringify(NODE_ENV)
     },
   });
 
