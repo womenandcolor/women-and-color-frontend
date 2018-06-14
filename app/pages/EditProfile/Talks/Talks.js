@@ -64,7 +64,7 @@ class TalksContainer extends Component {
     return (
       <div className={css.talkContainer}>
         <div className={css.section}>
-          <h1 className={css.header}>Edit Talks</h1>
+          <h1 className={css.header}>Edit your featured talks</h1>
         </div>
 
         <div className={css.talkList}>

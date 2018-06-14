@@ -84,8 +84,6 @@ const Navigation = props => {
   const authed = !!user.id;
   const menuItems = menuItemsList(location, authed, profile);
 
-  console.log('user', user)
-
   return (
     <div>
       <AppBar position="fixed" className={classes.root}>

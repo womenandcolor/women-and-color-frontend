@@ -57,7 +57,7 @@ const About = props => {
   return (
     <form onSubmit={props.handleSubmit}>
       <div className={css.section}>
-        <h1 className={css.header}>Edit about</h1>
+        <h1 className={css.header}>Edit your profile</h1>
       </div>
 
       <div className={css.section}>

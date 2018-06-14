@@ -9,6 +9,7 @@ import ReactLoading from 'react-loading';
 import {
   update as updateUser,
   onChange as onChangeUser,
+  changePassword
 } from 'appRedux/modules/user';
 import { get as getUser } from 'appRedux/modules/user';
 import StyledButton from 'appCommon/StyledButton';
@@ -28,48 +29,79 @@ const Account = props => {
   }
 
   return (
-    <form onSubmit={props.handleSubmit}>
-      <div className={css.section}>
-        <h1 className={css.header}>Edit account</h1>
-      </div>
+    <div>
+      <form onSubmit={props.handleSubmit}>
+        <div className={css.section}>
+          <h1 className={css.header}>Edit your account</h1>
+        </div>
 
-      <div className={css.section}>
-        <Grid container>
-          <Grid item xs={12} md={6}>
-            <FormField fullWidth className={css.formControl}>
-              <TextField
-                required
-                label="Email Address"
-                value={props.user.email}
-                type="email"
-                onChange={generateHandler('email')}
-              />
-            </FormField>
+        <div className={css.section}>
+          <Grid container>
+            <Grid item xs={12} md={6}>
+              <FormField fullWidth className={css.formControl}>
+                <TextField
+                  required
+                  label="Email Address"
+                  value={props.user.email}
+                  type="email"
+                  onChange={generateHandler('email')}
+                />
+              </FormField>
+
+              <FormField className={css.formControl}>
+                <StyledButton label="Update email address" type="submit" color="primary">
+                  Update email address
+                </StyledButton>
+              </FormField>
+            </Grid>
           </Grid>
-        </Grid>
-      </div>
+        </div>
+      </form>
 
-      <div className={css.section}>
-        <Grid container>
-          <Grid item xs={12}>
-            <a
-              href="/accounts/password/change"
-              className={css.changePasswordLink}
-            >
-              Click here to change your password.
-            </a>
+      <form onSubmit={props.handleChangePassword}>
+        <div className={css.section}>
+          <Grid container>
+            <Grid item xs={12} md={6}>
+              <FormField fullWidth className={css.formControl}>
+                <TextField
+                  required
+                  label="Old password"
+                  value={props.user.old_password || ''}
+                  type="password"
+                  onChange={generateHandler('old_password')}
+                />
+              </FormField>
+
+              <FormField fullWidth className={css.formControl}>
+                <TextField
+                  required
+                  label="New password"
+                  value={props.user.new_password1 || ''}
+                  type="password"
+                  onChange={generateHandler('new_password1')}
+                />
+              </FormField>
+
+              <FormField fullWidth className={css.formControl}>
+                <TextField
+                  required
+                  label="Confirm new password"
+                  value={props.user.new_password2 || ''}
+                  type="password"
+                  onChange={generateHandler('new_password2')}
+                />
+              </FormField>
+
+              <FormField className={css.formControl}>
+                <StyledButton label="Submit" type="submit" color="primary">
+                  Update password
+                </StyledButton>
+              </FormField>
+            </Grid>
           </Grid>
-        </Grid>
-      </div>
-
-      <div className={css.sectionBorderless}>
-        <FormField className={css.formControl}>
-          <StyledButton label="Submit" type="submit" color="primary">
-            Save changes
-          </StyledButton>
-        </FormField>
-      </div>
-    </form>
+        </div>
+      </form>
+    </div>
   );
 };
 
@@ -95,6 +127,10 @@ class AccountContainer extends Component {
           event.preventDefault();
           props.updateUser();
         }}
+        handleChangePassword={event => {
+          event.preventDefault();
+          props.changePassword();
+        }}
         handleUserInputChange={(field, value) => {
           props.onChangeUser({ [field]: value });
         }}
@@ -107,7 +143,6 @@ class AccountContainer extends Component {
 function mapStateToProps(state) {
   return {
     user: state.user,
-    locations: state.location.locations,
   };
 }
 
@@ -116,14 +151,14 @@ function mapDispatchToProps(dispatch) {
     getUser: () => {
       dispatch(getUser());
     },
-    getLocations: () => {
-      dispatch(getLocations());
-    },
     onChangeUser: attrs => {
       dispatch(onChangeUser(attrs));
     },
     updateUser: () => {
       dispatch(updateUser());
+    },
+    changePassword: () => {
+      dispatch(changePassword());
     },
   };
 }

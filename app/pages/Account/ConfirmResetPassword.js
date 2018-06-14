@@ -13,7 +13,7 @@ import Card from 'material-ui/Card';
 // App
 import {
   onChange as onChangeUser,
-  resetPassword as submitForm
+  confirmResetPassword as submitForm
 } from 'appRedux/modules/user';
 import StyledButton from 'appCommon/StyledButton';
 import FormField from 'appCommon/FormField';
@@ -21,8 +21,8 @@ import AccountFormContainer from './AccountFormContainer';
 
 import css from './styles.css';
 
-const ResetPassword = (props) => {
-  const generateHandlerUser = (fieldName) => {
+const ConfirmResetPassword = (props) => {
+  const generateHandler = (fieldName) => {
     return (event) => { props.handleUserInputChange(fieldName, event.currentTarget.value) }
   }
 
@@ -30,11 +30,26 @@ const ResetPassword = (props) => {
     <div>
       <AccountFormContainer>
         <form onSubmit={ props.handleSubmit }>
-          <h1 className={css.title}>Reset your password</h1>
-          <p>Forgot your password? Enter your e-mail address below, and we'll send you an e-mail allowing you to reset it.</p>
+          <h1 className={css.title}>Enter your new password</h1>
 
-          <FormField fullWidth>
-            <TextField label="Email" type="email" onChange={ generateHandlerUser('email') } />
+          <FormField fullWidth className={css.formControl}>
+            <TextField
+              required
+              label="New password"
+              value={props.user.new_password1 || ''}
+              type="password"
+              onChange={generateHandler('new_password1')}
+            />
+          </FormField>
+
+          <FormField fullWidth className={css.formControl}>
+            <TextField
+              required
+              label="Confirm new password"
+              value={props.user.new_password2 || ''}
+              type="password"
+              onChange={generateHandler('new_password2')}
+            />
           </FormField>
 
           <Grid container justify="flex-start" className={css.actions}>
@@ -50,18 +65,24 @@ const ResetPassword = (props) => {
 }
 
 
-class ResetPasswordContainer extends Component {
+class ConfirmResetPasswordContainer extends Component {
   constructor(props) {
     super(props)
+    this.state = {}
+  }
+
+  componentDidMount() {
+    const { match: { params: { uid, token } } } = this.props;
+    this.setState({ uid, token })
   }
 
   render() {
     return(
       <div>
-        <ResetPassword
+        <ConfirmResetPassword
           handleSubmit={event => {
             event.preventDefault();
-            this.props.submitForm();
+            this.props.submitForm(this.state.uid, this.state.token);
           }}
           handleUserInputChange={(field, value) => {
             this.props.onChangeUser({ [field]: value })
@@ -87,8 +108,8 @@ function mapDispatchToProps(dispatch, props) {
     fetchLocations: () => {
       dispatch(fetchLocations())
     },
-    submitForm: () => {
-      dispatch(submitForm());
+    submitForm: (uid, token) => {
+      dispatch(submitForm(uid, token));
     }
   }
 }
@@ -96,4 +117,4 @@ function mapDispatchToProps(dispatch, props) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ResetPasswordContainer);
+)(ConfirmResetPasswordContainer);

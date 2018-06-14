@@ -30,6 +30,9 @@ const ENDPOINT_URL = `${BASE_URL_PATH}/api/v1/${MODULE_NAME}/`;
 const REGISTRATION_URL = `${BASE_URL_PATH}/accounts/registration/`;
 const LOGIN_URL = `${BASE_URL_PATH}/accounts/login/`;
 const LOGOUT_URL = `${BASE_URL_PATH}/accounts/logout/`;
+const RESET_PASSWORD_URL = `${BASE_URL_PATH}/accounts/password/reset/`;
+const CONFIRM_RESET_PASSWORD_URL = `${BASE_URL_PATH}/accounts/password/reset/confirm/`;
+const CHANGE_PASSWORD_URL = `${BASE_URL_PATH}/accounts/password/change/`;
 
 // Actions
 function getRequest() {
@@ -178,22 +181,24 @@ export function update() {
     dispatch(putRequest());
     const { user } = getState();
     const page = user.page;
+    const authHeader = user.token ? { 'Authorization': `JWT ${user.token}` } : {}
 
     return axios({
       method: 'PUT',
       url: `${ENDPOINT_URL}${user.id}/`,
       data: user,
       responseType: 'json',
+      headers: authHeader
     })
       .then(res => {
+        console.log(res)
         dispatch(postSuccess({
-          ...res.data.user,
-          token: res.data.token,
-          id: res.data.user.pk
+          ...res.data
         }));
         dispatch(showNotification('Your account has been updated.'));
       })
       .catch(err => {
+        console.log(err)
         if (err.response && err.response.data) {
           const errorList = lodash.map(err.response.data, (v, k) => {
             return `${k}: ${v}`;
@@ -270,6 +275,106 @@ export function logout() {
           dispatch(
             showNotification(
               `We were not able to log you in. ${errorList.join(
+                ' \n '
+              )}`
+            )
+          );
+        } else {
+          dispatch(postError(err));
+        }
+      });
+  };
+}
+
+export function resetPassword() {
+  return (dispatch, getState) => {
+    const { user } = getState();
+
+    axios({
+      method: 'POST',
+      url: RESET_PASSWORD_URL,
+      data: { email: user.email },
+      responseType: 'json',
+    })
+      .then(res => {
+        dispatch(showNotification(res.data.detail));
+        dispatch(push('/'));
+      })
+      .catch(err => {
+        if (err.response && err.response.data) {
+          const errorList = lodash.map(err.response.data, (v, k) => {
+            return `${k}: ${v}`;
+          });
+          dispatch(
+            showNotification(
+              `We were not able reset your password. ${errorList.join(
+                ' \n '
+              )}`
+            )
+          );
+        } else {
+          dispatch(postError(err));
+        }
+      });
+  };
+}
+
+export function confirmResetPassword(uid, token) {
+  return (dispatch, getState) => {
+    const { user } = getState();
+
+    axios({
+      method: 'POST',
+      url: CONFIRM_RESET_PASSWORD_URL,
+      data: { ...user, uid, token },
+      responseType: 'json',
+    })
+      .then(res => {
+        dispatch(showNotification(res.data.detail));
+        dispatch(push('/'));
+      })
+      .catch(err => {
+        if (err.response && err.response.data) {
+          const errorList = lodash.map(err.response.data, (v, k) => {
+            return `${k}: ${v}`;
+          });
+          dispatch(
+            showNotification(
+              `We were not able reset your password. ${errorList.join(
+                ' \n '
+              )}`
+            )
+          );
+        } else {
+          dispatch(postError(err));
+        }
+      });
+  };
+}
+
+export function changePassword() {
+  return (dispatch, getState) => {
+    const { user } = getState();
+    const authHeader = user.token ? { 'Authorization': `JWT ${user.token}` } : {}
+
+    axios({
+      method: 'POST',
+      url: CHANGE_PASSWORD_URL,
+      data: user,
+      responseType: 'json',
+      headers: authHeader
+    })
+      .then(res => {
+        dispatch(showNotification(res.data.detail));
+      })
+      .catch(err => {
+        if (err.response && err.response.data) {
+          const errorList = lodash.map(err.response.data, (v, k) => {
+            return `${k}: ${v}`;
+          });
+          dispatch(
+            showNotification(
+              `There was an error in updating your password. ${errorList.join(
                 ' \n '
               )}`
             )

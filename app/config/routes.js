@@ -10,6 +10,7 @@ import {
   Register,
   Login,
   ResetPassword,
+  ConfirmResetPassword,
   Speaker,
   Profile,
   Work,
@@ -61,6 +62,7 @@ const routes = (
           <Route exact path="/" component={Home} />
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
+          <Route path="/accounts/reset/:uid/:token/" component={ConfirmResetPassword} />
           <Route path="/reset-password" component={ResetPassword} />
           <Route path="/get-started/profile" component={Profile} />
           <Route path="/get-started/work" component={Work} />
