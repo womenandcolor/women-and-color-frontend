@@ -17,7 +17,7 @@
 2. Jump into our Slack chat channel, `#womenandcolor`
     * Anyone can [request an invite][slack-invite] to the **CivicTech
       Toronto** slack team.
-    * Ping one of our project members (@heymosef, @eric-ba, @emarchak) and
+    * Ping one of our project members (@heymosef, @sharonk) and
       say hey!
 3. Check out our [Roadmap][roadmap] and [Task Tracker][task-tracker] to
    see what we're working on.
@@ -28,11 +28,7 @@
 
 ## Architecture
 
-(The [live website][site-live] is currently built on Wordpress.)
-
-This code repository is the visual _frontend_ part of an upcoming
-relaunch of the website. It makes up the user interface that website
-visitors interact with.
+This code repository is the visual _frontend_ part of the website. It's built in React using Material UI and CSS modules.
 
 The other [`CivicTechTO/women-and-color-backend`][code-backend] code
 repository powers the backend API, storing and retreiving data from the
@@ -65,7 +61,8 @@ yarn start
 That's it! Your local development site is now available at:
 [http://localhost:8080/](http://localhost:8080/)
 
-#### Integrating with the backend code
+
+#### Integrating with the API
 In order to use the API functionality, the backend code needs to be set up locally as well. The set up steps are:
 - Go to the [backend repo][code-backend] to clone the repo
 - Follow the setup instructions there
@@ -78,8 +75,8 @@ In order to use the API functionality, the backend code needs to be set up local
 A [**buildpack**][buildpack] provides framework and runtime support for apps running on
 platforms like Heroku.
 
-* We auto-deploy `master` branch to our staging website on Heroku:
-  [`womenandcolor-frontend.herokuapp.com`][site-staging]. (So merging a
+* We auto-deploy the `staging` branch to our staging website on Heroku:
+  [`womenandcolor-staging.herokuapp.com`][site-staging]. (So merging a
   pull request also auto-deploys!)
 * We use the
   [`create-react-app-buildpack`](https://github.com/mars/create-react-app-buildpack)
@@ -99,8 +96,8 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
 See the [`LICENSE`](/LICENSE) file for details.
 
 <!-- Links -->
-   [site-live]: http://womenandcolor.com/
-   [site-staging]: https://womenandcolor-frontend.herokuapp.com/
+   [site-live]: https://www.womenandcolor.com/
+   [site-staging]: https://womenandcolor-staging.herokuapp.com/
    [contributing]: CONTRIBUTING.md
    [conduct]: CONDUCT.md
    [code-backend]: https://github.com/CivicTechTO/women-and-color-backend
