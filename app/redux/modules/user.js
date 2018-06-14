@@ -94,6 +94,12 @@ function loginSuccess(data) {
   }
 }
 
+function logoutSuccess() {
+  return {
+    type: 'LOGOUT_SUCCESS'
+  }
+}
+
 export function onChange(data) {
   return {
     type: OnChange(MODULE_NAME),
@@ -242,6 +248,7 @@ export function login() {
 }
 
 export function logout() {
+  console.log('LOGGING OUT')
   return (dispatch, getState) => {
     axios({
       method: 'POST',
@@ -249,8 +256,8 @@ export function logout() {
       responseType: 'json',
     })
       .then(res => {
-        dispatch(postSuccess(null));
-        dispatch(getProfileSuccess(null));
+        dispatch(logoutSuccess());
+        dispatch(logoutProfile());
         dispatch(push('/'));
         dispatch(showNotification('You have been logged out of your account.'));
       })

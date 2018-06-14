@@ -1,6 +1,7 @@
 import React from 'react';
-import { Router, Switch, Route } from 'react-router-dom';
+import { Router, Switch, Route, Redirect } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { connect } from 'react-redux';
 
 // App
 import {
@@ -18,11 +19,39 @@ import {
   Privacy,
   Terms,
   CodeOfConduct,
-  PageNotFound
+  PageNotFound,
 } from 'pages';
 import MainContainer from './Main/MainContainer';
 
 import store, { history } from '../redux/store';
+
+function mapStateToProps(state) {
+  return {
+    user: state.user,
+  };
+}
+
+const ProtectedRoute = connect(mapStateToProps, null)(({ component: Component, user, ...rest }) => {
+  const isAuthenticated = (user.id && user.token);
+  return (
+    <Route
+      {...rest}
+      render={props =>
+        isAuthenticated ? (
+          <Component {...props} />
+        ) : (
+          <Redirect
+            to={{
+              pathname: '/login',
+              state: { from: props.location },
+            }}
+          />
+        )
+      }
+    />
+  );
+})
+
 
 const routes = (
   <Provider store={store}>
@@ -37,7 +66,7 @@ const routes = (
           <Route path="/get-started/work" component={Work} />
           <Route path="/get-started/social" component={Social} />
           <Route path="/speaker/:id/:fullName?" component={Speaker} />
-          <Route path="/profile" component={EditProfile} />
+          <ProtectedRoute path="/profile" component={EditProfile} />
           <Route path="/terms" component={Terms} />
           <Route path="/privacy" component={Privacy} />
           <Route path="/code-of-conduct" component={CodeOfConduct} />
@@ -45,11 +74,11 @@ const routes = (
           <Route path="/thanks" component={ComingSoon} />
           <Route path="/partners" component={ComingSoon} />
           <Route path="/contact" component={ComingSoon} />
-          <Route path='*' exact component={PageNotFound} />
+          <Route path="*" exact component={PageNotFound} />
         </Switch>
       </MainContainer>
     </Router>
   </Provider>
-);
+)
 
 export default routes;
