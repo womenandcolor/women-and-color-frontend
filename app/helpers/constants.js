@@ -19,12 +19,10 @@ export const registrationFlow = {
 export const pronounDict = {
   she: 'She, her, hers',
   he: 'He, him, his',
-  they: 'They, them, their'
+  they: 'They, them, their',
 };
 
-export const BASE_URL_PATH = process.env.NODE_ENV === 'production'
-  ? 'https://www.womenandcolor.com'
-  : 'http://localhost:8000';
+export const BASE_URL_PATH = process.env.API_BASE_URL;
 
 export const IDENTITIES = [
   { label: 'All speakers', value: { woman: null, poc: null } },
@@ -35,4 +33,11 @@ export const IDENTITIES = [
 
 export const MAXIMUM_IMAGE_SIZE = 2 * 1024 * 1024; //less than 2MB in bytes
 export const DEFAULT_SPEAKER_LIMIT = 20;
-export const VALID_PARAMS = ['location', 'poc', 'woman', 'q', 'limit', 'offset']
+export const VALID_PARAMS = [
+  'location',
+  'poc',
+  'woman',
+  'q',
+  'limit',
+  'offset',
+];
