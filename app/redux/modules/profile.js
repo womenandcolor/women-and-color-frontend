@@ -63,6 +63,12 @@ export function onChange(data) {
   }
 }
 
+export function logoutSuccess() {
+  return {
+    type: 'LOGOUT_SUCCESS'
+  }
+}
+
 export function update() {
   return (dispatch, getState) => {
     dispatch(putRequest());
@@ -160,6 +166,12 @@ export const reducer = (state=initialState, action) => {
             ...state,
             ...action.data
         }
+    }
+
+    case 'LOGOUT_SUCCESS': {
+      return {
+        ...initialState
+      }
     }
 
     default:

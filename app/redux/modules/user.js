@@ -22,6 +22,7 @@ import {
   get as getProfile,
   getSuccess as getProfileSuccess,
   update as updateProfile,
+  logoutSuccess as logoutProfile
 } from 'appRedux/modules/profile';
 
 const MODULE_NAME = 'users';
@@ -248,7 +249,6 @@ export function login() {
 }
 
 export function logout() {
-  console.log('LOGGING OUT')
   return (dispatch, getState) => {
     axios({
       method: 'POST',
