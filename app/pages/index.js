@@ -6,6 +6,7 @@ export * from './Onboarding';
 export Speaker from './Speaker/Speaker';
 export EditProfile from './EditProfile/EditProfile';
 export ComingSoon from './Static/ComingSoon';
+export AboutUs from './Static/AboutUs';
 export Privacy from './Static/Privacy';
 export Terms from './Static/Terms';
 export CodeOfConduct from './Static/CodeOfConduct';

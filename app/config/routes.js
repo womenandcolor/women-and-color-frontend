@@ -15,6 +15,7 @@ import {
   Work,
   Social,
   EditProfile,
+  AboutUs,
   ComingSoon,
   Privacy,
   Terms,
@@ -71,7 +72,7 @@ const routes = (
           <Route path="/terms" component={Terms} />
           <Route path="/privacy" component={Privacy} />
           <Route path="/code-of-conduct" component={CodeOfConduct} />
-          <Route path="/about" component={ComingSoon} />
+          <Route path="/about" component={AboutUs} />
           <Route path="/thanks" component={ComingSoon} />
           <Route path="/partners" component={ComingSoon} />
           <Route path="/contact" component={ComingSoon} />
