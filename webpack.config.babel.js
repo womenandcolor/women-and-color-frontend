@@ -24,15 +24,19 @@ module.exports = env => {
 
   const envPlugin = new webpack.DefinePlugin({
     'process.env': {
-      NODE_ENV: JSON.stringify(NODE_ENV)
+      NODE_ENV: JSON.stringify(NODE_ENV),
+      REACT_APP_API_URL: JSON.stringify(process.env.REACT_APP_API_URL)
     },
   });
 
   console.log('======================== env.NODE_ENV ========================')
   console.log(env.NODE_ENV)
 
-  console.log('======================== process.env.API_BASE_URL ========================')
-  console.log(process.env.API_BASE_URL)
+  console.log('======================== process.env.NODE_ENV ========================')
+  console.log(process.env.NODE_ENV)
+
+  console.log('======================== process.env.REACT_APP_API_URL ========================')
+  console.log(process.env.REACT_APP_API_URL)
 
   const baseEntry = {
     app: PATHS.app
