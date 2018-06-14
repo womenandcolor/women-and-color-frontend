@@ -23,8 +23,7 @@ export const pronounDict = {
 };
 
 export const BASE_URL_PATH = process.env.REACT_APP_API_URL;
-console.log('process.env.REACT_APP_API_URL', process.env.REACT_APP_API_URL)
-console.log('process.env.NODE_ENV', process.env.NODE_ENV)
+console.log('BASE_URL_PATH', BASE_URL_PATH)
 
 export const IDENTITIES = [
   { label: 'All speakers', value: { woman: null, poc: null } },

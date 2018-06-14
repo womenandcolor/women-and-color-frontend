@@ -29,15 +29,6 @@ module.exports = env => {
     },
   });
 
-  console.log('======================== env.NODE_ENV ========================')
-  console.log(env.NODE_ENV)
-
-  console.log('======================== process.env.NODE_ENV ========================')
-  console.log(process.env.NODE_ENV)
-
-  console.log('======================== process.env.REACT_APP_API_URL ========================')
-  console.log(process.env.REACT_APP_API_URL)
-
   const baseEntry = {
     app: PATHS.app
   };
