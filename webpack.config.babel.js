@@ -17,25 +17,22 @@ module.exports = env => {
     build: path.join(__dirname, 'dist'),
   };
 
-  const LAUNCH_COMMAND = env.NODE_ENV;
+  const env.NODE_ENV = env.NODE_ENV;
 
-  const isProduction = LAUNCH_COMMAND === 'production';
-  process.env.BABEL_ENV = LAUNCH_COMMAND;
-
-  const API_BASE_URL = process.env.API_BASE_URL || 'http://localhost:8000'
+  const isProduction = env.NODE_ENV === 'production';
+  process.env.BABEL_ENV = env.NODE_ENV;
 
   const envPlugin = new webpack.DefinePlugin({
     'process.env': {
-      NODE_ENV: JSON.stringify(env.NODE_ENV),
-      API_BASE_URL: JSON.stringify(API_BASE_URL)
+      NODE_ENV: JSON.stringify(env.NODE_ENV)
     },
   });
 
-  console.log('======================== LAUNCH_COMMAND ========================')
-  console.log(LAUNCH_COMMAND)
+  console.log('======================== env.NODE_ENV ========================')
+  console.log(env.NODE_ENV)
 
-  console.log('======================== API_BASE_URL ========================')
-  console.log(API_BASE_URL)
+  console.log('======================== process.env.API_BASE_URL ========================')
+  console.log(process.env.API_BASE_URL)
 
   const baseEntry = {
     app: PATHS.app
