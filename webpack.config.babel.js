@@ -17,7 +17,6 @@ const PATHS = {
 };
 
 const LAUNCH_COMMAND = process.env.npm_lifecycle_event;
-const API_BASE_URL = process.env.API_BASE_URL ? process.env.API_BASE_URL : 'http://localhost:8000';
 
 const isProduction = LAUNCH_COMMAND === 'production';
 process.env.BABEL_ENV = LAUNCH_COMMAND;
@@ -25,7 +24,7 @@ process.env.BABEL_ENV = LAUNCH_COMMAND;
 const envPlugin = new webpack.DefinePlugin({
   'process.env': {
     NODE_ENV: JSON.stringify(LAUNCH_COMMAND),
-    API_BASE_URL: JSON.stringify(API_BASE_URL)
+    API_BASE_URL: JSON.stringify(process.env.API_BASE_URL)
   },
 });
 
