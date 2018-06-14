@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Grid from 'material-ui/Grid';
-import Snackbar from 'material-ui/Snackbar';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 import Select from 'material-ui/Select';
@@ -22,7 +21,6 @@ import {
   get as getTopics,
   create as createTopic,
 } from 'appRedux/modules/topic';
-import { hideNotification } from 'appRedux/modules/notification';
 import StyledButton from 'appCommon/StyledButton';
 import FormField from 'appCommon/FormField';
 import TopicSelector from 'appPages/EditProfile/FormComponents/TopicSelector/TopicSelector';
@@ -86,35 +84,28 @@ class WorkContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    props.getUser();
     props.getTopics();
     props.onChangeProfile({ current_page: CURRENT_PAGE });
   }
 
+  componentWillMount() {
+    if (!this.props.profile.id) {
+      this.props.getUser();
+    }
+  }
+
   render() {
     return (
-      <div>
-        <Snackbar
-          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-          open={!!this.props.notification}
-          onClose={this.props.hideNotification}
-          autoHideDuration={4000}
-          SnackbarContentProps={{
-            'aria-describedby': 'message-id',
-          }}
-          message={<span id="message-id">{this.props.notification}</span>}
-        />
-        <Work
-          handleSubmit={event => {
-            event.preventDefault();
-            this.props.updateProfile();
-          }}
-          handleProfileInputChange={(field, value) => {
-            this.props.onChangeProfile({ [field]: value });
-          }}
-          {...this.props}
-        />
-      </div>
+      <Work
+        handleSubmit={event => {
+          event.preventDefault();
+          this.props.updateProfile();
+        }}
+        handleProfileInputChange={(field, value) => {
+          this.props.onChangeProfile({ [field]: value });
+        }}
+        {...this.props}
+      />
     );
   }
 }
@@ -123,7 +114,6 @@ function mapStateToProps(state) {
   return {
     user: state.user,
     profile: state.profile,
-    notification: state.notification.message,
     topics: state.topic.topics,
   };
 }
@@ -135,12 +125,6 @@ function mapDispatchToProps(dispatch, props) {
     },
     onChangeProfile: attrs => {
       dispatch(onChangeProfile(attrs));
-    },
-    showNotification: message => {
-      dispatch(showNotification(message));
-    },
-    hideNotification: () => {
-      dispatch(hideNotification());
     },
     updateProfile: () => {
       dispatch(updateProfile());

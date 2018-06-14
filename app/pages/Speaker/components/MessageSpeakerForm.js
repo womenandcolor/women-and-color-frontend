@@ -4,7 +4,6 @@ import TextField from 'material-ui/TextField';
 import MenuItem from 'material-ui/Menu/MenuItem';
 import Input, { InputLabel } from 'material-ui/Input';
 import Grid from 'material-ui/Grid';
-import Snackbar from 'material-ui/Snackbar';
 
 // App
 import StyledButton from 'appCommon/StyledButton';
@@ -167,24 +166,12 @@ const MessageSpeakerFormContainer = props => {
   };
 
   return (
-    <div>
-      <Snackbar
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        open={!!props.notification}
-        onClose={props.hideNotification}
-        autoHideDuration={4000}
-        SnackbarContentProps={{
-          'aria-describedby': 'message-id',
-        }}
-        message={<span id="message-id">{props.notification}</span>}
-      />
-      <MessageSpeakerForm
-        speaker={props.speaker}
-        onSubmit={submitForm}
-        onInputChange={handleInputChange}
-        form={props.form}
-      />
-    </div>
+    <MessageSpeakerForm
+      speaker={props.speaker}
+      onSubmit={submitForm}
+      onInputChange={handleInputChange}
+      form={props.form}
+    />
   );
 };
 
@@ -195,10 +182,7 @@ function mapDispatchToProps(dispatch, props) {
     },
     onChange: data => {
       dispatch(onChange(data));
-    },
-    hideNotification: () => {
-      dispatch(hideNotification());
-    },
+    }
   };
 }
 
@@ -206,7 +190,6 @@ function mapStateToProps(state) {
   return {
     form: state.contactForm.form,
     speaker: state.speaker.speaker,
-    notification: state.notification.message,
   };
 }
 

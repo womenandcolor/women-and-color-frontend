@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import css from './styles.css'
 
-const CodeOfConduct = () => {
+const PageNotFound = () => {
   return(
     <Grid container justify="center">
       <Grid item xs={11} md={9}>
@@ -17,4 +17,4 @@ const CodeOfConduct = () => {
   )
 }
 
-export default CodeOfConduct;
+export default PageNotFound;

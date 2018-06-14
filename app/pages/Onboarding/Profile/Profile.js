@@ -1,7 +1,6 @@
 // NPM
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Snackbar from 'material-ui/Snackbar';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 import Select from 'material-ui/Select';
@@ -24,7 +23,6 @@ import {
 import {
   get as getLocations
 } from 'appRedux/modules/location';
-import { hideNotification } from 'appRedux/modules/notification';
 import StyledButton from 'appCommon/StyledButton';
 import FormField from 'appCommon/FormField';
 import { BASE_URL_PATH } from 'appHelpers/constants';
@@ -139,9 +137,14 @@ class ProfileContainer extends Component {
     super(props)
     this.state = {}
     this.handleImageChange = (e) => this._handleImageChange(e);
-    props.getUser();
     props.getLocations();
     props.onChangeProfile({ current_page: CURRENT_PAGE });
+  }
+
+  componentWillMount() {
+    if (!this.props.profile.id) {
+      this.props.getUser();
+    }
   }
 
   _handleImageChange(event) {
@@ -171,29 +174,17 @@ class ProfileContainer extends Component {
       return <ReactLoading type='spinningBubbles' color='#000000' />
     }
     return(
-      <div>
-        <Snackbar
-          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-          open={!!props.notification}
-          onClose={props.hideNotification}
-          autoHideDuration={4000}
-          SnackbarContentProps={{
-            'aria-describedby': 'message-id',
-          }}
-          message={<span id="message-id">{props.notification}</span>}
-        />
-        <Profile
-          handleSubmit={event => {
-            event.preventDefault();
-            props.updateProfile();
-          }}
-          handleProfileInputChange={(field, value) => {
-            props.onChangeProfile({ [field]: value })
-          }}
-          handleImageChange={this.handleImageChange}
-          {...props}
-        />
-      </div>
+      <Profile
+        handleSubmit={event => {
+          event.preventDefault();
+          props.updateProfile();
+        }}
+        handleProfileInputChange={(field, value) => {
+          props.onChangeProfile({ [field]: value })
+        }}
+        handleImageChange={this.handleImageChange}
+        {...props}
+      />
     )
   }
 }
@@ -202,7 +193,6 @@ function mapStateToProps(state) {
   return {
     user: state.user,
     profile: state.profile,
-    notification: state.notification.message,
     locations: state.location.locations
   }
 }
@@ -217,12 +207,6 @@ function mapDispatchToProps(dispatch, props) {
     },
     onChangeProfile: (attrs) => {
       dispatch(onChangeProfile(attrs))
-    },
-    showNotification: (message) => {
-      dispatch(showNotification(message))
-    },
-    hideNotification: () => {
-      dispatch(hideNotification())
     },
     updateProfile: () => {
       dispatch(updateProfile());

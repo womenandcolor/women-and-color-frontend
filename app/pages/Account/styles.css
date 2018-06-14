@@ -1,10 +1,13 @@
 .registrationForm {
+  margin-top: 2rem;
   padding: 30px;
-  margin: 0 auto;
   border: 1px solid var(--color-grey-light);
   background-color: var(--color-inverted-light);
   border-radius: 10px;
-  max-width: 500px;
+}
+
+.actions {
+  padding-top: 2rem;
 }
 
 .formControl {
@@ -17,4 +20,12 @@
 
 .buttonLabel {
   color: var(--color-inverted-light);
+}
+
+.title {
+  composes: h1 from 'sharedStyles/styles.css';
+}
+
+.loginRegisterPrompt {
+  text-align: center;
 }

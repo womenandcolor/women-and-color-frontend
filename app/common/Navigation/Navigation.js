@@ -9,11 +9,11 @@ import { connect } from 'react-redux';
 
 // App
 import { link } from './styles.css';
-import AnimatedSearchField from './AnimatedSearchField';
 import SearchField from './SearchField';
 import MenuDropdown from './MenuDropdown';
 import ButtonMenu from './ButtonMenu';
 import Logo from 'svg-react-loader?name=Logo!../../assets/logo_women_and_color.svg';
+import { logout } from 'appRedux/modules/user'
 
 const styles = theme => ({
   root: {
@@ -26,46 +26,41 @@ const styles = theme => ({
 const Navigation = props => {
   const loggedOutMenuItems = {
     default: [
-      { title: 'Log in', slug: '/accounts/login', color: 'secondary' },
-      { title: 'Be a speaker', slug: '/accounts/signup', color: 'primary' },
+      { title: 'Log in', slug: '/login', color: 'secondary' },
+      { title: 'Be a speaker', slug: '/register', color: 'primary' },
     ],
   };
 
   const loggedInMenuItems = profileId => {
     return {
       default: [
-        { title: 'Log out', slug: '/accounts/logout', color: 'primary' },
-        { title: 'Edit profile', slug: '/profile', color: 'secondary' },
+        { title: 'Edit profile', slug: '/profile', color: 'primary' },
       ],
       '/profile/about': [
-        { title: 'Log out', slug: '/accounts/logout', color: 'primary' },
         {
           title: 'View profile',
           slug: `/speaker/${profileId}`,
-          color: 'secondary',
+          color: 'primary',
         },
       ],
       '/profile/talks': [
-        { title: 'Log out', slug: '/accounts/logout', color: 'primary' },
         {
           title: 'View profile',
           slug: `/speaker/${profileId}`,
-          color: 'secondary',
+          color: 'primary',
         },
       ],
       '/profile/account': [
-        { title: 'Log out', slug: '/accounts/logout', color: 'primary' },
         {
           title: 'View profile',
           slug: `/speaker/${profileId}`,
-          color: 'secondary',
+          color: 'primary',
         },
       ],
     };
   };
 
-  const menuItemsList = (location, user, profile) => {
-    const authed = !!user.id;
+  const menuItemsList = (location, authed, profile) => {
     const menuItemsObj = authed
       ? loggedInMenuItems(profile.id)
       : loggedOutMenuItems;
@@ -79,13 +74,15 @@ const Navigation = props => {
 
   const {
     classes,
-    showSearch,
     updateSearchParams,
     location,
     user,
     profile,
+    logout,
   } = props;
-  const menuItems = menuItemsList(location, user, profile);
+
+  const authed = !!user.id;
+  const menuItems = menuItemsList(location, authed, profile);
 
   return (
     <div>
@@ -96,7 +93,7 @@ const Navigation = props => {
               <Grid container justify="space-between" alignItems="center">
                 <Grid item xs={6} sm={4} md={3}>
                   <a
-                    href="/"
+                    href="/#/"
                     style={{ textDecoration: 'none' }}
                   >
                     <Logo height="50px" width="100%" />
@@ -105,10 +102,10 @@ const Navigation = props => {
                 <Grid item xs={6} md={4}>
                   <Grid container justify="flex-end">
                     <Hidden smDown>
-                      <ButtonMenu menuItems={menuItems} />
+                      <ButtonMenu menuItems={menuItems} authed={authed} logout={logout} />
                     </Hidden>
                     <Hidden mdUp>
-                      <MenuDropdown menuItems={menuItems} />
+                      <MenuDropdown menuItems={menuItems} authed={authed} logout={logout} />
                     </Hidden>
                   </Grid>
                 </Grid>
@@ -132,4 +129,12 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, null)(withStyles(styles)(Navigation));
+function mapDispatchToProps(dispatch) {
+  return {
+    logout: () => {
+      dispatch(logout())
+    },
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Navigation));

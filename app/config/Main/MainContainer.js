@@ -1,21 +1,16 @@
-// NPM
-
 import React from 'react';
 import { withRouter } from 'react-router';
-import { connect } from 'react-redux'
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import CssBaseline from 'material-ui/CssBaseline';
 import indigo from 'material-ui/colors/indigo';
 import grey from 'material-ui/colors/grey';
 import pink from 'material-ui/colors/pink';
 
-// App
-
-import Navigation from 'appCommon/Navigation/Navigation';
-import FullFooter from 'appCommon/Footer/FullFooter';
+import Notification from 'appCommon/Notification/Notification'
+import Navigation from 'appCommon/Navigation/Navigation'
+import Footer from 'appCommon/Footer/Footer'
 import { container, innerContainer } from './styles.css';
-import { updateSearchParams } from 'appRedux/modules/speaker';
-import { parseQueryString } from 'appHelpers/queryParams';
+
 
 const theme = createMuiTheme({
   palette: {
@@ -42,34 +37,20 @@ const theme = createMuiTheme({
   },
 });
 
-class MainContainer extends React.Component {
-  componentWillMount() {
-    const parsedParams = parseQueryString(this.props.location.search)
-    this.props.updateSearchParams(parsedParams);
-  }
-
-  render() {
-    return (
+const MainContainer = props => (
+  <div>
+    <MuiThemeProvider theme={theme}>
       <div>
-        <MuiThemeProvider theme={theme}>
-          <div className={container}>
-            <CssBaseline />
-            <Navigation showSearch={true} location={this.props.location} />
-            <div className={innerContainer}>{this.props.children}</div>
-            <FullFooter />
-          </div>
-        </MuiThemeProvider>
+        <CssBaseline />
+        <Notification />
+        <div className={container}>
+          <Navigation location={props.location} />
+            <div className={innerContainer}>{props.children}</div>
+          <Footer location={props.location} />
+        </div>
       </div>
-    )
-  }
-}
+    </MuiThemeProvider>
+  </div>
+)
 
-function mapDispatchToProps(dispatch) {
-  return {
-    updateSearchParams: (params) => {
-      dispatch(updateSearchParams(params))
-    }
-  }
-}
-
-export default withRouter(connect(null, mapDispatchToProps)(MainContainer));
+export default withRouter(MainContainer)

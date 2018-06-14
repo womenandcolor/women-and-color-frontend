@@ -18,7 +18,7 @@ const globalCssVars = {
   '--line-height-base': '24px',
   '--padding-horizontal': '16px',
   '--padding-vertical': '8px',
-  '--navbar-height': '56px',
+  '--navbar-height': '64px',
 }
 
 export default globalCssVars;
