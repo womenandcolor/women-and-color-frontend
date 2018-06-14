@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server",
-    "build": "webpack -p --config ./webpack.config.babel.js --progress",
+    "build": "webpack -p --config ./webpack.config.babel.js --progress --env.NODE_ENV=production",
     "test": "react-scripts test --env=jsdom"
   },
   "keywords": [],
