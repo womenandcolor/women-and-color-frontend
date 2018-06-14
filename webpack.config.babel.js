@@ -19,11 +19,13 @@ const PATHS = {
 const LAUNCH_COMMAND = process.env.npm_lifecycle_event;
 
 const isProduction = LAUNCH_COMMAND === 'production';
+console.log('======================== LAUNCH_COMMAND ========================')
+console.log(LAUNCH_COMMAND)
 process.env.BABEL_ENV = LAUNCH_COMMAND;
 
 const envPlugin = new webpack.DefinePlugin({
   'process.env': {
-    NODE_ENV: JSON.stringify(LAUNCH_COMMAND),
+    NODE_ENV: JSON.stringify(process.env.NODE_ENV),
     API_BASE_URL: JSON.stringify(process.env.API_BASE_URL)
   },
 });

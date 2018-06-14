@@ -23,6 +23,7 @@ export const pronounDict = {
 };
 
 export const BASE_URL_PATH = process.env.API_BASE_URL;
+console.log('BASE_URL_PATH', BASE_URL_PATH)
 
 export const IDENTITIES = [
   { label: 'All speakers', value: { woman: null, poc: null } },
