@@ -75,6 +75,7 @@ class TalksContainer extends Component {
               saveTalk={this.saveTalk}
               destroyTalk={this.destroyTalk}
               profile={this.props.profile.id}
+              user={this.props.user}
             />
           ))}
         </div>
