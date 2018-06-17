@@ -352,6 +352,9 @@ class AboutContainer extends Component {
       data,
       method: 'post',
       responseType: 'json',
+      headers: {
+        'Authorization': `JWT ${this.props.user.token}`
+      }
     })
       .then(res => {
         this.props.onChangeProfile({ image: res.data.file });

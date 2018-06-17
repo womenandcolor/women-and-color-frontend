@@ -67,12 +67,16 @@ export function get() {
 export function create(topic) {
   return (dispatch, getState) => {
     dispatch(postRequest());
+    const { user } = getState();
 
     axios({
       method: 'POST',
       url: `${ENDPOINT_URL}`,
       data: { topic },
-      responseType: 'json'
+      responseType: 'json',
+      headers: {
+        'Authorization': `JWT ${user.token}`
+      }
     }).then(res => {
       console.log('topic post success', res.data)
       dispatch(postSuccess(res.data));

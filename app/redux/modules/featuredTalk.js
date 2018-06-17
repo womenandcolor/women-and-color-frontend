@@ -7,6 +7,7 @@ import {
   OnChange
 } from './action_template';
 import { get as getUser } from './user';
+import { showNotification } from './notification';
 import { BASE_URL_PATH } from 'appHelpers/constants';
 import axios from 'appHelpers/axios';
 
@@ -100,18 +101,24 @@ export function get() {
 export function create(data) {
   return (dispatch, getState) => {
     dispatch(postRequest());
+    const { user } = getState();
 
     axios({
       method: 'POST',
       url: `${ENDPOINT_URL}`,
       data: data,
-      responseType: 'json'
+      responseType: 'json',
+      headers: {
+        'Authorization': `JWT ${user.token}`
+      }
     }).then(res => {
       dispatch(postSuccess(res.data));
+      showNotification('Your talk has been created.')
       dispatch(getUser())
     }).catch(err => {
       console.log(err);
       dispatch(postError(err));
+      showNotification('There was an error saving your talk.')
     });
   }
 }
@@ -119,33 +126,46 @@ export function create(data) {
 export function update(data) {
   return (dispatch, getState) => {
     dispatch(putRequest());
+    const { user } = getState();
 
     axios({
       method: 'PUT',
       url: `${ENDPOINT_URL}${data.id}/`,
       data: data,
-      responseType: 'json'
+      responseType: 'json',
+      headers: {
+        'Authorization': `JWT ${user.token}`
+      }
     }).then(res => {
       dispatch(putSuccess(res.data));
+      showNotification('Your talk has been updated.')
       dispatch(getUser())
     }).catch(err => {
       console.log(err);
       dispatch(putError(err));
+      showNotification('There was an error saving your talk.')
     });
   }
 };
 
 export function destroy(data) {
   return (dispatch, getState) => {
+    const { user } = getState();
+
     axios({
       method: 'DELETE',
       url: `${ENDPOINT_URL}${data.id}/`,
       data: data,
-      responseType: 'json'
+      responseType: 'json',
+      headers: {
+        'Authorization': `JWT ${user.token}`
+      }
     }).then(res => {
       dispatch(getUser())
+      showNotification('Your talk has been deleted.')
     }).catch(err => {
       console.log(err);
+      showNotification('There was an error deleting your talk.')
     });
   }
 }

@@ -54,6 +54,9 @@ class Talk extends Component {
       data,
       method: 'post',
       responseType: 'json',
+      headers: {
+        'Authorization': `JWT ${this.props.user.token}`
+      }
     })
       .then(res => {
         this.setState({
