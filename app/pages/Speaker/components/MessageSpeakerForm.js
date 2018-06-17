@@ -32,6 +32,7 @@ const MessageSpeakerForm = ({ speaker, onInputChange, onSubmit, form }) => {
                   label="Full Name"
                   value={form.full_name}
                   onChange={generateHandler('full_name')}
+                  required
                 />
               </FormField>
             </Grid>
@@ -42,6 +43,7 @@ const MessageSpeakerForm = ({ speaker, onInputChange, onSubmit, form }) => {
                   type="email"
                   value={form.email}
                   onChange={generateHandler('email')}
+                  required
                 />
               </FormField>
             </Grid>
@@ -137,10 +139,11 @@ const MessageSpeakerForm = ({ speaker, onInputChange, onSubmit, form }) => {
             <Grid item xs={12}>
               <FormField fullWidth>
                 <TextField
-                  label="Additional Comments"
+                  label="Message"
                   value={form.comments}
                   onChange={generateHandler('comments')}
                   multiline
+                  required
                   rows={3}
                 />
               </FormField>

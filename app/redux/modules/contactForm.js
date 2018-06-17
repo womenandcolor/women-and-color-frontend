@@ -1,5 +1,5 @@
 // NPM
-
+import { map } from 'lodash';
 
 // App
 import {
@@ -65,7 +65,20 @@ export function create() {
       dispatch(postSuccess(res.data));
     }).catch(err => {
       console.log(err)
-      dispatch(showNotification("There was an error submitting your form."));
+      if (err.response && err.response.data) {
+        const errorList = map(err.response.data, (v, k) => {
+          return `${k}: ${v}`;
+        });
+        dispatch(
+          showNotification(
+            `There was an error submitting your form. ${errorList.join(
+              ' \n '
+            )}`
+          )
+        );
+      } else {
+        dispatch(postError(err));
+      }
     });
   }
 }

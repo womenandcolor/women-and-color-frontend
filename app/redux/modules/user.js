@@ -1,6 +1,6 @@
 // NPM
 import { push } from 'react-router-redux';
-import lodash from 'lodash';
+import { map } from 'lodash';
 
 // App
 import { registrationFlow, BASE_URL_PATH } from 'appHelpers/constants';
@@ -159,7 +159,7 @@ export function create() {
       .catch(err => {
         console.log(err);
         if (err.response && err.response.data) {
-          const errorList = lodash.map(err.response.data, (v, k) => {
+          const errorList = map(err.response.data, (v, k) => {
             return `${k}: ${v}`;
           });
           dispatch(
@@ -200,7 +200,7 @@ export function update() {
       .catch(err => {
         console.log(err)
         if (err.response && err.response.data) {
-          const errorList = lodash.map(err.response.data, (v, k) => {
+          const errorList = map(err.response.data, (v, k) => {
             return `${k}: ${v}`;
           });
           dispatch(
@@ -236,7 +236,7 @@ export function login() {
       .catch(err => {
         console.log(err);
         if (err.response && err.response.data) {
-          const errorList = lodash.map(err.response.data, (v, k) => {
+          const errorList = map(err.response.data, (v, k) => {
             return `${k}: ${v}`;
           });
           dispatch(
@@ -269,7 +269,7 @@ export function logout() {
       .catch(err => {
         console.log(err);
         if (err.response && err.response.data) {
-          const errorList = lodash.map(err.response.data, (v, k) => {
+          const errorList = map(err.response.data, (v, k) => {
             return `${k}: ${v}`;
           });
           dispatch(
@@ -302,7 +302,7 @@ export function resetPassword() {
       })
       .catch(err => {
         if (err.response && err.response.data) {
-          const errorList = lodash.map(err.response.data, (v, k) => {
+          const errorList = map(err.response.data, (v, k) => {
             return `${k}: ${v}`;
           });
           dispatch(
@@ -335,7 +335,7 @@ export function confirmResetPassword(uid, token) {
       })
       .catch(err => {
         if (err.response && err.response.data) {
-          const errorList = lodash.map(err.response.data, (v, k) => {
+          const errorList = map(err.response.data, (v, k) => {
             return `${k}: ${v}`;
           });
           dispatch(
@@ -369,7 +369,7 @@ export function changePassword() {
       })
       .catch(err => {
         if (err.response && err.response.data) {
-          const errorList = lodash.map(err.response.data, (v, k) => {
+          const errorList = map(err.response.data, (v, k) => {
             return `${k}: ${v}`;
           });
           dispatch(
