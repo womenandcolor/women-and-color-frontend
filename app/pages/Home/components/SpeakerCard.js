@@ -56,7 +56,7 @@ const SpeakerCard = ({ speaker, classes }) => {
           {title}
           { (speaker.topics.length > 0) &&
             <Hidden smDown>
-              <Topics topics={speaker.topics} />
+              <Topics topics={speaker.topics} limit={6} />
             </Hidden>
           }
         </Grid>

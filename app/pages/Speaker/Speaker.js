@@ -57,7 +57,7 @@ class SpeakerContainer extends Component {
     return this.props.speaker ? (
       <Speaker speaker={this.props.speaker} />
     ) : (
-      <ReactLoading type="spinningBubbles" color="#000000" />
+      <ReactLoading type="spinningBubbles" color="#E5E8F4" />
     )
   }
 }
