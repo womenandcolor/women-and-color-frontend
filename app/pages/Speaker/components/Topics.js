@@ -31,7 +31,7 @@ const Topics = ({ history, topics, updateSearchParams, limit }) => {
             href={'#'}
             key={topic.topic}
             onClick={onTopicClick(topic.topic)}
-            title={topic.topicg}
+            title={topic.topic}
           >
             {topic.topic}
           </a>
