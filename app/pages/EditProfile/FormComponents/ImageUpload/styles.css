@@ -1,0 +1,30 @@
+.fileInput {
+  display: none;
+}
+
+.photo {
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  flex-direction: column;
+  object-fit: cover;
+}
+
+.photo img {
+  height: 10rem;
+  width: 10rem;
+  border-radius: 50%;
+  margin-bottom: 0.5rem;
+  object-fit: cover;
+}
+
+.imageError {
+  font-size: 0.8rem;
+  color: red;
+}
+
+.imageUpload {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}

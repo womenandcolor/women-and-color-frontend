@@ -90,6 +90,11 @@ export function update() {
       if (res.data.page) dispatch(push(registrationFlow[res.data.page].next));
     }).catch(err => {
       console.log(err);
+      if (err.response.status === 401) {
+        dispatch(showNotification('This action is unauthorized. Please make sure you are logged in.'))
+      } else if (err.response.data) {
+        dispatch(showNotification(`There was an error: ${err.response.data.detail}`))
+      }
       dispatch(putError(err));
     });
   }

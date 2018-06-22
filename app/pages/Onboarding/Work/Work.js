@@ -21,6 +21,7 @@ import {
   get as getTopics,
   create as createTopic,
 } from 'appRedux/modules/topic';
+import { showNotification } from 'appRedux/modules/notification';
 import StyledButton from 'appCommon/StyledButton';
 import FormField from 'appCommon/FormField';
 import TopicSelector from 'appPages/EditProfile/FormComponents/TopicSelector/TopicSelector';
@@ -99,6 +100,9 @@ class WorkContainer extends Component {
       <Work
         handleSubmit={event => {
           event.preventDefault();
+          if (this.props.profile.topics.length < 1) {
+            return this.props.showNotification('Please enter at least one topic.')
+          }
           this.props.updateProfile();
         }}
         handleProfileInputChange={(field, value) => {
@@ -135,6 +139,9 @@ function mapDispatchToProps(dispatch, props) {
     createTopic: topic => {
       dispatch(createTopic(topic));
     },
+    showNotification: message => {
+      dispatch(showNotification(message))
+    }
   };
 }
 

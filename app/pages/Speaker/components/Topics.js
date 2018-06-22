@@ -5,7 +5,7 @@ import { updateSearchParams } from 'appRedux/modules/speaker';
 
 import { topicLinks } from '../styles.css';
 
-const Topics = ({ history, topics, updateSearchParams }) => {
+const Topics = ({ history, topics, updateSearchParams, limit }) => {
   const onTopicClick = topic => event => {
     event.preventDefault();
     const home = '/';
@@ -21,14 +21,17 @@ const Topics = ({ history, topics, updateSearchParams }) => {
     });
   };
 
+  const topicsList = limit ? topics.slice(0, limit - 1) : topics;
+
   return (
     <div className={topicLinks}>
       {
-        topics.map(topic => (
+        topicsList.map(topic => (
           <a
             href={'#'}
             key={topic.topic}
             onClick={onTopicClick(topic.topic)}
+            title={topic.topicg}
           >
             {topic.topic}
           </a>

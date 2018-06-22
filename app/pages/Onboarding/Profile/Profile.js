@@ -12,7 +12,6 @@ import { Link } from 'react-router-dom'
 import ReactLoading from 'react-loading';
 
 // App
-import axios from 'appHelpers/axios';
 import {
   update as updateProfile,
   onChange as onChangeProfile
@@ -23,9 +22,10 @@ import {
 import {
   get as getLocations
 } from 'appRedux/modules/location';
+import { showNotification } from 'appRedux/modules/notification';
 import StyledButton from 'appCommon/StyledButton';
 import FormField from 'appCommon/FormField';
-import { BASE_URL_PATH } from 'appHelpers/constants';
+import ImageUpload from 'appPages/EditProfile/FormComponents/ImageUpload/ImageUpload';
 import css from './styles.css';
 
 
@@ -64,11 +64,11 @@ const Profile = (props) => {
         </FormField>
 
         <FormField fullWidth className={ css.formControl }>
-          <TextField label="First Name" onChange={ generateHandler('first_name') } />
+          <TextField required label="First Name" onChange={ generateHandler('first_name') } />
         </FormField>
 
         <FormField fullWidth className={ css.formControl }>
-          <TextField label="Last Name" onChange={ generateHandler('last_name') } />
+          <TextField required label="Last Name" onChange={ generateHandler('last_name') } />
         </FormField>
 
         <FormField fullWidth className={ css.formControl }>
@@ -112,13 +112,8 @@ const Profile = (props) => {
         </FormField>
 
         <FormField className={ css.formControl }>
-          <FormLabel component="legend">Upload your photo</FormLabel>
-            <input
-              type="file"
-              id="photo"
-              name="photo"
-              onChange={ props.handleImageChange }
-            />
+          <FormLabel component="legend">Upload your photo*</FormLabel>
+            <ImageUpload />
         </FormField>
 
         <div>
@@ -136,7 +131,6 @@ class ProfileContainer extends Component {
   constructor(props) {
     super(props)
     this.state = {}
-    this.handleImageChange = (e) => this._handleImageChange(e);
     props.getLocations();
     props.onChangeProfile({ current_page: CURRENT_PAGE });
   }
@@ -147,45 +141,25 @@ class ProfileContainer extends Component {
     }
   }
 
-  _handleImageChange(event) {
-    const file = event.currentTarget.files[0];
-    const data = new FormData();
-    data.append('file', file)
-    data.append('profile', this.props.profile.id)
-    const url = `${BASE_URL_PATH}/api/v1/images/`;
-
-    axios({
-      url,
-      data,
-      method: 'post',
-      responseType: 'json',
-      headers: {
-        'Authorization': `JWT ${this.props.user.token}`
-      }
-    }).then(res => {
-      this.props.onChangeProfile({ image: res.data.file })
-      console.log(res)
-    }).catch(err => {
-      console.log(err)
-    })
-  }
-
   render() {
     const props = this.props;
 
     if (!props.profile.isInitialized || props.profile.isLoading) {
-      return <ReactLoading type='spinningBubbles' color='#000000' />
+      return <ReactLoading type='spinningBubbles' color='#E5E8F4' />
     }
     return(
       <Profile
         handleSubmit={event => {
           event.preventDefault();
+          // cannot be the default image
+          if (this.props.profile.image.startsWith('data:image/jpeg;base64')) {
+            return this.props.showNotification('Please upload a photo.');
+          }
           props.updateProfile();
         }}
         handleProfileInputChange={(field, value) => {
           props.onChangeProfile({ [field]: value })
         }}
-        handleImageChange={this.handleImageChange}
         {...props}
       />
     )
@@ -213,6 +187,9 @@ function mapDispatchToProps(dispatch, props) {
     },
     updateProfile: () => {
       dispatch(updateProfile());
+    },
+    showNotification: message => {
+      dispatch(showNotification(message))
     }
   }
 }

@@ -28,6 +28,7 @@ import {
 import StyledButton from 'appCommon/StyledButton';
 import TopicSelector from '../FormComponents/TopicSelector/TopicSelector';
 import FormField from 'appCommon/FormField';
+import ImageUpload from 'appPages/EditProfile/FormComponents/ImageUpload/ImageUpload';
 import { BASE_URL_PATH, MAXIMUM_IMAGE_SIZE } from 'appHelpers/constants';
 import css from './styles.css';
 
@@ -63,23 +64,7 @@ const About = props => {
       <div className={css.section}>
         <Grid container>
           <Grid item xs={12}>
-            <div className={css.photo}>
-              <img src={props.profile.image} />
-              {props.imageError ? (
-                <div className={css.imageError}>
-                  ** The file size can not exceed 2MB.
-                </div>
-              ) : null}
-            </div>
-            <StyledButton component="label" color="primary">
-              <input
-                type="file"
-                accept="image/*"
-                className={css.fileInput}
-                onChange={props.handleImageChange}
-              />
-              Choose Image
-            </StyledButton>
+            <ImageUpload />
           </Grid>
 
           <Grid item xs={12} sm={6}>
@@ -317,10 +302,7 @@ const About = props => {
 class AboutContainer extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      imageError: false,
-    };
-    this.handleImageChange = e => this._handleImageChange(e);
+    this.state = {};
   }
 
   componentWillMount() {
@@ -329,47 +311,11 @@ class AboutContainer extends Component {
     this.props.getTopics();
   }
 
-  _handleImageChange(event) {
-    const file = event.currentTarget.files[0];
-    // image must not larger than 2MB
-    if (file.size > MAXIMUM_IMAGE_SIZE) {
-      this.setState({
-        imageError: true,
-      });
-      return;
-    }
-
-    this.setState({
-      imageError: false,
-    });
-
-    const data = new FormData();
-    data.append('file', file);
-    data.append('profile', this.props.profile.id);
-    const url = `${BASE_URL_PATH}/api/v1/images/`;
-    axios({
-      url,
-      data,
-      method: 'post',
-      responseType: 'json',
-      headers: {
-        'Authorization': `JWT ${this.props.user.token}`
-      }
-    })
-      .then(res => {
-        this.props.onChangeProfile({ image: res.data.file });
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
-
   render() {
     const props = this.props;
 
     if (!props.profile.isInitialized || props.profile.isLoading) {
-      return <ReactLoading type="spinningBubbles" color="#000000" />;
+      return <ReactLoading type="spinningBubbles" color="#E5E8F4" />;
     }
     return (
       <About
@@ -380,9 +326,7 @@ class AboutContainer extends Component {
         handleProfileInputChange={(field, value) => {
           props.onChangeProfile({ [field]: value });
         }}
-        handleImageChange={this.handleImageChange}
         {...props}
-        imageError={this.state.imageError}
       />
     );
   }
