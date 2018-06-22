@@ -8,6 +8,7 @@ import Grid from 'material-ui/Grid';
 import Input, { InputLabel } from 'material-ui/Input';
 import { MenuItem } from 'material-ui/Menu';
 import { Link } from 'react-router-dom'
+import { Helmet } from "react-helmet";
 
 // App
 import {
@@ -73,6 +74,10 @@ class RegisterContainer extends Component {
   render() {
     return(
       <div>
+        <Helmet>
+          <title>Register</title>
+          <meta name="description" content="Register on Women and Color to create a speaker profile for speaking opportunities at tech-related events." />
+        </Helmet>
         <Register
           handleSubmit={event => {
             event.preventDefault();

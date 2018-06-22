@@ -8,8 +8,9 @@ import Input, { InputLabel } from 'material-ui/Input';
 import { MenuItem } from 'material-ui/Menu';
 import Radio, { RadioGroup } from 'material-ui/Radio';
 import { FormLabel, FormControlLabel } from 'material-ui/Form';
-import { Link } from 'react-router-dom'
-import { push } from 'react-router-redux'
+import { Link } from 'react-router-dom';
+import { push } from 'react-router-redux';
+import { Helmet } from "react-helmet";
 
 // App
 import {
@@ -89,16 +90,22 @@ class SocialContainer extends Component {
     const props = this.props;
 
     return(
-      <Social
-        handleSubmit={event => {
-          event.preventDefault();
-          props.updateProfile();
-        }}
-        handleProfileInputChange={(field, value) => {
-          props.onChangeProfile({ [field]: value })
-        }}
-        {...this.props}
-      />
+      <div>
+        <Helmet>
+          <title>Get started - Social</title>
+          <meta name="description" content="Create your profile on Women and Color" />
+        </Helmet>
+        <Social
+          handleSubmit={event => {
+            event.preventDefault();
+            props.updateProfile();
+          }}
+          handleProfileInputChange={(field, value) => {
+            props.onChangeProfile({ [field]: value })
+          }}
+          {...this.props}
+        />
+      </div>
     )
   }
 }

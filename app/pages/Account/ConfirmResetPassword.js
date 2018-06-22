@@ -7,8 +7,9 @@ import Select from 'material-ui/Select';
 import Grid from 'material-ui/Grid';
 import Input, { InputLabel } from 'material-ui/Input';
 import { MenuItem } from 'material-ui/Menu';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import Card from 'material-ui/Card';
+import { Helmet } from "react-helmet";
 
 // App
 import {
@@ -79,6 +80,10 @@ class ConfirmResetPasswordContainer extends Component {
   render() {
     return(
       <div>
+        <Helmet>
+          <title>Set a new password</title>
+          <meta name="description" content="Set a new password" />
+        </Helmet>
         <ConfirmResetPassword
           handleSubmit={event => {
             event.preventDefault();
