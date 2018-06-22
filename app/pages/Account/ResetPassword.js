@@ -7,8 +7,9 @@ import Select from 'material-ui/Select';
 import Grid from 'material-ui/Grid';
 import Input, { InputLabel } from 'material-ui/Input';
 import { MenuItem } from 'material-ui/Menu';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import Card from 'material-ui/Card';
+import { Helmet } from "react-helmet";
 
 // App
 import {
@@ -58,6 +59,10 @@ class ResetPasswordContainer extends Component {
   render() {
     return(
       <div>
+        <Helmet>
+          <title>Reset password</title>
+          <meta name="description" content="Forgot your password? Send yourself an email to reset it here." />
+        </Helmet>
         <ResetPassword
           handleSubmit={event => {
             event.preventDefault();

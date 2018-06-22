@@ -9,6 +9,7 @@ import Input, { InputLabel } from 'material-ui/Input';
 import { MenuItem } from 'material-ui/Menu';
 import { Link } from 'react-router-dom'
 import Card from 'material-ui/Card';
+import { Helmet } from "react-helmet";
 
 // App
 import {
@@ -69,6 +70,10 @@ class LoginContainer extends Component {
   render() {
     return(
       <div>
+        <Helmet>
+          <title>Log in</title>
+          <meta name="description" content="Log in to Women and Color" />
+        </Helmet>
         <Login
           handleSubmit={event => {
             event.preventDefault();

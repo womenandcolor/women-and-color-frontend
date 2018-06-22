@@ -8,8 +8,9 @@ import Input, { InputLabel } from 'material-ui/Input';
 import { MenuItem } from 'material-ui/Menu';
 import Radio, { RadioGroup } from 'material-ui/Radio';
 import { FormLabel, FormControlLabel } from 'material-ui/Form';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import ReactLoading from 'react-loading';
+import { Helmet } from "react-helmet";
 
 // App
 import {
@@ -148,20 +149,26 @@ class ProfileContainer extends Component {
       return <ReactLoading type='spinningBubbles' color='#E5E8F4' />
     }
     return(
-      <Profile
-        handleSubmit={event => {
-          event.preventDefault();
-          // cannot be the default image
-          if (this.props.profile.image.startsWith('data:image/jpeg;base64')) {
-            return this.props.showNotification('Please upload a photo.');
-          }
-          props.updateProfile();
-        }}
-        handleProfileInputChange={(field, value) => {
-          props.onChangeProfile({ [field]: value })
-        }}
-        {...props}
-      />
+      <div>
+        <Helmet>
+          <title>Get started - Profile</title>
+          <meta name="description" content="Create your profile on Women and Color" />
+        </Helmet>
+        <Profile
+          handleSubmit={event => {
+            event.preventDefault();
+            // cannot be the default image
+            if (this.props.profile.image.startsWith('data:image/jpeg;base64')) {
+              return this.props.showNotification('Please upload a photo.');
+            }
+            props.updateProfile();
+          }}
+          handleProfileInputChange={(field, value) => {
+            props.onChangeProfile({ [field]: value })
+          }}
+          {...props}
+        />
+      </div>
     )
   }
 }
