@@ -3,6 +3,7 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import Grid from 'material-ui/Grid';
 import { find } from 'lodash';
+import { Helmet } from "react-helmet";
 
 // APP
 import SpeakerList from './components/SpeakerList';
@@ -105,7 +106,15 @@ class HomeContainer extends Component {
   };
 
   render() {
-    return <Home loadMoreSpeakers={this.loadMoreSpeakers} {...this.props} />;
+    return(
+      <div>
+        <Helmet>
+          <title>Women and Color</title>
+          <meta name="description" content="Find talented women and people of color available for speaking opportunities at tech-related events." />
+        </Helmet>
+        <Home loadMoreSpeakers={this.loadMoreSpeakers} {...this.props} />
+      </div>
+    )
   }
 }
 

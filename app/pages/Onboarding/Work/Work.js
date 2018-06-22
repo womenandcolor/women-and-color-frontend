@@ -10,6 +10,7 @@ import { MenuItem } from 'material-ui/Menu';
 import Radio, { RadioGroup } from 'material-ui/Radio';
 import { FormLabel, FormControlLabel, FormHelperText } from 'material-ui/Form';
 import { Link } from 'react-router-dom';
+import { Helmet } from "react-helmet";
 
 // App
 import {
@@ -21,6 +22,7 @@ import {
   get as getTopics,
   create as createTopic,
 } from 'appRedux/modules/topic';
+import { showNotification } from 'appRedux/modules/notification';
 import StyledButton from 'appCommon/StyledButton';
 import FormField from 'appCommon/FormField';
 import TopicSelector from 'appPages/EditProfile/FormComponents/TopicSelector/TopicSelector';
@@ -96,16 +98,25 @@ class WorkContainer extends Component {
 
   render() {
     return (
-      <Work
-        handleSubmit={event => {
-          event.preventDefault();
-          this.props.updateProfile();
-        }}
-        handleProfileInputChange={(field, value) => {
-          this.props.onChangeProfile({ [field]: value });
-        }}
-        {...this.props}
-      />
+      <div>
+        <Helmet>
+          <title>Get started - Work</title>
+          <meta name="description" content="Create your profile on Women and Color" />
+        </Helmet>
+        <Work
+          handleSubmit={event => {
+            event.preventDefault();
+            if (this.props.profile.topics.length < 1) {
+              return this.props.showNotification('Please enter at least one topic.')
+            }
+            this.props.updateProfile();
+          }}
+          handleProfileInputChange={(field, value) => {
+            this.props.onChangeProfile({ [field]: value });
+          }}
+          {...this.props}
+        />
+      </div>
     );
   }
 }
@@ -135,6 +146,9 @@ function mapDispatchToProps(dispatch, props) {
     createTopic: topic => {
       dispatch(createTopic(topic));
     },
+    showNotification: message => {
+      dispatch(showNotification(message))
+    }
   };
 }
 

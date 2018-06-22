@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import Grid from 'material-ui/Grid';
+import { Helmet } from "react-helmet";
 
 // App
 import SideBar from './SideBar';
@@ -53,6 +54,10 @@ const _renderRoute = ({ component: Component, baseUrl, path, key }) => (
 
 const EditProfile = ({ match }) => (
   <div className={css.editProfileContainer}>
+    <Helmet>
+      <title>Edit Profile</title>
+      <meta name="description" content="Edit your Women and Color profile" />
+    </Helmet>
     <Grid container justify="center">
       <Grid item xs={11} md={8}>
         <Switch>

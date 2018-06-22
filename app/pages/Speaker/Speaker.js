@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { getSpeaker } from 'appRedux/modules/speaker';
 import Grid from 'material-ui/Grid';
 import ReactLoading from 'react-loading';
+import { Helmet } from "react-helmet";
 
 // App
 import SpeakerCard from './components/SpeakerCard';
@@ -54,10 +55,23 @@ class SpeakerContainer extends Component {
   }
 
   render() {
-    return this.props.speaker ? (
-      <Speaker speaker={this.props.speaker} />
-    ) : (
-      <ReactLoading type="spinningBubbles" color="#000000" />
+    const { speaker } = this.props;
+    const title = speaker ? `${speaker.first_name} ${speaker.last_name} - Speaker Profile` : 'Speaker Profile';
+    const description = speaker ? (speaker.bio ? speaker.bio : `${speaker.first_name} ${speaker.last_name} | ${speaker.position} at ${speaker.organization} | based in ${speaker.city}`) : 'Find talented diverse speakers for tech-related events';
+    return(
+      <div>
+        <Helmet>
+          <title>{title}</title>
+          <meta name="description" content={description} />
+        </Helmet>
+        {
+          this.props.speaker ? (
+            <Speaker speaker={this.props.speaker} />
+          ) : (
+            <ReactLoading type="spinningBubbles" color="#E5E8F4" />
+          )
+        }
+      </div>
     )
   }
 }

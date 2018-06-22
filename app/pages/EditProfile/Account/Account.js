@@ -119,7 +119,7 @@ class AccountContainer extends Component {
     const props = this.props;
 
     if (!props.user.isInitialized || props.user.isLoading) {
-      return <ReactLoading type="spinningBubbles" color="#000000" />;
+      return <ReactLoading type="spinningBubbles" color="#E5E8F4" />;
     }
     return (
       <Account
