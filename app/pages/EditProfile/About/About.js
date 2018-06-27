@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ReactLoading from 'react-loading';
 import { find } from 'lodash';
+import axios from 'axios';
 
 import Grid from 'material-ui/Grid';
 import TextField from 'material-ui/TextField';
@@ -14,7 +15,6 @@ import { FormLabel, FormControlLabel, FormHelperText } from 'material-ui/Form';
 import { ListItemText } from 'material-ui/List';
 
 // App
-import axios from 'appHelpers/axios';
 import {
   update as updateProfile,
   onChange as onChangeProfile,

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
 import TextField from 'material-ui/TextField';
 import MenuItem from 'material-ui/Menu/MenuItem';
 import Input, { InputLabel } from 'material-ui/Input';
@@ -9,7 +10,6 @@ import Grid from 'material-ui/Grid';
 import StyledButton from 'appCommon/StyledButton';
 import FormField from 'appCommon/FormField';
 import css from '../styles.css';
-import axios from 'appHelpers/axios';
 import { BASE_URL_PATH } from 'appHelpers/constants';
 
 import { create, onChange } from 'appRedux/modules/contactForm';

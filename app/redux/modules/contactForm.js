@@ -1,5 +1,6 @@
 // NPM
 import { map } from 'lodash';
+import axios from 'axios';
 
 // App
 import {
@@ -8,7 +9,6 @@ import {
 } from './action_template';
 import { showNotification } from './notification';
 import { BASE_URL_PATH } from 'appHelpers/constants';
-import axios from 'appHelpers/axios';
 
 const MODULE_NAME = 'contact_form';
 const ENDPOINT_URL = `${BASE_URL_PATH}/api/v1/${MODULE_NAME}/`;

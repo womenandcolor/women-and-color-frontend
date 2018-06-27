@@ -1,9 +1,9 @@
+import axios from 'axios';
 // App
 import {
   GetRequest, GetSuccess, GetError
 } from './action_template';
 import { BASE_URL_PATH } from 'appHelpers/constants';
-import axios from 'appHelpers/axios';
 
 const MODULE_NAME = 'locations';
 const ENDPOINT_URL = `${BASE_URL_PATH}/api/v1/${MODULE_NAME}/`;

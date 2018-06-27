@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'appHelpers/axios';
+import axios from 'axios';
 import Grid from 'material-ui/Grid';
 import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
 import { FormHelperText } from 'material-ui/Form';
