@@ -90,9 +90,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getUser: () => {
-      dispatch(getUser());
-    },
     onChangeProfile: attrs => {
       dispatch(onChangeProfile(attrs));
     }

@@ -17,7 +17,6 @@ import {
   update as updateProfile,
   onChange as onChangeProfile,
 } from 'appRedux/modules/profile';
-import { get as getUser } from 'appRedux/modules/user';
 import { get as getLocations } from 'appRedux/modules/location';
 import { showNotification } from 'appRedux/modules/notification';
 import StyledButton from 'appCommon/StyledButton';
@@ -183,12 +182,6 @@ class ProfileContainer extends Component {
     props.onChangeProfile({ current_page: CURRENT_PAGE });
   }
 
-  componentWillMount() {
-    if (!this.props.profile.id) {
-      this.props.getUser();
-    }
-  }
-
   render() {
     const props = this.props;
 
@@ -208,7 +201,7 @@ class ProfileContainer extends Component {
           handleSubmit={event => {
             event.preventDefault();
             // cannot be the default image
-            if (this.props.profile.image.startsWith('data:image/jpeg;base64')) {
+            if (this.props.profile.image.startsWith('data:image/svg+xml;base64')) {
               return this.props.showNotification('Please upload a photo.');
             }
             props.updateProfile();
@@ -233,9 +226,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch, props) {
   return {
-    getUser: () => {
-      dispatch(getUser());
-    },
     getLocations: () => {
       dispatch(getLocations());
     },

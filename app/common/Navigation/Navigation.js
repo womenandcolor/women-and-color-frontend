@@ -1,5 +1,5 @@
 // NPM
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { withStyles } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
@@ -13,7 +13,7 @@ import SearchField from './SearchField';
 import MenuDropdown from './MenuDropdown';
 import ButtonMenu from './ButtonMenu';
 import Logo from 'svg-react-loader?name=Logo!../../assets/logo_women_and_color.svg';
-import { logout } from 'appRedux/modules/user'
+import { logout, validateToken } from 'appRedux/modules/user'
 
 const styles = theme => ({
   root: {
@@ -23,44 +23,49 @@ const styles = theme => ({
   }
 });
 
-const Navigation = props => {
-  const loggedOutMenuItems = {
+const loggedOutMenuItems = {
+  default: [
+    { title: 'Log in', slug: '/login', color: 'secondary' },
+    { title: 'Be a speaker', slug: '/register', color: 'primary' },
+  ],
+};
+
+const loggedInMenuItems = profileId => {
+  return {
     default: [
-      { title: 'Log in', slug: '/login', color: 'secondary' },
-      { title: 'Be a speaker', slug: '/register', color: 'primary' },
+      { title: 'Edit profile', slug: '/profile', color: 'primary' },
+    ],
+    '/profile/about': [
+      {
+        title: 'View profile',
+        slug: `/speaker/${profileId}`,
+        color: 'primary',
+      },
+    ],
+    '/profile/talks': [
+      {
+        title: 'View profile',
+        slug: `/speaker/${profileId}`,
+        color: 'primary',
+      },
+    ],
+    '/profile/account': [
+      {
+        title: 'View profile',
+        slug: `/speaker/${profileId}`,
+        color: 'primary',
+      },
     ],
   };
+};
 
-  const loggedInMenuItems = profileId => {
-    return {
-      default: [
-        { title: 'Edit profile', slug: '/profile', color: 'primary' },
-      ],
-      '/profile/about': [
-        {
-          title: 'View profile',
-          slug: `/speaker/${profileId}`,
-          color: 'primary',
-        },
-      ],
-      '/profile/talks': [
-        {
-          title: 'View profile',
-          slug: `/speaker/${profileId}`,
-          color: 'primary',
-        },
-      ],
-      '/profile/account': [
-        {
-          title: 'View profile',
-          slug: `/speaker/${profileId}`,
-          color: 'primary',
-        },
-      ],
-    };
-  };
 
-  const menuItemsList = (location, authed, profile) => {
+class Navigation extends Component {
+  componentWillMount() {
+    this.props.validateToken()
+  }
+
+  menuItemsList = (location, authed, profile) => {
     const menuItemsObj = authed
       ? loggedInMenuItems(profile.id)
       : loggedOutMenuItems;
@@ -72,50 +77,51 @@ const Navigation = props => {
     return menuItemsObj.default;
   };
 
-  const {
-    classes,
-    updateSearchParams,
-    location,
-    user,
-    profile,
-    logout,
-  } = props;
+  render() {
+    const {
+      classes,
+      updateSearchParams,
+      location,
+      user,
+      profile,
+      logout,
+    } = this.props;
 
-  const authed = !!user.id;
-  const menuItems = menuItemsList(location, authed, profile);
+    const menuItems = this.menuItemsList(location, user.isAuthenticated, profile);
 
-  return (
-    <div>
-      <AppBar position="fixed" className={classes.root}>
-        <Toolbar>
-          <Grid container justify="center" spacing={0}>
-            <Grid item xs={12} md={9}>
-              <Grid container justify="space-between" alignItems="center">
-                <Grid item xs={6} sm={4} md={3}>
-                  <a
-                    href="/#/"
-                    style={{ textDecoration: 'none' }}
-                  >
-                    <Logo height="50px" width="100%" />
-                  </a>
-                </Grid>
-                <Grid item xs={6} md={4}>
-                  <Grid container justify="flex-end">
-                    <Hidden smDown>
-                      <ButtonMenu menuItems={menuItems} authed={authed} logout={logout} />
-                    </Hidden>
-                    <Hidden mdUp>
-                      <MenuDropdown menuItems={menuItems} authed={authed} logout={logout} />
-                    </Hidden>
+    return (
+      <div>
+        <AppBar position="fixed" className={classes.root}>
+          <Toolbar>
+            <Grid container justify="center" spacing={0}>
+              <Grid item xs={12} md={9}>
+                <Grid container justify="space-between" alignItems="center">
+                  <Grid item xs={6} sm={4} md={3}>
+                    <a
+                      href="/#/"
+                      style={{ textDecoration: 'none' }}
+                    >
+                      <Logo height="50px" width="100%" />
+                    </a>
+                  </Grid>
+                  <Grid item xs={6} md={4}>
+                    <Grid container justify="flex-end">
+                      <Hidden smDown>
+                        <ButtonMenu menuItems={menuItems} authed={user.isAuthenticated} logout={logout} />
+                      </Hidden>
+                      <Hidden mdUp>
+                        <MenuDropdown menuItems={menuItems} authed={user.isAuthenticated} logout={logout} />
+                      </Hidden>
+                    </Grid>
                   </Grid>
                 </Grid>
               </Grid>
             </Grid>
-          </Grid>
-        </Toolbar>
-      </AppBar>
-    </div>
-  );
+          </Toolbar>
+        </AppBar>
+      </div>
+    );
+  }
 };
 
 Navigation.propTypes = {
@@ -134,6 +140,9 @@ function mapDispatchToProps(dispatch) {
     logout: () => {
       dispatch(logout())
     },
+    validateToken: () => {
+      dispatch(validateToken())
+    }
   }
 }
 

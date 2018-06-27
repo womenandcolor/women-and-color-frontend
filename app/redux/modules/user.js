@@ -22,7 +22,7 @@ import {
   get as getProfile,
   getSuccess as getProfileSuccess,
   update as updateProfile,
-  logoutSuccess as logoutProfile
+  logoutSuccess as logoutProfile,
 } from 'appRedux/modules/profile';
 
 const TOKEN_STORAGE_KEY = 'wacApiToken';
@@ -34,6 +34,7 @@ const LOGOUT_URL = `${BASE_URL_PATH}/accounts/logout/`;
 const RESET_PASSWORD_URL = `${BASE_URL_PATH}/accounts/password/reset/`;
 const CONFIRM_RESET_PASSWORD_URL = `${BASE_URL_PATH}/accounts/password/reset/confirm/`;
 const CHANGE_PASSWORD_URL = `${BASE_URL_PATH}/accounts/password/change/`;
+const VERIFY_TOKEN_URL = `${BASE_URL_PATH}/api-verify-token/`;
 
 // Actions
 function getRequest() {
@@ -95,27 +96,26 @@ function putError() {
 function loginSuccess(data) {
   return {
     type: 'LOGIN_SUCCESS',
-    data
-  }
+    data,
+  };
 }
 
 function logoutSuccess() {
   return {
-    type: 'LOGOUT_SUCCESS'
-  }
+    type: 'LOGOUT_SUCCESS',
+  };
 }
 
-
 function setApiToken(token) {
-  sessionStorage.setItem(TOKEN_STORAGE_KEY, token)
+  localStorage.setItem(TOKEN_STORAGE_KEY, token);
 }
 
 function removeApiToken() {
-  sessionStorage.removeItem(TOKEN_STORAGE_KEY)
+  localStorage.removeItem(TOKEN_STORAGE_KEY);
 }
 
 export function getApiToken() {
-  return sessionStorage.getItem(TOKEN_STORAGE_KEY)
+  return localStorage.getItem(TOKEN_STORAGE_KEY);
 }
 
 export function onChange(data) {
@@ -125,19 +125,40 @@ export function onChange(data) {
   };
 }
 
+export function validateToken() {
+  const token = getApiToken();
+
+  return dispatch => {
+    if (token) {
+      axios
+        .post(VERIFY_TOKEN_URL, {
+          token,
+        })
+        .then(res => {
+          dispatch(get());
+        })
+        .catch(err => {
+          dispatch(removeApiToken());
+          dispatch(logoutSuccess());
+        });
+    } else {
+      dispatch(logoutSuccess());
+    }
+  };
+}
+
 export function get() {
   return (dispatch, getState) => {
     dispatch(getRequest());
     const token = getApiToken();
-    const authHeader = token ? { 'Authorization': `JWT ${token}` } : {}
+    const authHeader = token ? { Authorization: `JWT ${token}` } : {};
 
     axios
       .get(ENDPOINT_URL, { headers: authHeader })
       .then(res => {
         if (res.data[0]) {
           const data = res.data[0];
-          const token = getApiToken();
-          dispatch(getSuccess(data));
+          dispatch(getSuccess({...data, isAuthenticated: true }));
           dispatch(getProfileSuccess(data.profile));
           if (data.profile.page)
             dispatch(push(registrationFlow[data.profile.page].next));
@@ -163,11 +184,14 @@ export function create() {
       responseType: 'json',
     })
       .then(res => {
-        setApiToken(res.data.token)
-        dispatch(postSuccess({
-          ...res.data.user,
-          id: res.data.user.pk
-        }));
+        setApiToken(res.data.token);
+        dispatch(
+          postSuccess({
+            ...res.data.user,
+            id: res.data.user.pk,
+          })
+        );
+        dispatch(get())
         dispatch(showNotification('Your account has been created.'));
         dispatch(push(registrationFlow[page].next));
       })
@@ -196,25 +220,27 @@ export function update() {
     dispatch(putRequest());
     const { user } = getState();
     const page = user.page;
-    const token = getApiToken()
-    const authHeader = token ? { 'Authorization': `JWT ${token}` } : {}
+    const token = getApiToken();
+    const authHeader = token ? { Authorization: `JWT ${token}` } : {};
 
     return axios({
       method: 'PUT',
       url: `${ENDPOINT_URL}${user.id}/`,
       data: user,
       responseType: 'json',
-      headers: authHeader
+      headers: authHeader,
     })
       .then(res => {
-        console.log(res)
-        dispatch(postSuccess({
-          ...res.data
-        }));
+        console.log(res);
+        dispatch(
+          postSuccess({
+            ...res.data,
+          })
+        );
         dispatch(showNotification('Your account has been updated.'));
       })
       .catch(err => {
-        console.log(err)
+        console.log(err);
         if (err.response && err.response.data) {
           const errorList = map(err.response.data, (v, k) => {
             return `${k}: ${v}`;
@@ -244,8 +270,13 @@ export function login() {
       responseType: 'json',
     })
       .then(res => {
-        setApiToken(res.data.token)
-        dispatch(loginSuccess(res.data));
+        setApiToken(res.data.token);
+        dispatch(
+          loginSuccess({
+            user: res.data.user,
+            id: res.data.user.pk,
+          })
+        );
         dispatch(get());
         dispatch(showNotification('Welcome back!'));
         dispatch(push('/'));
@@ -258,9 +289,7 @@ export function login() {
           });
           dispatch(
             showNotification(
-              `We were not able to log you in. ${errorList.join(
-                ' \n '
-              )}`
+              `We were not able to log you in. ${errorList.join(' \n ')}`
             )
           );
         } else {
@@ -292,9 +321,7 @@ export function logout() {
           });
           dispatch(
             showNotification(
-              `We were not able to log you in. ${errorList.join(
-                ' \n '
-              )}`
+              `We were not able to log you in. ${errorList.join(' \n ')}`
             )
           );
         } else {
@@ -325,9 +352,7 @@ export function resetPassword() {
           });
           dispatch(
             showNotification(
-              `We were not able reset your password. ${errorList.join(
-                ' \n '
-              )}`
+              `We were not able reset your password. ${errorList.join(' \n ')}`
             )
           );
         } else {
@@ -358,9 +383,7 @@ export function confirmResetPassword(uid, token) {
           });
           dispatch(
             showNotification(
-              `We were not able reset your password. ${errorList.join(
-                ' \n '
-              )}`
+              `We were not able reset your password. ${errorList.join(' \n ')}`
             )
           );
         } else {
@@ -374,14 +397,14 @@ export function changePassword() {
   return (dispatch, getState) => {
     const { user } = getState();
     const token = getApiToken();
-    const authHeader = token ? { 'Authorization': `JWT ${token}` } : {}
+    const authHeader = token ? { Authorization: `JWT ${token}` } : {};
 
     axios({
       method: 'POST',
       url: CHANGE_PASSWORD_URL,
       data: user,
       responseType: 'json',
-      headers: authHeader
+      headers: authHeader,
     })
       .then(res => {
         dispatch(showNotification(res.data.detail));
@@ -409,6 +432,7 @@ const initialState = {
   isInitialized: false,
   isLoading: false,
   isRequesting: false,
+  isAuthenticated: false,
 };
 
 export const reducer = (state = initialState, action) => {
@@ -466,12 +490,14 @@ export const reducer = (state = initialState, action) => {
     case 'LOGIN_SUCCESS': {
       return {
         ...action.data.user,
-        id: action.data.user.pk
-      }
+        id: action.data.id,
+        token: action.data.token,
+        isAuthenticated: true,
+      };
     }
 
     case 'LOGOUT_SUCCESS': {
-      return { ...initialState }
+      return { ...initialState };
     }
 
     default: {

@@ -22,20 +22,22 @@ import {
   CodeOfConduct,
   PageNotFound,
 } from 'pages';
-import { getApiToken } from 'appRedux/modules/user';
 import MainContainer from './Main/MainContainer';
 
 import store, { history } from '../redux/store';
 
-const ProtectedRoute = ({ component: Component, user, ...rest }) => {
-  const token = getApiToken();
-  const isAuthenticated = !!token;
+function mapStateToProps(state) {
+  return {
+    user: state.user,
+  };
+}
 
+const ProtectedRoute = connect(mapStateToProps, null)(({ component: Component, user, ...rest }) => {
   return (
     <Route
       {...rest}
       render={props =>
-        isAuthenticated ? (
+        user.isAuthenticated ? (
           <Component {...props} />
         ) : (
           <Redirect
@@ -48,7 +50,8 @@ const ProtectedRoute = ({ component: Component, user, ...rest }) => {
       }
     />
   );
-}
+})
+
 
 const routes = (
   <Provider store={store}>

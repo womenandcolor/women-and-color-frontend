@@ -19,7 +19,6 @@ import {
   update as updateProfile,
   onChange as onChangeProfile,
 } from 'appRedux/modules/profile';
-import { get as getUser } from 'appRedux/modules/user';
 import { get as getLocations } from 'appRedux/modules/location';
 import {
   get as getTopics,
@@ -306,7 +305,6 @@ class AboutContainer extends Component {
   }
 
   componentWillMount() {
-    this.props.getUser();
     this.props.getLocations();
     this.props.getTopics();
   }
@@ -343,9 +341,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getUser: () => {
-      dispatch(getUser());
-    },
     getLocations: () => {
       dispatch(getLocations());
     },

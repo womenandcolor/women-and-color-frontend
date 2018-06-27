@@ -17,7 +17,6 @@ import {
   update as updateProfile,
   onChange as onChangeProfile,
 } from 'appRedux/modules/profile';
-import { get as getUser } from 'appRedux/modules/user';
 import {
   get as getTopics,
   create as createTopic,
@@ -90,12 +89,6 @@ class WorkContainer extends Component {
     props.onChangeProfile({ current_page: CURRENT_PAGE });
   }
 
-  componentWillMount() {
-    if (!this.props.profile.id) {
-      this.props.getUser();
-    }
-  }
-
   render() {
     return (
       <div>
@@ -136,9 +129,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch, props) {
   return {
-    getUser: () => {
-      dispatch(getUser());
-    },
     onChangeProfile: attrs => {
       dispatch(onChangeProfile(attrs));
     },

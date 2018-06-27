@@ -7,7 +7,6 @@ import { FormHelperText } from 'material-ui/Form';
 import FormField from 'appCommon/FormField';
 import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
 import { onChange as onChangeUser } from 'appRedux/modules/user';
-import { get as getUser } from 'appRedux/modules/user';
 import {
   update as updateTalk,
   create as createTalk,
@@ -29,10 +28,6 @@ class TalksContainer extends Component {
   state = {
     talks: this.props.profile.featured_talks || [],
   };
-
-  componentWillMount() {
-    this.props.getUser();
-  }
 
   componentWillReceiveProps(nextProps) {
     if (
@@ -107,9 +102,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getUser: () => {
-      dispatch(getUser());
-    },
     showNotification: message => {
       dispatch(showNotification(message));
     },
