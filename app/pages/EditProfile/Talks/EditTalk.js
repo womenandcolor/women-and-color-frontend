@@ -11,6 +11,7 @@ import ReactLoading from 'react-loading';
 // app
 import StyledButton from 'appCommon/StyledButton';
 import { BASE_URL_PATH } from 'appHelpers/constants';
+import { getApiToken } from 'appRedux/modules/user';
 
 import css from './style.css';
 
@@ -48,6 +49,7 @@ class Talk extends Component {
     data.append('file', file);
     data.append('profile', this.props.profile);
     const url = `${BASE_URL_PATH}/api/v1/images/`;
+    const token = getApiToken()
 
     axios({
       url,
@@ -55,7 +57,7 @@ class Talk extends Component {
       method: 'post',
       responseType: 'json',
       headers: {
-        'Authorization': `JWT ${this.props.user.token}`
+        'Authorization': `JWT ${token}`
       }
     })
       .then(res => {

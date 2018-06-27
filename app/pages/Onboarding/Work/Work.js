@@ -10,7 +10,7 @@ import { MenuItem } from 'material-ui/Menu';
 import Radio, { RadioGroup } from 'material-ui/Radio';
 import { FormLabel, FormControlLabel, FormHelperText } from 'material-ui/Form';
 import { Link } from 'react-router-dom';
-import { Helmet } from "react-helmet";
+import { Helmet } from 'react-helmet';
 
 // App
 import {
@@ -101,13 +101,18 @@ class WorkContainer extends Component {
       <div>
         <Helmet>
           <title>Get started - Work</title>
-          <meta name="description" content="Create your profile on Women and Color" />
+          <meta
+            name="description"
+            content="Create your profile on Women and Color"
+          />
         </Helmet>
         <Work
           handleSubmit={event => {
             event.preventDefault();
             if (this.props.profile.topics.length < 1) {
-              return this.props.showNotification('Please enter at least one topic.')
+              return this.props.showNotification(
+                'Please enter at least one topic.'
+              );
             }
             this.props.updateProfile();
           }}
@@ -147,8 +152,8 @@ function mapDispatchToProps(dispatch, props) {
       dispatch(createTopic(topic));
     },
     showNotification: message => {
-      dispatch(showNotification(message))
-    }
+      dispatch(showNotification(message));
+    },
   };
 }
 

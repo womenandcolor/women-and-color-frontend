@@ -25,6 +25,7 @@ import {
   logoutSuccess as logoutProfile
 } from 'appRedux/modules/profile';
 
+const TOKEN_STORAGE_KEY = 'wacApiToken';
 const MODULE_NAME = 'users';
 const ENDPOINT_URL = `${BASE_URL_PATH}/api/v1/${MODULE_NAME}/`;
 const REGISTRATION_URL = `${BASE_URL_PATH}/accounts/registration/`;
@@ -104,6 +105,19 @@ function logoutSuccess() {
   }
 }
 
+
+function setApiToken(token) {
+  sessionStorage.setItem(TOKEN_STORAGE_KEY, token)
+}
+
+function removeApiToken() {
+  sessionStorage.removeItem(TOKEN_STORAGE_KEY)
+}
+
+export function getApiToken() {
+  return sessionStorage.getItem(TOKEN_STORAGE_KEY)
+}
+
 export function onChange(data) {
   return {
     type: OnChange(MODULE_NAME),
@@ -114,14 +128,15 @@ export function onChange(data) {
 export function get() {
   return (dispatch, getState) => {
     dispatch(getRequest());
-    const { user } = getState()
-    const authHeader = user.token ? { 'Authorization': `JWT ${user.token}` } : {}
+    const token = getApiToken();
+    const authHeader = token ? { 'Authorization': `JWT ${token}` } : {}
 
     axios
       .get(ENDPOINT_URL, { headers: authHeader })
       .then(res => {
         if (res.data[0]) {
           const data = res.data[0];
+          const token = getApiToken();
           dispatch(getSuccess(data));
           dispatch(getProfileSuccess(data.profile));
           if (data.profile.page)
@@ -148,9 +163,9 @@ export function create() {
       responseType: 'json',
     })
       .then(res => {
+        setApiToken(res.data.token)
         dispatch(postSuccess({
           ...res.data.user,
-          token: res.data.token,
           id: res.data.user.pk
         }));
         dispatch(showNotification('Your account has been created.'));
@@ -181,7 +196,8 @@ export function update() {
     dispatch(putRequest());
     const { user } = getState();
     const page = user.page;
-    const authHeader = user.token ? { 'Authorization': `JWT ${user.token}` } : {}
+    const token = getApiToken()
+    const authHeader = token ? { 'Authorization': `JWT ${token}` } : {}
 
     return axios({
       method: 'PUT',
@@ -228,6 +244,7 @@ export function login() {
       responseType: 'json',
     })
       .then(res => {
+        setApiToken(res.data.token)
         dispatch(loginSuccess(res.data));
         dispatch(get());
         dispatch(showNotification('Welcome back!'));
@@ -261,6 +278,7 @@ export function logout() {
       responseType: 'json',
     })
       .then(res => {
+        removeApiToken();
         dispatch(logoutSuccess());
         dispatch(logoutProfile());
         dispatch(push('/'));
@@ -355,7 +373,8 @@ export function confirmResetPassword(uid, token) {
 export function changePassword() {
   return (dispatch, getState) => {
     const { user } = getState();
-    const authHeader = user.token ? { 'Authorization': `JWT ${user.token}` } : {}
+    const token = getApiToken();
+    const authHeader = token ? { 'Authorization': `JWT ${token}` } : {}
 
     axios({
       method: 'POST',
@@ -447,8 +466,7 @@ export const reducer = (state = initialState, action) => {
     case 'LOGIN_SUCCESS': {
       return {
         ...action.data.user,
-        id: action.data.user.pk,
-        token: action.data.token
+        id: action.data.user.pk
       }
     }
 

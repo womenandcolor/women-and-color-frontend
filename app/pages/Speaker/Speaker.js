@@ -54,15 +54,30 @@ class SpeakerContainer extends Component {
     }
   }
 
+  generateTitle = speaker => {
+    if (speaker) {
+      return `${speaker.first_name} ${speaker.last_name}, ${speaker.position} at ${speaker.organization}`
+    }
+
+    return 'Speaker Profile';
+  }
+
+  generateDescription = speaker => {
+    if (speaker) {
+      const threeTopics = speaker.topics.slice(0,2).map(topic => topic.topic).join(', ')
+      return `${speaker.first_name} ${speaker.last_name} is available for speaking opportunities at tech-related events on ${threeTopics} and more.`
+    }
+
+    return 'Find talented diverse speakers for tech-related events'
+  }
+
   render() {
     const { speaker } = this.props;
-    const title = speaker ? `${speaker.first_name} ${speaker.last_name} - Speaker Profile` : 'Speaker Profile';
-    const description = speaker ? (speaker.bio ? speaker.bio : `${speaker.first_name} ${speaker.last_name} | ${speaker.position} at ${speaker.organization} | based in ${speaker.city}`) : 'Find talented diverse speakers for tech-related events';
     return(
       <div>
         <Helmet>
-          <title>{title}</title>
-          <meta name="description" content={description} />
+          <title>{this.generateTitle(speaker)}</title>
+          <meta name="description" content={this.generateDescription(speaker)} />
         </Helmet>
         {
           this.props.speaker ? (

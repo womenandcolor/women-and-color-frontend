@@ -22,18 +22,15 @@ import {
   CodeOfConduct,
   PageNotFound,
 } from 'pages';
+import { getApiToken } from 'appRedux/modules/user';
 import MainContainer from './Main/MainContainer';
 
 import store, { history } from '../redux/store';
 
-function mapStateToProps(state) {
-  return {
-    user: state.user,
-  };
-}
+const ProtectedRoute = ({ component: Component, user, ...rest }) => {
+  const token = getApiToken();
+  const isAuthenticated = !!token;
 
-const ProtectedRoute = connect(mapStateToProps, null)(({ component: Component, user, ...rest }) => {
-  const isAuthenticated = (user.id && user.token);
   return (
     <Route
       {...rest}
@@ -51,8 +48,7 @@ const ProtectedRoute = connect(mapStateToProps, null)(({ component: Component, u
       }
     />
   );
-})
-
+}
 
 const routes = (
   <Provider store={store}>

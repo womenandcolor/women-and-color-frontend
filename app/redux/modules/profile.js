@@ -11,6 +11,7 @@ import {
 import { registrationFlow, BASE_URL_PATH } from 'appHelpers/constants';
 import axios from 'axios';
 import { showNotification } from './notification';
+import { getApiToken } from './user'
 
 const MODULE_NAME = 'profiles';
 const ENDPOINT_URL = `${BASE_URL_PATH}/api/v1/${MODULE_NAME}/`;
@@ -72,7 +73,8 @@ export function logoutSuccess() {
 export function update() {
   return (dispatch, getState) => {
     dispatch(putRequest());
-    const { profile, user } = getState();
+    const { profile } = getState();
+    const token = getApiToken();
     const page = profile.current_page;
     profile.page = page;
 
@@ -82,7 +84,7 @@ export function update() {
       data: profile,
       responseType: 'json',
       headers: {
-        'Authorization': `JWT ${user.token}`
+        'Authorization': `JWT ${token}`
       }
     }).then(res => {
       dispatch(putSuccess(res.data));
