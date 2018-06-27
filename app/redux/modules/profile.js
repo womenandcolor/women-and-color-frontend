@@ -9,7 +9,7 @@ import {
   OnChange
 } from './action_template';
 import { registrationFlow, BASE_URL_PATH } from 'appHelpers/constants';
-import axios from 'appHelpers/axios';
+import axios from 'axios';
 import { showNotification } from './notification';
 
 const MODULE_NAME = 'profiles';

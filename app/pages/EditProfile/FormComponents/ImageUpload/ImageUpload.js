@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import axios from 'appHelpers/axios';
+import axios from 'axios';
 import ReactLoading from 'react-loading';
 
 import { onChange as onChangeProfile } from 'appRedux/modules/profile';

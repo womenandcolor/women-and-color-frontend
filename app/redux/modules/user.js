@@ -1,10 +1,10 @@
 // NPM
+import axios from 'axios';
 import { push } from 'react-router-redux';
 import { map } from 'lodash';
 
 // App
 import { registrationFlow, BASE_URL_PATH } from 'appHelpers/constants';
-import axios from 'appHelpers/axios';
 import { showNotification } from './notification';
 import {
   GetRequest,

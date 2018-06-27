@@ -11,7 +11,7 @@ import {
 } from 'appHelpers/constants';
 import { generateQueryString } from 'appHelpers/queryParams';
 import { speakerToNamePath, speakerToProfilePath } from 'appHelpers/url';
-import axios from 'appHelpers/axios';
+import axios from 'axios';
 
 const MODULE_NAME = 'SPEAKER';
 

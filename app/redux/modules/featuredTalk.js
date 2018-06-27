@@ -1,3 +1,4 @@
+import axios from 'axios';
 
 // App
 import {
@@ -9,7 +10,6 @@ import {
 import { get as getUser } from './user';
 import { showNotification } from './notification';
 import { BASE_URL_PATH } from 'appHelpers/constants';
-import axios from 'appHelpers/axios';
 
 const MODULE_NAME = 'featured_talks';
 const ENDPOINT_URL = `${BASE_URL_PATH}/api/v1/${MODULE_NAME}/`;
