@@ -87,7 +87,7 @@ class Talk extends Component {
             </Grid>
             <Grid item xs={12}>
               <Grid container spacing={40}>
-                <Grid item xs={12} md={5}>
+                <Grid item xs={12} sm={6} md={5}>
                   <Card className={css.card}>
                     {this.state.imageLoading ? (
                       <div className={css.talkCardImage}>
