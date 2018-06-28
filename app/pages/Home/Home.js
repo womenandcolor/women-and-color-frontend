@@ -14,7 +14,6 @@ import StyledButton from 'appCommon/StyledButton';
 import Banner from 'appCommon/Banner';
 import { fetchSpeakers, updateSearchParams } from 'appRedux/modules/speaker';
 import { get as getLocations } from 'appRedux/modules/location';
-import { get as getUser } from 'appRedux/modules/user';
 import { DEFAULT_SPEAKER_LIMIT } from 'appHelpers/constants';
 
 import css from './styles.css';
@@ -85,12 +84,6 @@ class HomeContainer extends Component {
     this.props.fetchSpeakers(this.props.searchParams);
   }
 
-  componentWillMount() {
-    if (!this.props.user.id) {
-      this.props.getUser();
-    }
-  }
-
   componentWillReceiveProps(nextProps) {
     if (this.props.searchParams != nextProps.searchParams) {
       this.props.fetchSpeakers(nextProps.searchParams);
@@ -135,9 +128,6 @@ const mapDispatchToProps = dispatch => {
     },
     updateSearchParams: params => {
       dispatch(updateSearchParams(params));
-    },
-    getUser: () => {
-      dispatch(getUser());
     },
     getLocations: (opts) => {
       dispatch(getLocations(opts));

@@ -11,7 +11,6 @@ import {
   onChange as onChangeUser,
   changePassword
 } from 'appRedux/modules/user';
-import { get as getUser } from 'appRedux/modules/user';
 import StyledButton from 'appCommon/StyledButton';
 import FormField from 'appCommon/FormField';
 import { BASE_URL_PATH } from 'appHelpers/constants';
@@ -105,39 +104,27 @@ const Account = props => {
   );
 };
 
-class AccountContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
+const AccountContainer = props => {
+  if (!props.user.isInitialized || props.user.isLoading) {
+    return <ReactLoading type="spinningBubbles" color="#E5E8F4" />;
   }
 
-  componentWillMount() {
-    this.props.getUser();
-  }
-
-  render() {
-    const props = this.props;
-
-    if (!props.user.isInitialized || props.user.isLoading) {
-      return <ReactLoading type="spinningBubbles" color="#E5E8F4" />;
-    }
-    return (
-      <Account
-        handleSubmit={event => {
-          event.preventDefault();
-          props.updateUser();
-        }}
-        handleChangePassword={event => {
-          event.preventDefault();
-          props.changePassword();
-        }}
-        handleUserInputChange={(field, value) => {
-          props.onChangeUser({ [field]: value });
-        }}
-        {...props}
-      />
-    );
-  }
+  return (
+    <Account
+      handleSubmit={event => {
+        event.preventDefault();
+        props.updateUser();
+      }}
+      handleChangePassword={event => {
+        event.preventDefault();
+        props.changePassword();
+      }}
+      handleUserInputChange={(field, value) => {
+        props.onChangeUser({ [field]: value });
+      }}
+      {...props}
+    />
+  );
 }
 
 function mapStateToProps(state) {
@@ -148,9 +135,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getUser: () => {
-      dispatch(getUser());
-    },
     onChangeUser: attrs => {
       dispatch(onChangeUser(attrs));
     },

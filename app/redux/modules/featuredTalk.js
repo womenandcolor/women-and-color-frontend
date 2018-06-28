@@ -7,7 +7,7 @@ import {
   PutRequest, PutSuccess, PutError,
   OnChange
 } from './action_template';
-import { get as getUser } from './user';
+import { get as getUser, getApiToken } from './user';
 import { showNotification } from './notification';
 import { BASE_URL_PATH } from 'appHelpers/constants';
 
@@ -101,7 +101,7 @@ export function get() {
 export function create(data) {
   return (dispatch, getState) => {
     dispatch(postRequest());
-    const { user } = getState();
+    const token = getApiToken()
 
     axios({
       method: 'POST',
@@ -109,7 +109,7 @@ export function create(data) {
       data: data,
       responseType: 'json',
       headers: {
-        'Authorization': `JWT ${user.token}`
+        'Authorization': `JWT ${token}`
       }
     }).then(res => {
       dispatch(postSuccess(res.data));
@@ -126,7 +126,7 @@ export function create(data) {
 export function update(data) {
   return (dispatch, getState) => {
     dispatch(putRequest());
-    const { user } = getState();
+    const token = getApiToken()
 
     axios({
       method: 'PUT',
@@ -134,7 +134,7 @@ export function update(data) {
       data: data,
       responseType: 'json',
       headers: {
-        'Authorization': `JWT ${user.token}`
+        'Authorization': `JWT ${token}`
       }
     }).then(res => {
       dispatch(putSuccess(res.data));
@@ -150,7 +150,7 @@ export function update(data) {
 
 export function destroy(data) {
   return (dispatch, getState) => {
-    const { user } = getState();
+    const token = getApiToken()
 
     axios({
       method: 'DELETE',
@@ -158,7 +158,7 @@ export function destroy(data) {
       data: data,
       responseType: 'json',
       headers: {
-        'Authorization': `JWT ${user.token}`
+        'Authorization': `JWT ${token}`
       }
     }).then(res => {
       dispatch(getUser())

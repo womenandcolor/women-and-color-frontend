@@ -10,14 +10,13 @@ import { MenuItem } from 'material-ui/Menu';
 import Radio, { RadioGroup } from 'material-ui/Radio';
 import { FormLabel, FormControlLabel, FormHelperText } from 'material-ui/Form';
 import { Link } from 'react-router-dom';
-import { Helmet } from "react-helmet";
+import { Helmet } from 'react-helmet';
 
 // App
 import {
   update as updateProfile,
   onChange as onChangeProfile,
 } from 'appRedux/modules/profile';
-import { get as getUser } from 'appRedux/modules/user';
 import {
   get as getTopics,
   create as createTopic,
@@ -90,24 +89,23 @@ class WorkContainer extends Component {
     props.onChangeProfile({ current_page: CURRENT_PAGE });
   }
 
-  componentWillMount() {
-    if (!this.props.profile.id) {
-      this.props.getUser();
-    }
-  }
-
   render() {
     return (
       <div>
         <Helmet>
           <title>Get started - Work</title>
-          <meta name="description" content="Create your profile on Women and Color" />
+          <meta
+            name="description"
+            content="Create your profile on Women and Color"
+          />
         </Helmet>
         <Work
           handleSubmit={event => {
             event.preventDefault();
             if (this.props.profile.topics.length < 1) {
-              return this.props.showNotification('Please enter at least one topic.')
+              return this.props.showNotification(
+                'Please enter at least one topic.'
+              );
             }
             this.props.updateProfile();
           }}
@@ -131,9 +129,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch, props) {
   return {
-    getUser: () => {
-      dispatch(getUser());
-    },
     onChangeProfile: attrs => {
       dispatch(onChangeProfile(attrs));
     },
@@ -147,8 +142,8 @@ function mapDispatchToProps(dispatch, props) {
       dispatch(createTopic(topic));
     },
     showNotification: message => {
-      dispatch(showNotification(message))
-    }
+      dispatch(showNotification(message));
+    },
   };
 }
 

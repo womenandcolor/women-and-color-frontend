@@ -4,6 +4,7 @@ import {
   GetRequest, GetSuccess, GetError, PostRequest, PostSuccess, PostError
 } from './action_template';
 import { BASE_URL_PATH } from 'appHelpers/constants';
+import { getApiToken } from 'appRedux/modules/user';
 
 const MODULE_NAME = 'topics';
 const ENDPOINT_URL = `${BASE_URL_PATH}/api/v1/${MODULE_NAME}/`;
@@ -67,7 +68,7 @@ export function get() {
 export function create(topic) {
   return (dispatch, getState) => {
     dispatch(postRequest());
-    const { user } = getState();
+    const token = getApiToken();
 
     axios({
       method: 'POST',
@@ -75,7 +76,7 @@ export function create(topic) {
       data: { topic },
       responseType: 'json',
       headers: {
-        'Authorization': `JWT ${user.token}`
+        'Authorization': `JWT ${token}`
       }
     }).then(res => {
       console.log('topic post success', res.data)

@@ -45,7 +45,7 @@ const MainContainer = props => (
         <Notification />
         <div className={container}>
           <Navigation location={props.location} />
-            <div className={innerContainer}>{props.children}</div>
+          <div className={innerContainer}>{props.children}</div>
           <Footer location={props.location} />
         </div>
       </div>

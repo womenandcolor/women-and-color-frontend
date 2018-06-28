@@ -33,12 +33,11 @@ function mapStateToProps(state) {
 }
 
 const ProtectedRoute = connect(mapStateToProps, null)(({ component: Component, user, ...rest }) => {
-  const isAuthenticated = (user.id && user.token);
   return (
     <Route
       {...rest}
       render={props =>
-        isAuthenticated ? (
+        user.isAuthenticated ? (
           <Component {...props} />
         ) : (
           <Redirect

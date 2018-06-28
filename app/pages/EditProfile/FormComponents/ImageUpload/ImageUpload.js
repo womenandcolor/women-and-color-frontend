@@ -4,6 +4,7 @@ import axios from 'axios';
 import ReactLoading from 'react-loading';
 
 import { onChange as onChangeProfile } from 'appRedux/modules/profile';
+import { getApiToken } from 'appRedux/modules/user';
 import StyledButton from 'appCommon/StyledButton';
 import { BASE_URL_PATH, MAXIMUM_IMAGE_SIZE } from 'appHelpers/constants';
 import css from './styles.css';
@@ -31,13 +32,14 @@ class ImageUpload extends Component {
     data.append('file', file);
     data.append('profile', this.props.profile.id);
     const url = `${BASE_URL_PATH}/api/v1/images/`;
+    const token = getApiToken()
     axios({
       url,
       data,
       method: 'post',
       responseType: 'json',
       headers: {
-        'Authorization': `JWT ${this.props.user.token}`
+        'Authorization': `JWT ${token}`
       }
     })
       .then(res => {
@@ -88,9 +90,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getUser: () => {
-      dispatch(getUser());
-    },
     onChangeProfile: attrs => {
       dispatch(onChangeProfile(attrs));
     }

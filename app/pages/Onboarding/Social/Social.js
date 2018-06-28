@@ -17,9 +17,6 @@ import {
   update as updateProfile,
   onChange as onChangeProfile
 } from 'appRedux/modules/profile';
-import {
-  get as getUser
-} from 'appRedux/modules/user';
 import StyledButton from 'appCommon/StyledButton';
 import FormField from 'appCommon/FormField';
 import css from './styles.css'
@@ -80,12 +77,6 @@ class SocialContainer extends Component {
     props.onChangeProfile({ current_page: null });
   }
 
-  componentWillMount() {
-    if (!this.props.profile.id) {
-      this.props.getUser();
-    }
-  }
-
   render() {
     const props = this.props;
 
@@ -119,9 +110,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch, props) {
   return {
-    getUser: () => {
-      dispatch(getUser());
-    },
     onChangeProfile: (attrs) => {
       dispatch(onChangeProfile(attrs))
     },
