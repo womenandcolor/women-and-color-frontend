@@ -140,6 +140,7 @@ export function validateToken() {
         .catch(err => {
           dispatch(removeApiToken());
           dispatch(logoutSuccess());
+          dispatch(push('/login'))
         });
     } else {
       dispatch(logoutSuccess());
