@@ -280,7 +280,7 @@ export function login() {
         );
         dispatch(get());
         dispatch(showNotification('Welcome back!'));
-        dispatch(push('/'));
+        dispatch(push('/profile'));
       })
       .catch(err => {
         console.log(err);

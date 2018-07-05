@@ -10,6 +10,7 @@ import { MenuItem } from 'material-ui/Menu';
 import { Link } from 'react-router-dom'
 import Card from 'material-ui/Card';
 import { Helmet } from "react-helmet";
+import { push } from 'react-router-redux';
 
 // App
 import {
@@ -105,6 +106,9 @@ function mapDispatchToProps(dispatch, props) {
     },
     submitForm: (user) => {
       dispatch(submitForm(user));
+    },
+    goToProfile: () => {
+      dispatch(push('/'));
     }
   }
 }

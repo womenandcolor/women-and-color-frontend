@@ -67,7 +67,7 @@ const routes = (
           <Route path="/get-started/work" component={Work} />
           <Route path="/get-started/social" component={Social} />
           <Route path="/speaker/:id/:fullName?" component={Speaker} />
-          <ProtectedRoute path="/profile" component={EditProfile} />
+          <Route path="/profile" component={EditProfile} />
           <Route path="/terms" component={Terms} />
           <Route path="/privacy" component={Privacy} />
           <Route path="/code-of-conduct" component={CodeOfConduct} />
