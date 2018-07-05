@@ -51,7 +51,7 @@ const SpeakerCard = ({ speaker, classes }) => {
       <Grid container>
         <Grid item xs={12}>
           <CardContent className={css.speakerCard}>
-            <Grid container justify="center">
+            <Grid container justify="center" spacing={0}>
               <Grid item xs={8} className={classes.photo}>
                 <div className={`${profilePhoto}`}>
                   <img src={speaker.image} alt={speaker.display_name} />
