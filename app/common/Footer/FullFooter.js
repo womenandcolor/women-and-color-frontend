@@ -5,6 +5,7 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faGithub from '@fortawesome/fontawesome-free-brands/faGithub';
 import faTwitter from '@fortawesome/fontawesome-free-brands/faTwitter';
 import faInstagram from '@fortawesome/fontawesome-free-brands/faInstagram';
+import faSlack from '@fortawesome/fontawesome-free-brands/faSlack';
 import { Link } from 'react-router-dom';
 
 // APP
@@ -59,6 +60,12 @@ const FullFooter = () => {
               sm={4}
               className={`${css.alignRight} ${css.alignCenterOnMobile}`}
             >
+              <a
+                href="https://join.slack.com/t/womenandcolor/shared_invite/enQtNDE5MDA4MjU4MTQ5LTY4NGYxMjAyODJiODhkMDU3NjEwZmQyYWMzMWQ1ZjAwNjYzYmY5ZmIxNzRkMDM1ZjUwOTc5MjQ0NmFkMzNjMTY"
+                target="_blank"
+              >
+                <FontAwesomeIcon icon={faSlack} size="lg" />
+              </a>
               <a
                 href="https://github.com/CivicTechTO/women-and-color-frontend"
                 target="_blank"
