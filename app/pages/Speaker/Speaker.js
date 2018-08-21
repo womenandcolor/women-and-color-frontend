@@ -56,7 +56,13 @@ class SpeakerContainer extends Component {
 
   generateTitle = speaker => {
     if (speaker) {
-      return `${speaker.first_name} ${speaker.last_name}, ${speaker.position} at ${speaker.organization}`
+      const firstName = speaker.first_name || "Speaker";
+      const lastName = speaker.last_name || "Profile";
+      const position = speaker.position || "undisclosed position";
+      const organization = speaker.organization || "undisclosed organization";
+
+
+      return `${firstName} ${lastName}, ${position} at ${organization}`
     }
 
     return 'Speaker Profile';

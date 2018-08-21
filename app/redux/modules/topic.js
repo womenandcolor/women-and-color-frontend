@@ -69,6 +69,7 @@ export function create(topic) {
   return (dispatch, getState) => {
     dispatch(postRequest());
     const token = getApiToken();
+    const authHeader = token ? `JWT ${token}` : null;
 
     axios({
       method: 'POST',
@@ -76,7 +77,7 @@ export function create(topic) {
       data: { topic },
       responseType: 'json',
       headers: {
-        'Authorization': `JWT ${token}`
+        'Authorization': authHeader
       }
     }).then(res => {
       console.log('topic post success', res.data)
