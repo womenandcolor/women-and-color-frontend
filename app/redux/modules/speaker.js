@@ -2,6 +2,7 @@
 import { map, compact, uniqBy } from 'lodash';
 import { equals } from 'ramda';
 import { push } from 'react-router-redux';
+import axios from 'axios';
 
 // App
 import {
@@ -11,7 +12,8 @@ import {
 } from 'appHelpers/constants';
 import { generateQueryString } from 'appHelpers/queryParams';
 import { speakerToNamePath, speakerToProfilePath } from 'appHelpers/url';
-import axios from 'axios';
+import { showNotification } from './notification';
+import { getApiToken } from './user'
 
 const MODULE_NAME = 'SPEAKER';
 
@@ -51,17 +53,29 @@ export function fetchSpeakers(params = {}) {
 }
 
 export function getSpeaker(id, fullName = '') {
+  const token = getApiToken();
+  const authHeader = token ? `JWT ${token}` : null;
+
   return dispatch => {
     axios
-      .get(`${BASE_URL_PATH}/api/v1/profiles/${id}`)
+      .get(`${BASE_URL_PATH}/api/v1/profiles/${id}`, {
+        headers: {
+          'Authorization': authHeader
+        }
+      })
       .then(res => {
+        console.log('res', res)
         dispatch(updateSpeaker(res.data));
         if (!equals(fullName, speakerToNamePath(res.data))) {
           const speakerProfilePath = speakerToProfilePath(res.data);
           dispatch(push(speakerProfilePath));
         }
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        console.log('err', err)
+        dispatch(showNotification('This profile is not available.'))
+        dispatch(push('/'))
+      });
   };
 }
 

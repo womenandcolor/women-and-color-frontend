@@ -102,6 +102,7 @@ export function create(data) {
   return (dispatch, getState) => {
     dispatch(postRequest());
     const token = getApiToken()
+    const authHeader = token ? `JWT ${token}` : null;
 
     axios({
       method: 'POST',
@@ -109,7 +110,7 @@ export function create(data) {
       data: data,
       responseType: 'json',
       headers: {
-        'Authorization': `JWT ${token}`
+        'Authorization': authHeader
       }
     }).then(res => {
       dispatch(postSuccess(res.data));
@@ -127,6 +128,7 @@ export function update(data) {
   return (dispatch, getState) => {
     dispatch(putRequest());
     const token = getApiToken()
+    const authHeader = token ? `JWT ${token}` : null;
 
     axios({
       method: 'PUT',
@@ -134,7 +136,7 @@ export function update(data) {
       data: data,
       responseType: 'json',
       headers: {
-        'Authorization': `JWT ${token}`
+        'Authorization': authHeader
       }
     }).then(res => {
       dispatch(putSuccess(res.data));
@@ -151,6 +153,7 @@ export function update(data) {
 export function destroy(data) {
   return (dispatch, getState) => {
     const token = getApiToken()
+    const authHeader = token ? `JWT ${token}` : null;
 
     axios({
       method: 'DELETE',
@@ -158,7 +161,7 @@ export function destroy(data) {
       data: data,
       responseType: 'json',
       headers: {
-        'Authorization': `JWT ${token}`
+        'Authorization': authHeader
       }
     }).then(res => {
       dispatch(getUser())

@@ -75,6 +75,7 @@ export function update() {
     dispatch(putRequest());
     const { profile } = getState();
     const token = getApiToken();
+    const authHeader = token ? `JWT ${token}` : null;
     const page = profile.current_page;
     profile.page = page;
 
@@ -84,7 +85,7 @@ export function update() {
       data: profile,
       responseType: 'json',
       headers: {
-        'Authorization': `JWT ${token}`
+        'Authorization': authHeader
       }
     }).then(res => {
       dispatch(putSuccess(res.data));

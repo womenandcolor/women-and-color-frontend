@@ -260,6 +260,52 @@ export function update() {
   };
 }
 
+export function destroy() {
+  return (dispatch, getState) => {
+    const { user } = getState();
+    const token = getApiToken();
+    const authHeader = token ? { Authorization: `JWT ${token}` } : {};
+
+    return axios({
+      method: 'DELETE',
+      url: `${ENDPOINT_URL}${user.id}/`,
+      data: user,
+      responseType: 'json',
+      headers: authHeader,
+    })
+      .then(res => {
+        console.log(res);
+        dispatch(
+          postSuccess({
+            ...res.data,
+          })
+        );
+        removeApiToken();
+        dispatch(logoutSuccess());
+        dispatch(logoutProfile());
+        dispatch(push('/'));
+        dispatch(showNotification('Your account has been deleted.'));
+      })
+      .catch(err => {
+        console.log(err);
+        if (err.response && err.response.data) {
+          const errorList = map(err.response.data, (v, k) => {
+            return `${k}: ${v}`;
+          });
+          dispatch(
+            showNotification(
+              `There was an error in deleting your account. ${errorList.join(
+                ' \n '
+              )}`
+            )
+          );
+        } else {
+          dispatch(putError(err));
+        }
+      });
+  };
+}
+
 export function login() {
   return (dispatch, getState) => {
     const { user } = getState();
@@ -322,7 +368,7 @@ export function logout() {
           });
           dispatch(
             showNotification(
-              `We were not able to log you in. ${errorList.join(' \n ')}`
+              `We were not able to log you out. ${errorList.join(' \n ')}`
             )
           );
         } else {
