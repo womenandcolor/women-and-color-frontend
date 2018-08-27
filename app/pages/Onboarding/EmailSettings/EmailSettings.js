@@ -37,6 +37,7 @@ const EmailSettings = props => {
         <h1 className={css.registrationFormHeader}>Email settings</h1>
 
         <FormField fullWidth className={css.formControl}>
+          <p>Speakers' Notes is a mailing list exclusively for speakers on Women & Color where you can find out about upcoming speaking opportunities in your city. It's also how we'll inform you about perks such as free tickets to events and special offers from our partners.</p>
           <FormControlLabel
             control={
               <Checkbox
@@ -46,11 +47,12 @@ const EmailSettings = props => {
                 color="primary"
               />
             }
-            label="Subscribe to the speakers' list"
+            label="Subscribe to the Speakers' Notes"
           />
         </FormField>
 
         <FormField fullWidth className={css.formControl}>
+          <p>Our newsletter is where we celebrate the successes of our speakers and share our progress as an organization as we continue to fight for better representation and diversity in the tech industry.</p>
           <FormControlLabel
             control={
               <Checkbox
@@ -60,9 +62,11 @@ const EmailSettings = props => {
                 color="primary"
               />
             }
-            label="Subscribe to the speakers' list"
+            label="Subscribe to our newsletter"
           />
         </FormField>
+
+        <p>P.S. We keep your info private, we won't spam you, and you can unsubscribe at any time.</p>
 
         <div>
           <FormField className={css.formControl}>
@@ -80,7 +84,7 @@ class EmailSettingsContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    props.onChangeProfile({ current_page: CURRENT_PAGE });
+    props.onChangeProfile({ current_page: null });
   }
 
   render() {

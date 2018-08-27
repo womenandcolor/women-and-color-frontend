@@ -29,6 +29,7 @@ const EmailSettings = props => {
           <Grid container>
             <Grid item xs={12} md={6}>
               <FormField fullWidth className={css.formControl}>
+                <p>Speakers' Notes is a mailing list exclusively for speakers on Women & Color where you can find out about upcoming speaking opportunities in your city. It's also how we'll inform you about perks such as free tickets to events and special offers from our partners.</p>
                 <FormControlLabel
                   control={
                     <Checkbox
@@ -38,11 +39,12 @@ const EmailSettings = props => {
                       color="primary"
                     />
                   }
-                  label="Subscribe to the speakers' list"
+                  label="Subscribe to the Speakers' Notes"
                 />
               </FormField>
 
               <FormField fullWidth className={css.formControl}>
+                <p>Our newsletter is where we celebrate the successes of our speakers and share our progress as an organization as we continue to fight for better representation and diversity in the tech industry.</p>
                 <FormControlLabel
                   control={
                     <Checkbox
@@ -52,7 +54,7 @@ const EmailSettings = props => {
                       color="primary"
                     />
                   }
-                  label="Subscribe to the newsletter"
+                  label="Subscribe to our newsletter"
                 />
               </FormField>
 
