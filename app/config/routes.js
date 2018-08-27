@@ -14,6 +14,7 @@ import {
   Profile,
   Work,
   Social,
+  EmailSettings,
   EditProfile,
   AboutUs,
   ComingSoon,
@@ -66,6 +67,7 @@ const routes = (
           <Route path="/get-started/profile" component={Profile} />
           <Route path="/get-started/work" component={Work} />
           <Route path="/get-started/social" component={Social} />
+          <Route path="/get-started/email-settings" component={EmailSettings} />
           <Route path="/speaker/:id/:fullName?" component={Speaker} />
           <Route path="/profile" component={EditProfile} />
           <Route path="/terms" component={Terms} />

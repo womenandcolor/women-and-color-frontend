@@ -9,7 +9,6 @@ import { MenuItem } from 'material-ui/Menu';
 import Radio, { RadioGroup } from 'material-ui/Radio';
 import { FormLabel, FormControlLabel } from 'material-ui/Form';
 import { Link } from 'react-router-dom';
-import { push } from 'react-router-redux';
 import { Helmet } from "react-helmet";
 
 // App
@@ -19,7 +18,7 @@ import {
 } from 'appRedux/modules/profile';
 import StyledButton from 'appCommon/StyledButton';
 import FormField from 'appCommon/FormField';
-import css from './styles.css'
+import css from '../styles.css'
 
 
 const CURRENT_PAGE = 'social';
@@ -61,7 +60,7 @@ const Social = (props) => {
 
         <div>
           <FormField className={ css.formControl }>
-            <StyledButton label="Submit" type="submit" color="primary">Save and submit</StyledButton>
+            <StyledButton label="Submit" type="submit" color="primary">Save and continue</StyledButton>
           </FormField>
         </div>
       </form>
@@ -74,7 +73,7 @@ class SocialContainer extends Component {
   constructor(props) {
     super(props)
     this.state = {}
-    props.onChangeProfile({ current_page: null });
+    props.onChangeProfile({ current_page: CURRENT_PAGE });
   }
 
   render() {
@@ -114,10 +113,8 @@ function mapDispatchToProps(dispatch, props) {
       dispatch(onChangeProfile(attrs))
     },
     updateProfile: () => {
-      dispatch(updateProfile()).then(x => {
-        dispatch(push('/profile'))
-      });
-    }
+      dispatch(updateProfile());
+    },
   }
 }
 

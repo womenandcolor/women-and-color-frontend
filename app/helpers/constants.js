@@ -12,8 +12,13 @@ export const registrationFlow = {
   },
 
   social: {
+    next: '/get-started/email-settings',
+  },
+
+  email_settings: {
     next: '/',
   },
+
 };
 
 export const pronounDict = {

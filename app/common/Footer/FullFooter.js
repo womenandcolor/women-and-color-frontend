@@ -49,10 +49,8 @@ const FullFooter = () => {
         <Grid item xs={11} md={9}>
           <Grid container justify="space-between" spacing={0}>
             <Grid item xs={12} sm={8} className={css.verticalOnMobile}>
-              <Link to="/about">About Us</Link>
-              <Link to="/thanks">Special Thanks</Link>
-              <Link to="/partners">Our Partners</Link>
-              <Link to="/contact">Contact Us</Link>
+              <Link to="/about">About us</Link>
+              <a href="http://eepurl.com/dFaJHb">Stay in touch</a>
             </Grid>
             <Grid
               item
