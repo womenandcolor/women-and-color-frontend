@@ -22,7 +22,7 @@ import { showNotification } from 'appRedux/modules/notification';
 import StyledButton from 'appCommon/StyledButton';
 import FormField from 'appCommon/FormField';
 import ImageUpload from 'appPages/EditProfile/FormComponents/ImageUpload/ImageUpload';
-import css from './styles.css';
+import css from '../styles.css';
 
 const CURRENT_PAGE = 'profile';
 

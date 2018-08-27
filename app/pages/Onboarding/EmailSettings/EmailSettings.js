@@ -2,14 +2,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Grid from 'material-ui/Grid';
-import TextField from 'material-ui/TextField';
-import Button from 'material-ui/Button';
-import Select from 'material-ui/Select';
-import Input, { InputLabel } from 'material-ui/Input';
-import { MenuItem } from 'material-ui/Menu';
-import Radio, { RadioGroup } from 'material-ui/Radio';
+import Checkbox from 'material-ui/Checkbox';
 import { FormLabel, FormControlLabel, FormHelperText } from 'material-ui/Form';
 import { Link } from 'react-router-dom';
+import { push } from 'react-router-redux';
 import { Helmet } from 'react-helmet';
 
 // App
@@ -17,19 +13,14 @@ import {
   update as updateProfile,
   onChange as onChangeProfile,
 } from 'appRedux/modules/profile';
-import {
-  get as getTopics,
-  create as createTopic,
-} from 'appRedux/modules/topic';
 import { showNotification } from 'appRedux/modules/notification';
 import StyledButton from 'appCommon/StyledButton';
 import FormField from 'appCommon/FormField';
-import TopicSelector from 'appPages/EditProfile/FormComponents/TopicSelector/TopicSelector';
 import css from '../styles.css';
 
-const CURRENT_PAGE = 'work';
+const CURRENT_PAGE = 'email_settings';
 
-const Work = props => {
+const EmailSettings = props => {
   const generateHandler = fieldName => {
     return event => {
       props.handleProfileInputChange(fieldName, event.currentTarget.value);
@@ -43,36 +34,40 @@ const Work = props => {
   return (
     <div className={css.registrationForm}>
       <form onSubmit={props.handleSubmit}>
-        <h1 className={css.registrationFormHeader}>Let's talk about work</h1>
+        <h1 className={css.registrationFormHeader}>Email settings</h1>
 
         <FormField fullWidth className={css.formControl}>
-          <TextField label="Position" onChange={generateHandler('position')} />
-        </FormField>
-
-        <FormField fullWidth className={css.formControl}>
-          <TextField
-            label="Organization"
-            onChange={generateHandler('organization')}
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={props.profile.speaker_mailing_list}
+                onChange={e => props.handleProfileInputChange('speaker_mailing_list', e.target.checked)}
+                value="speaker_mailing_list"
+                color="primary"
+              />
+            }
+            label="Subscribe to the speakers' list"
           />
         </FormField>
 
         <FormField fullWidth className={css.formControl}>
-          <FormLabel component="legend">Speaking Topics</FormLabel>
-          <TopicSelector
-            topics={props.topics}
-            selectedTopics={props.profile.topics}
-            handleChange={handleTopicsChange}
-            createTopic={props.createTopic}
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={props.profile.newsletter_mailing_list}
+                onChange={e => props.handleProfileInputChange('newsletter_mailing_list', e.target.checked)}
+                value="newsletter_mailing_list"
+                color="primary"
+              />
+            }
+            label="Subscribe to the speakers' list"
           />
-          <FormHelperText>
-            {`Topics: ${props.profile.topics.length || '0'} of 10`}
-          </FormHelperText>
         </FormField>
 
         <div>
           <FormField className={css.formControl}>
             <StyledButton label="Submit" type="submit" color="primary">
-              Save and continue
+              Save and submit
             </StyledButton>
           </FormField>
         </div>
@@ -81,11 +76,10 @@ const Work = props => {
   );
 };
 
-class WorkContainer extends Component {
+class EmailSettingsContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    props.getTopics();
     props.onChangeProfile({ current_page: CURRENT_PAGE });
   }
 
@@ -93,20 +87,15 @@ class WorkContainer extends Component {
     return (
       <div>
         <Helmet>
-          <title>Get started - Work</title>
+          <title>Get started - Email Settings</title>
           <meta
             name="description"
             content="Create your profile on Women and Color"
           />
         </Helmet>
-        <Work
+        <EmailSettings
           handleSubmit={event => {
             event.preventDefault();
-            if (this.props.profile.topics.length < 1) {
-              return this.props.showNotification(
-                'Please enter at least one topic.'
-              );
-            }
             this.props.updateProfile();
           }}
           handleProfileInputChange={(field, value) => {
@@ -123,7 +112,6 @@ function mapStateToProps(state) {
   return {
     user: state.user,
     profile: state.profile,
-    topics: state.topic.topics,
   };
 }
 
@@ -133,13 +121,9 @@ function mapDispatchToProps(dispatch, props) {
       dispatch(onChangeProfile(attrs));
     },
     updateProfile: () => {
-      dispatch(updateProfile());
-    },
-    getTopics: () => {
-      dispatch(getTopics());
-    },
-    createTopic: topic => {
-      dispatch(createTopic(topic));
+      dispatch(updateProfile()).then(() => {
+        dispatch(push('/profile'))
+      });
     },
     showNotification: message => {
       dispatch(showNotification(message));
@@ -147,4 +131,4 @@ function mapDispatchToProps(dispatch, props) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(WorkContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(EmailSettingsContainer);

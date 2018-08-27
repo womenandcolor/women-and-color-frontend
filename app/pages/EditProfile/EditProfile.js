@@ -8,6 +8,7 @@ import SideBar from './SideBar';
 import About from './About/About';
 import Account from './Account/Account';
 import Talks from './Talks/Talks';
+import EmailSettings from './EmailSettings/EmailSettings';
 import css from './styles.css';
 
 const subroutes = [
@@ -28,6 +29,12 @@ const subroutes = [
     path: 'account',
     text: 'account',
     component: Account,
+  },
+  {
+    id: 3,
+    path: 'email-settings',
+    text: 'email settings',
+    component: EmailSettings,
   },
 ];
 
