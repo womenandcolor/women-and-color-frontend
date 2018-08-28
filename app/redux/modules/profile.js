@@ -97,6 +97,8 @@ export function update() {
         dispatch(showNotification('This action is unauthorized. Please make sure you are logged in.'))
       } else if (err.response.data) {
         dispatch(showNotification(`There was an error: ${err.response.data.detail}`))
+      } else {
+        dispatch(showNotification('There was an error updating your profile.'))
       }
       dispatch(putError(err));
     });
