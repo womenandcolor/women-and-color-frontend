@@ -22,14 +22,14 @@ const EmailSettings = props => {
     <div>
       <form onSubmit={props.handleSubmit}>
         <div className={css.section}>
-          <h1 className={css.header}>Edit your email settings</h1>
+          <h1 className={css.header}>Edit your communication settings</h1>
         </div>
 
         <div className={css.section}>
           <Grid container>
             <Grid item xs={12} md={6}>
               <FormField fullWidth className={css.formControl}>
-                <p>Speakers' Notes is a mailing list exclusively for speakers on Women & Color where you can find out about upcoming speaking opportunities in your city. It's also how we'll inform you about perks such as free tickets to events and special offers from our partners.</p>
+                <p>Speaker Perks is available exclusively to speakers on Women & Color. You will only receive an email email if there’s a speaking opportunity in your area or we have special offers such as complimentary tickets to an event.</p>
                 <FormControlLabel
                   control={
                     <Checkbox
@@ -39,12 +39,12 @@ const EmailSettings = props => {
                       color="primary"
                     />
                   }
-                  label="Subscribe to the Speakers' Notes"
+                  label="Subscribe to the Speaker Perks"
                 />
               </FormField>
 
               <FormField fullWidth className={css.formControl}>
-                <p>Our newsletter is where we celebrate the successes of our speakers and share our progress as an organization as we continue to fight for better representation and diversity in the tech industry.</p>
+                <p>Be the first to learn about our new initiatives as well as keep up-to-date on speaking opportunities, up-coming training and development workshops, and additional curated content.</p>
                 <FormControlLabel
                   control={
                     <Checkbox
@@ -54,7 +54,7 @@ const EmailSettings = props => {
                       color="primary"
                     />
                   }
-                  label="Subscribe to our newsletter"
+                  label="Subscribe to monthly newsletter"
                 />
               </FormField>
 

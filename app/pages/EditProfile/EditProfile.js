@@ -33,7 +33,7 @@ const subroutes = [
   {
     id: 3,
     path: 'email-settings',
-    text: 'email settings',
+    text: 'communication',
     component: EmailSettings,
   },
 ];
