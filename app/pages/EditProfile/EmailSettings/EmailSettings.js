@@ -25,6 +25,7 @@ const EmailSettings = props => {
   const handleSubscriptionGroups = (e) => {
     const group = find(props.subscription_groups, g => g.group_id === e.target.value)
     let selectedGroups = [...props.profile.subscription_groups];
+
     if (e.target.checked) {
       selectedGroups.push(group);
     } else {
@@ -36,59 +37,52 @@ const EmailSettings = props => {
 
 
   return (
-    <div>
-      <form onSubmit={props.handleSubmit}>
-        <div className={css.section}>
-          <h1 className={css.header}>Edit your communication settings</h1>
-        </div>
+    <form onSubmit={props.handleSubmit}>
+      <div className={css.section}>
+        <h1 className={css.header}>Edit your communication settings</h1>
+      </div>
 
-        <div className={css.section}>
-          <Grid container>
-            <Grid item xs={12} md={6}>
-              <FormField fullWidth className={css.formControl}>
-                <label>What can we contact you about?</label>
+      <div className={css.section}>
+        <Grid container>
+          <Grid item xs={12} md={6}>
+            <FormField fullWidth className={css.formControl}>
+              <label>What can we contact you about?</label>
 
-                {
-                  group_options.map(group => {
-                    const checked = find(props.profile.subscription_groups, g => g.group_id === group.group_id)
-                    return (
-                      <FormControlLabel
-                        key={group.group_id}
-                        control={
-                          <Checkbox
-                            checked={Boolean(checked)}
-                            onChange={handleSubscriptionGroups}
-                            value={group.group_id}
-                            color="primary"
-                          />
-                        }
-                        label={group.label}
-                      />
-                    )
-                  })
-                }
-              </FormField>
+              {
+                group_options.map(group => {
+                  const checked = find(props.profile.subscription_groups, g => g.group_id === group.group_id)
+                  return (
+                    <FormControlLabel
+                      key={group.group_id}
+                      control={
+                        <Checkbox
+                          checked={Boolean(checked)}
+                          onChange={handleSubscriptionGroups}
+                          value={group.group_id}
+                          color="primary"
+                        />
+                      }
+                      label={group.label}
+                    />
+                  )
+                })
+              }
+            </FormField>
 
-              <FormField className={css.formControl}>
-                <StyledButton label="Save communication settings" type="submit" color="primary">
-                  Save
-                </StyledButton>
-              </FormField>
-            </Grid>
+            <FormField className={css.formControl}>
+              <StyledButton label="Save communication settings" type="submit" color="primary">
+                Save
+              </StyledButton>
+            </FormField>
           </Grid>
-        </div>
-      </form>
-    </div>
+        </Grid>
+      </div>
+    </form>
   );
 };
 
 class EmailSettingsContainer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  componentWillMount() {
+  componentDidMount() {
     this.props.getSubscriptionGroups();
   }
 

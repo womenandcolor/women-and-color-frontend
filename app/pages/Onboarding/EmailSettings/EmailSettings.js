@@ -7,12 +7,14 @@ import { FormLabel, FormControlLabel, FormHelperText } from 'material-ui/Form';
 import { Link } from 'react-router-dom';
 import { push } from 'react-router-redux';
 import { Helmet } from 'react-helmet';
+import { find, remove } from 'lodash';
 
 // App
 import {
   update as updateProfile,
   onChange as onChangeProfile,
 } from 'appRedux/modules/profile';
+import { get as getSubscriptionGroups } from 'appRedux/modules/subscriptionGroup'
 import { showNotification } from 'appRedux/modules/notification';
 import StyledButton from 'appCommon/StyledButton';
 import FormField from 'appCommon/FormField';
@@ -21,60 +23,54 @@ import css from '../styles.css';
 const CURRENT_PAGE = 'email_settings';
 
 const EmailSettings = props => {
-  const generateHandler = fieldName => {
-    return event => {
-      props.handleProfileInputChange(fieldName, event.currentTarget.value);
-    };
-  };
+  const group_options = props.subscription_groups || [];
 
-  const handleTopicsChange = topics => {
-    props.handleProfileInputChange('topics', topics);
-  };
+  const handleSubscriptionGroups = (e) => {
+    const group = find(props.subscription_groups, g => g.group_id === e.target.value)
+    let selectedGroups = [...props.profile.subscription_groups];
+
+    if (e.target.checked) {
+      selectedGroups.push(group);
+    } else {
+      remove(selectedGroups, g => g.group_id === group.group_id);
+    }
+
+    props.handleProfileInputChange('subscription_groups', selectedGroups);
+  }
 
   return (
     <div className={css.registrationForm}>
       <form onSubmit={props.handleSubmit}>
-        <h1 className={css.registrationFormHeader}>Communication</h1>
-
+        <h1 className={css.registrationFormHeader}>Stay in touch</h1>
         <FormField fullWidth className={css.formControl}>
-          <p>Speaker Perks is available exclusively to speakers on Women & Color. You will only receive an email email if there’s a speaking opportunity in your area or we have special offers such as complimentary tickets to an event.</p>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={props.profile.speaker_mailing_list}
-                onChange={e => props.handleProfileInputChange('speaker_mailing_list', e.target.checked)}
-                value="speaker_mailing_list"
-                color="primary"
-              />
-            }
-            label="Subscribe to the Speaker Perks"
-          />
+          <label>What can we contact you about?</label>
+
+          {
+            group_options.map(group => {
+              const checked = find(props.profile.subscription_groups, g => g.group_id === group.group_id)
+              return (
+                <FormControlLabel
+                  key={group.group_id}
+                  control={
+                    <Checkbox
+                      checked={Boolean(checked)}
+                      onChange={handleSubscriptionGroups}
+                      value={group.group_id}
+                      color="primary"
+                    />
+                  }
+                  label={group.label}
+                />
+              )
+            })
+          }
         </FormField>
 
-        <FormField fullWidth className={css.formControl}>
-          <p>Be the first to learn about our new initiatives as well as keep up-to-date on speaking opportunities, up-coming training and development workshops, and additional curated content.</p>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={props.profile.newsletter_mailing_list}
-                onChange={e => props.handleProfileInputChange('newsletter_mailing_list', e.target.checked)}
-                value="newsletter_mailing_list"
-                color="primary"
-              />
-            }
-            label="Subscribe to monthly newsletter"
-          />
+        <FormField className={css.formControl}>
+          <StyledButton label="Save communication settings" type="submit" color="primary">
+            Save
+          </StyledButton>
         </FormField>
-
-        <p>P.S. We keep your info private, we won't spam you, and you can unsubscribe at any time.</p>
-
-        <div>
-          <FormField className={css.formControl}>
-            <StyledButton label="Submit" type="submit" color="primary">
-              Save and submit
-            </StyledButton>
-          </FormField>
-        </div>
       </form>
     </div>
   );
@@ -87,11 +83,15 @@ class EmailSettingsContainer extends Component {
     props.onChangeProfile({ current_page: null });
   }
 
+  componentDidMount() {
+    this.props.getSubscriptionGroups();
+  }
+
   render() {
     return (
       <div>
         <Helmet>
-          <title>Get started - Email Settings</title>
+          <title>Get started - Communication</title>
           <meta
             name="description"
             content="Create your profile on Women and Color"
@@ -116,6 +116,7 @@ function mapStateToProps(state) {
   return {
     user: state.user,
     profile: state.profile,
+    subscription_groups: state.subscriptionGroup.groups,
   };
 }
 
@@ -132,6 +133,9 @@ function mapDispatchToProps(dispatch, props) {
     showNotification: message => {
       dispatch(showNotification(message));
     },
+    getSubscriptionGroups: () => {
+      dispatch(getSubscriptionGroups());
+    }
   };
 }
 
