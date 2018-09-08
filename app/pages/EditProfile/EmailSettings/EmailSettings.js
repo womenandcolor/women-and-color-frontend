@@ -5,9 +5,11 @@ import Grid from 'material-ui/Grid';
 import Checkbox from 'material-ui/Checkbox';
 import {FormControlLabel} from 'material-ui/Form';
 import ReactLoading from 'react-loading';
+import { find, remove } from 'lodash';
 
 // App
 import { update as updateProfile, onChange as onChangeProfile } from 'appRedux/modules/profile';
+import { get as getSubscriptionGroups } from 'appRedux/modules/subscriptionGroup'
 import StyledButton from 'appCommon/StyledButton';
 import FormField from 'appCommon/FormField';
 
@@ -17,6 +19,21 @@ const EmailSettings = props => {
   if (!props.user.id) {
     return <div>User is not found</div>;
   }
+
+  const group_options = props.subscription_groups || [];
+
+  const handleSubscriptionGroups = (e) => {
+    const group = find(props.subscription_groups, g => g.group_id === e.target.value)
+    let selectedGroups = [...props.profile.subscription_groups];
+    if (e.target.checked) {
+      selectedGroups.push(group);
+    } else {
+      remove(selectedGroups, g => g.group_id === group.group_id);
+    }
+
+    props.handleProfileInputChange('subscription_groups', selectedGroups);
+  }
+
 
   return (
     <div>
@@ -29,37 +46,31 @@ const EmailSettings = props => {
           <Grid container>
             <Grid item xs={12} md={6}>
               <FormField fullWidth className={css.formControl}>
-                <p>Speaker Perks is available exclusively to speakers on Women & Color. You will only receive an email email if there’s a speaking opportunity in your area or we have special offers such as complimentary tickets to an event.</p>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={props.profile.speaker_mailing_list}
-                      onChange={e => props.handleProfileInputChange('speaker_mailing_list', e.target.checked)}
-                      value="speaker_mailing_list"
-                      color="primary"
-                    />
-                  }
-                  label="Subscribe to the Speaker Perks"
-                />
-              </FormField>
+                <label>What can we contact you about?</label>
 
-              <FormField fullWidth className={css.formControl}>
-                <p>Be the first to learn about our new initiatives as well as keep up-to-date on speaking opportunities, up-coming training and development workshops, and additional curated content.</p>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={props.profile.newsletter_mailing_list}
-                      onChange={e => props.handleProfileInputChange('newsletter_mailing_list', e.target.checked)}
-                      value="newsletter_mailing_list"
-                      color="primary"
-                    />
-                  }
-                  label="Subscribe to monthly newsletter"
-                />
+                {
+                  group_options.map(group => {
+                    const checked = find(props.profile.subscription_groups, g => g.group_id === group.group_id)
+                    return (
+                      <FormControlLabel
+                        key={group.group_id}
+                        control={
+                          <Checkbox
+                            checked={Boolean(checked)}
+                            onChange={handleSubscriptionGroups}
+                            value={group.group_id}
+                            color="primary"
+                          />
+                        }
+                        label={group.label}
+                      />
+                    )
+                  })
+                }
               </FormField>
 
               <FormField className={css.formControl}>
-                <StyledButton label="Save email settings" type="submit" color="primary">
+                <StyledButton label="Save communication settings" type="submit" color="primary">
                   Save
                 </StyledButton>
               </FormField>
@@ -71,29 +82,44 @@ const EmailSettings = props => {
   );
 };
 
-const EmailSettingsContainer = props => {
-  if (!props.user.isInitialized || props.user.isLoading) {
-    return <ReactLoading type="spinningBubbles" color="#E5E8F4" />;
+class EmailSettingsContainer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
   }
 
-  return (
-    <EmailSettings
-      handleSubmit={event => {
-        event.preventDefault();
-        props.updateProfile();
-      }}
-      handleProfileInputChange={(field, value) => {
-        props.onChangeProfile({ [field]: value });
-      }}
-      {...props}
-    />
-  );
+  componentWillMount() {
+    this.props.getSubscriptionGroups();
+  }
+
+
+  render() {
+    const { props } = this;
+    if (!props.user.isInitialized || props.user.isLoading) {
+      return <ReactLoading type="spinningBubbles" color="#E5E8F4" />;
+    }
+
+    return (
+      <EmailSettings
+        handleSubmit={event => {
+          event.preventDefault();
+          props.updateProfile();
+        }}
+        handleProfileInputChange={(field, value) => {
+          props.onChangeProfile({ [field]: value });
+        }}
+        {...props}
+      />
+    );
+  }
+
 }
 
 function mapStateToProps(state) {
   return {
     user: state.user,
     profile: state.profile,
+    subscription_groups: state.subscriptionGroup.groups,
   };
 }
 
@@ -105,6 +131,9 @@ function mapDispatchToProps(dispatch) {
     updateProfile: () => {
       dispatch(updateProfile());
     },
+    getSubscriptionGroups: () => {
+      dispatch(getSubscriptionGroups());
+    }
   };
 }
 
