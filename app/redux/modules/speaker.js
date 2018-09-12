@@ -53,16 +53,9 @@ export function fetchSpeakers(params = {}) {
 }
 
 export function getSpeaker(id, fullName = '') {
-  const token = getApiToken();
-  const authHeader = token ? `JWT ${token}` : null;
-
   return dispatch => {
     axios
-      .get(`${BASE_URL_PATH}/api/v1/profiles/${id}`, {
-        headers: {
-          'Authorization': authHeader
-        }
-      })
+      .get(`${BASE_URL_PATH}/api/v1/profiles/${id}`)
       .then(res => {
         console.log('res', res)
         dispatch(updateSpeaker(res.data));
