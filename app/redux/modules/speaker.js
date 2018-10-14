@@ -20,10 +20,15 @@ const MODULE_NAME = 'SPEAKER';
 const GET_SPEAKER = `${MODULE_NAME}/GET_SPEAKER`;
 const UPDATE_SPEAKER = `${MODULE_NAME}/UPDATE_SPEAKER`;
 const UPDATE_SPEAKERS = `${MODULE_NAME}/UPDATE_SPEAKERS`;
+const UPDATE_SPEAKERS_START = `${MODULE_NAME}/UPDATE_SPEAKERS_START`;
 const UPDATE_SEARCH_PARAMS = `${MODULE_NAME}/UPDATE_SEARCH_PARAMS`;
 const UPDATE_SELECTION = `${MODULE_NAME}/UPDATE_SELECTION`;
 
 // Sync Action
+export function updateSpeakersStart(append) {
+  return { type: UPDATE_SPEAKERS_START, append };
+}
+
 export function updateSpeakers(results, append) {
   return { type: UPDATE_SPEAKERS, results, append };
 }
@@ -42,6 +47,8 @@ export function fetchSpeakers(params = {}) {
   const queryStringforDisplay = generateQueryString({ params, display: true });
 
   return dispatch => {
+    dispatch(updateSpeakersStart(params.append));
+
     axios
       .get(`${BASE_URL_PATH}/api/v1/profiles?${queryStringforApi}`)
       .then(res => {
@@ -80,22 +87,37 @@ const INITIAL_STATE = {
   selectedLocation: null,
   selectedIdentity: IDENTITIES[0].label,
   speaker: null,
+  isLoading: false,
+  isLoadingMore: false,
 };
 
 export const reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case UPDATE_SPEAKERS_START: 
+      if (action.append) {
+        return {
+          ...state,
+          isLoadingMore: true,
+        }
+      }
+      return {
+        ...state,
+        isLoading: true,
+      };
     case UPDATE_SPEAKERS:
       if (action.append) {
         return {
           ...state,
           results: uniqBy(state.results.concat(action.results), 'id'),
           endOfResults: action.results.length < DEFAULT_SPEAKER_LIMIT,
+          isLoadingMore: false,
         };
       }
       return {
         ...state,
         results: uniqBy(action.results, 'id'),
         endOfResults: action.results.length < DEFAULT_SPEAKER_LIMIT,
+        isLoading: false,
       };
     case UPDATE_SPEAKER:
       return {

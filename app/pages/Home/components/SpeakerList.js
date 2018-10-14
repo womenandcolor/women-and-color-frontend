@@ -1,15 +1,18 @@
 // NPM
 import React, { PropTypes } from 'react';
 import Grid from 'material-ui/Grid';
+import ReactLoading from 'react-loading';
 
 // APP
 import SpeakerCard from './SpeakerCard';
 import StyledButton from 'appCommon/StyledButton';
 import css from '../styles.css';
 
-const SpeakerList = ({ speakers, endOfResults, loadMoreSpeakers }) => {
+const SpeakerList = ({ speakers, endOfResults, loadMoreSpeakers, isLoading, isLoadingMore }) => {
   const noResults = speakers.length === 0;
-
+  if (isLoading) {
+    return <ReactLoading type="spinningBubbles" color="#E5E8F4" />;
+  }
   if (noResults) {
     return <div className={css.noResults}>No results</div>;
   }
@@ -24,9 +27,10 @@ const SpeakerList = ({ speakers, endOfResults, loadMoreSpeakers }) => {
       {!endOfResults && (
         <Grid container justify={'center'} spacing={0}>
           <Grid item>
+          {isLoadingMore ? <ReactLoading type="spinningBubbles" color="#E5E8F4" /> :
             <StyledButton color="secondary" onClick={loadMoreSpeakers} className={css.loadMoreButton}>
               Load more speakers
-            </StyledButton>
+            </StyledButton>}
           </Grid>
         </Grid>
       )}

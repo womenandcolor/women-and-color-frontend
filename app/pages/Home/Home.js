@@ -34,6 +34,8 @@ const Home = ({
   speakers,
   endOfResults,
   loadMoreSpeakers,
+  isLoading,
+  isLoadingMore,
 }) => {
   const searchQuery = searchParams.q ? `'${searchParams.q}'` : 'all topics';
   const locationObj = find(locations, { id: parseInt(searchParams.location) })
@@ -68,6 +70,8 @@ const Home = ({
               speakers={speakers}
               endOfResults={endOfResults}
               loadMoreSpeakers={loadMoreSpeakers}
+              isLoading={isLoading}
+              isLoadingMore={isLoadingMore}
             />
           </Grid>
         </Grid>
@@ -118,6 +122,8 @@ const mapStateToProps = state => {
     locations: state.location.locations,
     searchParams: state.speaker.searchParams,
     endOfResults: state.speaker.endOfResults,
+    isLoading: state.speaker.isLoading,
+    isLoadingMore: state.speaker.isLoadingMore,
   };
 };
 
