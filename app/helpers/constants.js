@@ -37,7 +37,7 @@ export const IDENTITIES = [
 ];
 
 export const MAXIMUM_IMAGE_SIZE = 2 * 1024 * 1024; //less than 2MB in bytes
-export const DEFAULT_SPEAKER_LIMIT = 2;
+export const DEFAULT_SPEAKER_LIMIT = 20;
 export const VALID_PARAMS = [
   'location',
   'poc',
