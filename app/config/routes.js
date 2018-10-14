@@ -70,7 +70,6 @@ const routes = (
           <Route path="/get-started/social" component={Social} />
           <Route path="/get-started/email-settings" component={EmailSettings} />
           <Route path="/speaker/:id/:fullName?" component={Speaker} />
-          <Route path="/blah" component={Speaker} />
           <Route path="/organization/:id/:orgName?" component={Organization} />
           <Route path="/profile" component={EditProfile} />
           <Route path="/terms" component={Terms} />
