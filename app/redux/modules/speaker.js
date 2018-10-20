@@ -88,18 +88,11 @@ const INITIAL_STATE = {
   selectedIdentity: IDENTITIES[0].label,
   speaker: null,
   isLoading: false,
-  isLoadingMore: false,
 };
 
 export const reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case UPDATE_SPEAKERS_START: 
-      if (action.append) {
-        return {
-          ...state,
-          isLoadingMore: true,
-        }
-      }
       return {
         ...state,
         isLoading: true,
@@ -110,7 +103,7 @@ export const reducer = (state = INITIAL_STATE, action) => {
           ...state,
           results: uniqBy(state.results.concat(action.results), 'id'),
           endOfResults: action.results.length < DEFAULT_SPEAKER_LIMIT,
-          isLoadingMore: false,
+          isLoading: false,
         };
       }
       return {

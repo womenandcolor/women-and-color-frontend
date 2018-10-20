@@ -8,12 +8,13 @@ import SpeakerCard from './SpeakerCard';
 import StyledButton from 'appCommon/StyledButton';
 import css from '../styles.css';
 
-const SpeakerList = ({ speakers, endOfResults, loadMoreSpeakers, isLoading, isLoadingMore }) => {
+const SpeakerList = ({ speakers, endOfResults, loadMoreSpeakers, isLoading }) => {
   const noResults = speakers.length === 0;
-  if (isLoading) {
+  if (isLoading && noResults) {
+    console.log('initial load')
     return <ReactLoading type="spinningBubbles" color="#E5E8F4" />;
   }
-  if (noResults) {
+  if (!isLoading && noResults) {
     return <div className={css.noResults}>No results</div>;
   }
 
@@ -27,10 +28,9 @@ const SpeakerList = ({ speakers, endOfResults, loadMoreSpeakers, isLoading, isLo
       {!endOfResults && (
         <Grid container justify={'center'} spacing={0}>
           <Grid item>
-          {isLoadingMore ? <ReactLoading type="spinningBubbles" color="#E5E8F4" /> :
             <StyledButton color="secondary" onClick={loadMoreSpeakers} className={css.loadMoreButton}>
-              Load more speakers
-            </StyledButton>}
+              {isLoading ? 'Loading...' : 'Load more speakers'}
+            </StyledButton>
           </Grid>
         </Grid>
       )}
