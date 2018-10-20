@@ -28,7 +28,7 @@ const styles = (theme) => ({
 	flatSecondary: {
 		color: theme.palette.primary.main,
 		backgroundColor: theme.palette.primary.contrastText,
-		border: `1px solid ${theme.palette.primary.main}`,
+		boxShadow: `0 0 0 1px ${theme.palette.primary.main} inset`,
 
 		'&:hover': {
 			opacity: 0.6,
