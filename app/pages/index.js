@@ -4,6 +4,7 @@ export Page from './Page/Page';
 export * from './Account/';
 export * from './Onboarding';
 export Speaker from './Speaker/Speaker';
+export Organization from './Organization/Organization';
 export EditProfile from './EditProfile/EditProfile';
 export ComingSoon from './Static/ComingSoon';
 export AboutUs from './Static/AboutUs';
